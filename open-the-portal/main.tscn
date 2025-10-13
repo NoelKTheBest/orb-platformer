@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1dlu44lvgmwj"]
+
+[ext_resource type="PackedScene" uid="uid://dmatmww6hklyv" path="res://orb.tscn" id="1_qgy8r"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="1_wnmn8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_woefi"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpr35"]
+size = Vector2(20, 215)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_smsab"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d3q73"]
+friction = 0.0
+bounce = 1.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1057, 337)
+scale = Vector2(2, 2)
+physics_material_override = SubResource("PhysicsMaterial_woefi")
+constant_linear_velocity = Vector2(-1000, 0)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_kpr35")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(0.140625, 1.67188)
+texture = ExtResource("1_wnmn8")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(49, 321)
+scale = Vector2(2, 2)
+physics_material_override = SubResource("PhysicsMaterial_smsab")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_kpr35")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+scale = Vector2(0.140625, 1.67188)
+texture = ExtResource("1_wnmn8")
+
+[node name="RigidBody2D" parent="." instance=ExtResource("1_qgy8r")]
+position = Vector2(163, 322)
+physics_material_override = SubResource("PhysicsMaterial_d3q73")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_velocity = Vector2(500, 0)
+launch_vector = Vector2(100, 0)
+
+[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
+[connection signal="body_shape_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_shape_entered"]
