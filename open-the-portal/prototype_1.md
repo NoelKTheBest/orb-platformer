@@ -6,7 +6,8 @@ The player's goal in this game will be to defeat an enemy character.
 ### Enemies' abilities
 The enemy character will utilize the ricochet ability, one of 2 enemy abilities to hit the orb back at the player.
 
-The player could spam, and i think it's a fun and valid option. Maybe with the right build. 
+The player could spam, and i think it's a fun and valid option. Maybe with the right build.
+
 **Strategies that fits the game's limitations:**
 **A)** A specific attack knocks an enemy back and sends them into a knockback animation.
 **B)** The player tries hitting from the front and then from behind.
