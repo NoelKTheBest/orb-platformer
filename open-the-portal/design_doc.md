@@ -69,3 +69,8 @@ I want the attacks to sound good and the hits to really feel like they hit somet
 
 # Music
 I want the music in the game to be fast paced and fun with a few slower tracks to balance out everything.
+
+# **Platforms**
+I want to start with a web release.
+- If that goes well then a desktop release through steam with gamepad support.
+Accessibility is also important to me so I want two ways of controlling the character that I think would work well. One way is to press up on the same set of keys and then press in a direction you want to shoot while airborne. Pressing up should slow the player's descent for a split second until a timer runs out. This is important if the player is playing on a keyboard without arrow keys. Or maybe they just prefer something different.
