@@ -1,0 +1,6 @@
+Keep this equation in mind:
+	lerp_val = normal_zoom * (1 - t) + close_zoom * t
+
+Right now, I am thinking of making the zoom property change based 
+on position and capping itself between two values. I will think of 
+way to build that at a later date.

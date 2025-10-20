@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 window/size/initial_position_type=2
 
+[global_group]
+
+Player=""
+Enemy=""
+
 [input]
 
 fire={

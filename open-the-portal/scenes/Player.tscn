@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c315v4sddvhwd"]
+[gd_scene load_steps=20 format=3 uid="uid://c315v4sddvhwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ft8op"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_4sedk"]
@@ -287,7 +287,65 @@ _data = {
 "shoot orb": SubResource("Animation_aob03")
 }
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_cdrod"]
+resource_name = "normal_zoom"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 0.189465),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_u5b3y"]
+resource_name = "close_zoom"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(4, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_kbp5h"]
+resource_name = "far_zoom"
+
+[sub_resource type="Animation" id="Animation_rrmcd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_486kc"]
+_data = {
+"RESET": SubResource("Animation_rrmcd"),
+"close_zoom": SubResource("Animation_u5b3y"),
+"far_zoom": SubResource("Animation_kbp5h"),
+"normal_zoom": SubResource("Animation_cdrod")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_ft8op")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -303,9 +361,6 @@ libraries = {
 "Player_Movement": SubResource("AnimationLibrary_wdrn2")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
 
@@ -313,3 +368,19 @@ position = Vector2(22, 0)
 process_callback = 0
 wait_time = 0.25
 one_shot = true
+
+[node name="CameraFollow" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="CameraFollow"]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+drag_vertical_offset = -0.05
+drag_left_margin = 0.0
+drag_top_margin = 0.59
+drag_bottom_margin = 0.63
+editor_draw_limits = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraFollow"]
+libraries = {
+"": SubResource("AnimationLibrary_486kc")
+}

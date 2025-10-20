@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b2ius7ny1cpy5"]
+[gd_scene load_steps=20 format=3 uid="uid://b2ius7ny1cpy5"]
 
 [ext_resource type="Script" path="res://scenes/test_enemy.gd" id="1_6wim8"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_yv8y2"]
@@ -64,7 +64,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("StaticBody2D:collision_layer")
+tracks/4/path = NodePath("StaticBody2D:collision_mask")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -116,7 +116,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("StaticBody2D:collision_layer")
+tracks/3/path = NodePath("StaticBody2D:collision_mask")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -356,9 +356,13 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndwq2"]
 radius = 64.1249
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_axtjb"]
+friction = 0.0
+bounce = 400.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3yjg6"]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Enemy"]]
 modulate = Color(0.532033, 0.00388608, 0.995508, 1)
 script = ExtResource("1_6wim8")
 
@@ -386,10 +390,17 @@ shape = SubResource("CircleShape2D_ndwq2")
 debug_color = Color(0, 0.595, 0.7, 0.0745098)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 0
+collision_layer = 36
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_axtjb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-18, 3)
 shape = SubResource("RectangleShape2D_3yjg6")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(1, 1.1)
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

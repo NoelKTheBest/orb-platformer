@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal enemy_on_screen(enemy_position : Vector2)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -8,7 +9,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$AnimationPlayer.play("idle")
+	if !$AnimationPlayer.is_playing(): $AnimationPlayer.play("idle")
 
 
 func _physics_process(delta: float) -> void:
@@ -22,4 +23,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	#print("an orb is close")
 	$AnimationPlayer.stop()
 	$AnimationPlayer.play("block")
-	$AnimationPlayer.is_playing()
+	
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	enemy_on_screen.emit(position)
