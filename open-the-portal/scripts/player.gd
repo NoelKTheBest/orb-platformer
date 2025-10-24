@@ -23,10 +23,6 @@ var normal_zoom = 3
 var t = 0.0
 
 
-func _ready() -> void:
-	pass
-
-
 func _process(delta: float) -> void:
 	if enemy_pos: move_camera(delta)
 
@@ -100,3 +96,6 @@ func move_camera(delta : float):
 	else:
 		if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
 		is_zoomed_close = false
+	
+	if position.distance_squared_to(enemy_pos) > 132551.375:
+		camera_follow.position = Vector2.ZERO
