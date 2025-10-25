@@ -20,4 +20,4 @@ Player uses keystrokes to activate the projectile combo chain, attacking from th
 #### Additional Notes:
 I want to add more to this first, but with what i've first decided, i need to decide if their is something worth noticing or changing about the design of the game here.
 
-Current Progress: Shooting bullets works using the arrow keys. Enemy currently does not activate animation when collision is detected. This is due to animation playing automatically updating to "idle" in _process()
+Current Progress: Animations work now, need to build out a small level to test early ideas and abilities 
