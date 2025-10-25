@@ -4,34 +4,17 @@
 The player's goal in this game will be to defeat an enemy character. 
 
 ### Enemies' abilities
-The enemy character will utilize the ricochet ability, one of 2 enemy abilities to hit the orb back at the player.
+There will be 2 new types of enemy abilities in the game, one enemy will run straight towards you and try to hit you. They will have no defenses and will just take hits. Another enemy will run towards you and try to jump. And finally, a stronger enemy will shoot their own projectile at the player. I am redesigning some of the games skills in order to more closely fit in with the smooth learning curve i have in mind in this game. I want the basic components of enemy behaviour to be simple to understand and the options you need to respond to that behaviour simple to use.
+
+Now the player can just hit enemies as they jump (player will have multiple points from where they can attack enemies), but i am removing the the defensive abilities in this system, with that being the parry. The ricochet can stay in but only if the enemies use an attack to hit the projectile back (the enemies can only hit projectiles once in a 5-10 second interval for this first prototype).
 
 The player could spam, and i think it's a fun and valid option. Maybe with the right build.
-
-**Strategies that fits the game's limitations:**
-**A)** A specific attack knocks an enemy back and sends them into a knockback animation.
-**B)** The player tries hitting from the front and then from behind.
-**C)** The player uses a specific attack that may knock the enemy onto a lower platform allowing for vertical projectiles to be thrown.
-**D)** A specific attacks knocks the enemy up and into a hit animation where they can't move and can continue to be hit.
-**E)** The player shoots one attack from the front and then one on an angled wall that sends the orb near the enemy.
-
-**Options that fit with the simple design of the game**
-A) Player uses orb that applies horizontal velocity to enemy characterbody2D. Player fires next orb.
-B) Player uses orb from front and then moves behind to fire next orb
-C) A + enemy is knocked down onto lower platform and player uses orb from above
-D) Player uses orb that applies vertical velocity to enemy chracterbody2D. Player fires next orb.
-E) This would require a specific setup for the wall and could only be done in specific areas of the map.
-- Instead what could be done is allow for players to define spots (Node2D's) to certain areas in the game world and then instantiate an object from there.
-- The only issue is how do we decide the position of those Node2D's. Player Position, Aiming Vector. What does each choice say about potential solutions to the problems im setting out for players?
 
 ### Player's abilities
 The player will have the ability to shoot multiple orbs by instantiating them
 
 ## Expected Outcome
-Player uses spawn orb button to spam the enemy with attacks until enemy can no longer defend
-
-## Idea for a future test
-Increase enemy count by 1 for each enemy defeated until the player has killed at least 10 enemies.
+Player uses keystrokes to activate the projectile combo chain, attacking from the front and then from a different point.
 
 
 #### Additional Notes:
