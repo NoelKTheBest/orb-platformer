@@ -5,7 +5,10 @@ extends CharacterBody2D
 @onready var camera_follow: Node2D = $CameraFollow
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
 
+## The distance at which the camera will zoom in on the player and enemy
 @export var close_zoom_range : float = 50000
+## The distance from the enemy at which the camera will focus on the player
+@export var player_camera_focus_range : float = 132551.375
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -97,5 +100,5 @@ func move_camera(delta : float):
 		if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
 		is_zoomed_close = false
 	
-	if position.distance_squared_to(enemy_pos) > 132551.375:
+	if position.distance_squared_to(enemy_pos) > player_camera_focus_range:
 		camera_follow.position = Vector2.ZERO
