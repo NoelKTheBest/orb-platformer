@@ -21,3 +21,6 @@ Player uses keystrokes to activate the projectile combo chain, attacking from th
 I want to add more to this first, but with what i've first decided, i need to decide if their is something worth noticing or changing about the design of the game here.
 
 Current Progress: Animations work now, need to build out a small level to test early ideas and abilities 
+
+
+We will finish making this prototype and if it's not fun, we will change it. If it is, then we will build the rest of the game off of it.
