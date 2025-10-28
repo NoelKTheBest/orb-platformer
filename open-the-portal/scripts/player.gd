@@ -18,7 +18,7 @@ var orb = preload("res://scenes/orb.tscn")
 var aim_with_move_keys: bool = false
 #var aim_dir
 var y_slow: float = 1
-var enemy_node : Node2D
+var enemy_pos : Vector2
 var is_zoomed_close = false
 var lerp_val
 var close_zoom = 4
@@ -27,7 +27,7 @@ var t = 0.0
 
 
 func _process(delta: float) -> void:
-	if enemy_node: move_camera(delta)
+	if enemy_pos: move_camera(delta)
 
 
 func _physics_process(delta: float) -> void:
@@ -86,22 +86,22 @@ func aim_orb():
 
 
 func move_camera(delta : float):
-	if enemy_node:
+	if enemy_pos:
 		#t += delta * 0.4
-		var line_to_enemy : Vector2 = enemy_node.position - position
-		var m = (enemy_node.position.y - position.y)/(enemy_node.position.x - position.x)
-		var x_mid = (enemy_node.position.x - position.x)/2
+		var line_to_enemy : Vector2 = enemy_pos - position
+		var m = (enemy_pos.y - position.y)/(enemy_pos.x - position.x)
+		var x_mid = (enemy_pos.x - position.x)/2
 		var y = x_mid * m
 		camera_follow.position = Vector2(x_mid, y)
 		#print(position.distance_squared_to(enemy_pos))
-		if position.distance_squared_to(enemy_node.position) < close_zoom_range:
+		if position.distance_squared_to(enemy_pos) < close_zoom_range:
 			if !is_zoomed_close: $CameraFollow/AnimationPlayer.play("close_zoom")
 			is_zoomed_close = true
 		else:
 			if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
 			is_zoomed_close = false
 		
-		if position.distance_squared_to(enemy_node.position) > player_camera_focus_range:
+		if position.distance_squared_to(enemy_pos) > player_camera_focus_range:
 			camera_follow.position = Vector2.ZERO
 	else:
 		pass
