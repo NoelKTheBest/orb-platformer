@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal enemy_on_screen(enemy_position : Vector2)
+signal enemy_on_screen()
 
 var player_position
 ## Distance from the player where enemy starts attacking
@@ -21,12 +21,22 @@ func _physics_process(delta: float) -> void:
 	var target_position = (player_position - position)
 	var distance_to = position.distance_squared_to(player_position)
 	
-	velocity.x = target_position.x * speed
+	velocity.x = target_position.normalized().x * speed
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	# We need a better way to detect the player's direction relative to the enemy
+	# Copy code from warrior script in wombo combo
+	if velocity.x > 0:
+		$AnimationPlayer.play("run")
+	elif velocity.x == 0:
+		$AnimationPlayer.play("idle")
+	
 	move_and_slide()
+	
+	if target_position.x < 0: $Sprite2D.flip_h = true
+	elif target_position.x > 0: $Sprite2D.flip_h = false
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -40,7 +50,7 @@ func get_player_position(player_pos : Vector2):
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	enemy_on_screen.emit(position)
+	enemy_on_screen.emit()
 
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:

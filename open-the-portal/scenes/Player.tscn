@@ -365,7 +365,7 @@ _data = {
 }
 point_count = 4
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_ft8op")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -426,7 +426,7 @@ visible = false
 curve = SubResource("Curve2D_ao4mi")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path3"]
-position = Vector2(45.1466, -59.043)
+position = Vector2(45.1468, -59.043)
 progress = 252.773
 rotates = false
 

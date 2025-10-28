@@ -12,7 +12,5 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_character_body_2d_2_enemy_on_screen(enemy_position: Vector2) -> void:
-	print(enemy_position)
-	# We need to update this position when the enemy moves 
-	$CharacterBody2D.enemy_pos = enemy_position
+func _on_enemy_enemy_on_screen() -> void:
+	$Player.enemy_node = get_node("Enemy")

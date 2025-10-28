@@ -59,11 +59,11 @@ shape = SubResource("RectangleShape2D_3cqfl")
 scale = Vector2(0.15625, 0.144909)
 texture = ExtResource("1_wnmn8")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_nk5g0")]
+[node name="Player" parent="." instance=ExtResource("3_nk5g0")]
 position = Vector2(289, 462)
 close_zoom_range = 40000.0
 
-[node name="CharacterBody2D2" parent="." instance=ExtResource("3_a2x3o")]
-position = Vector2(395, 461)
+[node name="Enemy" parent="." instance=ExtResource("3_a2x3o")]
+position = Vector2(406, 462)
 
-[connection signal="enemy_on_screen" from="CharacterBody2D2" to="." method="_on_character_body_2d_2_enemy_on_screen"]
+[connection signal="enemy_on_screen" from="Enemy" to="." method="_on_enemy_enemy_on_screen"]
