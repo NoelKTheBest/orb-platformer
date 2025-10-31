@@ -406,7 +406,6 @@ libraries = {
 }
 
 [node name="Path1" type="Path2D" parent="."]
-visible = false
 curve = SubResource("Curve2D_5lvp3")
 script = ExtResource("7_lh502")
 
@@ -421,15 +420,23 @@ rotates = false
 [node name="Path2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_3gudb")
 
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2"]
+position = Vector2(20.0201, -67.4893)
+rotation = -2.23909
+progress = 49.9174
+rotates = false
+
+[node name="OrbSpawnCyclePosition" type="Node2D" parent="Path2/PathFollow2D"]
+
 [node name="Path3" type="Path2D" parent="."]
-visible = false
 curve = SubResource("Curve2D_ao4mi")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path3"]
-position = Vector2(45.1468, -59.043)
-progress = 252.773
+position = Vector2(18, 0)
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Path3/PathFollow2D"]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("7_x4f8q")
+
+[node name="OrbSpawnCyclePosition" type="Node2D" parent="Path3/PathFollow2D"]

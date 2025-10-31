@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var camera_follow: Node2D = $CameraFollow
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
+@onready var orb_spawn_cycle_position: Node2D = $Path1/PathFollow2D/OrbSpawnCyclePosition
+
 
 ## The distance at which the camera will zoom in on the player and enemy
 @export var close_zoom_range : float = 50000
@@ -46,6 +48,9 @@ func _physics_process(delta: float) -> void:
 		new_orb.position = orb_spawn_position.position
 		new_orb.linear_v = aim_orb()
 		add_child(new_orb)
+	
+	if Input.is_action_just_pressed("cycle_fire"):
+		var new_orb = orb.instantiate()
 	
 	if Input.is_action_just_pressed("change_controls"):
 		aim_with_move_keys = !aim_with_move_keys

@@ -1,9 +1,15 @@
 extends CharacterBody2D
 
 signal enemy_on_screen()
+signal enemy_died()
+
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite: Sprite2D = $Sprite2D
 
 var monitor_player_position
 var player_position
+var attacking :  bool
+var on_cooldown : bool
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
 @export var speed = 2
@@ -15,15 +21,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !$AnimationPlayer.is_playing(): $AnimationPlayer.play("idle")
-	if velocity.x < 0: $Sprite2D.flip_h = true
-	elif velocity.x > 0: $Sprite2D.flip_h = false
+	if !anim_player.is_playing(): anim_player.play("idle")
+	if velocity.x < 0: sprite.flip_h = true
+	elif velocity.x > 0: sprite.flip_h = false
 
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	# When the player enters the first bubble, enemy movement is triggered
+	#	The enemy will always move when the player is inside the first bubble
 	if monitor_player_position:
 		var direction
 		var target_position = (player_position - position).normalized()
@@ -32,21 +40,25 @@ func _physics_process(delta: float) -> void:
 		velocity.x = target_position.x * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-	
-	# We need a better way to detect the player's direction relative to the enemy
-	# Copy code from warrior script in wombo combo
-	if velocity.x != 0:
-		$AnimationPlayer.play("run")
-	elif velocity.x == 0:
-		$AnimationPlayer.play("idle")
+
+	# When the player enters the second bubble, the enemy begins it's attack cycle
+	#	The enemy will continuously attack the player with a breif cooldown in between 
+	#	when the player is inside the second bubble.
+	if !attacking:
+		if velocity.x != 0:
+			anim_player.play("run")
+		elif velocity.x == 0:
+			anim_player.play("idle")
+	else:
+		if !on_cooldown:
+			anim_player.play('block')
 	
 	move_and_slide()
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	#print("an orb is close")
-	$AnimationPlayer.stop()
-	$AnimationPlayer.play("block")
+func die():
+	enemy_died.emit()
+	queue_free()
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
@@ -56,10 +68,6 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs"):
 		die()
-
-
-func die():
-	queue_free()
 
 
 func _on_player_detection_area_body_entered(body: Node2D) -> void:
@@ -74,4 +82,19 @@ func _on_player_detection_area_body_exited(body: Node2D) -> void:
 
 func _on_player_attack_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		$AnimationPlayer.play("block")
+		attacking = true
+
+
+func _on_player_attack_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		attacking = false
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "block":
+		$Timer.start()
+		on_cooldown = true
+
+
+func _on_timer_timeout() -> void:
+	on_cooldown = false
