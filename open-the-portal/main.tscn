@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1dlu44lvgmwj"]
+[gd_scene load_steps=10 format=3 uid="uid://c1dlu44lvgmwj"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_0fe1m"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="1_wnmn8"]
 [ext_resource type="PackedScene" uid="uid://b2ius7ny1cpy5" path="res://scenes/TestEnemy.tscn" id="3_a2x3o"]
 [ext_resource type="PackedScene" uid="uid://c315v4sddvhwd" path="res://scenes/Player.tscn" id="3_nk5g0"]
+[ext_resource type="PackedScene" uid="uid://dn13chktqysaw" path="res://scenes/TestEnemy2.tscn" id="5_fc0ec"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_woefi"]
 friction = 0.0
@@ -64,6 +65,10 @@ position = Vector2(289, 462)
 close_zoom_range = 40000.0
 
 [node name="Enemy" parent="." instance=ExtResource("3_a2x3o")]
-position = Vector2(406, 462)
+position = Vector2(426, 706)
+
+[node name="Jumping_Enemy" parent="." instance=ExtResource("5_fc0ec")]
+position = Vector2(753, 485)
 
 [connection signal="enemy_on_screen" from="Enemy" to="." method="_on_enemy_enemy_on_screen"]
+[connection signal="enemy_on_screen" from="Jumping_Enemy" to="." method="_on_jumping_enemy_enemy_on_screen"]
