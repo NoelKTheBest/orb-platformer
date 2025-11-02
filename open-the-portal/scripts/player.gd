@@ -26,10 +26,14 @@ var lerp_val
 var close_zoom = 4
 var normal_zoom = 3
 var t = 0.0
+var enemy_to_left = false
+var enemy_to_right = false
 
 
 func _process(delta: float) -> void:
-	if enemy_pos: move_camera(delta)
+	if enemy_pos: 
+		print("enemy?")
+		move_camera(delta)
 
 
 func _physics_process(delta: float) -> void:
@@ -92,6 +96,7 @@ func aim_orb():
 
 func move_camera(delta : float):
 	if enemy_pos:
+		print("we have a position")
 		#t += delta * 0.4
 		var line_to_enemy : Vector2 = enemy_pos - position
 		var m = (enemy_pos.y - position.y)/(enemy_pos.x - position.x)
@@ -106,7 +111,45 @@ func move_camera(delta : float):
 			if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
 			is_zoomed_close = false
 		
+		# if there is only one enemy in the scene
+		#	focus on enemy if they are close enough
 		if position.distance_squared_to(enemy_pos) > player_camera_focus_range:
 			camera_follow.position = Vector2.ZERO
 	else:
 		pass
+		#camera_follow.position = Vector2.ZERO
+
+
+func check_surrounding_areas():
+	# if an enemy is to the right and no enemy is to the left
+	#	focus on enemy to the right
+	# if an enemy is to the left and no enemy is to the right
+	#	focus on enemy to the left
+	# if there are no enemies to the left or right but their are still enemies in the scene
+	#	focus on the player
+	# if enemies are to the right and the left
+	#	focus on the player
+	
+	# if an there are more than one enemy to the right of left
+	# the script may say there is no enemy there even when there is
+	# use the following functions:
+	$LeftEnemyDetection.has_overlapping_bodies()
+	$LeftEnemyDetection.get_overlapping_bodies() 
+	pass
+
+
+func _on_left_enemy_detection_body_entered(body: Node2D) -> void:
+	print(body.name)
+	enemy_to_left = true
+
+
+func _on_left_enemy_detection_body_exited(body: Node2D) -> void:
+	enemy_to_left = false
+
+
+func _on_right_enemy_detection_body_entered(body: Node2D) -> void:
+	enemy_to_right = true
+
+
+func _on_right_enemy_detection_body_exited(body: Node2D) -> void:
+	enemy_to_right = false

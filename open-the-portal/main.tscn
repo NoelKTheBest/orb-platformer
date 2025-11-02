@@ -23,7 +23,7 @@ bounce = 1.0
 script = ExtResource("1_0fe1m")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(1057, 337)
+position = Vector2(1560, 337)
 scale = Vector2(2, 2)
 physics_material_override = SubResource("PhysicsMaterial_woefi")
 constant_linear_velocity = Vector2(-1000, 0)
@@ -50,8 +50,8 @@ scale = Vector2(0.140625, 1.67188)
 texture = ExtResource("1_wnmn8")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(556, 579)
-scale = Vector2(48, 4.96)
+position = Vector2(776, 579)
+scale = Vector2(84.88, 4.96)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 shape = SubResource("RectangleShape2D_3cqfl")
@@ -61,14 +61,11 @@ scale = Vector2(0.15625, 0.144909)
 texture = ExtResource("1_wnmn8")
 
 [node name="Player" parent="." instance=ExtResource("3_nk5g0")]
-position = Vector2(289, 462)
+position = Vector2(359, 462)
 close_zoom_range = 40000.0
 
 [node name="Enemy" parent="." instance=ExtResource("3_a2x3o")]
-position = Vector2(426, 706)
+position = Vector2(656, 368)
 
 [node name="Jumping_Enemy" parent="." instance=ExtResource("5_fc0ec")]
-position = Vector2(753, 485)
-
-[connection signal="enemy_on_screen" from="Enemy" to="." method="_on_enemy_enemy_on_screen"]
-[connection signal="enemy_on_screen" from="Jumping_Enemy" to="." method="_on_jumping_enemy_enemy_on_screen"]
+position = Vector2(1160, 360)
