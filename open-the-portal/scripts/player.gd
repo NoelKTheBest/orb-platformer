@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var camera_follow: Node2D = $CameraFollow
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
 @onready var orb_spawn_cycle_position: Node2D = $Path1/PathFollow2D/OrbSpawnCyclePosition
+@onready var left_enemy_detection: Area2D = $LeftEnemyDetection
+@onready var right_enemy_detection: Area2D = $RightEnemyDetection
 
 
 ## The distance at which the camera will zoom in on the player and enemy
@@ -26,13 +28,10 @@ var lerp_val
 var close_zoom = 4
 var normal_zoom = 3
 var t = 0.0
-var enemy_to_left = false
-var enemy_to_right = false
 
 
 func _process(delta: float) -> void:
 	if enemy_pos: 
-		print("enemy?")
 		move_camera(delta)
 
 
@@ -95,8 +94,7 @@ func aim_orb():
 
 
 func move_camera(delta : float):
-	if enemy_pos:
-		print("we have a position")
+	if enemy_pos and enemy_pos != position:
 		#t += delta * 0.4
 		var line_to_enemy : Vector2 = enemy_pos - position
 		var m = (enemy_pos.y - position.y)/(enemy_pos.x - position.x)
@@ -104,52 +102,36 @@ func move_camera(delta : float):
 		var y = x_mid * m
 		camera_follow.position = Vector2(x_mid, y)
 		#print(position.distance_squared_to(enemy_pos))
-		if position.distance_squared_to(enemy_pos) < close_zoom_range:
-			if !is_zoomed_close: $CameraFollow/AnimationPlayer.play("close_zoom")
-			is_zoomed_close = true
-		else:
-			if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
-			is_zoomed_close = false
+		#if position.distance_squared_to(enemy_pos) < close_zoom_range:
+			#if !is_zoomed_close: $CameraFollow/AnimationPlayer.play("close_zoom")
+			#is_zoomed_close = true
+		#else:
+			#if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
+			#is_zoomed_close = false
 		
 		# if there is only one enemy in the scene
 		#	focus on enemy if they are close enough
 		if position.distance_squared_to(enemy_pos) > player_camera_focus_range:
 			camera_follow.position = Vector2.ZERO
 	else:
-		pass
-		#camera_follow.position = Vector2.ZERO
+		camera_follow.position = Vector2.ZERO
 
 
 func check_surrounding_areas():
-	# if an enemy is to the right and no enemy is to the left
-	#	focus on enemy to the right
-	# if an enemy is to the left and no enemy is to the right
-	#	focus on enemy to the left
-	# if there are no enemies to the left or right but their are still enemies in the scene
-	#	focus on the player
+	var eol = left_enemy_detection.has_overlapping_bodies()
+	var eor = right_enemy_detection.has_overlapping_bodies()
+	
+	if eor and !eol:
+		enemy_pos = right_enemy_detection.get_overlapping_bodies()[0].position
+	elif !eor and eol:
+		enemy_pos = left_enemy_detection.get_overlapping_bodies()[0].position
+	elif !eor and !eol:
+		# Set enemy_pos to (0,0) so it doesn't trigger the main if statement in move_camera()
+		enemy_pos = position
+	elif eor and eol:
+		enemy_pos = position
 	# if enemies are to the right and the left
 	#	focus on the player
 	
 	# if an there are more than one enemy to the right of left
 	# the script may say there is no enemy there even when there is
-	# use the following functions:
-	$LeftEnemyDetection.has_overlapping_bodies()
-	$LeftEnemyDetection.get_overlapping_bodies() 
-	pass
-
-
-func _on_left_enemy_detection_body_entered(body: Node2D) -> void:
-	print(body.name)
-	enemy_to_left = true
-
-
-func _on_left_enemy_detection_body_exited(body: Node2D) -> void:
-	enemy_to_left = false
-
-
-func _on_right_enemy_detection_body_entered(body: Node2D) -> void:
-	enemy_to_right = true
-
-
-func _on_right_enemy_detection_body_exited(body: Node2D) -> void:
-	enemy_to_right = false

@@ -411,6 +411,11 @@ libraries = {
 "": SubResource("AnimationLibrary_486kc")
 }
 
+[node name="Sprite2D" type="Sprite2D" parent="CameraFollow"]
+modulate = Color(0.02, 0.934667, 1, 0.717647)
+scale = Vector2(0.046875, 0.046875)
+texture = ExtResource("7_x4f8q")
+
 [node name="Path1" type="Path2D" parent="."]
 curve = SubResource("Curve2D_5lvp3")
 script = ExtResource("7_lh502")
@@ -469,8 +474,3 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightEnemyDetection"]
 shape = SubResource("RectangleShape2D_2w886")
 debug_color = Color(0.7, 0.63, 0, 0.223529)
-
-[connection signal="body_entered" from="LeftEnemyDetection" to="." method="_on_left_enemy_detection_body_entered"]
-[connection signal="body_exited" from="LeftEnemyDetection" to="." method="_on_left_enemy_detection_body_exited"]
-[connection signal="body_entered" from="RightEnemyDetection" to="." method="_on_right_enemy_detection_body_entered"]
-[connection signal="body_exited" from="RightEnemyDetection" to="." method="_on_right_enemy_detection_body_exited"]
