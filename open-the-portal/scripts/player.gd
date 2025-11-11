@@ -135,3 +135,7 @@ func check_surrounding_areas():
 	
 	# if an there are more than one enemy to the right of left
 	# the script may say there is no enemy there even when there is
+
+
+func reset_camera_follow():
+	enemy_pos = position

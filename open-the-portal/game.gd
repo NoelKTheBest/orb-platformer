@@ -22,9 +22,12 @@ func _process(delta: float) -> void:
 	if monitor_enemies: 
 		_monitor_enemies()
 	else:
-		pass
+		player.reset_camera_follow()
 	for enemy in enemies_in_scene:
 		enemy.player_position = player.position
+	
+	#if enemies_in_scene.size() == 0:
+		#pass
 
 
 func _monitor_enemies() -> void:
@@ -33,6 +36,10 @@ func _monitor_enemies() -> void:
 		player.check_surrounding_areas()
 	elif enemies_in_scene.size() == 1:
 		player.enemy_pos = enemies_in_scene[0].position
+	elif enemies_in_scene.size() == 0:
+		monitor_enemies = false
+		player.enemy_pos = player.position
+		
 
 
 func position_debug():
@@ -45,9 +52,9 @@ func position_debug():
 
 func enemy_is_visible():
 	monitor_enemies = true
-	print("hello from enemy")
 
 
 func enemy_is_dead():
-	if get_tree().get_nodes_in_group("Enemy").size() == 0:
-		monitor_enemies = false
+	pass
+	#if get_tree().get_nodes_in_group("Enemy").size() == 0:
+		#monitor_enemies = false
