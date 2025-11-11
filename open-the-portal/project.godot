@@ -23,6 +23,7 @@ window/size/initial_position_type=2
 
 Player=""
 Enemy=""
+Orbs=""
 
 [input]
 

@@ -13,7 +13,7 @@ var on_cooldown : bool
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
 @export var speed = 2
-@export var jump_velocity = 100
+@export var jump_velocity = 400
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -105,5 +105,6 @@ func _on_timer_timeout() -> void:
 
 func _on_attack_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs") and is_on_floor():
+		print("JUMP!!") # we can reach here, now let's wind down for tonight
 		velocity.y = jump_velocity
 		anim_player.play("jump")

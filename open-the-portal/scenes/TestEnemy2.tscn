@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://dn13chktqysaw"]
 
-[ext_resource type="Script" path="res://scenes/test_enemy_2.gd" id="1_ub4r4"]
+[ext_resource type="Script" uid="uid://cgemk1845y8tm" path="res://scenes/test_enemy_2.gd" id="1_ub4r4"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_aqr2d"]
 [ext_resource type="Texture2D" uid="uid://v5161umy35el" path="res://@Platformer/Stab Dash.png" id="3_sl1nq"]
 [ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="4_d1lt8"]
@@ -368,13 +368,13 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wdrn2"]
 _data = {
-"RESET": SubResource("Animation_g4peo"),
-"block": SubResource("Animation_pfstr"),
-"fall": SubResource("Animation_jxu04"),
-"idle": SubResource("Animation_2ke4t"),
-"jump": SubResource("Animation_efl2j"),
-"run": SubResource("Animation_fkivj"),
-"shoot orb": SubResource("Animation_aob03")
+&"RESET": SubResource("Animation_g4peo"),
+&"block": SubResource("Animation_pfstr"),
+&"fall": SubResource("Animation_jxu04"),
+&"idle": SubResource("Animation_2ke4t"),
+&"jump": SubResource("Animation_efl2j"),
+&"run": SubResource("Animation_fkivj"),
+&"shoot orb": SubResource("Animation_aob03")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drq3n"]
@@ -389,7 +389,7 @@ radius = 22.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0uyh1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7bpfj"]
-radius = 75.1665
+radius = 123.065025
 
 [node name="Jumping_Enemy" type="CharacterBody2D" groups=["Enemy"]]
 modulate = Color(0, 1, 0.2, 1)
@@ -410,7 +410,7 @@ hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_wdrn2")
+&"": SubResource("AnimationLibrary_wdrn2")
 }
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -452,6 +452,8 @@ position = Vector2(-18, 3)
 shape = SubResource("RectangleShape2D_0uyh1")
 
 [node name="AttackDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetectionArea"]
 shape = SubResource("CircleShape2D_7bpfj")
