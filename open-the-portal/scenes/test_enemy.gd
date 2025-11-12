@@ -20,10 +20,14 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !anim_player.is_playing(): anim_player.play("idle")
-	if velocity.x < 0: sprite.flip_h = true
-	elif velocity.x > 0: sprite.flip_h = false
+	if velocity.x < 0: 
+		sprite.flip_h = true
+		$Hitbox.position = Vector2(-18, 3)
+	elif velocity.x > 0: 
+		sprite.flip_h = false
+		$Hitbox.position = Vector2(18, 3)
 
 
 func _physics_process(delta: float) -> void:
@@ -33,9 +37,9 @@ func _physics_process(delta: float) -> void:
 	# When the player enters the first bubble, enemy movement is triggered
 	#	The enemy will always move when the player is inside the first bubble
 	if monitor_player_position:
-		var direction
+		var _direction
 		var target_position = (player_position - position).normalized()
-		var distance_to = position.distance_squared_to(player_position)
+		var _distance_to = position.distance_squared_to(player_position)
 		
 		velocity.x = target_position.x * speed
 	else:
@@ -49,6 +53,8 @@ func _physics_process(delta: float) -> void:
 			anim_player.play("run")
 		elif velocity.x == 0:
 			anim_player.play("idle")
+		$Hitbox.visible = false
+		$Hitbox.set_collision_layer_value(1, false)
 	else:
 		if !on_cooldown:
 			anim_player.play('block')

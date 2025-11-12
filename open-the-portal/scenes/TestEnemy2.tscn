@@ -381,24 +381,25 @@ _data = {
 height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixaej"]
-radius = 179.101
+radius = 175.07141
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujjq1"]
 radius = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0uyh1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7bpfj"]
-radius = 123.065025
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3rs5"]
+size = Vector2(228, 20)
 
 [node name="Jumping_Enemy" type="CharacterBody2D" groups=["Enemy"]]
 modulate = Color(0, 1, 0.2, 1)
 collision_layer = 2
+collision_mask = 69
+platform_floor_layers = 4294967104
 script = ExtResource("1_ub4r4")
 speed = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -427,12 +428,14 @@ position = Vector2(0, 1)
 scale = Vector2(1, 1.1)
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
 shape = SubResource("CircleShape2D_ixaej")
 debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="PlayerAttackArea" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
 shape = SubResource("CircleShape2D_ujjq1")
@@ -444,19 +447,21 @@ one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
-collision_layer = 0
+position = Vector2(-18, 3)
+collision_layer = 128
 collision_mask = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-18, 3)
 shape = SubResource("RectangleShape2D_0uyh1")
 
 [node name="AttackDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 32
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetectionArea"]
-shape = SubResource("CircleShape2D_7bpfj")
+shape = SubResource("RectangleShape2D_p3rs5")
 debug_color = Color(0.7, 0, 0.396667, 0.0980392)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

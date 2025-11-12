@@ -10,6 +10,7 @@ func _ready() -> void:
 	#	1 / (3 - 1) = 1 / 2 = 0.5 #Increment by 0.5
 	#	1 / (5 - 1) = 1 / 4 = 0.25 #Increment by 0.25
 	# 1 / 6 no
+	@warning_ignore("integer_division")
 	ratio_inc = 1 / (curve.point_count - 1)
 	$PathFollow2D.progress_ratio = ratio_inc
 

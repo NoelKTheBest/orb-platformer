@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var left_enemy_detection: Area2D = $LeftEnemyDetection
 @onready var right_enemy_detection: Area2D = $RightEnemyDetection
 
+signal player_died
 
 ## The distance at which the camera will zoom in on the player and enemy
 @export var close_zoom_range : float = 50000
@@ -53,7 +54,7 @@ func _physics_process(delta: float) -> void:
 		add_child(new_orb)
 	
 	if Input.is_action_just_pressed("cycle_fire"):
-		var new_orb = orb.instantiate()
+		var _new_orb = orb.instantiate()
 	
 	if Input.is_action_just_pressed("change_controls"):
 		aim_with_move_keys = !aim_with_move_keys
@@ -74,6 +75,9 @@ func _physics_process(delta: float) -> void:
 	if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
 	if velocity.y > 0: $AnimationPlayer.play("Player_Movement/fall")
 
+	#for i in get_slide_collision_count():
+		#var collision = get_slide_collision(i)
+		#print("Collided with: ", collision.get_collider().name)
 	move_and_slide()
 
 
@@ -93,10 +97,10 @@ func aim_orb():
 		return aim_dir
 
 
-func move_camera(delta : float):
+func move_camera(_delta : float):
 	if enemy_pos and enemy_pos != position:
 		#t += delta * 0.4
-		var line_to_enemy : Vector2 = enemy_pos - position
+		var _line_to_enemy : Vector2 = enemy_pos - position
 		var m = (enemy_pos.y - position.y)/(enemy_pos.x - position.x)
 		var x_mid = (enemy_pos.x - position.x)/2
 		var y = x_mid * m
@@ -121,10 +125,13 @@ func check_surrounding_areas():
 	var eol = left_enemy_detection.has_overlapping_bodies()
 	var eor = right_enemy_detection.has_overlapping_bodies()
 	
+	var enemies_ol = left_enemy_detection.get_overlapping_bodies().size()
+	var enemies_or = right_enemy_detection.get_overlapping_bodies().size()
+	
 	if eor and !eol:
-		enemy_pos = right_enemy_detection.get_overlapping_bodies()[0].position
+		if enemies_or > 0: enemy_pos = right_enemy_detection.get_overlapping_bodies()[0].position
 	elif !eor and eol:
-		enemy_pos = left_enemy_detection.get_overlapping_bodies()[0].position
+		if enemies_ol > 0: enemy_pos = left_enemy_detection.get_overlapping_bodies()[0].position
 	elif !eor and !eol:
 		# Set enemy_pos to (0,0) so it doesn't trigger the main if statement in move_camera()
 		enemy_pos = position
@@ -139,3 +146,11 @@ func check_surrounding_areas():
 
 func reset_camera_follow():
 	enemy_pos = position
+
+
+func _on_hurtbox_player_was_hit() -> void:
+	die()
+
+
+func die():
+	player_died.emit()

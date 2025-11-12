@@ -6,6 +6,7 @@ extends Node2D
 
 var monitor_enemies : bool
 var enemies_in_scene
+var game_over : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,17 +18,18 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	enemies_in_scene = get_tree().get_nodes_in_group("Enemy")
-	if monitor_enemies: 
-		_monitor_enemies()
-	else:
-		player.reset_camera_follow()
-	for enemy in enemies_in_scene:
-		enemy.player_position = player.position
-	
-	#if enemies_in_scene.size() == 0:
-		#pass
+func _process(_delta: float) -> void:
+	if !game_over:
+		enemies_in_scene = get_tree().get_nodes_in_group("Enemy")
+		if monitor_enemies: 
+			_monitor_enemies()
+		else:
+			player.reset_camera_follow()
+		for enemy in enemies_in_scene:
+			enemy.player_position = player.position
+		
+		#if enemies_in_scene.size() == 0:
+			#pass
 
 
 func _monitor_enemies() -> void:
@@ -58,3 +60,14 @@ func enemy_is_dead():
 	pass
 	#if get_tree().get_nodes_in_group("Enemy").size() == 0:
 		#monitor_enemies = false
+
+
+func _on_player_player_died() -> void:
+	$Timer.start()
+	monitor_enemies = false
+	player.queue_free()
+	game_over = true
+
+
+func _on_timer_timeout() -> void:
+	get_tree().reload_current_scene()
