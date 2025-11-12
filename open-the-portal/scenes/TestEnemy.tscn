@@ -381,7 +381,7 @@ _data = {
 height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixaej"]
-radius = 248.00201
+radius = 372.1626
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujjq1"]
 radius = 22.0
@@ -393,7 +393,7 @@ modulate = Color(0.532033, 0.00388608, 0.995508, 1)
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_6wim8")
-speed = 100
+speed = 175
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")

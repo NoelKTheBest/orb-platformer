@@ -358,7 +358,7 @@ point_count = 4
 size = Vector2(255, 216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w886"]
-size = Vector2(255, 216)
+size = Vector2(417, 216)
 
 [sub_resource type="Curve2D" id="Curve2D_khinc"]
 _data = {
@@ -372,7 +372,7 @@ size = Vector2(9, 14)
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 70
 script = ExtResource("1_ft8op")
-player_camera_focus_range = 132767.475
+player_camera_focus_range = 234000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
@@ -390,6 +390,10 @@ libraries = {
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
 
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.25
@@ -400,11 +404,12 @@ one_shot = true
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
 zoom = Vector2(2.25, 2.25)
 position_smoothing_enabled = true
+position_smoothing_speed = 7.16
 drag_vertical_offset = -0.05
-drag_left_margin = 0.0
 drag_top_margin = 0.59
 drag_bottom_margin = 0.63
 editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraFollow"]
 libraries = {
@@ -476,7 +481,7 @@ monitorable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightEnemyDetection"]
-position = Vector2(32, -4)
+position = Vector2(113.5, -4)
 shape = SubResource("RectangleShape2D_2w886")
 debug_color = Color(0.7, 0.63, 0, 0.223529)
 
@@ -498,4 +503,5 @@ position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_khinc")
 debug_color = Color(0.12833337, 0.7, 0, 0.41960785)
 
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="player_was_hit" from="Hurtbox" to="." method="_on_hurtbox_player_was_hit"]

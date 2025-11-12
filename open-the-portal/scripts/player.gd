@@ -29,11 +29,23 @@ var lerp_val
 var close_zoom = 4
 var normal_zoom = 3
 var t = 0.0
+var on_cooldown = false
 
 
 func _process(delta: float) -> void:
 	if enemy_pos: 
 		move_camera(delta)
+	
+	if Input.is_action_just_pressed("fire") and !on_cooldown:
+		var new_orb = orb.instantiate()
+		
+		# Set properties before node is ready to have access to them
+		new_orb.position = orb_spawn_position.position
+		new_orb.linear_v = aim_orb()
+		add_child(new_orb)
+		$SpawnTimer.start()
+		on_cooldown = true
+		
 
 
 func _physics_process(delta: float) -> void:
@@ -44,14 +56,6 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-	if Input.is_action_just_pressed("fire"):
-		var new_orb = orb.instantiate()
-		
-		# Set properties before node is ready to have access to them
-		new_orb.position = orb_spawn_position.position
-		new_orb.linear_v = aim_orb()
-		add_child(new_orb)
 	
 	if Input.is_action_just_pressed("cycle_fire"):
 		var _new_orb = orb.instantiate()
@@ -154,3 +158,7 @@ func _on_hurtbox_player_was_hit() -> void:
 
 func die():
 	player_died.emit()
+
+
+func _on_spawn_timer_timeout() -> void:
+	on_cooldown = false
