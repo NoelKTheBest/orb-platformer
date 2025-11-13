@@ -1,14 +1,13 @@
-[gd_scene load_steps=30 format=3 uid="uid://c315v4sddvhwd"]
+[gd_scene load_steps=28 format=3 uid="uid://bq0jk7scaq7j8"]
 
-[ext_resource type="Script" uid="uid://bil3j2sd3e0ie" path="res://scripts/player.gd" id="1_ft8op"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_4sedk"]
-[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="3_qyj3w"]
-[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="4_us3ce"]
-[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://@Platformer/Jump.png" id="5_q4yl4"]
-[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="6_4rwxk"]
-[ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://scenes/path.gd" id="7_lh502"]
-[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="7_x4f8q"]
-[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://scenes/player_hurtbox.gd" id="9_bruh7"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_427xp"]
+[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="2_3hypu"]
+[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://@Platformer/Jump.png" id="3_bbphf"]
+[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="4_lh3xe"]
+[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="5_o1ewr"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="6_5wh2a"]
+[ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://scripts/path.gd" id="7_66ah0"]
+[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://scripts/player_hurtbox.gd" id="8_33ej8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -25,7 +24,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_4sedk")]
+"values": [ExtResource("1_427xp")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -78,7 +77,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4rwxk")]
+"values": [ExtResource("2_3hypu")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -119,7 +118,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_4sedk")]
+"values": [ExtResource("1_427xp")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -172,7 +171,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_q4yl4")]
+"values": [ExtResource("3_bbphf")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -213,7 +212,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_qyj3w")]
+"values": [ExtResource("4_lh3xe")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -253,7 +252,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_us3ce")]
+"values": [ExtResource("5_o1ewr")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -358,28 +357,20 @@ point_count = 4
 size = Vector2(255, 216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w886"]
-size = Vector2(417, 216)
-
-[sub_resource type="Curve2D" id="Curve2D_khinc"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, -34, 0, 0, 0, 0, 20, -52, 0, 0, 0, 0, -17, -50, 0, 0, 0, 0, -40, -32)
-}
-point_count = 5
+size = Vector2(255, 216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khinc"]
 size = Vector2(9, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 70
-script = ExtResource("1_ft8op")
-player_camera_focus_range = 234000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 5)
-texture = ExtResource("2_4sedk")
+texture = ExtResource("1_427xp")
 hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -420,12 +411,12 @@ libraries = {
 modulate = Color(0.02, 0.934667, 1, 0.717647)
 z_index = -1
 scale = Vector2(0.046875, 0.046875)
-texture = ExtResource("7_x4f8q")
+texture = ExtResource("6_5wh2a")
 
 [node name="Path1" type="Path2D" parent="."]
 visible = false
 curve = SubResource("Curve2D_5lvp3")
-script = ExtResource("7_lh502")
+script = ExtResource("7_66ah0")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path1"]
 position = Vector2(1, -44)
@@ -457,7 +448,7 @@ rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Path3/PathFollow2D"]
 scale = Vector2(0.08, 0.08)
-texture = ExtResource("7_x4f8q")
+texture = ExtResource("6_5wh2a")
 
 [node name="OrbSpawnCyclePosition" type="Node2D" parent="Path3/PathFollow2D"]
 
@@ -481,22 +472,15 @@ monitorable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightEnemyDetection"]
-position = Vector2(113.5, -4)
+position = Vector2(31.5, -4)
 shape = SubResource("RectangleShape2D_2w886")
 debug_color = Color(0.7, 0.63, 0, 0.223529)
-
-[node name="Path2D" type="Path2D" parent="."]
-visible = false
-curve = SubResource("Curve2D_khinc")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-rotation = -0.5536813
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("9_bruh7")
+script = ExtResource("8_33ej8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-0.5, 2)

@@ -1,12 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://b2ius7ny1cpy5"]
+[gd_scene load_steps=22 format=3 uid="uid://dn13chktqysaw"]
 
-[ext_resource type="Script" uid="uid://gp1i8pwl22y" path="res://scenes/test_enemy.gd" id="1_6wim8"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_yv8y2"]
-[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="3_7ckaw"]
-[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="4_fae76"]
-[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://@Platformer/Jump.png" id="5_mfgkr"]
-[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="6_1sm64"]
-[ext_resource type="Texture2D" uid="uid://v5161umy35el" path="res://@Platformer/Stab Dash.png" id="7_2jhqo"]
+[ext_resource type="Script" uid="uid://cgemk1845y8tm" path="res://prototype_1/scripts/test_enemy_2.gd" id="1_ub4r4"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_aqr2d"]
+[ext_resource type="Texture2D" uid="uid://v5161umy35el" path="res://@Platformer/Stab Dash.png" id="3_sl1nq"]
+[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="4_d1lt8"]
+[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://@Platformer/Jump.png" id="5_r2vgf"]
+[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="6_2iu1l"]
+[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="7_bqxvd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_yv8y2")]
+"values": [ExtResource("2_aqr2d")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -99,7 +99,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_2jhqo")]
+"values": [ExtResource("3_sl1nq")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -164,7 +164,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_1sm64")]
+"values": [ExtResource("4_d1lt8")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -205,7 +205,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_yv8y2")]
+"values": [ExtResource("2_aqr2d")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -258,7 +258,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_mfgkr")]
+"values": [ExtResource("5_r2vgf")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -299,7 +299,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_7ckaw")]
+"values": [ExtResource("6_2iu1l")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -339,7 +339,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_fae76")]
+"values": [ExtResource("7_bqxvd")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -381,26 +381,32 @@ _data = {
 height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixaej"]
-radius = 372.1626
+radius = 242.0186
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujjq1"]
 radius = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0uyh1"]
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
-modulate = Color(0.532033, 0.00388608, 0.995508, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3rs5"]
+size = Vector2(228, 20)
+
+[node name="Jumping_Enemy" type="CharacterBody2D" groups=["Enemy"]]
+modulate = Color(0, 1, 0.2, 1)
 collision_layer = 2
-collision_mask = 65
-script = ExtResource("1_6wim8")
-speed = 175
+collision_mask = 69
+platform_floor_layers = 4294967104
+script = ExtResource("1_ub4r4")
+speed = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.533333, 1)
 position = Vector2(0, 5)
-texture = ExtResource("2_yv8y2")
+texture = ExtResource("2_aqr2d")
+flip_h = true
 hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -409,6 +415,7 @@ libraries = {
 }
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 
@@ -421,12 +428,14 @@ position = Vector2(0, 1)
 scale = Vector2(1, 1.1)
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
 shape = SubResource("CircleShape2D_ixaej")
 debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="PlayerAttackArea" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
 shape = SubResource("CircleShape2D_ujjq1")
@@ -438,13 +447,22 @@ one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
-position = Vector2(18, 3)
+position = Vector2(-18, 3)
 collision_layer = 128
 collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_0uyh1")
+
+[node name="AttackDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetectionArea"]
+shape = SubResource("RectangleShape2D_p3rs5")
+debug_color = Color(0.7, 0, 0.396667, 0.0980392)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
@@ -454,3 +472,4 @@ shape = SubResource("RectangleShape2D_0uyh1")
 [connection signal="body_entered" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_entered"]
 [connection signal="body_exited" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="AttackDetectionArea" to="." method="_on_attack_detection_area_body_entered"]
