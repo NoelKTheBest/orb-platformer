@@ -1,4 +1,4 @@
-#Prototype 2
+# Prototype 2
 
 ## Goal
 The goal will be to get to the end of the level and defeat the remote controller of the forcefield
