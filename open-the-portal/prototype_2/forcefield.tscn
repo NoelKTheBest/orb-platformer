@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxkjcc3erp8bg"]
+
+[ext_resource type="Script" uid="uid://dmdype8hi6cv2" path="res://forcefield.gd" id="1_ixrj4"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_spr4x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4fkp"]
+size = Vector2(128, 128)
+
+[sub_resource type="Animation" id="Animation_sj64b"]
+resource_name = "flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5000216, 1),
+"transitions": PackedFloat32Array(-2, -2, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0.06666667), Color(1, 1, 1, 0.78039217), Color(1, 1, 1, 0.06666667)]
+}
+
+[sub_resource type="Animation" id="Animation_ikxjr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.06666667)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w73wh"]
+_data = {
+&"RESET": SubResource("Animation_ikxjr"),
+&"flash": SubResource("Animation_sj64b")
+}
+
+[node name="StaticBody2D" type="StaticBody2D"]
+scale = Vector2(1, 10)
+script = ExtResource("1_ixrj4")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y4fkp")
+debug_color = Color(0, 0.5950001, 0.7, 0.23921569)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.06666667)
+texture = ExtResource("2_spr4x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_w73wh")
+}
