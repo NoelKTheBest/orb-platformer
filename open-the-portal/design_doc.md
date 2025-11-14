@@ -1,57 +1,21 @@
 # Welcome to the Game Design Document for *Open the Portal*!
 
-This will be a 2D platformer using the Godot game engine with the default renderer and using Git for source control. The main idea of the game is to create a game using a power absorption mechanic. The main two powers will be metal and flame. I may include other abilities in the future such as rock, water, lightning, wind, and plasma. 
-I want to also include some early ideas that I have for the idea of combo games where instead of using attacks to perform combos, you use projectiles.
+This will be a 2D platformer using the Godot game engine with the default renderer and using Git for source control.
 
 # Mechanics
 
-The main mechanic in the game is an ability to steal an opponents' abilities to use for your own attacks. If your absorption bubble collides with an attack projectile, it will assume the properties of that projectile. This will provide opportunities for different types of attacks for tougher enemies. 
+For the current game, I am going with a simple obstacle course design structure for the mechanics. The main mechanics will be to shoot the enemies with bullets and shoot anti-gravity waves at the ground to turn off the gravity. The details are laid out in prototype_2/prototype_2.md
 
-### Ricochet
+# Tools
+We need tools to create enemy behaviour, levels using tilesets and parallax backgrounds, creating cutscenes and basic dialog, playing music dynamically based on the situation, detecting area to area and area to body overlaps, playing sound fx
+  ## Transferring level in Asesprite to Godot
+  I will be making a majority of specific art assets that i will need for the game in aseprite and want to be able to just plop them into the game without much issue. I can't possibly design the whole level in aseprite as    a level in a game like this could end up being really really big. Godot does already make this easy, but I also want to be able to create enemy spawn hubs/points and simply tell the game to spawn enemies at that location to make playtesting easier. The same could be done for certain props like a forcefield controller or some other kind of interactable machine or device.
 
-The player will be able to ricochet their attacks to allow them to hit enemies twice. Attacks used will harm the player but with less damage (?) unless the player hit's it back and causes the attack to bounce again. The attack can bounce off in only in the direction in which it was struck.
-
-### Release Stored Power
-
-The player will have the ability to release their stored power for an additional attack and boost. The player can only hold 3 abilities for now. 
-
-### Aiming
-
-The player will be able to throw the ball in 8 directions and the balls will allows be reflected according to the surface normals
-
-### Call Back
-
-The player will have the ability to call back a launched attack and have it do damage to anything it hits on the way back, including the player.
-
-## Abilities
-
-### Metal
-
-Metal abilities will cause knockback
-
-### Flame 
-
-Flame abilities will cause burn damage
-
-## Enemies
-
-### Basic Enemy Abilities
-
-Some basic enemy abilities will include:
-
-- **Ricochet**: Hitting an orb back at the player to defend
-- **Parry**: Complete defense of a player's attack which nullifies it
-
-### Boss Abilities:
-
-Bosses will have access to all basic enemy abilities including:
-- **Dodge**: Avoid a players attack with a well timed evade.
-- **Counter Attack**: Launch another attack to counter the player's attack, nullifying both
-- 
+  The levels will be built like obstacle courses themselves with enemy locations being set to somewhere specific in the obstacle course and enemies being made to be instantiated there at runtime so we can refer to an area by a name or tag and say "Spawn Enemy at [insert tag name here]". And there should be not only an order but automatic spacing for props. The tileset is what i will use to build the platforms so that won't be affected, but simple sprites for the props themselves will. In addition to all this, I would want a way to hit a button to create a new node at the mouse cursor position to set it in the scene and have that be the position. But this isn't necessary and depending on how big the levels are, none of this may be necessary.
 
 # Story
-## Main Character: Emily
-The main character of the game is called Emily (for now). She is a young woman looking to get home from being in outer space. Her squad was completely wiped out by an enemy horde and now she has to use a unique ability of hers in order to escape with her life and reach the portal that will take her back to her home world of Zena.
+## Main Character: Megan
+The main character of the game is called Megan. She is a young woman looking to get home from being in outer space. Her squad was completely wiped out by an enemy horde and now she has to use a unique ability of hers in order to escape with her life and reach the portal that will take her back to her home world of Zena. The enemy wants to unlock the secret of portal technology but can't read the documentation on the ship and need the mc to translate.
 
 # Art
 ## Characters
