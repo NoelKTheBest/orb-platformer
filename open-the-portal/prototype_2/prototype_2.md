@@ -30,3 +30,8 @@ The player can only fire x amount of shots in rapid succession before they can s
 - Has cooldown and player has limited movement movement in air and is also launched with small ability to influence trajectory and movement (If hit in this mode, player get's launched until anti-gravity wave ends or they fall out of range of the attack)
   #### Potential Limitations
   - Player has a longer cooldown
+
+---
+
+# Goal of Prototype
+Player reaches the end of a level after playing around with the actual planned obstacles, abilities, and limitations the player will be faced with and must reach the end to fight the enemy that is controlling the forcefield and defeat them (will present **one** new obstacle to the player)
