@@ -4,14 +4,19 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var camera_follow: Node2D = $CameraFollow
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
+@onready var jump_buffer_timer: Timer = $Timer
 
 ## The distance from the enemy at which the camera will focus on the player
 @export var player_camera_focus_range : float = 132551.375
+@export var accel : int
+@export var jump_velocity : int
+@export var fall_velocity_factor : float = 3
+@export var orb_velocity : float
 
 signal orb_was_fired
 signal player_died
 
-const SPEED = 300.0
+const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const ORB_VELOCITY = 400
 
@@ -40,20 +45,39 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if velocity.y > 0: 
+			velocity += get_gravity() * fall_velocity_factor * delta
+		else:
+			velocity += get_gravity() * delta
+			
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept"):
+		jump_buffer_timer.start()
+	
+	if is_on_floor() and jump_buffer_timer.time_left > 0:
 		velocity.y = JUMP_VELOCITY
+		jump_buffer_timer.stop()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
+		if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+		velocity.x = move_toward(velocity.x, 0, accel)
+		if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
+	
+	if direction < 0: sprite_2d.flip_h = true 
+	elif direction > 0: sprite_2d.flip_h = false
+	
+	if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
+	if velocity.y > 0:
+		print(velocity.y)
+		$AnimationPlayer.play("Player_Movement/fall")
+	
+	#print(velocity.x)
 	move_and_slide()
 
 

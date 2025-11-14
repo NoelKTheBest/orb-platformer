@@ -2,17 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cvsxjqu52ujl6" path="res://energy_bar.gd" id="1_kxhmu"]
 
-[node name="UserInterface" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UserInterface" type="CanvasLayer"]
 
 [node name="EnergyBar" type="ProgressBar" parent="."]
 modulate = Color(0.13999999, 0.5126667, 1, 1)
-layout_mode = 0
 offset_right = 569.0
 offset_bottom = 99.0
 show_percentage = false

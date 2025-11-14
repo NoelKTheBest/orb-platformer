@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bq0jk7scaq7j8"]
+[gd_scene load_steps=30 format=3 uid="uid://bq0jk7scaq7j8"]
 
 [ext_resource type="Script" uid="uid://dvu15etdbb08u" path="res://prototype_2/prototype_2_player.gd" id="1_3hypu"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_427xp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="6_5wh2a"]
 [ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://scripts/path.gd" id="7_66ah0"]
 [ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://scripts/player_hurtbox.gd" id="8_33ej8"]
+[ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_bbphf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -366,6 +367,8 @@ size = Vector2(9, 14)
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 70
 script = ExtResource("1_3hypu")
+accel = 25
+fall_velocity_factor = 2.5300000000000002
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
@@ -389,14 +392,13 @@ one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.25
+wait_time = 0.07
 one_shot = true
 
 [node name="CameraFollow" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
 zoom = Vector2(2.25, 2.25)
-position_smoothing_enabled = true
 position_smoothing_speed = 7.16
 drag_vertical_offset = -0.05
 drag_top_margin = 0.59
@@ -414,6 +416,11 @@ modulate = Color(0.02, 0.934667, 1, 0.717647)
 z_index = -1
 scale = Vector2(0.046875, 0.046875)
 texture = ExtResource("6_5wh2a")
+
+[node name="UserInterface" parent="CameraFollow" instance=ExtResource("8_bbphf")]
+offset = Vector2(5, 600)
+scale = Vector2(0.425, 0.425)
+transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
 
 [node name="Path1" type="Path2D" parent="."]
 visible = false
@@ -462,6 +469,7 @@ monitorable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftEnemyDetection"]
+visible = false
 position = Vector2(-40, -4)
 shape = SubResource("RectangleShape2D_x6ccw")
 debug_color = Color(0.583333, 0, 0.7, 0.211765)
@@ -474,6 +482,7 @@ monitorable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightEnemyDetection"]
+visible = false
 position = Vector2(31.5, -4)
 shape = SubResource("RectangleShape2D_2w886")
 debug_color = Color(0.7, 0.63, 0, 0.223529)
