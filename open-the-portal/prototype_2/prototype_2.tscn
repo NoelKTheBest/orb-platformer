@@ -1,12 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://iyrs8bhoid4b"]
+[gd_scene load_steps=5 format=3 uid="uid://iyrs8bhoid4b"]
 
+[ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="2_t48kh"]
+[ext_resource type="PackedScene" uid="uid://3gkfedlxfpih" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_7x6nc")
 
 [node name="Player" parent="." instance=ExtResource("1_d82v5")]
 position = Vector2(436, 413)
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("2_t48kh")]
 position = Vector2(807, 601.00006)
+
+[node name="ZeroGravityZoneTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="Enemy2" parent="." instance=ExtResource("4_7x6nc")]
+position = Vector2(278.60333, 435.9721)
+metadata/_edit_group_ = true
+
+[node name="Enemy3" parent="." instance=ExtResource("4_7x6nc")]
+position = Vector2(559, 440)
+metadata/_edit_group_ = true
+
+[node name="Enemy4" parent="." instance=ExtResource("4_7x6nc")]
+position = Vector2(739, 432)
+metadata/_edit_group_ = true
+
+[connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
+[connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
+
+[editable path="Enemy2"]
+[editable path="Enemy3"]
+[editable path="Enemy4"]

@@ -368,7 +368,7 @@ size = Vector2(9, 14)
 collision_mask = 70
 script = ExtResource("1_3hypu")
 accel = 25
-fall_velocity_factor = 2.5300000000000002
+fall_velocity_factor = 2.53
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
@@ -399,12 +399,12 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
 zoom = Vector2(2.25, 2.25)
-position_smoothing_speed = 7.16
+position_smoothing_enabled = true
+position_smoothing_speed = 9.72
 drag_vertical_offset = -0.05
 drag_top_margin = 0.59
 drag_bottom_margin = 0.63
 editor_draw_limits = true
-editor_draw_drag_margin = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraFollow"]
 libraries = {

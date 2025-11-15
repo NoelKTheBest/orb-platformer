@@ -15,6 +15,7 @@ extends CharacterBody2D
 
 signal orb_was_fired
 signal player_died
+signal anti_gravity_zone_created
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -23,6 +24,7 @@ const ORB_VELOCITY = 400
 var orb = preload("res://scenes/orb.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
+var in_anti_gravity_zone = false
 
 
 func _process(delta: float) -> void:
@@ -40,6 +42,9 @@ func _process(delta: float) -> void:
 		$SpawnTimer.start()
 		on_cooldown = true
 		orb_was_fired.emit()
+	
+	if Input.is_action_just_pressed("anti-gravity_attack"):
+		anti_gravity_zone_created.emit()
 
 
 func _physics_process(delta: float) -> void:
