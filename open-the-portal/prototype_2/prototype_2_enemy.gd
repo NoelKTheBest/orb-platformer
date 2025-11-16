@@ -12,13 +12,13 @@ signal enemy_died()
 @export var speed = 2
 @export var launch_velocity : int
 @export var zero_gravity_deceleration : int
-@export var zero_gravity_decel_easing : float
 
 var monitor_player_position
 var player_position
 var attacking :  bool
 var on_cooldown : bool
 var in_anti_gravity_zone = false
+var zero_gravity_decel_easing : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,13 +67,31 @@ func _physics_process(delta: float) -> void:
 				anim_player.play('block')
 		
 		move_and_slide()
-		
+	else:
+		zero_gravity_decel_easing = 3 if velocity.y > -200 else 1
+		if velocity.y > -27:
+			zero_gravity_decel_easing = 4
+			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
+		if velocity.y > -60:
+			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
+		else:
+			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing)
+		print(velocity.y)
+		print(delta)
+		move_and_slide()
 
 
 func launch():
 	in_anti_gravity_zone = true
-	velocity.y = launch_velocity
-	velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration)
+	var distance_from_player = position.distance_squared_to(player_position)
+	var launch_factor = 1
+	if distance_from_player < 15000:
+		launch_factor = 1
+	elif distance_from_player > 15000:
+		launch_factor = 0.9
+	velocity.y = launch_velocity * launch_factor
+	#velocity.y = launch_velocity * (10000 / position.distance_squared_to(player_position))
+	#print(position.distance_squared_to(player_position))
 
 
 func die():

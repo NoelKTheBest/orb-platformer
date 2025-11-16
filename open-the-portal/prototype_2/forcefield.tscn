@@ -6,6 +6,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4fkp"]
 size = Vector2(128, 128)
 
+[sub_resource type="Animation" id="Animation_ikxjr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.06666667)]
+}
+
 [sub_resource type="Animation" id="Animation_sj64b"]
 resource_name = "flash"
 loop_mode = 1
@@ -22,21 +37,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0.06666667), Color(1, 1, 1, 0.78039217), Color(1, 1, 1, 0.06666667)]
 }
 
-[sub_resource type="Animation" id="Animation_ikxjr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.06666667)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w73wh"]
 _data = {
 &"RESET": SubResource("Animation_ikxjr"),
@@ -45,6 +45,8 @@ _data = {
 
 [node name="StaticBody2D" type="StaticBody2D"]
 scale = Vector2(1, 10)
+collision_layer = 35
+collision_mask = 0
 script = ExtResource("1_ixrj4")
 metadata/_edit_group_ = true
 

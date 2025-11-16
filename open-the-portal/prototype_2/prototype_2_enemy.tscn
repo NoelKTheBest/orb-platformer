@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://3gkfedlxfpih"]
+[gd_scene load_steps=21 format=3 uid="uid://df87nlvinfr3e"]
 
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_l4rn7"]
 [ext_resource type="Script" uid="uid://cstnu23es7t04" path="res://prototype_2/prototype_2_enemy.gd" id="1_wgi8n"]
@@ -393,6 +393,8 @@ modulate = Color(0.532033, 0.00388608, 0.995508, 1)
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_wgi8n")
+launch_velocity = -400
+zero_gravity_deceleration = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
