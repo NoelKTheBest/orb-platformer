@@ -11,8 +11,11 @@ func _ready() -> void:
 	#	1 / (5 - 1) = 1 / 4 = 0.25 #Increment by 0.25
 	# 1 / 6 no
 	@warning_ignore("integer_division")
-	ratio_inc = 1 / (curve.point_count - 1)
-	$PathFollow2D.progress_ratio = ratio_inc
+	if curve.point_count % 2 != 0:
+		ratio_inc = 1 / (curve.point_count - 1)
+		$PathFollow2D.progress_ratio = ratio_inc
+	else:
+		print("There needs to be an odd number of points in the curve")
 
 
 func update_progress_ratio():

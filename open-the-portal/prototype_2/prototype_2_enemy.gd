@@ -76,8 +76,8 @@ func _physics_process(delta: float) -> void:
 			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
 		else:
 			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing)
-		print(velocity.y)
-		print(delta)
+		#print(velocity.y)
+		#print(delta)
 		move_and_slide()
 
 

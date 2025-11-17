@@ -12,6 +12,8 @@ extends CharacterBody2D
 @export var jump_velocity : int
 @export var fall_velocity_factor : float = 3
 @export var orb_velocity : float
+@export var launch_velocity : int
+@export var influence_factor : Vector2 = Vector2.ONE
 
 signal orb_was_fired
 signal player_died
@@ -42,48 +44,68 @@ func _process(delta: float) -> void:
 		$SpawnTimer.start()
 		on_cooldown = true
 		orb_was_fired.emit()
-	
-	if Input.is_action_just_pressed("anti-gravity_attack"):
-		anti_gravity_zone_created.emit()
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		if velocity.y > 0: 
-			velocity += get_gravity() * fall_velocity_factor * delta
+	if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor():
+		anti_gravity_zone_created.emit()
+		launch()
+	
+	if !in_anti_gravity_zone:
+		# Add the gravity.
+		if not is_on_floor():
+			if velocity.y > 0: 
+				velocity += get_gravity() * fall_velocity_factor * delta
+			else:
+				velocity += get_gravity() * delta
+				
+
+		# Handle jump.
+		if Input.is_action_just_pressed("ui_accept"):
+			jump_buffer_timer.start()
+		
+		if is_on_floor() and jump_buffer_timer.time_left > 0:
+			velocity.y = JUMP_VELOCITY
+			jump_buffer_timer.stop()
+
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var direction := Input.get_axis("ui_left", "ui_right")
+		if direction:
+			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
+			if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
 		else:
-			velocity += get_gravity() * delta
-			
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept"):
-		jump_buffer_timer.start()
-	
-	if is_on_floor() and jump_buffer_timer.time_left > 0:
-		velocity.y = JUMP_VELOCITY
-		jump_buffer_timer.stop()
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
-		if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
+			velocity.x = move_toward(velocity.x, 0, accel)
+			if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
+		
+		if direction < 0: sprite_2d.flip_h = true 
+		elif direction > 0: sprite_2d.flip_h = false
+		
+		if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
+		if velocity.y > 0:
+			#print(velocity.y)
+			$AnimationPlayer.play("Player_Movement/fall")
+		
+		#print(velocity.x)
+		move_and_slide()
 	else:
-		velocity.x = move_toward(velocity.x, 0, accel)
-		if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
-	
-	if direction < 0: sprite_2d.flip_h = true 
-	elif direction > 0: sprite_2d.flip_h = false
-	
-	if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
-	if velocity.y > 0:
-		print(velocity.y)
-		$AnimationPlayer.play("Player_Movement/fall")
-	
-	#print(velocity.x)
-	move_and_slide()
+		velocity.y = -launch_velocity
+		print(launch_velocity)
+		var x_direction = Input.get_axis("ui_left", "ui_right")
+		var y_direction = Input.get_axis("ui_up", "ui_down")
+		velocity += Vector2(x_direction, y_direction) * influence_factor
+		move_and_slide()
+
+
+func launch():
+	in_anti_gravity_zone = true
+	$LaunchAnimator.play("launch_anim")
+	var x_direction = Input.get_axis("ui_left", "ui_right")
+	var y_direction = Input.get_axis("ui_up", "ui_down")
+	velocity.y = -launch_velocity
+	print("main: ", velocity)
+	velocity += Vector2(x_direction, y_direction)
+	print("w/ influence: ", velocity)
 
 
 func move_camera(_delta : float):

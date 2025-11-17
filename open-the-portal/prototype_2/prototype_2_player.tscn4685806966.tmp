@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bq0jk7scaq7j8"]
+[gd_scene load_steps=35 format=3 uid="uid://bq0jk7scaq7j8"]
 
 [ext_resource type="Script" uid="uid://dvu15etdbb08u" path="res://prototype_2/prototype_2_player.gd" id="1_3hypu"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_427xp"]
@@ -381,9 +381,21 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_5lvp3"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 6, 25, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 6, -25)
+"points": PackedVector2Array(0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 16, -25, 0, 0, 0, 0, 1, -44)
 }
 point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_3gudb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 5, -21, 0, 0, 0, 0, 11, -55, 0, 0, 0, 0, 24, -73, 0, 0, 0, 0, 32, -62, 0, 0, 0, 0, 29, -28)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_ao4mi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 45, -59, 0, 0, 0, 0, 120, -65)
+}
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x6ccw"]
 size = Vector2(255, 216)
@@ -397,10 +409,12 @@ size = Vector2(9, 14)
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 70
 script = ExtResource("1_3hypu")
+player_camera_focus_range = null
 accel = 25
+jump_velocity = null
 fall_velocity_factor = 2.53
+orb_velocity = null
 launch_velocity = 5
-influence_factor = Vector2(2, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
@@ -461,16 +475,43 @@ scale = Vector2(0.425, 0.425)
 transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
 
 [node name="Path1" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_5lvp3")
 script = ExtResource("7_66ah0")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path1"]
-position = Vector2(13.794832, -14.743642)
+position = Vector2(1, -44)
 rotation = -2.23909
 progress = 49.9174
 rotates = false
 
 [node name="OrbSpawnCyclePosition" type="Node2D" parent="Path1/PathFollow2D"]
+
+[node name="Path2" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_3gudb")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2"]
+position = Vector2(20.020073, -67.489334)
+rotation = -2.23909
+progress = 49.9174
+rotates = false
+
+[node name="OrbSpawnCyclePosition" type="Node2D" parent="Path2/PathFollow2D"]
+
+[node name="Path3" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_ao4mi")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path3"]
+position = Vector2(18, 0)
+rotates = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Path3/PathFollow2D"]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("6_5wh2a")
+
+[node name="OrbSpawnCyclePosition" type="Node2D" parent="Path3/PathFollow2D"]
 
 [node name="LeftEnemyDetection" type="Area2D" parent="."]
 position = Vector2(-88, 0)

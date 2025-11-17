@@ -31,4 +31,5 @@ func _on_zero_gravity_zone_timer_timeout() -> void:
 	for enemy in enemies_affected_by_anti_g:
 		enemy.in_anti_gravity_zone = false
 	
+	$Player.in_anti_gravity_zone = false
 	enemies_affected_by_anti_g = []
