@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var camera_follow: Node2D = $CameraFollow
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
 @onready var jump_buffer_timer: Timer = $Timer
+@onready var path_1: Path2D = $Path1
 
 ## The distance from the enemy at which the camera will focus on the player
 @export var player_camera_focus_range : float = 132551.375
@@ -14,6 +15,7 @@ extends CharacterBody2D
 @export var orb_velocity : float
 @export var launch_velocity : int
 @export var influence_factor : Vector2 = Vector2.ONE
+@export var energy_consumption : int = 30
 
 signal orb_was_fired
 signal player_died
@@ -27,23 +29,34 @@ var orb = preload("res://scenes/orb.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
 var in_anti_gravity_zone = false
+var cycle_active = false
+var no_energy = false
 
 
 func _process(delta: float) -> void:
 	if enemy_pos: 
 		move_camera(delta)
 	
-	if Input.is_action_just_pressed("fire") and !on_cooldown:
-		var new_orb = orb.instantiate()
+	if !cycle_active:
 		
-		# Set properties before node is ready to have access to them
-		new_orb.position = orb_spawn_position.position
-		var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-		new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
-		add_child(new_orb)
-		$SpawnTimer.start()
-		on_cooldown = true
-		orb_was_fired.emit()
+		if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
+			# Consume returns -1 if the  
+			if $UserInterface/EnergyBar.consume(energy_consumption) != -1:
+				var new_orb = orb.instantiate()
+				
+				# Set properties before node is ready to have access to them
+				new_orb.position = orb_spawn_position.position
+				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
+				add_child(new_orb)
+				$SpawnTimer.start()
+				on_cooldown = true
+				orb_was_fired.emit()
+		
+		if Input.is_action_just_pressed("cycle_fire"):
+			spawn_orb()
+			$Path1.start_progression()
+			cycle_active = true
 
 
 func _physics_process(delta: float) -> void:
@@ -70,7 +83,7 @@ func _physics_process(delta: float) -> void:
 
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("ui_left", "ui_right")
+		var direction := Input.get_axis("move_left", "move_right")
 		if direction:
 			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
 			if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
@@ -90,9 +103,9 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	else:
 		velocity.y = -launch_velocity
-		print(launch_velocity)
-		var x_direction = Input.get_axis("ui_left", "ui_right")
-		var y_direction = Input.get_axis("ui_up", "ui_down")
+		#print(launch_velocity)
+		var x_direction = Input.get_axis("move_left", "move_right")
+		var y_direction = Input.get_axis("move_up", "move_down")
 		velocity += Vector2(x_direction, y_direction) * influence_factor
 		move_and_slide()
 
@@ -100,12 +113,12 @@ func _physics_process(delta: float) -> void:
 func launch():
 	in_anti_gravity_zone = true
 	$LaunchAnimator.play("launch_anim")
-	var x_direction = Input.get_axis("ui_left", "ui_right")
-	var y_direction = Input.get_axis("ui_up", "ui_down")
+	var x_direction = Input.get_axis("move_left", "move_right")
+	var y_direction = Input.get_axis("move_up", "move_down")
 	velocity.y = -launch_velocity
-	print("main: ", velocity)
+	#print("main: ", velocity)
 	velocity += Vector2(x_direction, y_direction)
-	print("w/ influence: ", velocity)
+	#print("w/ influence: ", velocity)
 
 
 func move_camera(_delta : float):
@@ -132,6 +145,23 @@ func move_camera(_delta : float):
 		camera_follow.position = Vector2.ZERO
 
 
+func spawn_orb():
+	var new_orb = orb.instantiate()
+	
+	# Set properties before node is ready to have access to them
+	new_orb.position = path_1.path_follow_2d.position
+	if sprite_2d.flip_h:
+		path_1.scale.x = -1
+		new_orb.linear_v = (path_1.flip_directions[path_1.index - 1].normalized() * ORB_VELOCITY)
+		print_rich("[color=orangered]x_pos: ", new_orb.position.x)
+		new_orb.position.x -= path_1.path_follow_2d.position.x * 2
+		print_rich("[color=blue]x_pos: ", new_orb.position.x)
+	else:
+		path_1.scale.x = 1
+		new_orb.linear_v = (path_1.directions[path_1.index - 1].normalized() * ORB_VELOCITY)
+	add_child(new_orb)
+
+
 func reset_camera_follow():
 	enemy_pos = position
 
@@ -146,3 +176,11 @@ func die():
 
 func _on_spawn_timer_timeout() -> void:
 	on_cooldown = false
+
+
+func _on_path_1_cycle_finished() -> void:
+	cycle_active = false
+
+
+func _on_path_1_progress_updated() -> void:
+	spawn_orb()

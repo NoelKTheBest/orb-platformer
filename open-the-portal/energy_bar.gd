@@ -12,7 +12,10 @@ func _process(_delta: float) -> void:
 
 
 func consume(amount: int):
-	value -= amount
+	if amount < value: value -= amount
+	else: return -1
 	
 	if value == min_value:
 		energy_exhausted.emit()
+	
+	return value

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bq0jk7scaq7j8"]
+[gd_scene load_steps=34 format=3 uid="uid://bq0jk7scaq7j8"]
 
 [ext_resource type="Script" uid="uid://dvu15etdbb08u" path="res://prototype_2/prototype_2_player.gd" id="1_3hypu"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_427xp"]
@@ -326,10 +326,39 @@ tracks/0/keys = {
 "update": 1,
 "values": [5]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path1/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5wh2a"]
+resource_name = "cycle_fire"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path1/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0.0, 0.5, 1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5wh2a"]
 _data = {
 &"RESET": SubResource("Animation_o1ewr"),
+&"cycle_fire": SubResource("Animation_5wh2a"),
 &"launch_anim": ExtResource("7_lh3xe")
 }
 
@@ -401,6 +430,7 @@ accel = 25
 fall_velocity_factor = 2.53
 launch_velocity = 5
 influence_factor = Vector2(2, 1.5)
+energy_consumption = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
@@ -425,13 +455,18 @@ libraries = {
 position = Vector2(22, 0)
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.295
 one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.07
 one_shot = true
+
+[node name="UserInterface" parent="." instance=ExtResource("8_bbphf")]
+offset = Vector2(5, 600)
+scale = Vector2(0.425, 0.425)
+transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
 
 [node name="CameraFollow" type="Node2D" parent="."]
 
@@ -455,22 +490,24 @@ z_index = -1
 scale = Vector2(0.046875, 0.046875)
 texture = ExtResource("6_5wh2a")
 
-[node name="UserInterface" parent="CameraFollow" instance=ExtResource("8_bbphf")]
-offset = Vector2(5, 600)
-scale = Vector2(0.425, 0.425)
-transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
-
 [node name="Path1" type="Path2D" parent="."]
 curve = SubResource("Curve2D_5lvp3")
 script = ExtResource("7_66ah0")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path1"]
-position = Vector2(13.794832, -14.743642)
-rotation = -2.23909
-progress = 49.9174
+position = Vector2(6, 25)
 rotates = false
 
 [node name="OrbSpawnCyclePosition" type="Node2D" parent="Path1/PathFollow2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Path1/PathFollow2D"]
+z_index = 1
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("6_5wh2a")
+
+[node name="Timer" type="Timer" parent="Path1"]
+wait_time = 0.4
+one_shot = true
 
 [node name="LeftEnemyDetection" type="Area2D" parent="."]
 position = Vector2(-88, 0)
@@ -510,4 +547,9 @@ shape = SubResource("RectangleShape2D_khinc")
 debug_color = Color(0.12833337, 0.7, 0, 0.41960785)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="cycle_finished" from="Path1" to="." method="_on_path_1_cycle_finished"]
+[connection signal="progress_updated" from="Path1" to="." method="_on_path_1_progress_updated"]
+[connection signal="timeout" from="Path1/Timer" to="Path1" method="_on_timer_timeout"]
 [connection signal="player_was_hit" from="Hurtbox" to="." method="_on_hurtbox_player_was_hit"]
+
+[editable path="UserInterface"]

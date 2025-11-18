@@ -12,6 +12,7 @@ script = ExtResource("1_7x6nc")
 position = Vector2(436, 413)
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("2_t48kh")]
+z_index = -1
 position = Vector2(807, 601.00006)
 
 [node name="ZeroGravityZoneTimer" type="Timer" parent="."]

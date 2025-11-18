@@ -8,5 +8,7 @@
 modulate = Color(0.13999999, 0.5126667, 1, 1)
 offset_right = 569.0
 offset_bottom = 99.0
+max_value = 500.0
 show_percentage = false
 script = ExtResource("1_kxhmu")
+value_inc = 2

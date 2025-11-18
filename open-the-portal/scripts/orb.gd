@@ -8,7 +8,7 @@ extends RigidBody2D
 func _physics_process(_delta: float) -> void:
 	#apply_force(launch_vector)
 	#apply_central_force()
-	pass
+	print(linear_velocity)
 
 
 func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
