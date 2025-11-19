@@ -4,7 +4,8 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var camera_follow: Node2D = $CameraFollow
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
-@onready var jump_buffer_timer: Timer = $Timer
+@onready var jump_buffer_timer: Timer = $JumpBufferTimer
+@onready var anti_gravity_timer: Timer = $AntiGravityTimer
 @onready var path_1: Path2D = $Path1
 
 ## The distance from the enemy at which the camera will focus on the player

@@ -458,10 +458,12 @@ position = Vector2(22, 0)
 wait_time = 0.295
 one_shot = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="JumpBufferTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.07
 one_shot = true
+
+[node name="AntiGravityTimer" type="Timer" parent="."]
 
 [node name="UserInterface" parent="." instance=ExtResource("8_bbphf")]
 offset = Vector2(5, 600)
