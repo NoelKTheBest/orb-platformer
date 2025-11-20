@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var enemy_spawn_location_1: Node2D = $Player/EnemySpawnLocation1
+@onready var enemy_spawn_location_2: Node2D = $Player/EnemySpawnLocation2
+
+var enemy_scene = preload("res://prototype_2/prototype_2_enemy.tscn")
 var enemies_on_screen
 var enemies_affected_by_anti_g = []
 
@@ -33,3 +37,12 @@ func _on_zero_gravity_zone_timer_timeout() -> void:
 	
 	$Player.in_anti_gravity_zone = false
 	enemies_affected_by_anti_g = []
+
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	var new_enemy = enemy_scene.instantiate()
+	#new_enemy.position = to_global(enemy_spawn_location_1.position)
+	#enemy_spawn_location_1.add_child(new_enemy)
+	add_child(new_enemy)
+	print(new_enemy, new_enemy.position)
+	print(enemy_spawn_location_1, enemy_spawn_location_1.position)

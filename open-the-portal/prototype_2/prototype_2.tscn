@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://iyrs8bhoid4b"]
+[gd_scene load_steps=6 format=3 uid="uid://iyrs8bhoid4b"]
 
 [ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="2_t48kh"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="3_8wds2"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
 
 [node name="Node2D" type="Node2D"]
@@ -10,6 +11,22 @@ script = ExtResource("1_7x6nc")
 
 [node name="Player" parent="." instance=ExtResource("1_d82v5")]
 position = Vector2(436, 413)
+
+[node name="EnemySpawnLocation1" type="Node2D" parent="Player"]
+position = Vector2(-69, -28)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/EnemySpawnLocation1"]
+modulate = Color(1, 0.04000002, 0.04000002, 1)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("3_8wds2")
+
+[node name="EnemySpawnLocation2" type="Node2D" parent="Player"]
+position = Vector2(277, -78)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/EnemySpawnLocation2"]
+modulate = Color(1, 0.04000002, 0.04000002, 1)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("3_8wds2")
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("2_t48kh")]
 z_index = -1
@@ -31,8 +48,14 @@ metadata/_edit_group_ = true
 position = Vector2(739, 432)
 metadata/_edit_group_ = true
 
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 
 [editable path="Enemy2"]
 [editable path="Enemy3"]
