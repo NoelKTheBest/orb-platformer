@@ -381,7 +381,7 @@ _data = {
 height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixaej"]
-radius = 27.30191
+radius = 224.0201
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujjq1"]
 radius = 22.0
@@ -393,6 +393,7 @@ modulate = Color(0.532033, 0.00388608, 0.995508, 1)
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_wgi8n")
+speed = 100
 launch_velocity = -400
 zero_gravity_deceleration = 10
 
@@ -428,6 +429,8 @@ shape = SubResource("CircleShape2D_ixaej")
 debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="PlayerAttackArea" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
 shape = SubResource("CircleShape2D_ujjq1")

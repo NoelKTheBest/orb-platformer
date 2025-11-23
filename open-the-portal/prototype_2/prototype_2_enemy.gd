@@ -13,7 +13,7 @@ signal enemy_died()
 @export var launch_velocity : int
 @export var zero_gravity_deceleration : int
 
-var monitor_player_position
+var monitor_player_position = false
 var player_position
 var attacking :  bool
 var on_cooldown : bool
@@ -43,6 +43,8 @@ func _physics_process(delta: float) -> void:
 		
 		# When the player enters the first bubble, enemy movement is triggered
 		#	The enemy will always move when the player is inside the first bubble
+		if player_position: monitor_player_position = true
+		
 		if monitor_player_position:
 			var _direction
 			var target_position = (player_position - position).normalized()
@@ -119,8 +121,10 @@ func _on_player_detection_area_body_exited(body: Node2D) -> void:
 
 
 func _on_player_attack_area_body_entered(body: Node2D) -> void:
+	print("attack?")
 	if body.is_in_group("Player"):
 		attacking = true
+		print("attack")
 
 
 func _on_player_attack_area_body_exited(body: Node2D) -> void:

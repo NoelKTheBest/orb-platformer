@@ -21,6 +21,7 @@ extends CharacterBody2D
 signal orb_was_fired
 signal player_died
 signal anti_gravity_zone_created
+signal player_is_ready
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -32,6 +33,8 @@ var on_cooldown = false
 var in_anti_gravity_zone = false
 var cycle_active = false
 var no_energy = false
+var are_we_ready = false
+var ready_signal_emitted = false
 
 
 func _process(delta: float) -> void:
@@ -39,7 +42,6 @@ func _process(delta: float) -> void:
 		move_camera(delta)
 	
 	if !cycle_active:
-		
 		if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
 			# Consume returns -1 if the  
 			if $UserInterface/EnergyBar.consume(energy_consumption) != -1:
@@ -53,17 +55,25 @@ func _process(delta: float) -> void:
 				$SpawnTimer.start()
 				on_cooldown = true
 				orb_was_fired.emit()
+			
+			are_we_ready = true
 		
 		if Input.is_action_just_pressed("cycle_fire"):
 			spawn_orb()
 			$Path1.start_progression()
 			cycle_active = true
+			are_we_ready = true
+	
+	if are_we_ready and !ready_signal_emitted: 
+		player_is_ready.emit()
+		ready_signal_emitted = true
 
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor():
 		anti_gravity_zone_created.emit()
 		launch()
+		are_we_ready = true
 	
 	if !in_anti_gravity_zone:
 		# Add the gravity.

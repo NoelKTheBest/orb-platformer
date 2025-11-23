@@ -2,10 +2,14 @@ extends Node2D
 
 @onready var enemy_spawn_location_1: Node2D = $Player/EnemySpawnLocation1
 @onready var enemy_spawn_location_2: Node2D = $Player/EnemySpawnLocation2
+@onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
 
 var enemy_scene = preload("res://prototype_2/prototype_2_enemy.tscn")
 var enemies_on_screen
 var enemies_affected_by_anti_g = []
+var spawn_toggle = 0
+var player_is_ready = false
+var player_is_dead = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +20,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	enemies_on_screen = get_tree().get_nodes_in_group("Enemy").filter(enemy_is_visible)
+	if player_is_ready and !player_is_dead:
+		#print("hello from the player")
+		for enemy in enemies_on_screen:
+			enemy.player_position = $Player.position
 
 
 func enemy_is_visible(enemy):
@@ -41,8 +49,29 @@ func _on_zero_gravity_zone_timer_timeout() -> void:
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	var new_enemy = enemy_scene.instantiate()
+	if spawn_toggle == 0:
+		enemy_spawn_location_1.add_child(new_enemy)
+	elif spawn_toggle == 1:
+		enemy_spawn_location_2.add_child(new_enemy)
+	
+	spawn_toggle = 1 - spawn_toggle
+	enemy_spawn_timer.start()
+	
 	#new_enemy.position = to_global(enemy_spawn_location_1.position)
-	#enemy_spawn_location_1.add_child(new_enemy)
-	add_child(new_enemy)
-	print(new_enemy, new_enemy.position)
-	print(enemy_spawn_location_1, enemy_spawn_location_1.position)
+	#print(new_enemy, new_enemy.position)
+	#print(enemy_spawn_location_1, enemy_spawn_location_1.position)
+
+
+func _on_player_player_died() -> void:
+	player_is_dead = true
+	$Player.queue_free()
+	#game_over = true
+	$GameOverTimer.start()
+
+
+func _on_game_over_timer_timeout() -> void:
+	get_tree().reload_current_scene()
+
+
+func _on_player_player_is_ready() -> void:
+	player_is_ready = true
