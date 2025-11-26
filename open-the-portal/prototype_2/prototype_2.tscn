@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://iyrs8bhoid4b"]
+[gd_scene load_steps=7 format=3 uid="uid://iyrs8bhoid4b"]
 
 [ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="2_t48kh"]
+[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yss4c"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="3_8wds2"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7x6nc")
 
+[node name="Forcefield" parent="." instance=ExtResource("2_yss4c")]
+position = Vector2(2136, 451.00003)
+scale = Vector2(0.31, 3.1)
+
 [node name="Player" parent="." instance=ExtResource("1_d82v5")]
-position = Vector2(436, 413)
+position = Vector2(67, 520)
 
 [node name="EnemySpawnLocation1" type="Node2D" parent="Player"]
 position = Vector2(-69, -28)
@@ -30,18 +35,29 @@ texture = ExtResource("3_8wds2")
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("2_t48kh")]
 z_index = -1
-position = Vector2(807, 601.00006)
+position = Vector2(1059, 601.00006)
+scale = Vector2(110.039986, 4.96)
+
+[node name="StaticBody2D7" parent="." instance=ExtResource("2_t48kh")]
+z_index = -1
+position = Vector2(-10.000015, 453.00003)
+scale = Vector2(3.1810744, 15.826094)
+
+[node name="StaticBody2D6" parent="." instance=ExtResource("2_t48kh")]
+z_index = -1
+position = Vector2(1060, 303)
+scale = Vector2(110.039986, 4.96)
 
 [node name="ZeroGravityZoneTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
 
 [node name="Enemy2" parent="." instance=ExtResource("4_7x6nc")]
-position = Vector2(278.60333, 435.9721)
+position = Vector2(199, 447)
 metadata/_edit_group_ = true
 
 [node name="Enemy3" parent="." instance=ExtResource("4_7x6nc")]
-position = Vector2(559, 440)
+position = Vector2(650, 503)
 metadata/_edit_group_ = true
 
 [node name="Enemy4" parent="." instance=ExtResource("4_7x6nc")]
