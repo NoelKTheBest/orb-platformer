@@ -17,11 +17,12 @@ var player_is_ready = false
 var player_is_dead = false
 #var delta_total_time : float = 0.0
 var total_number_of_enemies = 15
+var total_enemies_spawned
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#print($Player/CameraFollow/Camera2D.)
+	total_enemies_spawned = get_tree().get_nodes_in_group("Enemy").size()
 	enemy_spawn_points = [enemy_spawn_point, enemy_spawn_point_2, enemy_spawn_point_3, enemy_spawn_point_4, enemy_spawn_point_5]
 	#for spawn_point in enemy_spawn_points:
 		#spawn_point.connect("countdown_finished", spawn_enemy)
@@ -35,9 +36,6 @@ func _process(_delta: float) -> void:
 		#print("hello from the player")
 		for enemy in enemies_on_screen:
 			enemy.player_position = $Player.position
-		
-		#delta_total_time += delta
-		#print()
 
 
 func enemy_is_visible(enemy):
@@ -101,4 +99,8 @@ func _on_enemy_spawn_interval_timeout() -> void:
 			i += 1
 		
 	enemy_spawn_points[espi].play_countdown_timer()
-	$EnemySpawnInterval.start()
+	if total_enemies_spawned < 15: 
+		total_enemies_spawned += 1
+		$EnemySpawnInterval.start()
+	else:
+		pass
