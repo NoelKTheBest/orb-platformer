@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://kkueatgklyxj"]
+
+[ext_resource type="Script" uid="uid://f3ysd50r2fs2" path="res://prototype_2/spawn_point.gd" id="1_q1l7g"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="1_xsa6h"]
+
+[sub_resource type="Animation" id="Animation_q1l7g"]
+resource_name = "countdown"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [" 5", " 4", " 3", " 2", " 1", " 0", ""]
+}
+
+[sub_resource type="Animation" id="Animation_x5iy7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [" 5"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5qq67"]
+_data = {
+&"RESET": SubResource("Animation_x5iy7"),
+&"countdown": SubResource("Animation_q1l7g")
+}
+
+[node name="EnemySpawnPoint" type="Node2D"]
+script = ExtResource("1_q1l7g")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -32.0
+offset_right = 25.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.265, 0.265)
+theme_override_font_sizes/font_size = 36
+text = " 5"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.98674756, 0, 0.30547532, 1)
+scale = Vector2(0.265, 0.265)
+texture = ExtResource("1_xsa6h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5qq67")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

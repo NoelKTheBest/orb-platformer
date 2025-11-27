@@ -3,12 +3,32 @@
 [ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="2_t48kh"]
+[ext_resource type="PackedScene" uid="uid://kkueatgklyxj" path="res://prototype_2/spawn_point.tscn" id="2_vad36"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yss4c"]
-[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="3_8wds2"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7x6nc")
+
+[node name="EnemySpawnPoint" parent="." instance=ExtResource("2_vad36")]
+position = Vector2(169, 535)
+scale = Vector2(0.265, 0.265)
+
+[node name="EnemySpawnPoint2" parent="." instance=ExtResource("2_vad36")]
+position = Vector2(570, 535)
+scale = Vector2(0.265, 0.265)
+
+[node name="EnemySpawnPoint3" parent="." instance=ExtResource("2_vad36")]
+position = Vector2(1056, 535)
+scale = Vector2(0.265, 0.265)
+
+[node name="EnemySpawnPoint4" parent="." instance=ExtResource("2_vad36")]
+position = Vector2(1527, 535)
+scale = Vector2(0.265, 0.265)
+
+[node name="EnemySpawnPoint5" parent="." instance=ExtResource("2_vad36")]
+position = Vector2(1951, 535)
+scale = Vector2(0.265, 0.265)
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yss4c")]
 position = Vector2(2136, 451.00003)
@@ -16,22 +36,6 @@ scale = Vector2(0.31, 3.1)
 
 [node name="Player" parent="." instance=ExtResource("1_d82v5")]
 position = Vector2(67, 520)
-
-[node name="EnemySpawnLocation1" type="Node2D" parent="Player"]
-position = Vector2(-69, -28)
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/EnemySpawnLocation1"]
-modulate = Color(1, 0.04000002, 0.04000002, 1)
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("3_8wds2")
-
-[node name="EnemySpawnLocation2" type="Node2D" parent="Player"]
-position = Vector2(277, -78)
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/EnemySpawnLocation2"]
-modulate = Color(1, 0.04000002, 0.04000002, 1)
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("3_8wds2")
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("2_t48kh")]
 z_index = -1
@@ -73,12 +77,17 @@ one_shot = true
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(581, 327)
 
+[node name="EnemySpawnInterval" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
+[connection signal="timeout" from="EnemySpawnInterval" to="." method="_on_enemy_spawn_interval_timeout"]
 
 [editable path="Enemy2"]
 [editable path="Enemy3"]
