@@ -31,11 +31,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	enemies_on_screen = get_tree().get_nodes_in_group("Enemy").filter(enemy_is_visible)
-	print(enemies_on_screen)
+	#print(enemies_on_screen)
 	if player_is_ready and !player_is_dead:
 		#print("hello from the player")
 		for enemy in enemies_on_screen:
 			enemy.player_position = $Player.position
+			print("player's position: ", $Player.position)
 
 
 func enemy_is_visible(enemy):
@@ -92,11 +93,12 @@ func _on_player_player_is_ready() -> void:
 func _on_enemy_spawn_interval_timeout() -> void:
 	var small = 100000000000000
 	var i = 0
-	for spawn_point in enemy_spawn_points:
-		if spawn_point.position.distance_to($Player.position) < small:
-			small = spawn_point.position.distance_to($Player.position)
-			espi = i
-			i += 1
+	if !player_is_dead:
+		for spawn_point in enemy_spawn_points:
+			if spawn_point.position.distance_squared_to($Player.position) < small:
+				small = spawn_point.position.distance_squared_to($Player.position)
+				espi = i
+				i += 1
 		
 	enemy_spawn_points[espi].play_countdown_timer()
 	if total_enemies_spawned < 15: 

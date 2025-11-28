@@ -11,24 +11,19 @@
 script = ExtResource("1_7x6nc")
 
 [node name="EnemySpawnPoint" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(169, 535)
-scale = Vector2(0.265, 0.265)
+position = Vector2(169, 534)
 
 [node name="EnemySpawnPoint2" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(570, 535)
-scale = Vector2(0.265, 0.265)
+position = Vector2(570, 534)
 
 [node name="EnemySpawnPoint3" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(1056, 535)
-scale = Vector2(0.265, 0.265)
+position = Vector2(1056, 534)
 
 [node name="EnemySpawnPoint4" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(1527, 535)
-scale = Vector2(0.265, 0.265)
+position = Vector2(1527, 534)
 
 [node name="EnemySpawnPoint5" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(1951, 535)
-scale = Vector2(0.265, 0.265)
+position = Vector2(1951, 534)
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yss4c")]
 position = Vector2(2136, 451.00003)
@@ -78,7 +73,7 @@ one_shot = true
 position = Vector2(581, 327)
 
 [node name="EnemySpawnInterval" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
@@ -88,7 +83,3 @@ one_shot = true
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnInterval" to="." method="_on_enemy_spawn_interval_timeout"]
-
-[editable path="Enemy2"]
-[editable path="Enemy3"]
-[editable path="Enemy4"]

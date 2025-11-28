@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var anti_gravity_timer: Timer = $AntiGravityTimer
 @onready var path_1: Path2D = $Path1
+@onready var health_bar: Control = $HealthBar
 
 ## The distance from the enemy at which the camera will focus on the player
 @export var player_camera_focus_range : float = 132551.375
@@ -35,6 +36,7 @@ var cycle_active = false
 var no_energy = false
 var are_we_ready = false
 var ready_signal_emitted = false
+var health = 3
 
 
 func _process(delta: float) -> void:
@@ -178,7 +180,14 @@ func reset_camera_follow():
 
 
 func _on_hurtbox_player_was_hit() -> void:
-	die()
+	print(health)
+	health -= 1
+	print(health)
+	health_bar.update_health(health)
+	if health == 0:
+		print("i died?")
+		health_bar.update_health(health)
+		die()
 
 
 func die():

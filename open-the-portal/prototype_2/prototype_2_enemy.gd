@@ -44,6 +44,7 @@ func _physics_process(delta: float) -> void:
 		# When the player enters the first bubble, enemy movement is triggered
 		#	The enemy will always move when the player is inside the first bubble
 		if player_position: monitor_player_position = true
+		print("enemy's player position: ", player_position)
 		
 		if monitor_player_position:
 			var _direction
@@ -121,10 +122,10 @@ func _on_player_detection_area_body_exited(body: Node2D) -> void:
 
 
 func _on_player_attack_area_body_entered(body: Node2D) -> void:
-	print("attack?")
+	#print("attack?")
 	if body.is_in_group("Player"):
 		attacking = true
-		print("attack")
+		#print("attack")
 
 
 func _on_player_attack_area_body_exited(body: Node2D) -> void:
