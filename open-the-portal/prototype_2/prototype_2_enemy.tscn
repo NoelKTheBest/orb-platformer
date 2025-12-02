@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://df87nlvinfr3e"]
+[gd_scene load_steps=22 format=3 uid="uid://df87nlvinfr3e"]
 
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_l4rn7"]
 [ext_resource type="Script" uid="uid://cstnu23es7t04" path="res://prototype_2/prototype_2_enemy.gd" id="1_wgi8n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://@Platformer/Jump.png" id="4_ekeel"]
 [ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="5_gvlb3"]
 [ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="6_ul28n"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_m4bds"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -425,6 +426,7 @@ scale = Vector2(1, 1.1)
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+z_index = 17
 shape = SubResource("CircleShape2D_ixaej")
 debug_color = Color(0, 0.595, 0.7, 0)
 
@@ -449,6 +451,10 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_0uyh1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.035, 0.035)
+texture = ExtResource("8_m4bds")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
