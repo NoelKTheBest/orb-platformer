@@ -1,56 +1,77 @@
 extends Node2D
 
-@onready var enemy_spawn_point: Node2D = $EnemySpawnPoint
-@onready var enemy_spawn_point_2: Node2D = $EnemySpawnPoint2
-@onready var enemy_spawn_point_3: Node2D = $EnemySpawnPoint3
-@onready var enemy_spawn_point_4: Node2D = $EnemySpawnPoint4
-@onready var enemy_spawn_point_5: Node2D = $EnemySpawnPoint5
 @onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
+@onready var player: CharacterBody2D = $Player
+@onready var lwp: Node2D = $LeftWallPosition
+@onready var rwp: Node2D = $RightWallPosition
 
 var enemy_scene = preload("res://prototype_2/prototype_2_enemy.tscn")
+var godotbot = preload("res://icon.svg")
 var enemies_on_screen
 var enemies_affected_by_anti_g = []
-var enemy_spawn_points = []
+var enemy_spawn_point1: Vector2
+var enemy_spawn_point2: Vector2
 var espi : int = 0
 var spawn_toggle = 0
 var player_is_ready = false
 var player_is_dead = false
-#var delta_total_time : float = 0.0
 var total_number_of_enemies = 15
 var total_enemies_spawned
+var sprite1
+var sprite2
+@export var sp_spacing = 80
+@export var visible_sp = true
+var sp_toggle = 0
+var level_rect
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	total_enemies_spawned = get_tree().get_nodes_in_group("Enemy").size()
-	enemy_spawn_points = [enemy_spawn_point, enemy_spawn_point_2, enemy_spawn_point_3, enemy_spawn_point_4, enemy_spawn_point_5]
-	#for spawn_point in enemy_spawn_points:
-		#spawn_point.connect("countdown_finished", spawn_enemy)
+	sprite1 = Sprite2D.new()
+	sprite2 = Sprite2D.new()
+	add_child(sprite1)
+	add_child(sprite2)
+	sprite1.scale = Vector2(0.09, 0.09)
+	sprite2.scale = Vector2(0.09, 0.09)
+	sprite1.texture = godotbot
+	sprite2.texture = godotbot
+	level_rect = $Area2D/CollisionShape2D.shape.get_rect()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	enemies_on_screen = get_tree().get_nodes_in_group("Enemy").filter(enemy_is_visible)
-	#print(enemies_on_screen)
+	
 	if player_is_ready and !player_is_dead:
-		#print("hello from the player")
-		for enemy in enemies_on_screen:
-			enemy.player_position = $Player.position
-			print("player's position: ", $Player.position)
+		var enemies = get_tree().get_nodes_in_group("Enemy")
+		for enemy in enemies:
+			enemy.monitor_player_position = true
+			enemy.player_position = player.position
+	
+	if !player_is_dead:
+		enemy_spawn_point1 = player.position - Vector2(sp_spacing, 5)
+		enemy_spawn_point2 = player.position + Vector2(sp_spacing, -5)
+		
+		if (player.position.x - lwp.position.x) < sp_spacing:
+			var x = (player.position.x - lwp.position.x) / 2
+			enemy_spawn_point1 = Vector2(x, enemy_spawn_point1.y)
+		if (rwp.position.x - player.position.x) < sp_spacing:
+			var x = (rwp.position.x - player.position.x) / 2 + player.position.x
+			enemy_spawn_point2 = Vector2(x, enemy_spawn_point2.y)
+		sprite1.position = enemy_spawn_point1
+		sprite2.position = enemy_spawn_point2
+	
+	if visible_sp:
+		sprite1.visible = true
+		sprite2.visible = true
+	else:
+		sprite1.visible = false
+		sprite2.visible = false
 
 
 func enemy_is_visible(enemy):
 	if enemy.visible_on_screen_notifier_2d.is_on_screen(): return enemy
-
-
-#func spawn_enemy():
-	#var new_enemy = enemy_scene.instantiate()
-	#enemy_spawn_points[espi].add_child(new_enemy)
-	#espi += 1
-	#if espi > enemy_spawn_points.size() - 1:
-		#espi = 0
-	#
-	#enemy_spawn_points[espi].play_countdown_timer()
 
 
 func _on_player_anti_gravity_zone_created() -> void:
@@ -91,18 +112,21 @@ func _on_player_player_is_ready() -> void:
 
 
 func _on_enemy_spawn_interval_timeout() -> void:
-	var small = 100000000000000
-	var i = 0
+	var new_enemy = enemy_scene.instantiate()
 	if !player_is_dead:
-		for spawn_point in enemy_spawn_points:
-			if spawn_point.position.distance_squared_to($Player.position) < small:
-				small = spawn_point.position.distance_squared_to($Player.position)
-				espi = i
-				i += 1
-		
-	enemy_spawn_points[espi].play_countdown_timer()
+		match sp_toggle:
+			0:
+				add_child(new_enemy)
+				new_enemy.position = enemy_spawn_point1
+				sp_toggle = 1 - sp_toggle
+			1:
+				add_child(new_enemy)
+				new_enemy.position = enemy_spawn_point2
+				sp_toggle = 1 - sp_toggle
+	
 	if total_enemies_spawned < 15: 
 		total_enemies_spawned += 1
 		$EnemySpawnInterval.start()
+		print("Enemies left: ", 15 - total_enemies_spawned)
 	else:
 		pass
