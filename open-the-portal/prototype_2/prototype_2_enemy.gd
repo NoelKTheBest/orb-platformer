@@ -14,7 +14,7 @@ signal enemy_died()
 @export var zero_gravity_deceleration : int
 
 var monitor_player_position = false
-var player_position
+var player_position = Vector2.ZERO
 var attacking :  bool
 var on_cooldown : bool
 var in_anti_gravity_zone = false
@@ -22,11 +22,13 @@ var zero_gravity_decel_easing : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player_position = position
+	monitor_player_position = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	$Sprite2D2.position = player_position
+	
 	if !anim_player.is_playing(): anim_player.play("idle")
 	if velocity.x < 0: 
 		sprite.flip_h = true
@@ -43,8 +45,8 @@ func _physics_process(delta: float) -> void:
 		
 		# When the player enters the first bubble, enemy movement is triggered
 		#	The enemy will always move when the player is inside the first bubble
-		if player_position: monitor_player_position = true
-		print("enemy's player position: ", player_position)
+		#if player_position: monitor_player_position = true
+		#print("enemy's player position: ", player_position)
 		
 		if monitor_player_position:
 			var _direction
@@ -112,13 +114,15 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 
 func _on_player_detection_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		monitor_player_position = true
+	#if body.is_in_group("Player"):
+		#monitor_player_position = true
+	pass
 
 
 func _on_player_detection_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		monitor_player_position = false
+	#if body.is_in_group("Player"):
+		#monitor_player_position = false
+	pass
 
 
 func _on_player_attack_area_body_entered(body: Node2D) -> void:
