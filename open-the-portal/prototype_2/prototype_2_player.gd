@@ -180,12 +180,9 @@ func reset_camera_follow():
 
 
 func _on_hurtbox_player_was_hit() -> void:
-	print(health)
 	health -= 1
-	print(health)
 	health_bar.update_health(health)
 	if health == 0:
-		print("i died?")
 		health_bar.update_health(health)
 		die()
 
