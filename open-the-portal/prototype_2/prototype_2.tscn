@@ -3,27 +3,15 @@
 [ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="2_t48kh"]
-[ext_resource type="PackedScene" uid="uid://kkueatgklyxj" path="res://prototype_2/spawn_point.tscn" id="2_vad36"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yss4c"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
+size = Vector2(2093, 198)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7x6nc")
-
-[node name="EnemySpawnPoint" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(169, 534)
-
-[node name="EnemySpawnPoint2" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(570, 534)
-
-[node name="EnemySpawnPoint3" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(1056, 534)
-
-[node name="EnemySpawnPoint4" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(1527, 534)
-
-[node name="EnemySpawnPoint5" parent="." instance=ExtResource("2_vad36")]
-position = Vector2(1951, 534)
+sp_spacing = 218
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yss4c")]
 position = Vector2(2136, 451.00003)
@@ -73,8 +61,21 @@ one_shot = true
 position = Vector2(581, 327)
 
 [node name="EnemySpawnInterval" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(1068.5, 452)
+shape = SubResource("RectangleShape2D_8wds2")
+
+[node name="LeftWallPosition" type="Node2D" parent="."]
+position = Vector2(22, 450)
+
+[node name="RightWallPosition" type="Node2D" parent="."]
+position = Vector2(2115, 450)
 
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
