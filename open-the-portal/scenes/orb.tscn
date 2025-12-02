@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmatmww6hklyv"]
+[gd_scene load_steps=5 format=3 uid="uid://dmatmww6hklyv"]
 
 [ext_resource type="Script" uid="uid://dsdheyvs6gtg0" path="res://scripts/orb.gd" id="1_5m8ip"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_yk28i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jl1vc"]
 radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ubfm6"]
+radius = 11.0
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["Orbs"]]
 collision_layer = 32
@@ -30,7 +33,17 @@ scale = Vector2(0.8, 0.8)
 one_shot = true
 autostart = true
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ubfm6")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
