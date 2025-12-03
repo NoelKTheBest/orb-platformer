@@ -126,10 +126,8 @@ func _on_player_detection_area_body_exited(body: Node2D) -> void:
 
 
 func _on_player_attack_area_body_entered(body: Node2D) -> void:
-	#print("attack?")
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and monitor_player_position:
 		attacking = true
-		#print("attack")
 
 
 func _on_player_attack_area_body_exited(body: Node2D) -> void:
