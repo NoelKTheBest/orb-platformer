@@ -18,6 +18,7 @@ extends CharacterBody2D
 @export var launch_velocity : int
 @export var influence_factor : Vector2 = Vector2.ONE
 @export var energy_consumption : int = 30
+@export var knockback: Vector2
 
 signal orb_was_fired
 signal player_died
@@ -37,6 +38,7 @@ var no_energy = false
 var are_we_ready = false
 var ready_signal_emitted = false
 var health = 3
+var was_hit = false
 
 
 func _process(delta: float) -> void:
@@ -72,54 +74,58 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor():
-		anti_gravity_zone_created.emit()
-		launch()
-		are_we_ready = true
-	
-	if !in_anti_gravity_zone:
-		# Add the gravity.
-		if not is_on_floor():
-			if velocity.y > 0: 
-				velocity += get_gravity() * fall_velocity_factor * delta
+	if !was_hit:
+		if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor():
+			anti_gravity_zone_created.emit()
+			launch()
+			are_we_ready = true
+		
+		if !in_anti_gravity_zone:
+			# Add the gravity.
+			if not is_on_floor():
+				if velocity.y > 0: 
+					velocity += get_gravity() * fall_velocity_factor * delta
+				else:
+					velocity += get_gravity() * delta
+					
+
+			# Handle jump.
+			if Input.is_action_just_pressed("ui_accept"):
+				jump_buffer_timer.start()
+			
+			if is_on_floor() and jump_buffer_timer.time_left > 0:
+				velocity.y = JUMP_VELOCITY
+				jump_buffer_timer.stop()
+
+			# Get the input direction and handle the movement/deceleration.
+			# As good practice, you should replace UI actions with custom gameplay actions.
+			var direction := Input.get_axis("move_left", "move_right")
+			if direction:
+				velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
+				if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
 			else:
-				velocity += get_gravity() * delta
-				
-
-		# Handle jump.
-		if Input.is_action_just_pressed("ui_accept"):
-			jump_buffer_timer.start()
-		
-		if is_on_floor() and jump_buffer_timer.time_left > 0:
-			velocity.y = JUMP_VELOCITY
-			jump_buffer_timer.stop()
-
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("move_left", "move_right")
-		if direction:
-			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
-			if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
+				velocity.x = move_toward(velocity.x, 0, accel)
+				if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
+			
+			if direction < 0: sprite_2d.flip_h = true 
+			elif direction > 0: sprite_2d.flip_h = false
+			
+			if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
+			if velocity.y > 0:
+				#print(velocity.y)
+				$AnimationPlayer.play("Player_Movement/fall")
+			
+			#print(velocity.x)
+			move_and_slide()
 		else:
-			velocity.x = move_toward(velocity.x, 0, accel)
-			if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
-		
-		if direction < 0: sprite_2d.flip_h = true 
-		elif direction > 0: sprite_2d.flip_h = false
-		
-		if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
-		if velocity.y > 0:
-			#print(velocity.y)
-			$AnimationPlayer.play("Player_Movement/fall")
-		
-		#print(velocity.x)
-		move_and_slide()
+			velocity.y = -launch_velocity
+			#print(launch_velocity)
+			var x_direction = Input.get_axis("move_left", "move_right")
+			var y_direction = Input.get_axis("move_up", "move_down")
+			velocity += Vector2(x_direction, y_direction) * influence_factor
+			move_and_slide()
 	else:
-		velocity.y = -launch_velocity
-		#print(launch_velocity)
-		var x_direction = Input.get_axis("move_left", "move_right")
-		var y_direction = Input.get_axis("move_up", "move_down")
-		velocity += Vector2(x_direction, y_direction) * influence_factor
+		
 		move_and_slide()
 
 
@@ -179,7 +185,13 @@ func reset_camera_follow():
 	enemy_pos = position
 
 
-func _on_hurtbox_player_was_hit() -> void:
+func _on_hurtbox_player_was_hit(collision_vector: Vector2) -> void:
+	$CameraFollow/Camera2D.apply_shake()
+	set_collision_layer_value(1, false)
+	was_hit = true
+	$AnimationPlayer.play("hit")
+	velocity.x = collision_vector.normalized().x * knockback.x
+	velocity.y = -knockback.y
 	health -= 1
 	health_bar.update_health(health)
 	if health == 0:
@@ -201,3 +213,9 @@ func _on_path_1_cycle_finished() -> void:
 
 func _on_path_1_progress_updated() -> void:
 	spawn_orb()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "hit":
+		set_collision_layer_value(1, true)
+		was_hit = false
