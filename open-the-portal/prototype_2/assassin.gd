@@ -6,6 +6,7 @@ signal enemy_died()
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var player_attack_area: Area2D = $PlayerAttackArea
 
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
@@ -20,6 +21,8 @@ var on_cooldown : bool
 var in_anti_gravity_zone = false
 var zero_gravity_decel_easing : float
 var attack_count = 0
+var attack_anim_playing
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,10 +36,12 @@ func _process(_delta: float) -> void:
 	if !anim_player.is_playing(): anim_player.play("idle")
 	if velocity.x < 0: 
 		sprite.flip_h = true
-		$Hitbox.position = Vector2(-18, 3)
+		$Hitbox.position = Vector2(-14, 1)
+		player_attack_area.position = Vector2(2, 0)
 	elif velocity.x > 0: 
 		sprite.flip_h = false
-		$Hitbox.position = Vector2(18, 3)
+		$Hitbox.position = Vector2(17, 1)
+		player_attack_area.position = Vector2.ZERO
 
 
 func _physics_process(delta: float) -> void:
@@ -61,21 +66,29 @@ func _physics_process(delta: float) -> void:
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
-		if !attacking:
+		if !player_attack_area.has_overlapping_bodies() and !attacking:
 			if velocity.x != 0:
 				anim_player.play("run")
 			elif velocity.x == 0:
 				anim_player.play("idle")
 			$Hitbox.visible = false
 			$Hitbox.set_collision_layer_value(1, false)
-		else:
+		elif player_attack_area.has_overlapping_bodies() and monitor_player_position:
 			if !on_cooldown:
+				#anim_player.play('block')
 				if attack_count < 3:
 					anim_player.play('block')
-					attack_count += 1
+					attacking = true
+					#attack_count += 1
+					#print(attack_count)
 				elif attack_count == 3:
-					anim_player.play()
-					attack_count = 0
+					anim_player.play("cross_slice")
+					attacking = true
+					#attack_count = 0
+					#print(attack_count)
+		
+		#if attacking and !player_attack_area.has_overlapping_bodies():
+			#attacking = false
 		
 		move_and_slide()
 	else:
@@ -131,21 +144,28 @@ func _on_player_detection_area_body_exited(body: Node2D) -> void:
 
 
 func _on_player_attack_area_body_entered(body: Node2D) -> void:
-	#print("attack?")
-	if body.is_in_group("Player"):
-		attacking = true
-		#print("attack")
+	#if body.is_in_group("Player") and monitor_player_position:
+		#attacking = true
+		pass
 
 
 func _on_player_attack_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		attacking = false
+	#if body.is_in_group("Player") and (anim_player.current_animation != "block"):
+		#attacking = false
+		pass
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "block":
 		$Timer.start()
 		on_cooldown = true
+		attacking = false
+		if attack_count < 3: attack_count += 1
+	elif anim_name == "cross_slice":
+		$Timer.start()
+		on_cooldown = true
+		attacking = false
+		attack_count = 0
 
 
 func _on_timer_timeout() -> void:

@@ -40,18 +40,6 @@ scale = Vector2(110.039986, 4.96)
 process_callback = 0
 one_shot = true
 
-[node name="Enemy2" parent="." instance=ExtResource("4_7x6nc")]
-position = Vector2(199, 447)
-metadata/_edit_group_ = true
-
-[node name="Enemy3" parent="." instance=ExtResource("4_7x6nc")]
-position = Vector2(650, 503)
-metadata/_edit_group_ = true
-
-[node name="Enemy4" parent="." instance=ExtResource("4_7x6nc")]
-position = Vector2(739, 432)
-metadata/_edit_group_ = true
-
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -78,8 +66,11 @@ position = Vector2(22, 450)
 [node name="RightWallPosition" type="Node2D" parent="."]
 position = Vector2(2115, 450)
 
+[node name="Enemy" parent="." instance=ExtResource("4_7x6nc")]
+position = Vector2(572.2534, 472.39993)
+
 [node name="Assassin" parent="." instance=ExtResource("6_yss4c")]
-position = Vector2(471.24832, 463.80988)
+position = Vector2(409.2783, 482.7426)
 
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

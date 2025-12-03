@@ -15,7 +15,7 @@ var espi : int = 0
 var spawn_toggle = 0
 var player_is_ready = false
 var player_is_dead = false
-var total_number_of_enemies = 15
+var total_number_of_enemies = 2
 var total_enemies_spawned
 var sprite1
 var sprite2
@@ -112,21 +112,22 @@ func _on_player_player_is_ready() -> void:
 
 
 func _on_enemy_spawn_interval_timeout() -> void:
-	var new_enemy = enemy_scene.instantiate()
-	if !player_is_dead:
-		match sp_toggle:
-			0:
-				add_child(new_enemy)
-				new_enemy.position = enemy_spawn_point1
-				sp_toggle = 1 - sp_toggle
-			1:
-				add_child(new_enemy)
-				new_enemy.position = enemy_spawn_point2
-				sp_toggle = 1 - sp_toggle
-	
-	if total_enemies_spawned < 15: 
-		total_enemies_spawned += 1
-		$EnemySpawnInterval.start()
-		print("Enemies left: ", 15 - total_enemies_spawned)
-	else:
-		pass
+	if total_enemies_spawned != total_number_of_enemies:
+		var new_enemy = enemy_scene.instantiate()
+		if !player_is_dead:
+			match sp_toggle:
+				0:
+					add_child(new_enemy)
+					new_enemy.position = enemy_spawn_point1
+					sp_toggle = 1 - sp_toggle
+				1:
+					add_child(new_enemy)
+					new_enemy.position = enemy_spawn_point2
+					sp_toggle = 1 - sp_toggle
+		
+		if total_enemies_spawned < total_number_of_enemies: 
+			total_enemies_spawned += 1
+			$EnemySpawnInterval.start()
+			print("Enemies left: ", total_number_of_enemies - total_enemies_spawned)
+		else:
+			pass
