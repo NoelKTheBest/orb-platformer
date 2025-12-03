@@ -1,11 +1,13 @@
 extends Node2D
 
-@onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
-@onready var player: CharacterBody2D = $Player
-@onready var lwp: Node2D = $LeftWallPosition
-@onready var rwp: Node2D = $RightWallPosition
+@export var sp_spacing = 80
+@export var visible_sp = true
+@export var total_number_of_enemy_1: int
+@export var enemy_2_mod: int = 3
+@export var total_number_of_enemies: int = 15
 
 var enemy_scene = preload("res://prototype_2/prototype_2_enemy.tscn")
+var assassin = preload("res://prototype_2/assassin.tscn")
 var godotbot = preload("res://icon.svg")
 var enemies_on_screen
 var enemies_affected_by_anti_g = []
@@ -15,19 +17,24 @@ var espi : int = 0
 var spawn_toggle = 0
 var player_is_ready = false
 var player_is_dead = false
-var total_number_of_enemies = 2
 var total_enemies_spawned
 var sprite1
 var sprite2
-@export var sp_spacing = 80
-@export var visible_sp = true
 var sp_toggle = 0
 var level_rect
+var enemy_2_mod_rem
+
+@onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
+@onready var player: CharacterBody2D = $Player
+@onready var lwp: Node2D = $LeftWallPosition
+@onready var rwp: Node2D = $RightWallPosition
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	total_enemies_spawned = get_tree().get_nodes_in_group("Enemy").size()
+	print("total_enemies_spawned % total_number_of_enemy_2: ", total_enemies_spawned % enemy_2_mod)
+	enemy_2_mod_rem = total_enemies_spawned % enemy_2_mod
 	sprite1 = Sprite2D.new()
 	sprite2 = Sprite2D.new()
 	add_child(sprite1)
@@ -113,7 +120,12 @@ func _on_player_player_is_ready() -> void:
 
 func _on_enemy_spawn_interval_timeout() -> void:
 	if total_enemies_spawned != total_number_of_enemies:
-		var new_enemy = enemy_scene.instantiate()
+		var new_enemy
+		if total_enemies_spawned % enemy_2_mod == enemy_2_mod_rem:
+			new_enemy = assassin.instantiate()
+		else:
+			new_enemy = enemy_scene.instantiate()
+		
 		if !player_is_dead:
 			match sp_toggle:
 				0:

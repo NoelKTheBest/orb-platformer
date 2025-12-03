@@ -128,31 +128,8 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs"):
+		body.queue_free()
 		die()
-
-
-func _on_player_detection_area_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("Player"):
-		#monitor_player_position = true
-	pass
-
-
-func _on_player_detection_area_body_exited(body: Node2D) -> void:
-	#if body.is_in_group("Player"):
-		#monitor_player_position = false
-	pass
-
-
-func _on_player_attack_area_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("Player") and monitor_player_position:
-		#attacking = true
-		pass
-
-
-func _on_player_attack_area_body_exited(body: Node2D) -> void:
-	#if body.is_in_group("Player") and (anim_player.current_animation != "block"):
-		#attacking = false
-		pass
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
