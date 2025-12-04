@@ -32,6 +32,7 @@ var enemy_2_mod_rem
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#Engine.time_scale = 0.5
 	total_enemies_spawned = get_tree().get_nodes_in_group("Enemy").size()
 	print("total_enemies_spawned % total_number_of_enemy_2: ", total_enemies_spawned % enemy_2_mod)
 	enemy_2_mod_rem = total_enemies_spawned % enemy_2_mod
