@@ -565,6 +565,7 @@ size = Vector2(9, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 70
+platform_floor_layers = 4294967293
 script = ExtResource("1_3hypu")
 accel = 25
 fall_velocity_factor = 2.53
@@ -574,9 +575,11 @@ energy_consumption = 150
 knockback = Vector2(100, 15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.4, 0.4, 0.4, 1)
 texture = ExtResource("2_66ah0")
 hframes = 2
 
@@ -646,6 +649,7 @@ scale = Vector2(0.046875, 0.046875)
 texture = ExtResource("6_5wh2a")
 
 [node name="Path1" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_5lvp3")
 script = ExtResource("7_66ah0")
 
@@ -665,6 +669,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="LeftEnemyDetection" type="Area2D" parent="."]
+visible = false
 position = Vector2(-88, 0)
 collision_layer = 0
 collision_mask = 2
@@ -678,6 +683,7 @@ shape = SubResource("RectangleShape2D_x6ccw")
 debug_color = Color(0.583333, 0, 0.7, 0.211765)
 
 [node name="RightEnemyDetection" type="Area2D" parent="."]
+visible = false
 position = Vector2(96, 0)
 collision_layer = 0
 collision_mask = 2
@@ -691,6 +697,7 @@ shape = SubResource("RectangleShape2D_2w886")
 debug_color = Color(0.7, 0.63, 0, 0.223529)
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 monitorable = false

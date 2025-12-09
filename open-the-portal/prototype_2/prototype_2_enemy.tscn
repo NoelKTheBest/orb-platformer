@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://df87nlvinfr3e"]
+[gd_scene load_steps=23 format=3 uid="uid://df87nlvinfr3e"]
 
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_l4rn7"]
 [ext_resource type="Script" uid="uid://cstnu23es7t04" path="res://prototype_2/prototype_2_enemy.gd" id="1_wgi8n"]
@@ -85,6 +85,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:walk_velocity")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_pfstr"]
@@ -367,6 +379,58 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_m4bds"]
+resource_name = "walk"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_gvlb3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:walk_velocity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-20.0, 0.0, 20.0, 0.0, -20.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wdrn2"]
 _data = {
 &"RESET": SubResource("Animation_g4peo"),
@@ -375,7 +439,8 @@ _data = {
 &"idle": SubResource("Animation_2ke4t"),
 &"jump": SubResource("Animation_efl2j"),
 &"run": SubResource("Animation_fkivj"),
-&"shoot orb": SubResource("Animation_aob03")
+&"shoot orb": SubResource("Animation_aob03"),
+&"walk": SubResource("Animation_m4bds")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drq3n"]
@@ -399,6 +464,7 @@ launch_velocity = -400
 zero_gravity_deceleration = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -412,6 +478,7 @@ libraries = {
 }
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 
@@ -426,6 +493,7 @@ scale = Vector2(1, 1.1)
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+visible = false
 z_index = 17
 shape = SubResource("CircleShape2D_ixaej")
 debug_color = Color(0, 0.595, 0.7, 0)
@@ -435,6 +503,7 @@ collision_layer = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
+visible = false
 shape = SubResource("CircleShape2D_ujjq1")
 debug_color = Color(0.96, 0, 0.0159998, 0)
 

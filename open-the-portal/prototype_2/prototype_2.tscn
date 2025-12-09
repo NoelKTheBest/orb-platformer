@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://iyrs8bhoid4b"]
+[gd_scene load_steps=11 format=3 uid="uid://iyrs8bhoid4b"]
 
 [ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
@@ -6,9 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yss4c"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_yss4c"]
+[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_vad36"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_kbs4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbs4a"]
+size = Vector2(310.00006, 325)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7x6nc")
@@ -19,16 +24,31 @@ position = Vector2(2136, 451.00003)
 scale = Vector2(0.31, 3.1)
 
 [node name="Player" parent="." instance=ExtResource("1_d82v5")]
-position = Vector2(67, 520)
+position = Vector2(240, 521)
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("2_t48kh")]
 z_index = -1
 position = Vector2(1059, 601.00006)
 scale = Vector2(110.039986, 4.96)
 
+[node name="StaticBody2D4" parent="." instance=ExtResource("2_t48kh")]
+z_index = -1
+position = Vector2(2120, 601.00006)
+scale = Vector2(39.745, 4.96)
+
+[node name="StaticBody2D5" parent="." instance=ExtResource("2_t48kh")]
+z_index = -1
+position = Vector2(2120, 303.00003)
+scale = Vector2(39.745, 4.96)
+
 [node name="StaticBody2D7" parent="." instance=ExtResource("2_t48kh")]
 z_index = -1
 position = Vector2(-10.000015, 453.00003)
+scale = Vector2(3.1810744, 15.826094)
+
+[node name="StaticBody2D8" parent="." instance=ExtResource("2_t48kh")]
+z_index = -1
+position = Vector2(2484.9998, 453.00003)
 scale = Vector2(3.1810744, 15.826094)
 
 [node name="StaticBody2D6" parent="." instance=ExtResource("2_t48kh")]
@@ -67,10 +87,52 @@ position = Vector2(22, 450)
 position = Vector2(2115, 450)
 
 [node name="Enemy" parent="." instance=ExtResource("4_7x6nc")]
-position = Vector2(572.2534, 472.39993)
+position = Vector2(683, 484)
 
 [node name="Assassin" parent="." instance=ExtResource("6_yss4c")]
 position = Vector2(409.2783, 482.7426)
+
+[node name="ForcefieldController" parent="." instance=ExtResource("7_vad36")]
+position = Vector2(2067, 517)
+
+[node name="ReturnPoint" type="Node2D" parent="."]
+position = Vector2(2095, 536)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ReturnPoint"]
+visible = false
+modulate = Color(0.116666794, 1, 0, 0.40392157)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("8_kbs4a")
+
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(2312, 454)
+collision_layer = 0
+monitorable = false
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+shape = SubResource("RectangleShape2D_kbs4a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -11.5
+offset_right = 35.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN"
+
+[node name="YouWinTimer" type="Timer" parent="."]
+wait_time = 5.0
 
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
@@ -79,3 +141,6 @@ position = Vector2(409.2783, 482.7426)
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnInterval" to="." method="_on_enemy_spawn_interval_timeout"]
+[connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]
+[connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
+[connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]

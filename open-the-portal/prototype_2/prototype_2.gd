@@ -18,11 +18,13 @@ var spawn_toggle = 0
 var player_is_ready = false
 var player_is_dead = false
 var total_enemies_spawned
+var num_enemy_left
 var sprite1
 var sprite2
 var sp_toggle = 0
 var level_rect
 var enemy_2_mod_rem
+var controller_is_dead = false
 
 @onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
 @onready var player: CharacterBody2D = $Player
@@ -34,7 +36,9 @@ var enemy_2_mod_rem
 func _ready() -> void:
 	#Engine.time_scale = 0.5
 	total_enemies_spawned = get_tree().get_nodes_in_group("Enemy").size()
-	print("total_enemies_spawned % total_number_of_enemy_2: ", total_enemies_spawned % enemy_2_mod)
+	num_enemy_left = total_number_of_enemies - total_enemies_spawned
+	print("enemies left: ", num_enemy_left)
+	#print("total_enemies_spawned % total_number_of_enemy_2: ", total_enemies_spawned % enemy_2_mod)
 	enemy_2_mod_rem = total_enemies_spawned % enemy_2_mod
 	sprite1 = Sprite2D.new()
 	sprite2 = Sprite2D.new()
@@ -56,6 +60,15 @@ func _process(_delta: float) -> void:
 		for enemy in enemies:
 			enemy.monitor_player_position = true
 			enemy.player_position = player.position
+			enemy.walking = false
+	
+	if !controller_is_dead:
+		$ForcefieldController.monitor_player_position = true
+		if !player_is_dead: $ForcefieldController.player_position = player.position
+		$ForcefieldController.number_of_enemies = get_tree().get_nodes_in_group("Enemy").size()
+		$ForcefieldController.return_point_x = $ReturnPoint.position.x
+	else:
+		if get_tree().get_nodes_in_group("Enemy").size() == 0 and $Forcefield != null: $Forcefield.queue_free()
 	
 	if !player_is_dead:
 		enemy_spawn_point1 = player.position - Vector2(sp_spacing, 5)
@@ -141,6 +154,22 @@ func _on_enemy_spawn_interval_timeout() -> void:
 		if total_enemies_spawned < total_number_of_enemies: 
 			total_enemies_spawned += 1
 			$EnemySpawnInterval.start()
-			print("Enemies left: ", total_number_of_enemies - total_enemies_spawned)
+			num_enemy_left = total_number_of_enemies - total_enemies_spawned
+			print("Enemies left: ", num_enemy_left)
 		else:
 			pass
+
+
+func _on_forcefield_controller_controller_dead() -> void:
+	controller_is_dead = true
+	if get_tree().get_nodes_in_group("Enemy").size() == 0: $Forcefield.queue_free()
+
+
+func _on_goal_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		$CanvasLayer/Label.visible = true
+		$YouWinTimer.start()
+
+
+func _on_you_win_timer_timeout() -> void:
+	get_tree().quit()

@@ -52,6 +52,7 @@ func _process(delta: float) -> void:
 				var new_orb = orb.instantiate()
 				
 				# Set properties before node is ready to have access to them
+				orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
 				new_orb.position = orb_spawn_position.position
 				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
 				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
@@ -62,11 +63,13 @@ func _process(delta: float) -> void:
 			
 			are_we_ready = true
 		
-		if Input.is_action_just_pressed("cycle_fire"):
-			spawn_orb()
-			$Path1.start_progression()
-			cycle_active = true
-			are_we_ready = true
+		#if Input.is_action_just_pressed("cycle_fire"):
+			#spawn_orb()
+			#$Path1.start_progression()
+			#cycle_active = true
+			#are_we_ready = true
+	
+	sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
 	
 	if are_we_ready and !ready_signal_emitted: 
 		player_is_ready.emit()
@@ -76,9 +79,10 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if !was_hit:
 		if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor():
-			anti_gravity_zone_created.emit()
-			launch()
-			are_we_ready = true
+			#anti_gravity_zone_created.emit()
+			#launch()
+			#are_we_ready = true
+			pass
 		
 		if !in_anti_gravity_zone:
 			# Add the gravity.
@@ -96,6 +100,9 @@ func _physics_process(delta: float) -> void:
 			if is_on_floor() and jump_buffer_timer.time_left > 0:
 				velocity.y = JUMP_VELOCITY
 				jump_buffer_timer.stop()
+			
+			if is_on_floor(): set_collision_mask_value(2, true)
+			else: set_collision_mask_value(2, false)
 
 			# Get the input direction and handle the movement/deceleration.
 			# As good practice, you should replace UI actions with custom gameplay actions.

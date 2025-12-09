@@ -12,6 +12,7 @@ signal enemy_died()
 @export var speed = 2
 @export var launch_velocity : int
 @export var zero_gravity_deceleration : int
+@export var walk_velocity: float
 
 var monitor_player_position = false
 var player_position = Vector2.ZERO
@@ -19,6 +20,7 @@ var attacking :  bool
 var on_cooldown : bool
 var in_anti_gravity_zone = false
 var zero_gravity_decel_easing : float
+var walking = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,26 +50,30 @@ func _physics_process(delta: float) -> void:
 		#if player_position: monitor_player_position = true
 		#print("enemy's player position: ", player_position)
 		
-		if monitor_player_position:
-			var _direction
-			var target_position = (player_position - position).normalized()
-			var _distance_to = position.distance_squared_to(player_position)
-			
-			velocity.x = target_position.x * speed
+		if !walking:
+			if monitor_player_position:
+				var _direction
+				var target_position = (player_position - position).normalized()
+				var _distance_to = position.distance_squared_to(player_position)
+				
+				velocity.x = target_position.x * speed
+			else:
+				velocity.x = move_toward(velocity.x, 0, speed)
 		else:
-			velocity.x = move_toward(velocity.x, 0, speed)
+			anim_player.play("walk")
+			velocity.x = walk_velocity * (speed / 30)
 
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
-		if !attacking:
+		if !attacking and !walking:
 			if velocity.x != 0:
 				anim_player.play("run")
 			elif velocity.x == 0:
 				anim_player.play("idle")
 			$Hitbox.visible = false
 			$Hitbox.set_collision_layer_value(1, false)
-		else:
+		elif !walking:
 			if !on_cooldown:
 				anim_player.play('block')
 		
