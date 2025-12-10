@@ -45,8 +45,8 @@ _data = {
 
 [node name="StaticBody2D" type="StaticBody2D"]
 scale = Vector2(1, 10)
-collision_layer = 35
-collision_mask = 0
+collision_layer = 3
+collision_mask = 32
 script = ExtResource("1_ixrj4")
 metadata/_edit_group_ = true
 

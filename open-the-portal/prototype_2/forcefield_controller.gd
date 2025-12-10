@@ -35,7 +35,7 @@ func _ready() -> void:
 	$BulletDetectionRange.set_collision_mask_value(6, true)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !animation_player.is_playing(): animation_player.play("idle")
 	
 	#if number_of_enemies < 3:
@@ -48,10 +48,10 @@ func _process(delta: float) -> void:
 			$Hitbox1.position = Vector2(28, 0)
 		
 		sprite_2d.position = Vector2(-17, -1) if sprite_2d.flip_h else Vector2(17, -1)
-		$BulletDetectionRange.set_collision_mask_value(6, true)
+		#$BulletDetectionRange.set_collision_mask_value(6, true)
 	elif velocity.x == 0:
 		sprite_2d.position = Vector2(-17, -1) if sprite_2d.flip_h else Vector2(17, -1)
-		$BulletDetectionRange.set_collision_mask_value(6, true)
+		#$BulletDetectionRange.set_collision_mask_value(6, true)
 	
 	if attacking: 
 		current_state = enemy_state.ATTACK3
@@ -144,12 +144,12 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		attacking = false
 		current_state = enemy_state.RECOVER
 		animation_player.play("recover")
-		$BulletDetectionRange.set_collision_mask_value(6, false)
+		#$BulletDetectionRange.set_collision_mask_value(6, false)
 	elif anim_name == "block":
 		current_state = enemy_state.IDLE
 	elif anim_name == "recover":
 		current_state = enemy_state.IDLE
-		$BulletDetectionRange.set_collision_mask_value(6, true)
+		#$BulletDetectionRange.set_collision_mask_value(6, true)
 
 
 func _on_timer_timeout() -> void:
@@ -168,10 +168,16 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 
 func _on_bullet_detection_range_body_entered(body: Node2D) -> void:
+	print(body.get_groups(), body.name)
 	if body.is_in_group("Orbs") and current_state != enemy_state.RECOVER:
 		current_state = enemy_state.BLOCK
 		animation_player.play("block")
-		$BulletDetectionRange.set_collision_mask_value(6, true)
+		#$BulletDetectionRange.set_collision_mask_value(6, true)
+	elif body.is_in_group("Power Orbs") and current_state != enemy_state.RECOVER:
+		current_state = enemy_state.ATTACK3
+		animation_player.play("attack_3")
+		animation_player.seek(0.2, true)
+		attacking = true
 
 
 func _on_recover_timer_timeout() -> void:
@@ -180,4 +186,5 @@ func _on_recover_timer_timeout() -> void:
 
 func _on_hitbox_1_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs"): body.queue_free()
+	if body.is_in_group("Power Orbs"): body.queue_free()
 	

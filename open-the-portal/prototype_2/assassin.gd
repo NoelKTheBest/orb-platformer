@@ -69,6 +69,7 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, 0, speed)
 		else:
 			anim_player.play("walk")
+			@warning_ignore("integer_division")
 			velocity.x = walk_velocity * (speed / 30)
 
 		# When the player enters the second bubble, the enemy begins it's attack cycle
@@ -136,6 +137,9 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs"):
+		body.queue_free()
+		die()
+	elif body.is_in_group("Power Orbs"):
 		body.queue_free()
 		die()
 

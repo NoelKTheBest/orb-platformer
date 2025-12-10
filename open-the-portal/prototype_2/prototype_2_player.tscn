@@ -572,6 +572,7 @@ fall_velocity_factor = 2.53
 launch_velocity = 5
 influence_factor = Vector2(2, 1.5)
 energy_consumption = 150
+power_energy_consumption = 190
 knockback = Vector2(100, 15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -601,6 +602,8 @@ position = Vector2(22, 0)
 wait_time = 0.295
 one_shot = true
 
+[node name="PowerSpawnTimer" type="Timer" parent="."]
+
 [node name="JumpBufferTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.07
@@ -623,6 +626,22 @@ offset_bottom = 23.0
 scale = Vector2(3.505, 3.505)
 text = "Energy
 "
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface"]
+offset_left = 2.3529434
+offset_top = -89.41174
+offset_right = 42.352943
+offset_bottom = -49.411743
+scale = Vector2(1.675, 1.675)
+color = Color(0, 0.29999995, 1, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="UserInterface"]
+offset_left = 87.05881
+offset_top = -89.41174
+offset_right = 127.05881
+offset_bottom = -49.411743
+scale = Vector2(1.675, 1.675)
+color = Color(1, 0, 0, 1)
 
 [node name="CameraFollow" type="Node2D" parent="."]
 
@@ -714,6 +733,7 @@ one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="PowerSpawnTimer" to="." method="_on_power_spawn_timer_timeout"]
 [connection signal="cycle_finished" from="Path1" to="." method="_on_path_1_cycle_finished"]
 [connection signal="progress_updated" from="Path1" to="." method="_on_path_1_progress_updated"]
 [connection signal="timeout" from="Path1/Timer" to="Path1" method="_on_timer_timeout"]

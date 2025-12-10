@@ -520,6 +520,10 @@ debug_color = Color(0, 0.26833323, 0.7, 0.10980392)
 
 [node name="BulletDetectionRange2" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetectionRange2"]
 shape = SubResource("CircleShape2D_mnccd")

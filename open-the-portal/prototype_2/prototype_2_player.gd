@@ -18,6 +18,7 @@ extends CharacterBody2D
 @export var launch_velocity : int
 @export var influence_factor : Vector2 = Vector2.ONE
 @export var energy_consumption : int = 30
+@export var power_energy_consumption : int = 50
 @export var knockback: Vector2
 
 signal orb_was_fired
@@ -30,8 +31,10 @@ const JUMP_VELOCITY = -400.0
 const ORB_VELOCITY = 400
 
 var orb = preload("res://scenes/orb.tscn")
+var power_orb = preload("res://scenes/power_orb.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
+var power_cooldown = false
 var in_anti_gravity_zone = false
 var cycle_active = false
 var no_energy = false
@@ -58,16 +61,33 @@ func _process(delta: float) -> void:
 				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
 				add_child(new_orb)
 				$SpawnTimer.start()
+				$UserInterface/ColorRect.visible = false
 				on_cooldown = true
 				orb_was_fired.emit()
 			
-			are_we_ready = true
+				are_we_ready = true
 		
 		#if Input.is_action_just_pressed("cycle_fire"):
 			#spawn_orb()
 			#$Path1.start_progression()
 			#cycle_active = true
 			#are_we_ready = true
+		if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
+			# Consume returns -1 if the 
+			if $UserInterface/EnergyBar.consume(power_energy_consumption) != -1:
+				var new_orb = power_orb.instantiate()
+				# Set properties before node is ready to have access to them
+				orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+				new_orb.position = orb_spawn_position.position
+				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
+				add_child(new_orb)
+				$PowerSpawnTimer.start()
+				$UserInterface/ColorRect2.visible = false
+				power_cooldown = true
+				orb_was_fired.emit()
+				
+				are_we_ready = true
 	
 	sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
 	
@@ -212,6 +232,7 @@ func die():
 
 func _on_spawn_timer_timeout() -> void:
 	on_cooldown = false
+	$UserInterface/ColorRect.visible = true
 
 
 func _on_path_1_cycle_finished() -> void:
@@ -226,3 +247,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "hit":
 		set_collision_layer_value(1, true)
 		was_hit = false
+
+
+func _on_power_spawn_timer_timeout() -> void:
+	power_cooldown = false
+	$UserInterface/ColorRect2.visible = true
