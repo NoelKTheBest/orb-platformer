@@ -28,8 +28,12 @@ We need tools to create enemy behaviour, levels using tilesets and parallax back
 # Story
 ## Main Character: KALA
 The main character of the game is called Kala. She is a young woman looking to get home from being in outer space. Her squad was completely wiped out by an enemy horde and now she has to use a unique ability of hers in order to escape with her life and reach the portal that will take her back to her home world of Zena. The enemy wants to unlock the secret of portal technology but can't read the documentation on the ship and need the mc to translate.
+## Enemy Language
+The enemies in the game will be speaking a different language from the player's language that they are playing in. As such, I will need to make a conlang for this game. JK I want to make a conlang and writing system because I am a nerd for languages. I'm not sure what the language should be based on, but I want it to have fun phrases and idioms.
 
 # Art
+I will be looking for placeholder assets for now until I have a team and if not, then I will edit the assets like a *talented* developer.
+
 ## Characters
 
 There will be basic enemies and commanders.
