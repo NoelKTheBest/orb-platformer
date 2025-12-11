@@ -32,7 +32,7 @@ The main character of the game is called Kala. She is a young woman looking to g
 The enemies in the game will be speaking a different language from the player's language that they are playing in. As such, I will need to make a conlang for this game. JK I want to make a conlang and writing system because I am a nerd for languages. I'm not sure what the language should be based on, but I want it to have fun phrases and idioms.
 
 # Art
-I will be looking for placeholder assets for now until I have a team and if not, then I will edit the assets like a *talented* developer.
+I will be looking for placeholder assets for now until I have a team and if not, then I will edit the assets.
 
 ## Characters
 
