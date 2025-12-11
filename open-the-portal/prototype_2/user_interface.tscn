@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7goqka2atf1i"]
 
-[ext_resource type="Script" uid="uid://cvsxjqu52ujl6" path="res://energy_bar.gd" id="1_kxhmu"]
+[ext_resource type="Script" uid="uid://cvsxjqu52ujl6" path="res://scripts/energy_bar.gd" id="1_kxhmu"]
 
 [node name="UserInterface" type="CanvasLayer"]
 

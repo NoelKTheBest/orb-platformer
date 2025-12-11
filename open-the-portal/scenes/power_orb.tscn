@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://6yc8ybsjmhbo"]
+[gd_scene load_steps=5 format=3 uid="uid://6yc8ybsjmhbo"]
 
 [ext_resource type="Script" uid="uid://dsdheyvs6gtg0" path="res://scripts/orb.gd" id="1_38u4j"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_he0nr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jl1vc"]
 radius = 2.6607537
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38u4j"]
+size = Vector2(54.055, 20)
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["Power Orbs"]]
 collision_layer = 32
@@ -31,6 +34,11 @@ rect = Rect2(-14.705881, -14.705881, 29.411762, 29.411762)
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_38u4j")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

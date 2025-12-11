@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cxkjcc3erp8bg"]
 
-[ext_resource type="Script" uid="uid://dmdype8hi6cv2" path="res://forcefield.gd" id="1_ixrj4"]
+[ext_resource type="Script" uid="uid://dmdype8hi6cv2" path="res://scripts/forcefield.gd" id="1_ixrj4"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_spr4x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4fkp"]
