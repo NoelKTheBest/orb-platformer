@@ -116,7 +116,8 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Orbs"):
+	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything:
+		body.has_bullet_hit_anything = true
 		body.queue_free()
 		die()
 	elif body.is_in_group("Power Orbs"):
