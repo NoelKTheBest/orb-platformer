@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="open the portal"
-run/main_scene="uid://iyrs8bhoid4b"
+run/main_scene="uid://de8asau4hrxnh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
