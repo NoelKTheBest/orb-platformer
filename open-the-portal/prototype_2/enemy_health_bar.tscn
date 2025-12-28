@@ -54,5 +54,3 @@ offset_bottom = -16.835007
 grow_vertical = 2
 scale = Vector2(1.235, 2.88)
 color = Color(0.20784314, 0.08627451, 0.32941177, 1)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
