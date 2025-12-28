@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var anti_gravity_timer: Timer = $AntiGravityTimer
 @onready var path_1: Path2D = $Path1
-@onready var health_bar: Control = $HealthBar
+@onready var health_bar: Control = $CanvasLayer/HealthBar
 
 ## The distance from the enemy at which the camera will focus on the player
 @export var player_camera_focus_range : float = 132551.375
@@ -42,6 +42,11 @@ var are_we_ready = false
 var ready_signal_emitted = false
 var health = 3
 var was_hit = false
+
+var anti_gravity_zone: Area2D
+
+func _ready() -> void:
+	print(self)
 
 
 func _process(delta: float) -> void:
@@ -98,11 +103,10 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if !was_hit:
-		if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor():
-			#anti_gravity_zone_created.emit()
-			#launch()
-			#are_we_ready = true
-			pass
+		if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor() and anti_gravity_zone.overlaps_body(self):
+			anti_gravity_zone_created.emit()
+			launch()
+			are_we_ready = true
 		
 		if !in_anti_gravity_zone:
 			# Add the gravity.
