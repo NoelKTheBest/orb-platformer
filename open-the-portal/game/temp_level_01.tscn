@@ -1,17 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=16 format=3 uid="uid://cja6tqq36itn2"]
 
-[ext_resource type="Script" uid="uid://b6xf3usuu6bpj" path="res://game/temp_level_01.gd" id="1_yohrl"]
-[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
-[ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="3_3m8ir"]
-[ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="4_s43bn"]
-[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="5_bvovn"]
-[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_7bxbr"]
-[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_4c045"]
-[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_ke71t"]
-[ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://pixelart_starfields/pixelart_starfield.png" id="9_j2cgl"]
-[ext_resource type="Texture2D" uid="uid://dkoy5ffj5yy86" path="res://pixelart_starfields/pixelart_starfield_corona.png" id="10_0bsed"]
-[ext_resource type="Texture2D" uid="uid://2kcerg3qjbue" path="res://pixelart_starfields/pixelart_starfield_diagonal_diffraction_spikes.png" id="11_0se6a"]
-[ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_yohrl"]
+[ext_resource type="Script" uid="uid://b6xf3usuu6bpj" path="res://game/temp_level_01.gd" id="1_kquf6"]
+[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_04b4n"]
+[ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="3_4b2yf"]
+[ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="4_7tnmp"]
+[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="5_obwew"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_ori8b"]
+[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_k012u"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_rluyb"]
+[ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://pixelart_starfields/pixelart_starfield.png" id="9_w6trw"]
+[ext_resource type="Texture2D" uid="uid://dkoy5ffj5yy86" path="res://pixelart_starfields/pixelart_starfield_corona.png" id="10_a2in8"]
+[ext_resource type="Texture2D" uid="uid://2kcerg3qjbue" path="res://pixelart_starfields/pixelart_starfield_diagonal_diffraction_spikes.png" id="11_k10st"]
+[ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_t20jl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -19,46 +19,109 @@ size = Vector2(2093, 198)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbs4a"]
 size = Vector2(310.00006, 325)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rtu8c"]
+radius = 27.166155
+
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_yohrl")
+script = ExtResource("1_kquf6")
 sp_spacing = 218
 
-[node name="Forcefield" parent="." instance=ExtResource("2_yohrl")]
+[node name="Node2D2" type="Node2D" parent="."]
+modulate = Color(2.4325802, 2.4325802, 2.4325802, 1)
+position = Vector2(467.40808, 435.95676)
+scale = Vector2(1.1, 1)
+metadata/_edit_group_ = true
+
+[node name="Back" type="Sprite2D" parent="Node2D2"]
+z_index = -2
+position = Vector2(-280.37097, 10.043243)
+texture = ExtResource("12_t20jl")
+
+[node name="Back2" type="Sprite2D" parent="Node2D2"]
+z_index = -2
+position = Vector2(39.62903, 10.043243)
+texture = ExtResource("12_t20jl")
+
+[node name="Node2D3" type="Node2D" parent="."]
+modulate = Color(2.4325802, 2.4325802, 2.4325802, 1)
+position = Vector2(2111, 453)
+scale = Vector2(1.1, 1)
+metadata/_edit_group_ = true
+
+[node name="Back" type="Sprite2D" parent="Node2D3"]
+z_index = -2
+position = Vector2(-280.37097, 10.043243)
+texture = ExtResource("12_t20jl")
+
+[node name="Back2" type="Sprite2D" parent="Node2D3"]
+z_index = -2
+position = Vector2(39.62903, 10.043243)
+texture = ExtResource("12_t20jl")
+
+[node name="Back3" type="Sprite2D" parent="Node2D3"]
+z_index = -2
+position = Vector2(359.62952, 10.043243)
+texture = ExtResource("12_t20jl")
+
+[node name="PixelartStarfield" type="Sprite2D" parent="."]
+modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
+z_index = -25
+position = Vector2(829, 468)
+texture = ExtResource("9_w6trw")
+
+[node name="PixelartStarfieldCorona" type="Sprite2D" parent="."]
+modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
+z_index = -25
+position = Vector2(1148, 468)
+texture = ExtResource("10_a2in8")
+
+[node name="PixelartStarfieldDiagonalDiffractionSpikes" type="Sprite2D" parent="."]
+modulate = Color(1.8247963, 1.8247963, 1.8247963, 1)
+z_index = -25
+position = Vector2(1467, 468)
+texture = ExtResource("11_k10st")
+
+[node name="Forcefield" parent="." instance=ExtResource("2_04b4n")]
 position = Vector2(2136, 451.00003)
 scale = Vector2(0.31, 3.1)
 
-[node name="Player" parent="." instance=ExtResource("3_3m8ir")]
+[node name="Player" parent="." instance=ExtResource("3_4b2yf")]
 position = Vector2(224, 508)
 
-[node name="StaticBody2D3" parent="." instance=ExtResource("4_s43bn")]
+[node name="StaticBody2D3" parent="." instance=ExtResource("4_7tnmp")]
 z_index = -1
 position = Vector2(1059, 601.00006)
 scale = Vector2(110.039986, 4.96)
 
-[node name="StaticBody2D4" parent="." instance=ExtResource("4_s43bn")]
+[node name="StaticBody2D4" parent="." instance=ExtResource("4_7tnmp")]
 z_index = -1
 position = Vector2(2120, 601.00006)
 scale = Vector2(39.745, 4.96)
 
-[node name="StaticBody2D5" parent="." instance=ExtResource("4_s43bn")]
+[node name="StaticBody2D5" parent="." instance=ExtResource("4_7tnmp")]
 z_index = -1
 position = Vector2(2120, 303.00003)
 scale = Vector2(39.745, 4.96)
 
-[node name="StaticBody2D7" parent="." instance=ExtResource("4_s43bn")]
+[node name="StaticBody2D7" parent="." instance=ExtResource("4_7tnmp")]
 z_index = -1
 position = Vector2(-10.000015, 453.00003)
 scale = Vector2(3.1810744, 15.826094)
 
-[node name="StaticBody2D8" parent="." instance=ExtResource("4_s43bn")]
+[node name="StaticBody2D8" parent="." instance=ExtResource("4_7tnmp")]
 z_index = -1
 position = Vector2(2484.9998, 453.00003)
 scale = Vector2(3.1810744, 15.826094)
 
-[node name="StaticBody2D6" parent="." instance=ExtResource("4_s43bn")]
+[node name="StaticBody2D6" parent="." instance=ExtResource("4_7tnmp")]
 z_index = -1
 position = Vector2(1060, 303)
 scale = Vector2(110.039986, 4.96)
+
+[node name="StaticBody2D9" parent="." instance=ExtResource("4_7tnmp")]
+z_index = -1
+position = Vector2(866.99994, 315)
+scale = Vector2(20.999985, 16.439999)
 
 [node name="ZeroGravityZoneTimer" type="Timer" parent="."]
 process_callback = 0
@@ -78,6 +141,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
@@ -90,13 +154,13 @@ position = Vector2(22, 450)
 [node name="RightWallPosition" type="Node2D" parent="."]
 position = Vector2(2115, 450)
 
-[node name="Enemy" parent="." instance=ExtResource("5_bvovn")]
-position = Vector2(683, 484)
+[node name="Enemy" parent="." instance=ExtResource("5_obwew")]
+position = Vector2(684, 494)
 
-[node name="Assassin" parent="." instance=ExtResource("6_7bxbr")]
+[node name="Assassin" parent="." instance=ExtResource("6_ori8b")]
 position = Vector2(409.2783, 482.7426)
 
-[node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
+[node name="ForcefieldController" parent="." instance=ExtResource("7_k012u")]
 position = Vector2(2067, 517)
 
 [node name="ReturnPoint" type="Node2D" parent="."]
@@ -107,7 +171,7 @@ metadata/_edit_group_ = true
 visible = false
 modulate = Color(0.116666794, 1, 0, 0.40392157)
 scale = Vector2(0.125, 0.125)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="Goal" type="Area2D" parent="."]
 position = Vector2(2312, 454)
@@ -148,52 +212,37 @@ scale = Vector2(24.703127, 4.546875)
 [node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
 position = Vector2(41.508377, 112.06466)
 scale = Vector2(1, 1.0000001)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
 position = Vector2(40.820206, 312.20215)
 scale = Vector2(1, 1.0000001)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Node2D"]
+z_index = 1
 position = Vector2(99.43628, 212.57327)
 scale = Vector2(0.15717897, 1.2920964)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="Sprite2D5" type="Sprite2D" parent="Node2D"]
 position = Vector2(-22.774975, 216.53203)
 scale = Vector2(0.15717897, 1.2920964)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="SpawnPoint1" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.41960785)
 position = Vector2(382, 539)
 scale = Vector2(0.1049952, -0.17683941)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="SpawnPoint2" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.41960785)
 position = Vector2(1798, 538.99994)
 scale = Vector2(0.1049952, -0.17683941)
-texture = ExtResource("8_ke71t")
-
-[node name="PixelartStarfield" type="Sprite2D" parent="."]
-modulate = Color(1.5229772, 1.5229772, 1.5229772, 1)
-z_index = -25
-position = Vector2(829, 468)
-texture = ExtResource("9_j2cgl")
-
-[node name="PixelartStarfieldCorona" type="Sprite2D" parent="."]
-modulate = Color(1.5229772, 1.5229772, 1.5229772, 1)
-z_index = -25
-position = Vector2(1148, 468)
-texture = ExtResource("10_0bsed")
-
-[node name="PixelartStarfieldDiagonalDiffractionSpikes" type="Sprite2D" parent="."]
-modulate = Color(1.5229772, 1.5229772, 1.5229772, 1)
-z_index = -25
-position = Vector2(1467, 468)
-texture = ExtResource("11_0se6a")
+texture = ExtResource("8_rluyb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -201,50 +250,20 @@ modulate = Color(5.1308584, 5.1308584, 5.1308584, 1)
 z_index = -25
 position = Vector2(335.00003, 443.5)
 scale = Vector2(5.6875, 2.2421875)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(5.4471006, 5.4471006, 5.4471006, 1)
 z_index = -25
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("8_ke71t")
+texture = ExtResource("8_rluyb")
 
-[node name="Node2D2" type="Node2D" parent="."]
-modulate = Color(1.9614621, 1.9614621, 1.9614621, 1)
-position = Vector2(467.40808, 435.95676)
-scale = Vector2(1.1, 1)
+[node name="AntiGravityZone" type="Area2D" parent="."]
+position = Vector2(1723, 547)
 metadata/_edit_group_ = true
 
-[node name="Back" type="Sprite2D" parent="Node2D2"]
-z_index = -2
-position = Vector2(-280.37097, 10.043243)
-texture = ExtResource("12_yohrl")
-
-[node name="Back2" type="Sprite2D" parent="Node2D2"]
-z_index = -2
-position = Vector2(39.62903, 10.043243)
-texture = ExtResource("12_yohrl")
-
-[node name="Node2D3" type="Node2D" parent="."]
-modulate = Color(2.1074393, 2.1074393, 2.1074393, 1)
-position = Vector2(2111, 453)
-scale = Vector2(1.1, 1)
-metadata/_edit_group_ = true
-
-[node name="Back" type="Sprite2D" parent="Node2D3"]
-z_index = -2
-position = Vector2(-280.37097, 10.043243)
-texture = ExtResource("12_yohrl")
-
-[node name="Back2" type="Sprite2D" parent="Node2D3"]
-z_index = -2
-position = Vector2(39.62903, 10.043243)
-texture = ExtResource("12_yohrl")
-
-[node name="Back3" type="Sprite2D" parent="Node2D3"]
-z_index = -2
-position = Vector2(359.62952, 10.043243)
-texture = ExtResource("12_yohrl")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AntiGravityZone"]
+shape = SubResource("CircleShape2D_rtu8c")
 
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

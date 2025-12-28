@@ -102,6 +102,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	else:
 		zero_gravity_decel_easing = 3 if velocity.y > -200 else 1
+		velocity.x = 1
 		if velocity.y > -27:
 			zero_gravity_decel_easing = 4
 			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
