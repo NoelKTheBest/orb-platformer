@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwy58rnuuhgdd"]
+
+[ext_resource type="Script" uid="uid://buwmv3jxlrbtk" path="res://game/character_base.gd" id="1_i7yyy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sgwlp"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_i7yyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sgwlp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
