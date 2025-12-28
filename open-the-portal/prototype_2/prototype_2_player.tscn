@@ -726,10 +726,12 @@ script = ExtResource("8_33ej8")
 shape = SubResource("RectangleShape2D_khinc")
 debug_color = Color(0.12833337, 0.7, 0, 0.41960785)
 
-[node name="HealthBar" parent="." instance=ExtResource("12_o1ewr")]
-
 [node name="DamageTakenTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="CanvasLayer" instance=ExtResource("12_o1ewr")]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
