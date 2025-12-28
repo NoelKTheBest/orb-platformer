@@ -1,6 +1,6 @@
 extends Control
 
-var full_color = Color("351654")
+@export var full_color = Color("351654")
 var blank_color = Color("2954ff00")
 
 
