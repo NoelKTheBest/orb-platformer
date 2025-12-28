@@ -9,15 +9,15 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_hd5jc")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 5.0
 offset_right = 61.0
 offset_bottom = 23.0
 text = "Health:"
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 26.0
 offset_right = 207.0
@@ -25,7 +25,7 @@ offset_bottom = 168.0
 scale = Vector2(0.5, 0.5)
 color = Color(0.1, 0.1, 0.1, 1)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ColorRect"]
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
 modulate = Color(0.16000003, 0.32800007, 1, 1)
 layout_mode = 1
 anchors_preset = 4
@@ -38,7 +38,7 @@ offset_bottom = -16.835007
 grow_vertical = 2
 scale = Vector2(1.235, 2.88)
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/ColorRect"]
+[node name="ColorRect2" type="ColorRect" parent="ColorRect"]
 modulate = Color(0.16078432, 0.32941177, 1, 1)
 layout_mode = 1
 anchors_preset = 4
@@ -51,7 +51,7 @@ offset_bottom = -16.835007
 grow_vertical = 2
 scale = Vector2(1.235, 2.88)
 
-[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/ColorRect"]
+[node name="ColorRect3" type="ColorRect" parent="ColorRect"]
 modulate = Color(0.16078432, 0.32941177, 1, 1)
 layout_mode = 1
 anchors_preset = 4
