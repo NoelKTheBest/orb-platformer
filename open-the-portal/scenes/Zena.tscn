@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsxbv6qlbd60t"]
+
+[ext_resource type="Texture2D" uid="uid://cf8dqs7vq37re" path="res://sprites/Zena.png" id="1_qoo4o"]
+[ext_resource type="Script" uid="uid://78ywob6bclwn" path="res://scripts/zena.gd" id="2_jnelm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_jnelm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsndx"]
+albedo_texture = ExtResource("1_qoo4o")
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_jnelm")
+surface_material_override/0 = SubResource("StandardMaterial3D_fsndx")
+script = ExtResource("2_jnelm")
