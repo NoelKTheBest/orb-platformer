@@ -78,6 +78,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	#var screen_texture = $SubViewport.get_texture()
+	#$Screen.texture = screen_texture
+	
 	enemies_on_screen = get_tree().get_nodes_in_group("Enemy").filter(enemy_is_visible)
 	
 	if player_is_ready and !player_is_dead:
