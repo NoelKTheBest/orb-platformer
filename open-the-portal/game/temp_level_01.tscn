@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cja6tqq36itn2"]
+[gd_scene load_steps=16 format=3 uid="uid://cja6tqq36itn2"]
 
 [ext_resource type="Script" uid="uid://b6xf3usuu6bpj" path="res://game/temp_level_01.gd" id="1_kquf6"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_04b4n"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://dkoy5ffj5yy86" path="res://pixelart_starfields/pixelart_starfield_corona.png" id="10_a2in8"]
 [ext_resource type="Texture2D" uid="uid://2kcerg3qjbue" path="res://pixelart_starfields/pixelart_starfield_diagonal_diffraction_spikes.png" id="11_k10st"]
 [ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_t20jl"]
-[ext_resource type="PackedScene" uid="uid://c1clrddhmf51q" path="res://scenes/New_Solar_System.tscn" id="13_04b4n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -265,20 +264,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AntiGravityZone"]
 shape = SubResource("CircleShape2D_rtu8c")
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-z_index = -2
-offset_left = 945.0
-offset_top = 305.0
-offset_right = 1384.0
-offset_bottom = 598.0
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(439, 293)
-render_target_update_mode = 4
-
-[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("13_04b4n")]
 
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

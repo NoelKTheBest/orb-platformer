@@ -235,16 +235,15 @@ texture = ExtResource("12_yohrl")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 z_index = -3
-offset_left = 826.0
-offset_top = 200.0
-offset_right = 1337.0
-offset_bottom = 715.0
+offset_left = 816.0
+offset_top = 71.0
+offset_right = 1348.0
+offset_bottom = 812.0
 stretch = true
-stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(255, 257)
+size = Vector2i(532, 741)
 render_target_update_mode = 4
 
 [node name="MeshInstance3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("13_3m8ir")]
@@ -253,7 +252,7 @@ skeleton = NodePath("../../..")
 spin_speed = 0.25
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-1, 0, 8.742278e-08, 9.600861e-09, 0.9939514, 0.10982105, -8.689399e-08, 0.10982105, -0.9939514, 0, 0.70991635, -4.765072)
+transform = Transform3D(-1, 0, 8.742278e-08, 9.600861e-09, 0.9939514, 0.10982105, -8.689399e-08, 0.10982105, -0.9939514, 0, 0.71, -2.901)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -0.8810641, 0.47299683, 0, -0.47299683, -0.8810641, 0, 2.5634294, -4.179333)
