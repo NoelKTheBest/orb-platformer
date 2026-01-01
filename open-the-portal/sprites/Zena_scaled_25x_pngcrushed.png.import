@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bikte4kssmgfk"
-path.s3tc="res://.godot/imported/Zena.png-804b82c361c0a871b9c1bc3b7e83b77e.s3tc.ctex"
+uid="uid://dlsiwjfua7gxc"
+path.s3tc="res://.godot/imported/Zena_scaled_25x_pngcrushed.png-49e4b63e8e23e6a389a1b5fe5b5387d3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/Zena.png"
-dest_files=["res://.godot/imported/Zena.png-804b82c361c0a871b9c1bc3b7e83b77e.s3tc.ctex"]
+source_file="res://sprites/Zena_scaled_25x_pngcrushed.png"
+dest_files=["res://.godot/imported/Zena_scaled_25x_pngcrushed.png-49e4b63e8e23e6a389a1b5fe5b5387d3.s3tc.ctex"]
 
 [params]
 
