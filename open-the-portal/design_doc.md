@@ -10,13 +10,37 @@ The other main mechanic is an orb that pushes back enemies. This orb can be canc
 
 Using the special orb and your jump ability, you have to use the tools at your advantage to control the space around you and make it out alive.
 
-In certain levels I want the player to be able to turn off the gravity in the game in order to **drastically** change the state of the game and of all the enemies in the level as well.
-
 I would also like to use this as a way to teach to the player that they may run into situations that completely change enemy behaviour and that create new dynamics and interactions for the player to think through.
 
 The game may feature spawn points in some levels, but may mostly spawn enemies from offscreen to target the enemy at the center of the screen.
 
 We will continue to do ongoing playtesting that improves the experience and refines the gameplay, but I am confident that with the baseline features currently present in the demo that I can move forward with production and knowing that the game itself is fun and enjoyable.
+
+## Powerups
+The game will feature a variety of powerups that give more options for the player to plan how they will survive the encounter
+
+### Energy Regeneration
+This ability will completely restore the player's energy levels and for a limited time either give them a boost in energy or reduce energy costs so the player has a chance to fire more often.
+
+### Shield
+This will create a shield around the player to protect them from damage.
+
+### EMP
+This will send a shockwave through the ground completely paralyzing all enemies in place for a specific amount of time and give the player the chance to equal out the playing field. Need's lots of testing.
+
+**The following powerups will need to be thoroughly tested to ensure that they work well**
+
+### Shield Regeneration
+This will regenerate one of the player's sheilds. More advanced versions of this powerup can regenerate both shields and I may also want to give them an extra shield for extra protection
+
+### Walkie Talkie
+This will allow the player to temporarily give commands to the enemies which will allow them to throw off an enemy's plan of attack or even disrupt/distract one of the stronger enemies
+
+### Sword
+This gives the player access to a sword which will change the behaviour of some enemies. They may wait for you to strike or they may use a different attack instead. In addition to this, the sword can only be used once as a last resort if it collides with the enemy's weapon. You can strike with it too but only at close range and it cannot be used at the same time with the gun.
+
+### Grenade
+This is a smoke grenade that the player can throw to disperse enemies.
 
 # Tools
 We need tools to create enemy behaviour, levels using tilesets and parallax backgrounds, creating cutscenes and basic dialog, playing music dynamically based on the situation, detecting area to area and area to body overlaps, playing sound fx
@@ -29,7 +53,7 @@ We need tools to create enemy behaviour, levels using tilesets and parallax back
 ## Main Character: KALA
 The main character of the game is called Kala. She is a young woman looking to get home from being in outer space. Her squad was completely wiped out by an enemy horde and now she has to use a unique ability of hers in order to escape with her life and reach the portal that will take her back to her home world of Zena. The enemy wants to unlock the secret of portal technology but can't read the documentation on the ship and need the mc to translate.
 ## Enemy Language
-The enemies in the game will be speaking a different language from the player's language that they are playing in. As such, I will need to make a conlang for this game. JK I want to make a conlang and writing system because I am a nerd for languages. I'm not sure what the language should be based on, but I want it to have fun phrases and idioms.
+This will only be relevant for certain moments in the game.
 
 # Art
 I will be looking for placeholder assets for now until I have a team and if not, then I will edit the assets.
