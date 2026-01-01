@@ -44,26 +44,30 @@ This is a smoke grenade that the player can throw to disperse enemies.
 
 # Tools
 We need tools to create enemy behaviour, levels using tilesets and parallax backgrounds, creating cutscenes and basic dialog, playing music dynamically based on the situation, detecting area to area and area to body overlaps, playing sound fx
-  ## Transferring level in Asesprite to Godot
-  I will be making a majority of specific art assets that i will need for the game in aseprite and want to be able to just plop them into the game without much issue. I can't possibly design the whole level in aseprite as a level in a game like this could end up being really really big. Godot does already make this easy, but I also want to be able to create enemy spawn hubs/points and simply tell the game to spawn enemies at that location to make playtesting easier. The same could be done for certain props like a forcefield controller or some other kind of interactable machine or device.
-
-  The levels will be built like obstacle courses themselves with enemy locations being set to somewhere specific in the obstacle course and enemies being made to be instantiated there at runtime so we can refer to an area by a name or tag and say "Spawn Enemy at [insert tag name here]". And there should be not only an order but automatic spacing for props. The tileset is what i will use to build the platforms so that won't be affected, but simple sprites for the props themselves will. In addition to all this, I would want a way to hit a button to create a new node at the mouse cursor position to set it in the scene and have that be the position. But this isn't necessary and depending on how big the levels are, none of this may be necessary.
+Levels will now be built mostly in the engine using the tileset tool.
 
 # Story
 ## Main Character: KALA
 The main character of the game is called Kala. She is a young woman looking to get home from being in outer space. Her squad was completely wiped out by an enemy horde and now she has to use a unique ability of hers in order to escape with her life and reach the portal that will take her back to her home world of Zena. The enemy wants to unlock the secret of portal technology but can't read the documentation on the ship and need the mc to translate.
 ## Enemy Language
 This will only be relevant for certain moments in the game.
+Enemies may give commands to their comrades once the player reaches a certain point in the level and they are unsure as to what is about to happen next.
 
 # Art
-I will be looking for placeholder assets for now until I have a team and if not, then I will edit the assets.
+The art will be a blend of 3D and 2D art and it's going to be in pixel art. The pixel art will be low-resolution and will have clean and clear edges.
 
 ## Characters
+Many of the characters will feature more colorful designs. I will update this doc later with specific details of character designs.
 
-There will be basic enemies and commanders.
+#### Pixel Art Specifications:
+All the characters will be drawn at a max pixel height of 24px and a minimum of 22px. The width should not exceed 32px. The characters themselves will have a simplified due to the height restrictions.
 
 ## Backgrounds
-The backgrounds will be sci fi  in space, probably on a space station or something like that.
+The backgrounds will be sci fi in space.
+### 2D backgrounds
+These backgrounds should be detailed but not overly detailed. I don't have specifics right now, however these designs will be based on cityscapes. The walls of the inside of the space station should have sections resembling a city skyline. There should also be a day and night version of the walls. The color of a day sky or night sky should be desaturated and so should the lights on any building. This should help give the people who work on this ship a feeling of being at home, at least that's how I think about it.
+### 3D backgrounds
+These backgrounds will be rendered into the 2D scenes for an immersive feel. These backgrounds will be rendered through a separate viewport with a camera moving away or close by very slowly giving the impression that you are headed for a particulary planet or leaving behind a different one or even just moving through the solar system. These scenes will be rendered using a pixelizing effect. Any 2D textures used on the planet meshes needs to be of a high resolution to reduce the effect of compression due to godot's import process. The ideal texture size would be between 1024 x 1024 pixels to 3200 x 3200 pixels. 
 
 # Sound Design
 
