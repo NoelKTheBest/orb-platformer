@@ -1,10 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0v2rxus0uxwc"]
+[gd_scene load_steps=15 format=3 uid="uid://b0v2rxus0uxwc"]
 
 [ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://scenes/Zena.tscn" id="1_lfqcl"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_bvpa3"]
 [ext_resource type="Script" uid="uid://78ywob6bclwn" path="res://scripts/zena.gd" id="3_kyi08"]
-[ext_resource type="Texture2D" uid="uid://dbf641h4qmmst" path="res://sprites/checkerboard_floor.png" id="4_8d785"]
-[ext_resource type="Texture2D" uid="uid://1wgjpccml2am" path="res://sprites/smiley.svg" id="4_hpjbc"]
 [ext_resource type="Texture2D" uid="uid://dpanwbryu3bta" path="res://sprites/big_zena.png" id="6_rmd1e"]
 [ext_resource type="Texture2D" uid="uid://ctkrtyqw1keaj" path="res://sprites/Zena_scaled_8x_pngcrushed.png" id="7_adain"]
 
@@ -17,12 +15,10 @@ albedo_texture = ExtResource("2_bvpa3")
 albedo_texture = ExtResource("2_bvpa3")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5e2s"]
-albedo_texture = ExtResource("4_hpjbc")
 
 [sub_resource type="BoxMesh" id="BoxMesh_adain"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_un1mm"]
-albedo_texture = ExtResource("4_8d785")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grctq"]
 albedo_texture = ExtResource("6_rmd1e")
