@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=18 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/temp_level_00.gd" id="1_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
@@ -20,6 +20,9 @@ size = Vector2(2093, 198)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kbs4a"]
 size = Vector2(310.00006, 325)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s43bn"]
+radius = 80.0
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3m8ir")
@@ -270,6 +273,18 @@ transform = Transform3D(19.215, 0, 0, 0, 19.215, 0, 0, 0, 19.215, 0, 0, 9.235719
 texture_filter = 0
 texture = ExtResource("9_j2cgl")
 
+[node name="Energy powerup" type="StaticBody2D" parent="."]
+position = Vector2(1086, 513)
+scale = Vector2(0.2, 0.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Energy powerup"]
+texture = ExtResource("8_ke71t")
+
+[node name="Area2D" type="Area2D" parent="Energy powerup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Energy powerup/Area2D"]
+shape = SubResource("CircleShape2D_s43bn")
+
 [connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
@@ -280,3 +295,4 @@ texture = ExtResource("9_j2cgl")
 [connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]
 [connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
 [connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]
+[connection signal="body_entered" from="Energy powerup/Area2D" to="Player" method="_on_area_2d_body_entered"]

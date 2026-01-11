@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var camera_2d: Camera2D = $CameraFollow/Camera2D
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var anti_gravity_timer: Timer = $AntiGravityTimer
-@onready var path_1: Path2D = $Path1
+@onready var path_1: Path2D = $Path1Node2D
 @onready var health_bar: Control = $CanvasLayer/HealthBar
 
 ## The distance from the enemy at which the camera will focus on the player
@@ -42,6 +42,7 @@ var are_we_ready = false
 var ready_signal_emitted = false
 var health = 3
 var was_hit = false
+var energy_regen = false
 
 var anti_gravity_zone: Area2D
 
@@ -53,10 +54,15 @@ func _process(delta: float) -> void:
 	if enemy_pos: 
 		move_camera(delta)
 	
+	# If energy regen is active, ensure the player isn't flagged as having no energy
+	if energy_regen:
+		no_energy = false
+
 	if !cycle_active:
 		if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
-			# Consume returns -1 if the  
-			if $UserInterface/EnergyBar.consume(energy_consumption) != -1:
+			# Consume returns -1 if there isn't enough energy.
+			# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
+			if energy_regen or $UserInterface/EnergyBar.consume(energy_consumption) != -1:
 				var new_orb = orb.instantiate()
 				
 				# Set properties before node is ready to have access to them
@@ -77,9 +83,11 @@ func _process(delta: float) -> void:
 			#$Path1.start_progression()
 			#cycle_active = true
 			#are_we_ready = true
+
 		if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
-			# Consume returns -1 if the 
-			if $UserInterface/EnergyBar.consume(power_energy_consumption) != -1:
+			# Consume returns -1 if there isn't enough energy.
+			# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
+			if energy_regen or $UserInterface/EnergyBar.consume(power_energy_consumption) != -1:
 				var new_orb = power_orb.instantiate()
 				# Set properties before node is ready to have access to them
 				orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
@@ -256,3 +264,15 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func _on_power_spawn_timer_timeout() -> void:
 	power_cooldown = false
 	$UserInterface/ColorRect2.visible = true
+
+
+func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
+	# Energy regen powerup test
+	$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
+	energy_regen = true
+	
+	# Start the timer before awaiting
+	$EnergyRegenTimer.start()
+	
+	await $EnergyRegenTimer.timeout
+	energy_regen = false
