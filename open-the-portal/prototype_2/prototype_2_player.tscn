@@ -598,6 +598,9 @@ libraries = {
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
 
+[node name="EnergyRegenTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.295
 one_shot = true
