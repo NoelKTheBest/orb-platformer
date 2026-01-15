@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://4hvqsn8t0w4r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xnux1"]
+radius = 19.525623
+
+[node name="Door" type="Polygon2D"]
+scale = Vector2(1, 1.1428584)
+color = Color(0.71, 0.32470664, 0.18459998, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693083, 13.896787, 0.059782505, 13.896726)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1, 0.87499905)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xnux1")
