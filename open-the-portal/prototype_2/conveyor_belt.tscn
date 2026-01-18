@@ -1,124 +1,343 @@
-[gd_scene format=3 uid="uid://ddaus2abhlfh1"]
+[gd_scene load_steps=2 format=3 uid="uid://ddaus2abhlfh1"]
+
+[ext_resource type="Script" uid="uid://ctoymr8bmq5i8" path="res://prototype_2/conveyor_belt.gd" id="1_uqijh"]
 
 [node name="ConveyorBelt" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -3.0
+offset_right = -7.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_uqijh")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 225.0
-offset_bottom = 40.0
-scale = Vector2(4.637213, 4.637213)
+[node name="Inventory" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -70.0
+offset_right = 35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -5
+alignment = 1
+
+[node name="Slot1" type="ColorRect" parent="Inventory"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+[node name="Design1" type="ColorRect" parent="Inventory/Slot1"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
-offset_left = 3.0
-offset_top = 3.000001
-offset_right = 43.0
-offset_bottom = 43.0
-scale = Vector2(0.845, 0.845)
-color = Color(0.19784272, 0.2521702, 0.4015448, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19607843, 0.2509804, 0.4, 1)
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/ColorRect"]
+[node name="Design2" type="ColorRect" parent="Inventory/Slot1/Design1"]
+custom_minimum_size = Vector2(55, 55)
 layout_mode = 1
-offset_left = 3.5502958
-offset_top = 3.5502963
-offset_right = 42.764606
-offset_bottom = 42.764606
-scale = Vector2(0.845, 0.845)
-color = Color(0.2382071, 0.23273, 0.6336324, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23921569, 0.23137255, 0.63529414, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="ColorRect"]
+[node name="Item" type="TextureRect" parent="Inventory/Slot1/Design1/Design2"]
 layout_mode = 1
-offset_left = 40.000004
-offset_top = 3.0000012
-offset_right = 80.0
-offset_bottom = 43.0
-scale = Vector2(0.845, 0.845)
-color = Color(0.19784272, 0.2521702, 0.4015448, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/ColorRect2"]
-layout_mode = 1
-offset_left = 3.5502958
-offset_top = 3.5502963
-offset_right = 42.764606
-offset_bottom = 42.764606
-scale = Vector2(0.845, 0.845)
-color = Color(0.2382071, 0.23273, 0.6336324, 1)
+[node name="Slot2" type="ColorRect" parent="Inventory"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="ColorRect"]
+[node name="Design1" type="ColorRect" parent="Inventory/Slot2"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
-offset_left = 77.00001
-offset_top = 3.0000012
-offset_right = 117.00001
-offset_bottom = 43.0
-scale = Vector2(0.845, 0.845)
-color = Color(0.19784272, 0.2521702, 0.4015448, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19607843, 0.2509804, 0.4, 1)
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/ColorRect3"]
+[node name="Design2" type="ColorRect" parent="Inventory/Slot2/Design1"]
+custom_minimum_size = Vector2(55, 55)
 layout_mode = 1
-offset_left = 3.5502958
-offset_top = 3.5502963
-offset_right = 42.764606
-offset_bottom = 42.764606
-scale = Vector2(0.845, 0.845)
-color = Color(0.2382071, 0.23273, 0.6336324, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23921569, 0.23137255, 0.63529414, 1)
 
-[node name="ColorRect4" type="ColorRect" parent="ColorRect"]
+[node name="Item" type="TextureRect" parent="Inventory/Slot2/Design1/Design2"]
 layout_mode = 1
-offset_left = 114.00001
-offset_top = 3.0000012
-offset_right = 154.0
-offset_bottom = 43.0
-scale = Vector2(0.845, 0.845)
-color = Color(0.19784272, 0.2521702, 0.4015448, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/ColorRect4"]
-layout_mode = 1
-offset_left = 3.5502958
-offset_top = 3.5502963
-offset_right = 42.764606
-offset_bottom = 42.764606
-scale = Vector2(0.845, 0.845)
-color = Color(0.2382071, 0.23273, 0.6336324, 1)
+[node name="Slot3" type="ColorRect" parent="Inventory"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 
-[node name="ColorRect5" type="ColorRect" parent="ColorRect"]
+[node name="Design1" type="ColorRect" parent="Inventory/Slot3"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
-offset_left = 151.0
-offset_top = 3.0000012
-offset_right = 191.0
-offset_bottom = 43.0
-scale = Vector2(0.845, 0.845)
-color = Color(0.19784272, 0.2521702, 0.4015448, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19607843, 0.2509804, 0.4, 1)
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/ColorRect5"]
+[node name="Design2" type="ColorRect" parent="Inventory/Slot3/Design1"]
+custom_minimum_size = Vector2(55, 55)
 layout_mode = 1
-offset_left = 3.5502958
-offset_top = 3.5502963
-offset_right = 42.764606
-offset_bottom = 42.764606
-scale = Vector2(0.845, 0.845)
-color = Color(0.2382071, 0.23273, 0.6336324, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23921569, 0.23137255, 0.63529414, 1)
 
-[node name="ColorRect6" type="ColorRect" parent="ColorRect"]
+[node name="Item" type="TextureRect" parent="Inventory/Slot3/Design1/Design2"]
 layout_mode = 1
-offset_left = 188.0
-offset_top = 3.0000012
-offset_right = 228.0
-offset_bottom = 43.0
-scale = Vector2(0.845, 0.845)
-color = Color(0.19784272, 0.2521702, 0.4015448, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/ColorRect6"]
+[node name="Slot4" type="ColorRect" parent="Inventory"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Design1" type="ColorRect" parent="Inventory/Slot4"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
-offset_left = 3.5502958
-offset_top = 3.5502963
-offset_right = 42.764606
-offset_bottom = 42.764606
-scale = Vector2(0.845, 0.845)
-color = Color(0.2382071, 0.23273, 0.6336324, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19607843, 0.2509804, 0.4, 1)
+
+[node name="Design2" type="ColorRect" parent="Inventory/Slot4/Design1"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23921569, 0.23137255, 0.63529414, 1)
+
+[node name="Item" type="TextureRect" parent="Inventory/Slot4/Design1/Design2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Slot5" type="ColorRect" parent="Inventory"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Design1" type="ColorRect" parent="Inventory/Slot5"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19607843, 0.2509804, 0.4, 1)
+
+[node name="Design2" type="ColorRect" parent="Inventory/Slot5/Design1"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23921569, 0.23137255, 0.63529414, 1)
+
+[node name="Item" type="TextureRect" parent="Inventory/Slot5/Design1/Design2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Slot6" type="ColorRect" parent="Inventory"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Design1" type="ColorRect" parent="Inventory/Slot6"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19607843, 0.2509804, 0.4, 1)
+
+[node name="Design2" type="ColorRect" parent="Inventory/Slot6/Design1"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23921569, 0.23137255, 0.63529414, 1)
+
+[node name="Item" type="TextureRect" parent="Inventory/Slot6/Design1/Design2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1

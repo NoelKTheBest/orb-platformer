@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var anti_gravity_timer: Timer = $AntiGravityTimer
 @onready var path_1: Path2D = $Path1Node2D
 @onready var health_bar: Control = $CanvasLayer/HealthBar
+@onready var conveyor_belt: Control = $Belt/ConveyorBelt
 
 ## The distance from the enemy at which the camera will focus on the player
 @export var player_camera_focus_range : float = 132551.375
@@ -167,6 +168,21 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_slide()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("use_item"):
+		# Check if item was successfully used before activating power-up
+		if conveyor_belt.use_item():
+			print("Using item - Energy Regen activated!")
+			$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
+			energy_regen = true
+			$EnergyRegenTimer.start()
+		else:
+			print("No items in inventory!")
+
+# Add this new function for timer callback
+func _on_energy_regen_timer_timeout() -> void:
+	energy_regen = false
+		
 
 func launch():
 	in_anti_gravity_zone = true
@@ -267,12 +283,5 @@ func _on_power_spawn_timer_timeout() -> void:
 
 
 func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
-	# Energy regen powerup test
-	$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
-	energy_regen = true
 	
-	# Start the timer before awaiting
-	$EnergyRegenTimer.start()
-	
-	await $EnergyRegenTimer.timeout
-	energy_regen = false
+	conveyor_belt.add_item(1)
