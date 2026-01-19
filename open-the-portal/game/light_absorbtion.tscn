@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://lja8lkoberok"]
+
+[ext_resource type="Texture2D" uid="uid://bk5x5gyhx7wav" path="res://game/light_absorbtion.tres" id="1_3jdgb"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_t2gwk"]
+
+[sub_resource type="Gradient" id="Gradient_t5xkw"]
+offsets = PackedFloat32Array(0.47916666, 0.8541667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oolmu"]
+gradient = SubResource("Gradient_t5xkw")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Light_Absorbtion" type="PointLight2D"]
+blend_mode = 1
+texture = ExtResource("1_3jdgb")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 0.24313726, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_oolmu")
+
+[node name="Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(7, -1)
+texture = ExtResource("2_t2gwk")
