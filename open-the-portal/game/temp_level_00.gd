@@ -217,8 +217,14 @@ func _on_goal_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		$CanvasLayer/Label.visible = true
 		$YouWinTimer.start()
+		
+
 
 
 func _on_you_win_timer_timeout() -> void:
 	get_tree().quit()
 #endregion
+
+
+func _on_area_2d_body_entered(body: CharacterBody2D) -> void:
+	pass

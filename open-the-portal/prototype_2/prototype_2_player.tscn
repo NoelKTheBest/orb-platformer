@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bq0jk7scaq7j8"]
+[gd_scene load_steps=39 format=3 uid="uid://bq0jk7scaq7j8"]
 
 [ext_resource type="Script" uid="uid://dvu15etdbb08u" path="res://prototype_2/prototype_2_player.gd" id="1_3hypu"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="1_427xp"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_bbphf"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_5wh2a"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_o1ewr"]
+[ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://prototype_2/conveyor_belt.tscn" id="15_33ej8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -736,7 +737,14 @@ one_shot = true
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("12_o1ewr")]
 
+[node name="Belt" type="CanvasLayer" parent="."]
+
+[node name="ConveyorBelt" parent="Belt" instance=ExtResource("15_33ej8")]
+pivot_offset = Vector2(0, 75)
+size_flags_vertical = 8
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="EnergyRegenTimer" to="." method="_on_energy_regen_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="PowerSpawnTimer" to="." method="_on_power_spawn_timer_timeout"]
 [connection signal="cycle_finished" from="Path1" to="." method="_on_path_1_cycle_finished"]
