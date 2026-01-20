@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="4_lh3xe"]
 [ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="5_o1ewr"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="6_5wh2a"]
-[ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://scripts/path.gd" id="7_66ah0"]
-[ext_resource type="Animation" uid="uid://ctyfyswdc7epw" path="res://launch_anim.res" id="7_lh3xe"]
-[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://scripts/player_hurtbox.gd" id="8_33ej8"]
+[ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://game/scripts/path.gd" id="7_66ah0"]
+[ext_resource type="Animation" uid="uid://ctyfyswdc7epw" path="res://game/launch_anim.res" id="7_lh3xe"]
+[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="8_33ej8"]
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_bbphf"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_5wh2a"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_o1ewr"]
@@ -565,7 +565,7 @@ size = Vector2(255, 216)
 size = Vector2(9, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 70
+collision_mask = 582
 platform_floor_layers = 4294967293
 script = ExtResource("1_3hypu")
 accel = 25

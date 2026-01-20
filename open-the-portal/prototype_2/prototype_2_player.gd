@@ -31,8 +31,8 @@ const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const ORB_VELOCITY = 400
 
-var orb = preload("res://scenes/orb.tscn")
-var power_orb = preload("res://scenes/power_orb.tscn")
+var orb = preload("res://game/scenes/orb.tscn")
+var power_orb = preload("res://game/scenes/power_orb.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -112,11 +112,6 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if !was_hit:
-		if Input.is_action_just_pressed("anti-gravity_attack") and is_on_floor() and anti_gravity_zone.overlaps_body(self):
-			anti_gravity_zone_created.emit()
-			launch()
-			are_we_ready = true
-		
 		if !in_anti_gravity_zone:
 			# Add the gravity.
 			if not is_on_floor():

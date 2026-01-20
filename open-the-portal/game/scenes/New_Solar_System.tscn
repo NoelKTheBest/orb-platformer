@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1clrddhmf51q"]
 
-[ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://scenes/Zena.tscn" id="1_r0o1b"]
+[ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="1_r0o1b"]
 [ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://pixelart_starfields/pixelart_starfield.png" id="2_ndf1d"]
 
 [node name="Node3D" type="Node3D"]

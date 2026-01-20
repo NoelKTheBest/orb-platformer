@@ -27,6 +27,8 @@ const ORB_VELOCITY = 400
 
 var orb = preload("res://scenes/orb.tscn")
 var power_orb = preload("res://scenes/power_orb.tscn")
+var gun_blast_1 = preload("res://Gun blast 1.wav")
+var gun_blast_2 = preload("res://Gun blast 4.wav")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -70,6 +72,8 @@ func _process(delta: float) -> void:
 				$UserInterface/ColorRect.visible = false
 				on_cooldown = true
 				orb_was_fired.emit()
+				$AudioStreamPlayer2D.stream = gun_blast_1
+				$AudioStreamPlayer2D.play()
 			
 				are_we_ready = true
 
@@ -88,6 +92,8 @@ func _process(delta: float) -> void:
 				$UserInterface/ColorRect2.visible = false
 				power_cooldown = true
 				orb_was_fired.emit()
+				$AudioStreamPlayer2D.stream = gun_blast_2
+				$AudioStreamPlayer2D.play()
 				
 				are_we_ready = true
 	

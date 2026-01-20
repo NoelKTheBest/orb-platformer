@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b6xf3usuu6bpj" path="res://game/temp_level_01.gd" id="1_kquf6"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_04b4n"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="3_4b2yf"]
-[ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="4_7tnmp"]
+[ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://game/scenes/ground.tscn" id="4_7tnmp"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="5_obwew"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_ori8b"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_k012u"]

@@ -1,9 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=20 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/temp_level_00.gd" id="1_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
 [ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="3_3m8ir"]
-[ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://scenes/ground.tscn" id="4_s43bn"]
+[ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://game/scenes/ground.tscn" id="4_s43bn"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="5_bvovn"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_7bxbr"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_4c045"]
@@ -11,9 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://pixelart_starfields/pixelart_starfield.png" id="9_j2cgl"]
 [ext_resource type="Texture2D" uid="uid://dkoy5ffj5yy86" path="res://pixelart_starfields/pixelart_starfield_corona.png" id="10_0bsed"]
 [ext_resource type="Texture2D" uid="uid://2kcerg3qjbue" path="res://pixelart_starfields/pixelart_starfield_diagonal_diffraction_spikes.png" id="11_0se6a"]
+[ext_resource type="PackedScene" uid="uid://lt48s00s323o" path="res://game/scenes/item_test.tscn" id="11_bvovn"]
 [ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_yohrl"]
-[ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://scenes/Zena.tscn" id="13_3m8ir"]
+[ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="13_3m8ir"]
 [ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://sprites/blank_filter.png" id="13_s43bn"]
+[ext_resource type="PackedScene" uid="uid://byys6etblb6xq" path="res://game/scenes/moving_wall.tscn" id="16_7bxbr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -27,13 +29,11 @@ radius = 80.0
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3m8ir")
 sp_spacing = 218
+total_number_of_enemies = 20
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yohrl")]
 position = Vector2(2136, 451.00003)
 scale = Vector2(0.31, 3.1)
-
-[node name="Player" parent="." instance=ExtResource("3_3m8ir")]
-position = Vector2(224, 508)
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("4_s43bn")]
 z_index = -1
@@ -75,9 +75,6 @@ one_shot = true
 
 [node name="GameOverTimer" type="Timer" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(581, 327)
-
 [node name="EnemySpawnInterval" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
@@ -94,15 +91,6 @@ position = Vector2(22, 450)
 
 [node name="RightWallPosition" type="Node2D" parent="."]
 position = Vector2(2115, 450)
-
-[node name="Enemy" parent="." instance=ExtResource("5_bvovn")]
-position = Vector2(683, 484)
-
-[node name="Assassin" parent="." instance=ExtResource("6_7bxbr")]
-position = Vector2(409.2783, 482.7426)
-
-[node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
-position = Vector2(2067, 517)
 
 [node name="ReturnPoint" type="Node2D" parent="."]
 position = Vector2(2095, 536)
@@ -243,6 +231,20 @@ position = Vector2(1082.5, 453.5)
 scale = Vector2(4.132812, 1.6171873)
 texture = ExtResource("13_s43bn")
 
+[node name="Energy powerup" type="StaticBody2D" parent="."]
+process_mode = 4
+visible = false
+position = Vector2(194.00006, 492)
+scale = Vector2(0.2, 0.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Energy powerup"]
+texture = ExtResource("8_ke71t")
+
+[node name="Area2D" type="Area2D" parent="Energy powerup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Energy powerup/Area2D"]
+shape = SubResource("CircleShape2D_s43bn")
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 z_index = -3
 offset_left = 816.0
@@ -273,27 +275,41 @@ transform = Transform3D(19.215, 0, 0, 0, 19.215, 0, 0, 0, 19.215, 0, 0, 9.235719
 texture_filter = 0
 texture = ExtResource("9_j2cgl")
 
-[node name="Energy powerup" type="StaticBody2D" parent="."]
-position = Vector2(194.00006, 492)
-scale = Vector2(0.2, 0.2)
+[node name="ItemTest" parent="." instance=ExtResource("11_bvovn")]
+position = Vector2(790.3617, 551.1946)
 
-[node name="Sprite2D" type="Sprite2D" parent="Energy powerup"]
-texture = ExtResource("8_ke71t")
+[node name="Player" parent="." instance=ExtResource("3_3m8ir")]
+position = Vector2(220, 504)
 
-[node name="Area2D" type="Area2D" parent="Energy powerup"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(581, 327)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Energy powerup/Area2D"]
-shape = SubResource("CircleShape2D_s43bn")
+[node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
+position = Vector2(2067, 517)
 
-[connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
-[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
-[connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
+[node name="Enemy2" parent="." instance=ExtResource("5_bvovn")]
+position = Vector2(1402, 502)
+
+[node name="Assassin2" parent="." instance=ExtResource("6_7bxbr")]
+position = Vector2(1037, 508)
+
+[node name="Assassin" parent="." instance=ExtResource("6_7bxbr")]
+position = Vector2(395, 488)
+
+[node name="Enemy" parent="." instance=ExtResource("5_bvovn")]
+position = Vector2(606, 477)
+
+[node name="MovingWall" parent="." instance=ExtResource("16_7bxbr")]
+
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnInterval" to="." method="_on_enemy_spawn_interval_timeout"]
-[connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]
 [connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
 [connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]
 [connection signal="body_entered" from="Energy powerup/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Energy powerup/Area2D" to="Player" method="_on_area_2d_body_entered"]
+[connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
+[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
+[connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
+[connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]

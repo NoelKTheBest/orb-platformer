@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=4 uid="uid://dw5iu2fqyi30v"]
 
-[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://polygon_2d.tscn" id="2_m8qid"]
-[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/door.tscn" id="3_m8qid"]
-[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="4_44j3y"]
-[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/player.tscn" id="5_44j3y"]
-[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="5_g0ys1"]
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_4ocoy"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="2_crrvt"]
+[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="3_rifvl"]
+[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="4_l6jt4"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_qkxey"]
 
 [node name="Level1" type="Node2D"]
 
@@ -13,35 +13,35 @@ position = Vector2(37.643814, 329.85522)
 color = Color(0.2438125, 0.24666089, 0.45402455, 1)
 polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
 
-[node name="Polygon2D" parent="." instance=ExtResource("2_m8qid")]
+[node name="Polygon2D" parent="." instance=ExtResource("1_4ocoy")]
 position = Vector2(861.25, 637)
 scale = Vector2(183.54999, 2.4755638)
 
-[node name="Polygon2D2" parent="." instance=ExtResource("2_m8qid")]
+[node name="Polygon2D2" parent="." instance=ExtResource("1_4ocoy")]
 position = Vector2(316.0822, 617)
 scale = Vector2(35.383564, 3.1392224)
 polygon = PackedVector2Array(-5, -5, 5, -5, 5.0000005, -0.29224396, 5, 5, -5, 5)
 
-[node name="Polygon2D3" parent="." instance=ExtResource("2_m8qid")]
+[node name="Polygon2D3" parent="." instance=ExtResource("1_4ocoy")]
 position = Vector2(787, 581.00006)
 scale = Vector2(62.500008, 11.866209)
 
-[node name="Door" parent="." instance=ExtResource("3_m8qid")]
+[node name="Door" parent="." instance=ExtResource("2_crrvt")]
 position = Vector2(1297, 608.99994)
 
-[node name="Door2" parent="." instance=ExtResource("3_m8qid")]
+[node name="Door2" parent="." instance=ExtResource("2_crrvt")]
 position = Vector2(912, 506)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD//xAAAAADAAAAAAAAABAAAAADAAAAAAAEABAAAAADAAAAAAADABAAAAADAAAAAAACABAAAAADAAAAAAAGAA8AAAADAAAAAAAHAA8AAAADAAAAAAAIAA8AAAADAAAAAAALAA8AAAADAAAAAAAKAA8AAAADAAAAAAATAA0AAAADAAAAAAASAA0AAAADAAAAAAAWAA0AAAADAAAAAAAXAA0AAAADAAAAAAAbAA0AAAADAAAAAAAaAA0AAAADAAAAAAAZAA0AAAADAAAAAAAYAA0AAAADAAAAAAAeAA0AAAADAAAAAAAfAA0AAAADAAAAAAAgAA0AAAADAAAAAAAhAA0AAAADAAAAAAARAA0AAAADAAAAAAAQAA0AAAADAAAAAAAPAA0AAAADAAAAAAAOAA0AAAADAAAAAAANAA0AAAADAAAAAAAMAA0AAAADAAAAAAALAA0AAAADAAAAAAALAA4AAAADAAAAAAAFAA8AAAADAAAAAAAEAA8AAAADAAAAAAAmABAAAAADAAAAAAAlABAAAAADAAAAAAAlAA8AAAADAAAAAAAlAA4AAAADAAAAAAAlAA0AAAADAAAAAAAkAA0AAAADAAAAAAAjAA0AAAADAAAAAAAiAA0AAAADAAAAAAApABAAAAADAAAAAAAqABAAAAADAAAAAAArABAAAAADAAAAAAAsABAAAAADAAAAAAAtABAAAAADAAAAAAAwABAAAAADAAAAAAAxABAAAAADAAAAAAAyABAAAAADAAAAAAAzABAAAAADAAAAAAA0ABAAAAADAAAAAAA1ABAAAAADAAAAAAA2ABAAAAADAAAAAAAIAA4AAAADAAAAAAAKAA4AAAADAAAAAAAJAA4AAAADAAAAAAAHAA4AAAADAAAAAAAGAA4AAAADAAAAAAAFAA4AAAADAAAAAAAEAA4AAAADAAAAAAADAA4AAAADAAAAAAADAA8AAAADAAAAAAACAA8AAAADAAAAAAABAA8AAAADAAAAAAAAAA8AAAADAAAAAAD//w8AAAADAAAAAAD//w4AAAADAAAAAAAAAA4AAAADAAAAAAABAA4AAAADAAAAAAACAA4AAAADAAAAAAAKAA0AAAADAAAAAAAJAA0AAAADAAAAAAAIAA0AAAADAAAAAAAHAA0AAAADAAAAAAAGAA0AAAADAAAAAAAFAA0AAAADAAAAAAAEAA0AAAADAAAAAAADAA0AAAADAAAAAAACAA0AAAADAAAAAAABAA0AAAADAAAAAAAAAA0AAAADAAAAAAD//w0AAAADAAAAAAARAAwAAAADAAAAAAASAAwAAAADAAAAAAATAAwAAAADAAAAAAAUAAwAAAADAAAAAAAVAAwAAAADAAAAAAAWAAwAAAADAAAAAAAXAAwAAAADAAAAAAAYAAwAAAADAAAAAAAZAAwAAAADAAAAAAAaAAwAAAADAAAAAAAbAAwAAAADAAAAAAAcAAwAAAADAAAAAAAdAAwAAAADAAAAAAAeAAwAAAADAAAAAAAfAAwAAAADAAAAAAAgAAwAAAADAAAAAAAhAAwAAAADAAAAAAAiAAwAAAADAAAAAAAjAAwAAAADAAAAAAAkAAwAAAADAAAAAAAlAAwAAAADAAAAAAAmAAwAAAADAAAAAAAmAA0AAAADAAAAAAAmAA4AAAADAAAAAAAmAA8AAAADAAAAAAAnAA8AAAADAAAAAAAoAA8AAAADAAAAAAApAA8AAAADAAAAAAAqAA8AAAADAAAAAAArAA8AAAADAAAAAAAsAA8AAAADAAAAAAAtAA8AAAADAAAAAAAuAA8AAAADAAAAAAAvAA8AAAADAAAAAAAwAA8AAAADAAAAAAAxAA8AAAADAAAAAAAyAA8AAAADAAAAAAAzAA8AAAADAAAAAAA0AA8AAAADAAAAAAA1AA8AAAADAAAAAAA2AA8AAAADAAAAAAAQAAwAAAADAAAAAAAPAAwAAAADAAAAAAAOAAwAAAADAAAAAAANAAwAAAADAAAAAAAMAAwAAAADAAAAAAALAAwAAAADAAAAAAAKAAwAAAADAAAAAAAVAA0AAAADAAAAAAAnABAAAAADAAAAAAAdAA0AAAADAAAAAAA=")
-tile_set = ExtResource("4_44j3y")
+tile_set = ExtResource("3_rifvl")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(303, 486)
 scale = Vector2(2.1250002, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("5_g0ys1")
+texture = ExtResource("4_l6jt4")
 offset = Vector2(0, 20.985)
 
 [node name="PointLight2D9" type="PointLight2D" parent="."]
@@ -49,7 +49,7 @@ position = Vector2(1297, 520)
 scale = Vector2(2.1250002, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("5_g0ys1")
+texture = ExtResource("4_l6jt4")
 offset = Vector2(0, 20.985)
 
 [node name="PointLight2D10" type="PointLight2D" parent="."]
@@ -57,7 +57,7 @@ position = Vector2(912, 429)
 scale = Vector2(2.1250002, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("5_g0ys1")
+texture = ExtResource("4_l6jt4")
 offset = Vector2(0, 20.985)
 
 [node name="PointLight2D11" type="PointLight2D" parent="."]
@@ -65,7 +65,7 @@ position = Vector2(669.5, 421)
 scale = Vector2(4.171875, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("5_g0ys1")
+texture = ExtResource("4_l6jt4")
 offset = Vector2(0, 28.72)
 
 [node name="PointLight2D12" type="PointLight2D" parent="."]
@@ -73,7 +73,7 @@ position = Vector2(1503.5, 514.00006)
 scale = Vector2(4.0156236, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("5_g0ys1")
+texture = ExtResource("4_l6jt4")
 offset = Vector2(0, 20.985)
 
 [node name="PointLight2D6" type="PointLight2D" parent="."]
@@ -81,8 +81,8 @@ position = Vector2(48.000004, 518.00006)
 scale = Vector2(2.0625002, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("5_g0ys1")
+texture = ExtResource("4_l6jt4")
 offset = Vector2(0, 16.97)
 
-[node name="Player" parent="." instance=ExtResource("5_44j3y")]
+[node name="Player" parent="." instance=ExtResource("5_qkxey")]
 position = Vector2(-14, 603)

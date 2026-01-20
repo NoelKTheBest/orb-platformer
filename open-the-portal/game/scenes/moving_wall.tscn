@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://byys6etblb6xq"]
+
+[ext_resource type="Script" uid="uid://dfu0r2v0fpcnk" path="res://game/scripts/moving_wall.gd" id="1_sxsrj"]
+[ext_resource type="PackedScene" uid="uid://s8exie7setml" path="res://game/scenes/wall.tscn" id="2_dyupq"]
+
+[sub_resource type="Animation" id="Animation_i442t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Wall:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [512]
+}
+
+[sub_resource type="Animation" id="Animation_32di3"]
+resource_name = "move"
+length = 7.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2016.144, 551.195), Vector2(44.29, 551.195), Vector2(229.70844, 551.195)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Wall:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [512]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_reown"]
+_data = {
+&"RESET": SubResource("Animation_i442t"),
+&"move": SubResource("Animation_32di3")
+}
+
+[node name="MovingWall" type="Node2D"]
+script = ExtResource("1_sxsrj")
+
+[node name="Wall" parent="." instance=ExtResource("2_dyupq")]
+modulate = Color(3.4751832, 0, 0, 1)
+position = Vector2(0, -40)
+collision_layer = 512
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_reown")
+}

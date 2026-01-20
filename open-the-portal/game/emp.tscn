@@ -4,7 +4,7 @@
 
 [node name="EMP" type="Area2D"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 258
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)

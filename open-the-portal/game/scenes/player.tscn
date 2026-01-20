@@ -1,6 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://dkr4cdkqpcfm"]
+[gd_scene load_steps=32 format=3 uid="uid://dkr4cdkqpcfm"]
 
-[ext_resource type="Script" uid="uid://qdlr8tjud1s6" path="res://game/player.gd" id="1_gocdo"]
+[ext_resource type="Script" uid="uid://qdlr8tjud1s6" path="res://game/scripts/player.gd" id="1_gocdo"]
 [ext_resource type="Texture2D" uid="uid://dn3wbbng8tg0j" path="res://@Platformer/Hit.png" id="2_jfkb5"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="3_pxxcr"]
 [ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="4_8mt8e"]
@@ -11,8 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://prototype_2/conveyor_belt.tscn" id="9_2k1gg"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_3i3c3"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="10_4dyke"]
-[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://scripts/player_hurtbox.gd" id="11_06pfm"]
+[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="11_06pfm"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_f2egm"]
+[ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://audio/Gun blast 4.wav" id="14_ppdnp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -501,11 +502,11 @@ _data = {
 size = Vector2(9, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 70
+collision_mask = 582
 platform_floor_layers = 4294967293
 script = ExtResource("1_gocdo")
 accel = 25
-fall_velocity_factor = 2.5300000000000002
+fall_velocity_factor = 2.53
 energy_consumption = 150
 power_energy_consumption = 190
 knockback = Vector2(100, 15)
@@ -621,6 +622,9 @@ one_shot = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("12_f2egm")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_ppdnp")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
