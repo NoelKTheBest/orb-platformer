@@ -1,10 +1,98 @@
-[gd_scene load_steps=6 format=4 uid="uid://dw5iu2fqyi30v"]
+[gd_scene load_steps=10 format=4 uid="uid://dw5iu2fqyi30v"]
 
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_4ocoy"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="2_crrvt"]
 [ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="3_rifvl"]
 [ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="4_l6jt4"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_qkxey"]
+
+[sub_resource type="Animation" id="Animation_4ocoy"]
+resource_name = "grow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(11.93, 1.45), Vector2(11.929981, 6.53)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [635.0, 594.0]
+}
+
+[sub_resource type="Animation" id="Animation_crrvt"]
+resource_name = "shrink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(11.929981, 6.53), Vector2(11.93, 1.45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [594.0, 635.0]
+}
+
+[sub_resource type="Animation" id="Animation_rifvl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11.929981, 6.53)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [594.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l6jt4"]
+_data = {
+&"RESET": SubResource("Animation_rifvl"),
+&"grow": SubResource("Animation_4ocoy"),
+&"shrink": SubResource("Animation_crrvt")
+}
 
 [node name="Level1" type="Node2D"]
 
@@ -22,9 +110,19 @@ position = Vector2(316.0822, 617)
 scale = Vector2(35.383564, 3.1392224)
 polygon = PackedVector2Array(-5, -5, 5, -5, 5.0000005, -0.29224396, 5, 5, -5, 5)
 
+[node name="Polygon2D5" parent="." instance=ExtResource("1_4ocoy")]
+position = Vector2(1043, 594)
+scale = Vector2(11.929981, 6.53)
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Polygon2D5"]
+libraries = {
+&"": SubResource("AnimationLibrary_l6jt4")
+}
+
 [node name="Polygon2D3" parent="." instance=ExtResource("1_4ocoy")]
-position = Vector2(787, 581.00006)
-scale = Vector2(62.500008, 11.866209)
+position = Vector2(737, 581.00006)
+scale = Vector2(49.277084, 11.866209)
 
 [node name="Door" parent="." instance=ExtResource("2_crrvt")]
 position = Vector2(1297, 608.99994)
@@ -86,3 +184,4 @@ offset = Vector2(0, 16.97)
 
 [node name="Player" parent="." instance=ExtResource("5_qkxey")]
 position = Vector2(-14, 603)
+launch_velocity = 0
