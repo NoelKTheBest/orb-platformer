@@ -1,0 +1,159 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmfs3dniol6cr"]
+
+[ext_resource type="Script" uid="uid://dbone50ld10kw" path="res://level_2.gd" id="1_2f1k2"]
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="3_7neg2"]
+[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
+
+[sub_resource type="Animation" id="Animation_bxukv"]
+resource_name = "path1"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BR_Forcefield:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-35, 497), Vector2(-35, 497), Vector2(522, 497), Vector2(140, 497)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BR_Forcefield:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BR_Forcefield:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 3, 0]
+}
+
+[sub_resource type="Animation" id="Animation_uivyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BR_Forcefield:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(140, 497)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BR_Forcefield:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BR_Forcefield:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_go8g1"]
+_data = {
+&"RESET": SubResource("Animation_uivyf"),
+&"path1": SubResource("Animation_bxukv")
+}
+
+[sub_resource type="Animation" id="Animation_2f1k2"]
+resource_name = "path1"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7dx7g"]
+_data = {
+&"path1": SubResource("Animation_2f1k2")
+}
+
+[sub_resource type="Animation" id="Animation_7neg2"]
+resource_name = "path1"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6jjde"]
+_data = {
+&"path1": SubResource("Animation_7neg2")
+}
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_2f1k2")
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+position = Vector2(-469.00003, 57.999996)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Polygon2D" parent="." instance=ExtResource("2_7dx7g")]
+position = Vector2(686.625, 843.00006)
+scale = Vector2(147.47499, 2.4755638)
+
+[node name="Player" parent="." instance=ExtResource("3_7neg2")]
+position = Vector2(-20, 562)
+
+[node name="BR_Forcefield" parent="." instance=ExtResource("4_6jjde")]
+visible = false
+position = Vector2(140, 497)
+scale = Vector2(0.2, 2)
+collision_layer = 0
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_go8g1")
+}
+
+[node name="BR_Forcefield2" parent="." instance=ExtResource("4_6jjde")]
+position = Vector2(1104, 697)
+scale = Vector2(0.2, 2.073)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield2"]
+libraries = {
+&"": SubResource("AnimationLibrary_7dx7g")
+}
+
+[node name="BR_Forcefield3" parent="." instance=ExtResource("4_6jjde")]
+position = Vector2(274, 497)
+scale = Vector2(0.2, 2.073)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield3"]
+libraries = {
+&"": SubResource("AnimationLibrary_6jjde")
+}
+
+[node name="Polygon2D3" parent="." instance=ExtResource("2_7dx7g")]
+position = Vector2(265, 729.5)
+scale = Vector2(63.199993, 20.700003)
+polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)

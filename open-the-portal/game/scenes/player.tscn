@@ -576,10 +576,10 @@ scale = Vector2(1.675, 1.675)
 color = Color(1, 0, 0, 1)
 
 [node name="ConveyorBelt" parent="UserInterface" instance=ExtResource("9_2k1gg")]
-offset_left = 1592.9412
-offset_top = -120.00006
-offset_right = 1592.9412
-offset_bottom = -120.00006
+offset_left = 1531.7644
+offset_top = -543.5294
+offset_right = 1531.7644
+offset_bottom = -543.5294
 
 [node name="CameraFollow" type="Node2D" parent="."]
 
@@ -625,6 +625,7 @@ one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_ppdnp")
+volume_db = -1.224
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

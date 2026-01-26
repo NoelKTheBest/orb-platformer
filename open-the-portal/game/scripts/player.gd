@@ -20,15 +20,16 @@ extends CharacterBody2D
 signal orb_was_fired
 signal player_died
 signal player_is_ready
+signal use_door
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const ORB_VELOCITY = 400
 
-var orb = preload("res://scenes/orb.tscn")
-var power_orb = preload("res://scenes/power_orb.tscn")
-var gun_blast_1 = preload("res://Gun blast 1.wav")
-var gun_blast_2 = preload("res://Gun blast 4.wav")
+var orb = preload("res://game/scenes/orb.tscn")
+var power_orb = preload("res://game/scenes/power_orb.tscn")
+var gun_blast_1 = preload("res://audio/Gun blast 1.wav")
+var gun_blast_2 = preload("res://audio/Gun blast 4.wav")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -54,7 +55,10 @@ func _process(delta: float) -> void:
 	# If energy regen is active, ensure the player isn't flagged as having no energy
 	if energy_regen:
 		no_energy = false
-
+	
+	if Input.is_action_just_pressed("use_door"):
+		use_door.emit()
+	
 	if !cycle_active:
 		if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
 			# Consume returns -1 if there isn't enough energy.
@@ -115,7 +119,7 @@ func _physics_process(delta: float) -> void:
 				
 
 		# Handle jump.
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("jump"):
 			jump_buffer_timer.start()
 		
 		if is_on_floor() and jump_buffer_timer.time_left > 0:
