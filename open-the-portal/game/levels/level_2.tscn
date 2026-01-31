@@ -1,9 +1,48 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmfs3dniol6cr"]
+[gd_scene load_steps=14 format=3 uid="uid://dmfs3dniol6cr"]
 
 [ext_resource type="Script" uid="uid://dbone50ld10kw" path="res://level_2.gd" id="1_2f1k2"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="3_7neg2"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
+
+[sub_resource type="Animation" id="Animation_uivyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BR_Forcefield:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(140, 497)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BR_Forcefield:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BR_Forcefield:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_bxukv"]
 resource_name = "path1"
@@ -46,64 +85,84 @@ tracks/2/keys = {
 "values": [0, 3, 0]
 }
 
-[sub_resource type="Animation" id="Animation_uivyf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BR_Forcefield:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(140, 497)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BR_Forcefield:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BR_Forcefield:collision_layer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_go8g1"]
 _data = {
 &"RESET": SubResource("Animation_uivyf"),
 &"path1": SubResource("Animation_bxukv")
 }
 
+[sub_resource type="Animation" id="Animation_7dx7g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1395.785, 697)]
+}
+
 [sub_resource type="Animation" id="Animation_2f1k2"]
 resource_name = "path1"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1395.785, 697), Vector2(610, 697)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7dx7g"]
 _data = {
+&"RESET": SubResource("Animation_7dx7g"),
 &"path1": SubResource("Animation_2f1k2")
+}
+
+[sub_resource type="Animation" id="Animation_6jjde"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(274, 497)]
 }
 
 [sub_resource type="Animation" id="Animation_7neg2"]
 resource_name = "path1"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(274, 497), Vector2(548.83, 497)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6jjde"]
 _data = {
+&"RESET": SubResource("Animation_6jjde"),
 &"path1": SubResource("Animation_7neg2")
 }
 
@@ -136,7 +195,7 @@ libraries = {
 }
 
 [node name="BR_Forcefield2" parent="." instance=ExtResource("4_6jjde")]
-position = Vector2(1104, 697)
+position = Vector2(1395.785, 697)
 scale = Vector2(0.2, 2.073)
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield2"]
