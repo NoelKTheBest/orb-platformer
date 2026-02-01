@@ -30,6 +30,7 @@ var orb = preload("res://game/scenes/orb.tscn")
 var power_orb = preload("res://game/scenes/power_orb.tscn")
 var gun_blast_1 = preload("res://audio/Gun blast 1.wav")
 var gun_blast_2 = preload("res://audio/Gun blast 4.wav")
+var emp_scene = preload("res://game/emp.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -41,7 +42,7 @@ var health = 3
 var was_hit = false
 var energy_regen = false
 
-var conveyor_belt = []
+@onready var conveyor_belt: Control = $UserInterface/ConveyorBelt
 
 
 func _ready() -> void:
@@ -101,6 +102,15 @@ func _process(delta: float) -> void:
 				
 				are_we_ready = true
 	
+	if Input.is_action_just_pressed("use_item") and is_on_floor():
+		var new_emp = emp_scene.instantiate()
+		new_emp.position = Vector2(0, 15)
+		add_child(new_emp)
+		are_we_ready = true
+		var mother = get_parent()
+		new_emp.reparent(mother)
+	
+	
 	sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
 	
 	if are_we_ready and !ready_signal_emitted: 
@@ -152,6 +162,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		
 		move_and_slide()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("use_item"):
+		# Check if item was successfully used before activating power-up
+		if conveyor_belt.use_item():
+			print("Using item - Energy Regen activated!")
+			$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
+			energy_regen = true
+			$EnergyRegenTimer.start()
+		else:
+			print("No items in inventory!")
 
 
 func move_camera(_delta : float):

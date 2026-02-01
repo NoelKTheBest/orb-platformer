@@ -1,15 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnxrrggj2e0w4"]
+[gd_scene load_steps=3 format=3 uid="uid://dnxrrggj2e0w4"]
 
+[ext_resource type="Script" uid="uid://dgnfogd6n5uja" path="res://game/emp.gd" id="1_5kkky"]
 [ext_resource type="Shape2D" uid="uid://dhdt0oopelrv6" path="res://game/EMPCollider.tres" id="1_gv6i4"]
 
 [node name="EMP" type="Area2D"]
-collision_layer = 0
-collision_mask = 258
+collision_layer = 256
+collision_mask = 2
+monitoring = false
+script = ExtResource("1_5kkky")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
 shape = ExtResource("1_gv6i4")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(0, 10)
 color = Color(1, 0.898, 0.32, 1)
 polygon = PackedVector2Array(-256, -20, 256, -20, 256, 0, -256, 0)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

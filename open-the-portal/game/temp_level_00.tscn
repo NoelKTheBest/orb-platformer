@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/temp_level_00.gd" id="1_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
-[ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="3_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://game/scenes/ground.tscn" id="4_s43bn"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="5_bvovn"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_7bxbr"]
@@ -15,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_yohrl"]
 [ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="13_3m8ir"]
 [ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://sprites/blank_filter.png" id="13_s43bn"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="16_4c045"]
 [ext_resource type="PackedScene" uid="uid://byys6etblb6xq" path="res://game/scenes/moving_wall.tscn" id="16_7bxbr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
@@ -278,11 +278,8 @@ texture = ExtResource("9_j2cgl")
 [node name="ItemTest" parent="." instance=ExtResource("11_bvovn")]
 position = Vector2(790.3617, 551.1946)
 
-[node name="Player" parent="." instance=ExtResource("3_3m8ir")]
-position = Vector2(220, 504)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(581, 327)
+[node name="Player" parent="." instance=ExtResource("16_4c045")]
+position = Vector2(269, 500)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
 position = Vector2(2067, 517)
@@ -299,7 +296,11 @@ position = Vector2(395, 488)
 [node name="Enemy" parent="." instance=ExtResource("5_bvovn")]
 position = Vector2(606, 477)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(169.13, 300)
+
 [node name="MovingWall" parent="." instance=ExtResource("16_7bxbr")]
+process_mode = 4
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
@@ -308,8 +309,6 @@ position = Vector2(606, 477)
 [connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
 [connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]
 [connection signal="body_entered" from="Energy powerup/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="Energy powerup/Area2D" to="Player" method="_on_area_2d_body_entered"]
-[connection signal="anti_gravity_zone_created" from="Player" to="." method="_on_player_anti_gravity_zone_created"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
 [connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]

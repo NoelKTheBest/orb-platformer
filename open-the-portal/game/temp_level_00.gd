@@ -171,7 +171,7 @@ func _on_enemy_spawn_interval_timeout() -> void:
 		else:
 			new_enemy = enemy_scene.instantiate()
 		
-		var spawn_point_rem = total_enemies_spawned % spawn_point_rate
+		var _spawn_point_rem = total_enemies_spawned % spawn_point_rate
 		var use_spawn_point = false
 		var player_is_close = false
 		if (total_enemies_spawned % spawn_point_rate == 0): use_spawn_point = true
@@ -226,5 +226,5 @@ func _on_you_win_timer_timeout() -> void:
 #endregion
 
 
-func _on_area_2d_body_entered(body: CharacterBody2D) -> void:
+func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
 	pass

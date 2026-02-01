@@ -6,5 +6,6 @@ func _ready() -> void:
 	$AnimationPlayer.play("move")
 
 
-func _process(delta: float) -> void:
-	print($Wall.position)
+func _process(_delta: float) -> void:
+	#print($Wall.position)
+	pass

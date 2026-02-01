@@ -25,6 +25,7 @@ var attack_count = 0
 var attack_anim_playing
 var walking = true
 var init_start_pos_x
+var shocked_by_emp = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -68,14 +69,14 @@ func _physics_process(delta: float) -> void:
 			else:
 				velocity.x = move_toward(velocity.x, 0, speed)
 		else:
-			anim_player.play("walk")
+			if anim_player.current_animation != "shock": anim_player.play("walk")
 			@warning_ignore("integer_division")
-			velocity.x = walk_velocity * (speed / 30)
+			velocity.x = walk_velocity * speed
 
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
-		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking:
+		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !shocked_by_emp:
 			if velocity.x != 0:
 				anim_player.play("run")
 			elif velocity.x == 0:
@@ -157,7 +158,16 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		on_cooldown = true
 		attacking = false
 		attack_count = 0
+	elif anim_name == "shock":
+		shocked_by_emp = false
 
 
 func _on_timer_timeout() -> void:
 	on_cooldown = false
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if area.name == "EMP":
+		print_rich("[color=yellow]bbrrrrrzzzrrrp")
+		$AnimationPlayer.play("shock")
+		shocked_by_emp = true
