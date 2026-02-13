@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="6_ul28n"]
 [ext_resource type="Texture2D" uid="uid://dn3wbbng8tg0j" path="res://@Platformer/Hit.png" id="8_ekeel"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_m4bds"]
+[ext_resource type="PackedScene" uid="uid://61oj6aandu32" path="res://game/scenes/hurtbox.tscn" id="9_gvlb3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -689,9 +690,6 @@ _data = {
 &"walk": SubResource("Animation_m4bds")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drq3n"]
-height = 26.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixaej"]
 radius = 224.0201
 
@@ -723,14 +721,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_wdrn2")
 }
 
-[node name="Hurtbox" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 288
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("CapsuleShape2D_drq3n")
-debug_color = Color(0, 0.7, 0.035, 0.364706)
+[node name="Hurtbox" parent="." instance=ExtResource("9_gvlb3")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 1)
@@ -772,8 +763,6 @@ scale = Vector2(0.035, 0.035)
 texture = ExtResource("8_m4bds")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="body_entered" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_entered"]
 [connection signal="body_exited" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_exited"]
