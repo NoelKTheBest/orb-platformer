@@ -513,7 +513,6 @@ orb_velocity = null
 energy_consumption = 150
 power_energy_consumption = 190
 knockback = Vector2(100, 15)
-launch_velocity = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g2dcj")
