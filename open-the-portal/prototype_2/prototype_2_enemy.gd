@@ -6,6 +6,7 @@ signal enemy_died()
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var player_attack_area: Area2D = $PlayerAttackArea
 
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
@@ -21,6 +22,7 @@ var on_cooldown : bool
 var in_anti_gravity_zone = false
 var zero_gravity_decel_easing : float
 var walking = true
+var shocked_by_emp = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,16 +69,17 @@ func _physics_process(delta: float) -> void:
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
-		if !attacking and !walking:
+		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !shocked_by_emp:
 			if velocity.x != 0:
 				anim_player.play("run")
 			elif velocity.x == 0:
 				anim_player.play("idle")
 			$Hitbox.visible = false
 			$Hitbox.set_collision_layer_value(1, false)
-		elif !walking:
+		elif player_attack_area.has_overlapping_bodies() and monitor_player_position:
 			if !on_cooldown:
 				anim_player.play('block')
+				attacking = true
 		
 		move_and_slide()
 	else:
@@ -126,21 +129,20 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		die()
 
 
-func _on_player_attack_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player") and monitor_player_position:
-		attacking = true
-
-
-func _on_player_attack_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		attacking = false
-
-
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "block":
 		$Timer.start()
 		on_cooldown = true
+		attacking = false
+	elif anim_name == "shock":
+		shocked_by_emp = false
 
 
 func _on_timer_timeout() -> void:
 	on_cooldown = false
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if area.name == "EMP":
+		$AnimationPlayer.play("shock")
+		shocked_by_emp = true
