@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://61oj6aandu32"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drq3n"]
+height = 26.0
+
+[node name="Hurtbox" type="Area2D"]
+visible = false
+collision_layer = 0
+collision_mask = 288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_drq3n")
+debug_color = Color(0, 0.7, 0.035, 0.364706)
