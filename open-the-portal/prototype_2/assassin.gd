@@ -168,6 +168,5 @@ func _on_timer_timeout() -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.name == "EMP":
-		print_rich("[color=yellow]bbrrrrrzzzrrrp")
 		$AnimationPlayer.play("shock")
 		shocked_by_emp = true
