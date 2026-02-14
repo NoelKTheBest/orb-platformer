@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://3qf1pqlf7ymm"]
+[gd_scene load_steps=25 format=3 uid="uid://3qf1pqlf7ymm"]
 
 [ext_resource type="Texture2D" uid="uid://kimq6qwc6bx0" path="res://characters/The SwordMaster v1.2/The SwordMaster/Sword Master Sprite Sheet 90x37.png" id="1_i3umc"]
 [ext_resource type="Script" uid="uid://bqjx7lk3j3rhg" path="res://prototype_2/forcefield_controller.gd" id="1_lmgt8"]
@@ -442,6 +442,33 @@ tracks/3/keys = {
 "values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4), Vector2i(5, 4), Vector2i(6, 4), Vector2i(7, 4)]
 }
 
+[sub_resource type="Animation" id="Animation_ppu4j"]
+resource_name = "shock"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [251, 250, 251, 250, 251, 250, 251, 250, 251, 250]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.9843137, 1, 0, 1), Color(0, 0.88235295, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mnccd"]
 _data = {
 &"RESET": SubResource("Animation_ykimm"),
@@ -456,7 +483,8 @@ _data = {
 &"recover": SubResource("Animation_w46wk"),
 &"roll": SubResource("Animation_k3dmg"),
 &"roll_attack": SubResource("Animation_k1sms"),
-&"run": SubResource("Animation_mnccd")
+&"run": SubResource("Animation_mnccd"),
+&"shock": SubResource("Animation_ppu4j")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3umc"]
@@ -498,10 +526,9 @@ libraries = {
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 32
+collision_mask = 288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-visible = false
 shape = SubResource("CapsuleShape2D_i3umc")
 debug_color = Color(0.17830646, 0.6199579, 0.49277264, 0.41960785)
 

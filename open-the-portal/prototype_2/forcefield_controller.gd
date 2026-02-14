@@ -11,7 +11,7 @@ signal controller_dead()
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-enum enemy_state {IDLE, RUN, RUN_AWAY, RECOVER, ATTACK1, ATTACK2, ATTACK3, ROLL, BLOCK, DISAPPEAR, REAPPEAR}
+enum enemy_state {IDLE, RUN, RUN_AWAY, RECOVER, ATTACK1, ATTACK2, ATTACK3, ROLL, BLOCK, DISAPPEAR, REAPPEAR, SHOCKED}
 var current_state = enemy_state.IDLE
 var monitor_player_position = false
 var return_point_x
@@ -65,7 +65,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !in_anti_gravity_zone:
+	if !in_anti_gravity_zone and current_state != enemy_state.SHOCKED:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
@@ -102,8 +102,8 @@ func _physics_process(delta: float) -> void:
 					animation_player.play("run")
 				elif velocity.x == 0:
 					animation_player.play("idle")
-				$Hurtbox.visible = false
-				$Hurtbox.set_collision_layer_value(1, false)
+				#$Hurtbox.visible = false
+				#$Hurtbox.set_collision_layer_value(1, false)
 		elif player_attack_area.has_overlapping_bodies() and monitor_player_position:
 			if !on_cooldown:
 				animation_player.play('attack_3')
@@ -150,6 +150,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	elif anim_name == "recover":
 		current_state = enemy_state.IDLE
 		#$BulletDetectionRange.set_collision_mask_value(6, true)
+	elif anim_name == "shock":
+		current_state = enemy_state.IDLE
 
 
 func _on_timer_timeout() -> void:
@@ -187,4 +189,11 @@ func _on_recover_timer_timeout() -> void:
 func _on_hitbox_1_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs"): body.queue_free()
 	if body.is_in_group("Power Orbs"): body.queue_free()
-	
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	print("hello")
+	if area.name == "EMP":
+		print_rich("[color=lightgreen]You got me!")
+		animation_player.play("shock")
+		current_state = enemy_state.SHOCKED
