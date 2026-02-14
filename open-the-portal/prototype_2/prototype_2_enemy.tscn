@@ -702,6 +702,7 @@ radius = 22.0
 self_modulate = Color(0.53333336, 0.003921569, 0.99607843, 1)
 collision_layer = 2
 collision_mask = 69
+platform_floor_layers = 4294967294
 script = ExtResource("1_wgi8n")
 speed = 100
 launch_velocity = -400
@@ -763,6 +764,8 @@ scale = Vector2(0.035, 0.035)
 texture = ExtResource("8_m4bds")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="body_entered" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_entered"]
 [connection signal="body_exited" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_exited"]
