@@ -1,10 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=18 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/temp_level_00.gd" id="1_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://game/scenes/ground.tscn" id="4_s43bn"]
-[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="5_bvovn"]
-[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_7bxbr"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_4c045"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_ke71t"]
 [ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://pixelart_starfields/pixelart_starfield.png" id="9_j2cgl"]
@@ -29,7 +27,8 @@ radius = 80.0
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3m8ir")
 sp_spacing = 218
-total_number_of_enemies = 20
+total_number_of_enemies = 1
+spawn_point_enemy_count = 0
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yohrl")]
 position = Vector2(2136, 451.00003)
@@ -276,31 +275,22 @@ texture_filter = 0
 texture = ExtResource("9_j2cgl")
 
 [node name="ItemTest" parent="." instance=ExtResource("11_bvovn")]
+process_mode = 4
+visible = false
 position = Vector2(790.3617, 551.1946)
 
 [node name="Player" parent="." instance=ExtResource("16_4c045")]
-position = Vector2(269, 500)
+position = Vector2(269, 537)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
-position = Vector2(2067, 517)
-
-[node name="Enemy2" parent="." instance=ExtResource("5_bvovn")]
-position = Vector2(1402, 502)
-
-[node name="Assassin2" parent="." instance=ExtResource("6_7bxbr")]
-position = Vector2(1037, 508)
-
-[node name="Assassin" parent="." instance=ExtResource("6_7bxbr")]
-position = Vector2(395, 488)
-
-[node name="Enemy" parent="." instance=ExtResource("5_bvovn")]
-position = Vector2(606, 477)
+position = Vector2(665, 522)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(169.13, 300)
 
 [node name="MovingWall" parent="." instance=ExtResource("16_7bxbr")]
 process_mode = 4
+visible = false
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

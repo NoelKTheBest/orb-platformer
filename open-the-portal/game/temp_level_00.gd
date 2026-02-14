@@ -54,15 +54,15 @@ func _ready() -> void:
 	print("enemies left: ", num_enemy_left)
 	#print("total_enemies_spawned % total_number_of_enemy_2: ", total_enemies_spawned % enemy_2_mod)
 	@warning_ignore("integer_division")
-	print("total num of enemies: ", total_number_of_enemies, "; Spawn Point Rate: ",  total_number_of_enemies / spawn_point_enemy_count)
+	#print("total num of enemies: ", total_number_of_enemies, "; Spawn Point Rate: ",  total_number_of_enemies / spawn_point_enemy_count)
 	
 	# Take initial secondary enemy ratio and use it to determine secondary enemy spawn rate
 	enemy_2_mod_rem = total_enemies_spawned % enemy_2_mod
 	
 	# Set Spawn Point Usage Rate
 	@warning_ignore("integer_division")
-	spawn_point_rate = (total_number_of_enemies / spawn_point_enemy_count) - 3
-	print("rem: ", 8 % spawn_point_rate, "; 2nd rem: ", 16 % spawn_point_rate, "; 3rd rem: ", 12 % spawn_point_rate)
+	#spawn_point_rate = (total_number_of_enemies / spawn_point_enemy_count) - 3
+	#print("rem: ", 8 % spawn_point_rate, "; 2nd rem: ", 16 % spawn_point_rate, "; 3rd rem: ", 12 % spawn_point_rate)
 	
 	# Setup
 	sprite1 = Sprite2D.new()
@@ -73,6 +73,12 @@ func _ready() -> void:
 	sprite2.scale = Vector2(0.09, 0.09)
 	sprite1.texture = godotbot
 	sprite2.texture = godotbot
+	
+	var temppos1 = player.position - Vector2(sp_spacing, 5)
+	var temppos2 = player.position + Vector2(sp_spacing, -5)
+	sprite1.position = temppos1
+	sprite2.position = temppos2
+	
 	level_rect = $Area2D/CollisionShape2D.shape.get_rect()
 
 
@@ -108,8 +114,8 @@ func _process(_delta: float) -> void:
 		if (rwp.position.x - player.position.x) < sp_spacing:
 			var x = (rwp.position.x - player.position.x) / 2 + player.position.x
 			enemy_spawn_point2 = Vector2(x, enemy_spawn_point2.y)
-		sprite1.position = enemy_spawn_point1
-		sprite2.position = enemy_spawn_point2
+		sprite1.position.x = enemy_spawn_point1.x
+		sprite2.position.x = enemy_spawn_point2.x
 	
 	if visible_sp:
 		sprite1.visible = true
@@ -192,11 +198,11 @@ func _on_enemy_spawn_interval_timeout() -> void:
 			match sp_toggle:
 				0:
 					add_child(new_enemy)
-					new_enemy.position = enemy_spawn_point1
+					new_enemy.position = sprite1.position
 					sp_toggle = 1 - sp_toggle
 				1:
 					add_child(new_enemy)
-					new_enemy.position = enemy_spawn_point2
+					new_enemy.position = sprite2.position
 					sp_toggle = 1 - sp_toggle
 		
 		if total_enemies_spawned < total_number_of_enemies: 
