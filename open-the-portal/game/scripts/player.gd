@@ -16,21 +16,27 @@ extends CharacterBody2D
 @export var energy_consumption : int = 30
 @export var power_energy_consumption : int = 50
 @export var knockback: Vector2
+@export var walle = true # temp var for testing
+@export var wall_pos_inc = 2
 
 signal orb_was_fired
 signal player_died
 signal player_is_ready
 signal use_door
+signal item_activation_stopped
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const ORB_VELOCITY = 400
 
+#region private vars
 var orb = preload("res://game/scenes/orb.tscn")
 var power_orb = preload("res://game/scenes/power_orb.tscn")
 var gun_blast_1 = preload("res://audio/Gun blast 1.wav")
 var gun_blast_2 = preload("res://audio/Gun blast 4.wav")
 var emp_scene = preload("res://game/emp.tscn")
+var wall_scene = preload("res://game/scenes/wall.tscn")
+var sword_scene = preload("res://game/scenes/sword_slash.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -41,15 +47,25 @@ var ready_signal_emitted = false
 var health = 3
 var was_hit = false
 var energy_regen = false
+var emp_spawn_pos = Vector2(0, 15)
+var wall_spawn_pos = Vector2(20, 0)
+var item_activation_frametime = 0
+var temp_delta = 0
+var sword_instance
+var current_item: String = ""
+#endregion
 
 @onready var conveyor_belt: Control = $UserInterface/ConveyorBelt
 
 
 func _ready() -> void:
 	print(self)
+	item_activation_stopped.connect(_on_item_activation_stopped)
+	current_item = "Sword"
 
 
 func _process(delta: float) -> void:
+	temp_delta = delta
 	if enemy_pos: 
 		move_camera(delta)
 	
@@ -102,14 +118,12 @@ func _process(delta: float) -> void:
 				
 				are_we_ready = true
 	
-	if Input.is_action_just_pressed("use_item") and is_on_floor():
-		var new_emp = emp_scene.instantiate()
-		new_emp.position = Vector2(0, 15)
-		add_child(new_emp)
-		are_we_ready = true
-		var mother = get_parent()
-		new_emp.reparent(mother)
+	use_item("Sword")
 	
+	#if Input.is_action_pressed("use_item"):
+		#print_rich("[color=orange]hello")
+		#await item_activation_stopped
+		#print_rich("[color=orangered]world")
 	
 	sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
 	
@@ -165,6 +179,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey and !event.is_pressed() and event.is_action("use_item") and current_item == "Wall":
+		item_activation_stopped.emit()
 	if event.is_action_pressed("use_item"):
 		# Check if item was successfully used before activating power-up
 		if conveyor_belt.use_item():
@@ -202,6 +218,66 @@ func move_camera(_delta : float):
 
 func reset_camera_follow():
 	enemy_pos = position
+
+
+func use_item(item_name: String):
+	match item_name:
+		"EMP":
+			if Input.is_action_just_pressed("use_item") and is_on_floor():
+				var new_emp = emp_scene.instantiate()
+				new_emp.position = emp_spawn_pos
+				add_child(new_emp)
+				are_we_ready = true
+				var mother = get_parent()
+				new_emp.reparent(mother)
+		"Wall":
+			if Input.is_action_just_pressed("use_item") and is_on_floor() and !walle:
+				#print_rich("[color=lightblue]just pressed")
+				var new_wall = wall_scene.instantiate()
+				var mult = -1 if sprite_2d.flip_h == true else 1 
+				new_wall.position = wall_spawn_pos * mult
+				add_child(new_wall)
+				are_we_ready = true
+				var mother = get_parent()
+				new_wall.reparent(mother)
+			elif Input.is_action_pressed("use_item") and is_on_floor() and walle:
+				$ItemActivationTimer.start()
+				item_activation_frametime += 1
+				print_rich("[color=lightgreen]" + str(item_activation_frametime), "; ", "[color=lightblue]" + str(item_activation_frametime * temp_delta * 5))
+				#await item_activation_stopped
+				$WallIndicator.visible = true
+				var mult = -1 if sprite_2d.flip_h == true else 1
+				$WallIndicator.position.x = (20 + wall_pos_inc * item_activation_frametime * temp_delta) * mult
+		"Sword":
+			if Input.is_action_just_pressed("use_item") and is_on_floor():
+				if not sword_instance:
+					print("no swords yet")
+					var new_sword = sword_scene.instantiate()
+					var mult = -1 if sprite_2d.flip_h == true else 1 
+					new_sword.position = Vector2(15, 0) * mult
+					add_child(new_sword)
+					sword_instance = new_sword
+					are_we_ready = true
+				else:
+					var mult = -1 if sprite_2d.flip_h == true else 1
+					
+			pass
+
+
+
+# For use with wall item
+func _on_item_activation_stopped():
+	var new_wall = wall_scene.instantiate()
+	var mult = -1 if sprite_2d.flip_h == true else 1
+	var wall_pos = Vector2(wall_spawn_pos.x + (wall_pos_inc * item_activation_frametime * temp_delta), 0) * mult
+	new_wall.position = wall_pos
+	add_child(new_wall)
+	are_we_ready = true
+	var mother = get_parent()
+	new_wall.reparent(mother)
+	item_activation_frametime = 0
+	temp_delta = 0
+	$WallIndicator.visible = false
 
 
 func _on_hurtbox_player_was_hit(collision_vector: Vector2) -> void:
@@ -248,3 +324,7 @@ func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
 	
 	await $EnergyRegenTimer.timeout
 	energy_regen = false
+
+
+func _on_item_activation_timer_timeout() -> void:
+	print("ready")
