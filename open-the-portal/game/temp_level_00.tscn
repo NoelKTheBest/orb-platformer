@@ -283,6 +283,8 @@ position = Vector2(790.3617, 551.1946)
 position = Vector2(269, 537)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
+process_mode = 4
+visible = false
 position = Vector2(665, 522)
 
 [node name="Camera2D" type="Camera2D" parent="."]
