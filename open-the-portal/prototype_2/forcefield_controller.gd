@@ -111,6 +111,7 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_slide()
 	else:
+		velocity.x = 0
 		#zero_gravity_decel_easing = 3 if velocity.y > -200 else 1
 		#if velocity.y > -27:
 			#zero_gravity_decel_easing = 4
@@ -170,7 +171,6 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 
 func _on_bullet_detection_range_body_entered(body: Node2D) -> void:
-	print(body.get_groups(), body.name)
 	if body.is_in_group("Orbs") and current_state != enemy_state.RECOVER:
 		current_state = enemy_state.BLOCK
 		animation_player.play("block")
@@ -192,7 +192,6 @@ func _on_hitbox_1_body_entered(body: Node2D) -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	print("hello")
 	if area.name == "EMP":
 		print_rich("[color=lightgreen]You got me!")
 		animation_player.play("shock")
