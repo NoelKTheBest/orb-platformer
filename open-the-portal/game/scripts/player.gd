@@ -61,7 +61,7 @@ var current_item: String = ""
 func _ready() -> void:
 	print(self)
 	item_activation_stopped.connect(_on_item_activation_stopped)
-	current_item = "Sword"
+	current_item = "Wall"
 
 
 func _process(delta: float) -> void:
@@ -118,7 +118,7 @@ func _process(delta: float) -> void:
 				
 				are_we_ready = true
 	
-	use_item("Sword")
+	use_item("Wall")
 	
 	#if Input.is_action_pressed("use_item"):
 		#print_rich("[color=orange]hello")
