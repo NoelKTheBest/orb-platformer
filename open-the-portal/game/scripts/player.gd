@@ -61,7 +61,7 @@ var current_item: String = ""
 func _ready() -> void:
 	print(self)
 	item_activation_stopped.connect(_on_item_activation_stopped)
-	current_item = "Wall"
+	current_item = "HP Restore"
 
 
 func _process(delta: float) -> void:
@@ -118,7 +118,7 @@ func _process(delta: float) -> void:
 				
 				are_we_ready = true
 	
-	use_item("Wall")
+	use_item(current_item)
 	
 	#if Input.is_action_pressed("use_item"):
 		#print_rich("[color=orange]hello")
@@ -251,16 +251,29 @@ func use_item(item_name: String):
 		"Sword":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
 				if not sword_instance:
-					print("no swords yet")
 					var new_sword = sword_scene.instantiate()
 					var mult = -1 if sprite_2d.flip_h == true else 1 
 					new_sword.position = Vector2(15, 0) * mult
 					add_child(new_sword)
 					sword_instance = new_sword
+					sword_instance.flip_h = sprite_2d.flip_h
+					sword_instance.play_anim()
 					are_we_ready = true
 				else:
 					var mult = -1 if sprite_2d.flip_h == true else 1
-					
+					sword_instance.position = Vector2(15, 0) * mult
+					sword_instance.flip_h = sprite_2d.flip_h
+					sword_instance.play_anim()
+					are_we_ready = true # might not be needed
+		"Flash Grenade":
+			pass
+		"Bomb":
+			pass
+		"HP Restore":
+			if Input.is_action_just_pressed("use_item") and is_on_floor():
+				health = 3
+				health_bar.update_health(health)
+		"Energy Restore":
 			pass
 
 
