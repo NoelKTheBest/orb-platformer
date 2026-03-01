@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddaus2abhlfh1"]
 
-[ext_resource type="Script" uid="uid://ctoymr8bmq5i8" path="res://prototype_2/conveyor_belt.gd" id="1_uqijh"]
+[ext_resource type="Script" uid="uid://dfdfqrcbv7wcx" path="res://prototype_2/conveyor_belt.gd" id="1_uqijh"]
 
 [node name="ConveyorBelt" type="Control"]
 layout_mode = 3
