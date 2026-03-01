@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://7s1qprkf40y0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kpfv7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1y2s6"]
+albedo_color = Color(1, 0.44816667, 0.23000002, 1)
+
+[node name="Sun" type="MeshInstance3D"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("SphereMesh_kpfv7")
+surface_material_override/0 = SubResource("StandardMaterial3D_1y2s6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.98039216, 0.78431374, 0, 1)
+omni_range = 4096.0
+omni_attenuation = 0.245

@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://d7sxrvqja05x"]
+
+[ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="1_ecdp4"]
+[ext_resource type="PackedScene" uid="uid://dcxna41pushf8" path="res://game/scenes/Miranda.tscn" id="2_6bcnq"]
+[ext_resource type="PackedScene" uid="uid://7s1qprkf40y0" path="res://game/scenes/Sun.tscn" id="3_6bcnq"]
+[ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://pixelart_starfields/pixelart_starfield.png" id="4_a7wn7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a7wn7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_paoho"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Zena" parent="." instance=ExtResource("1_ecdp4")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -131, 0, 0)
+
+[node name="Miranda" parent="." instance=ExtResource("2_6bcnq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 265.59827, 0, 0)
+
+[node name="Sun" parent="." instance=ExtResource("3_6bcnq")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.077328086, 0, 0.9970057, 0, 1, 0, -0.9970057, 0, 0.077328086, 269.279, 0, 3.691)
+
+[node name="Sprite3D" type="Sprite3D" parent="Camera3D"]
+transform = Transform3D(319.69, 0, 0, 0, 319.69, 0, 0, 0, 319.69, -5.094925, 0, -318.71448)
+texture = ExtResource("4_a7wn7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.044708, 0, 0)
+mesh = SubResource("SphereMesh_a7wn7")
+surface_material_override/0 = SubResource("StandardMaterial3D_paoho")

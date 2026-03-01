@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcxna41pushf8"]
+
+[ext_resource type="Texture2D" uid="uid://fppcjskmf7wu" path="res://sprites/Miranda_scaled_3x_pngcrushed.png" id="1_7mrfk"]
+[ext_resource type="Script" uid="uid://78ywob6bclwn" path="res://game/scripts/zena.gd" id="2_jt8g1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55q3a"]
+albedo_texture = ExtResource("1_7mrfk")
+
+[sub_resource type="SphereMesh" id="SphereMesh_5htrn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2pi7k"]
+
+[node name="Miranda" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_55q3a")
+mesh = SubResource("SphereMesh_5htrn")
+surface_material_override/0 = SubResource("StandardMaterial3D_2pi7k")
+script = ExtResource("2_jt8g1")

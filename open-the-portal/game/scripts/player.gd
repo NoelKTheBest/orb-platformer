@@ -326,7 +326,7 @@ func _on_power_spawn_timer_timeout() -> void:
 	power_cooldown = false
 	$UserInterface/ColorRect2.visible = true
 
-
+# Review later
 func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
 	# Energy regen powerup test
 	$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
