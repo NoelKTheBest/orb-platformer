@@ -3,9 +3,16 @@ extends Control
 const DEBUG = true  # Set to false to disable all debug prints
 const MIN_BOXES = 3  # Minimum slots always visible even if empty
 const ITEM_NAMES = {
-	1: "Energy Regen Power-up",
-	2: "Speed Boost", 
-	3: "Shield"
+	1: "EMP",
+	2: "Wall",
+	3: "Sword",
+	4: "Flash Grenade",
+	5: "Bomb",
+	6: "HP Restore",
+	7: "Energy Restore",
+	#1: "Energy Regen Power-up",
+	#2: "Speed Boost",
+	#3: "Shield"
 }
 
 var inventory: Array[int] = [0, 0, 0, 0, 0, 0]  # 6 slots, 0 = empty
@@ -28,7 +35,8 @@ func add_item(item_id: int, _item_texture: Texture2D = null) -> bool:
 		if inventory[i] == 0:
 			empty_index = i
 			break
-	
+
+	# Use empty_index to set the item id (Check if inventory is not full)
 	if empty_index != -1:
 		inventory[empty_index] = item_id
 		
