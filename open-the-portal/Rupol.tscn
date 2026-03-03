@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ujv6h6ytk1bh"]
+
+[ext_resource type="Texture2D" uid="uid://drqxj72tev3gd" path="res://sprites/Rupol.png" id="1_j4604"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dtto"]
+albedo_texture = ExtResource("1_j4604")
+
+[sub_resource type="SphereMesh" id="SphereMesh_s4yvh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulxr4"]
+
+[node name="Rupol" type="MeshInstance3D"]
+transform = Transform3D(0.74717104, -0.46337268, 0.47646758, 0.62541914, 0.7327822, -0.26810613, -0.22491391, 0.49831307, 0.83731586, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_7dtto")
+mesh = SubResource("SphereMesh_s4yvh")
+surface_material_override/0 = SubResource("StandardMaterial3D_ulxr4")
