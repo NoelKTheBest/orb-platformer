@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=21 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/temp_level_00.gd" id="1_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
@@ -12,8 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_yohrl"]
 [ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="13_3m8ir"]
 [ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://sprites/blank_filter.png" id="13_s43bn"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="15_7bxbr"]
+[ext_resource type="PackedScene" uid="uid://21fil4b5f1ll" path="res://item_spawner.tscn" id="15_ke71t"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="16_4c045"]
 [ext_resource type="PackedScene" uid="uid://byys6etblb6xq" path="res://game/scenes/moving_wall.tscn" id="16_7bxbr"]
+[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="16_ke71t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -27,8 +30,8 @@ radius = 80.0
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3m8ir")
 sp_spacing = 218
-total_number_of_enemies = 1
-spawn_point_enemy_count = 0
+total_number_of_enemies = 30
+spawn_point_enemy_count = 5
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yohrl")]
 position = Vector2(2136, 451.00003)
@@ -283,7 +286,7 @@ position = Vector2(790.3617, 551.1946)
 position = Vector2(269, 537)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
-position = Vector2(665, 522)
+position = Vector2(2068, 525)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(169.13, 300)
@@ -291,6 +294,16 @@ position = Vector2(169.13, 300)
 [node name="MovingWall" parent="." instance=ExtResource("16_7bxbr")]
 process_mode = 4
 visible = false
+
+[node name="ItemSpawner" parent="." instance=ExtResource("15_ke71t")]
+position = Vector2(299, 414)
+item_id = 8
+
+[node name="Enemy" parent="." instance=ExtResource("16_ke71t")]
+position = Vector2(647, 530)
+
+[node name="Assassin" parent="." instance=ExtResource("15_7bxbr")]
+position = Vector2(416, 528)
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

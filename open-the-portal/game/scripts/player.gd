@@ -118,7 +118,7 @@ func _process(delta: float) -> void:
 				
 				are_we_ready = true
 	
-	use_item(current_item)
+	check_for_use_item(current_item)
 	
 	#if Input.is_action_pressed("use_item"):
 		#print_rich("[color=orange]hello")
@@ -220,7 +220,7 @@ func reset_camera_follow():
 	enemy_pos = position
 
 
-func use_item(item_name: String):
+func check_for_use_item(item_name: String):
 	match item_name:
 		"EMP":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():

@@ -61,7 +61,7 @@ func _ready() -> void:
 	
 	# Set Spawn Point Usage Rate
 	@warning_ignore("integer_division")
-	#spawn_point_rate = (total_number_of_enemies / spawn_point_enemy_count) - 3
+	spawn_point_rate = (total_number_of_enemies / spawn_point_enemy_count) - 3
 	#print("rem: ", 8 % spawn_point_rate, "; 2nd rem: ", 16 % spawn_point_rate, "; 3rd rem: ", 12 % spawn_point_rate)
 	
 	# Setup

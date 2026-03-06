@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://21fil4b5f1ll"]
+
+[ext_resource type="Script" uid="uid://b31y2wilx57o" path="res://game/scripts/item_spawner.gd" id="1_ardge"]
+
+[node name="ItemSpawner" type="Polygon2D"]
+color = Color(0, 0.6, 0.22999993, 1)
+polygon = PackedVector2Array(-16, 0, -16, 18, 0, 26, 16, 18, 16, 0)
+script = ExtResource("1_ardge")
+item = null
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-2, 18, 2, 18, 2, 22, -2, 22)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-2, 16, -2, 2, 2, 2, 2, 16)

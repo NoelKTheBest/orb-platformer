@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2oo8b7ebi3lu"]
+
+[ext_resource type="Texture2D" uid="uid://cp1u8s7ws1m80" path="res://sprites/Item_Icons-Sheet.png" id="1_b6f4e"]
+[ext_resource type="Script" uid="uid://s0m3rcc7iee0" path="res://game/scripts/item.gd" id="2_cr2nb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6f4e"]
+
+[node name="Item" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_b6f4e")
+
+[node name="Item" type="Sprite2D" parent="."]
+texture = ExtResource("1_b6f4e")
+hframes = 7
+script = ExtResource("2_cr2nb")
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+show_behind_parent = true
+scale = Vector2(1.08, 1.08)
+color = Color(0.09, 0.09, 0.09, 1)
+polygon = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+scale = Vector2(1.1, 1.1)
+color = Color(0.066, 0.086533315, 0.22, 1)
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)

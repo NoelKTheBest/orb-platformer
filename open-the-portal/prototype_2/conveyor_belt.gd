@@ -1,7 +1,7 @@
 extends Control
 
 const DEBUG = true  # Set to false to disable all debug prints
-const MIN_BOXES = 3  # Minimum slots always visible even if empty
+const MIN_BOXES = 6  # Minimum slots always visible even if empty
 const ITEM_NAMES = {
 	1: "EMP",
 	2: "Wall",
