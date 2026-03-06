@@ -578,10 +578,11 @@ scale = Vector2(1.675, 1.675)
 color = Color(1, 0, 0, 1)
 
 [node name="ConveyorBelt" parent="UserInterface" instance=ExtResource("9_2k1gg")]
-offset_left = 1531.7644
-offset_top = -543.5294
-offset_right = 1531.7644
-offset_bottom = -543.5294
+offset_left = 1169.4116
+offset_top = -1063.5295
+offset_right = 1169.4116
+offset_bottom = -1063.5295
+scale = Vector2(1.79, 1.79)
 
 [node name="CameraFollow" type="Node2D" parent="."]
 

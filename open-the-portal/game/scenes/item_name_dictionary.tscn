@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3k5e1ad7p2if"]
+
+[ext_resource type="Script" uid="uid://b840g4d7bakpy" path="res://game/scripts/item_name_dictionary.gd" id="1_63ig1"]
+
+[node name="ItemNameDictionary" type="Node"]
+script = ExtResource("1_63ig1")

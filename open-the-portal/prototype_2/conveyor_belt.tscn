@@ -80,7 +80,6 @@ offset_right = 22.5
 offset_bottom = 22.5
 grow_horizontal = 2
 grow_vertical = 2
-expand_mode = 1
 
 [node name="Slot2" type="ColorRect" parent="Inventory"]
 custom_minimum_size = Vector2(70, 70)

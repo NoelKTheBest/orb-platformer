@@ -2,17 +2,14 @@ extends Control
 
 const DEBUG = true  # Set to false to disable all debug prints
 const MIN_BOXES = 6  # Minimum slots always visible even if empty
-const ITEM_NAMES = {
-	1: "EMP",
-	2: "Wall",
-	3: "Sword",
-	4: "Flash Grenade",
-	5: "Bomb",
-	6: "HP Restore",
-	7: "Energy Restore",
-	#1: "Energy Regen Power-up",
-	#2: "Speed Boost",
-	#3: "Shield"
+const ITEM_TEXTURES = {
+	1: preload("res://sprites/items/1.png"),
+	2: preload("res://sprites/items/2.png"),
+	3: preload("res://sprites/items/3.png"),
+	4: preload("res://sprites/items/4.png"),
+	5: preload("res://sprites/items/5.png"),
+	6: preload("res://sprites/items/6.png"),
+	7: preload("res://sprites/items/7.png"),
 }
 
 var inventory: Array[int] = [0, 0, 0, 0, 0, 0]  # 6 slots, 0 = empty
@@ -41,7 +38,7 @@ func add_item(item_id: int, _item_texture: Texture2D = null) -> bool:
 		inventory[empty_index] = item_id
 		
 		# Show pickup notification
-		var item_name = ITEM_NAMES.get(item_id, "Unknown Item")
+		var item_name = ItemNameDictionary.ITEM_NAMES.get(item_id, "Unknown Item")
 		show_pickup_notification(item_name)
 		
 		if DEBUG:
@@ -91,7 +88,7 @@ func update_visual() -> void:
 		
 		if inventory[i] != 0:
 			# Load texture based on item ID
-			var texture_path := "res://icon.svg"
+			var texture_path := "res://sprites/items/" + str(inventory[i]) + ".png"
 			item_rect.texture = load(texture_path)
 			item_rect.visible = true
 		else:
@@ -122,3 +119,18 @@ func show_pickup_notification(item_name: String) -> void:
 	var tween = create_tween()
 	tween.tween_property(label, "modulate:a", 0.0, 2.0).set_delay(1.0)
 	tween.tween_callback(label.queue_free)
+
+
+func advance_belt() -> void:
+	var first_element = inventory[0]
+	for i in range(inventory.size()):
+		# If we are on the last index, set to first element if slot is not empty
+		if i == inventory.size() - 1:
+			inventory[i] = first_element if inventory[i] != 0 else 0
+		else:
+			# If the next slot is not empty, set current slot to the next element
+			if inventory[i + 1] != 0:
+				inventory[i] = inventory[i + 1]
+			else: inventory[i] = first_element if inventory[i] != 0 else 0
+	
+	update_visual()

@@ -118,7 +118,12 @@ func _process(delta: float) -> void:
 				
 				are_we_ready = true
 	
-	check_for_use_item(current_item)
+	if Input.is_action_just_pressed("advance_belt"):
+		conveyor_belt.advance_belt()
+	
+	if conveyor_belt.get_slot_content(0) != 0:
+		current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
+		check_for_use_item(current_item)
 	
 	#if Input.is_action_pressed("use_item"):
 		#print_rich("[color=orange]hello")
@@ -345,4 +350,4 @@ func _on_item_activation_timer_timeout() -> void:
 
 func _on_item_detector_body_entered(body: Node2D) -> void:
 	conveyor_belt.add_item(body.id)
-	body.queue_free()
+	if !conveyor_belt.is_full(): body.queue_free()
