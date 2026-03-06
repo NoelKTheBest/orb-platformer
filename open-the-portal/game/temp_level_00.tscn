@@ -297,7 +297,6 @@ visible = false
 
 [node name="ItemSpawner" parent="." instance=ExtResource("15_ke71t")]
 position = Vector2(299, 414)
-item_id = 8
 
 [node name="Enemy" parent="." instance=ExtResource("16_ke71t")]
 position = Vector2(647, 530)

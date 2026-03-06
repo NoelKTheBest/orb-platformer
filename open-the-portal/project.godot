@@ -123,6 +123,7 @@ spawn_new_item={
 2d_physics/layer_8="Enemy Attacks"
 2d_physics/layer_9="EMP"
 2d_physics/layer_10="Moving Wall"
+2d_physics/layer_11="Items"
 
 [rendering]
 

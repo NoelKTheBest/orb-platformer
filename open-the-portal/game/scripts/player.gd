@@ -341,3 +341,8 @@ func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
 
 func _on_item_activation_timer_timeout() -> void:
 	print("ready")
+
+
+func _on_item_detector_body_entered(body: Node2D) -> void:
+	conveyor_belt.add_item(body.id)
+	body.queue_free()

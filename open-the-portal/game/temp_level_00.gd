@@ -28,7 +28,7 @@ var num_enemy_left
 var sprite1
 var sprite2
 var sp_toggle = 0
-var level_rect
+var level_rect 
 var enemy_2_mod_rem
 var controller_is_dead = false
 var spawn_point_rate
@@ -39,6 +39,7 @@ var player_close_to_sp2 = false
 @onready var player: CharacterBody2D = $Player
 @onready var lwp: Node2D = $LeftWallPosition
 @onready var rwp: Node2D = $RightWallPosition
+@onready var item_spawner: Polygon2D = $ItemSpawner
 # Spawn Points
 @onready var spawn_point_1: Sprite2D = $SpawnPoint1
 @onready var spawn_point_2: Sprite2D = $SpawnPoint2
@@ -123,6 +124,10 @@ func _process(_delta: float) -> void:
 	else:
 		sprite1.visible = false
 		sprite2.visible = false
+	
+	if Input.is_action_just_pressed("spawn_new_item"):
+		item_spawner.item_id = item_spawner.random_roll_item()
+		item_spawner.spawn_item()
 
 
 func enemy_is_visible(enemy):

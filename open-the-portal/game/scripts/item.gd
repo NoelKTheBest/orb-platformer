@@ -1,6 +1,7 @@
-extends Sprite2D
+extends RigidBody2D
 
+var id: int
+var item_name: String
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	name = "Sword"
+func ready():
+	name = item_name

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dkr4cdkqpcfm"]
+[gd_scene load_steps=33 format=3 uid="uid://dkr4cdkqpcfm"]
 
 [ext_resource type="Script" uid="uid://qdlr8tjud1s6" path="res://game/scripts/player.gd" id="1_gocdo"]
 [ext_resource type="Texture2D" uid="uid://dn3wbbng8tg0j" path="res://@Platformer/Hit.png" id="2_jfkb5"]
@@ -501,6 +501,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khinc"]
 size = Vector2(9, 14)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_br0p3"]
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 582
 platform_floor_layers = 4294967293
@@ -637,10 +639,18 @@ scale = Vector2(0.205, 1)
 color = Color(0.100000024, 1, 0.95500004, 1)
 polygon = PackedVector2Array(-1, -7, 1, -7, 1, 5, -1, 5)
 
+[node name="ItemDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemDetector"]
+shape = SubResource("RectangleShape2D_br0p3")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="PowerSpawnTimer" to="." method="_on_power_spawn_timer_timeout"]
 [connection signal="player_was_hit" from="Hurtbox" to="." method="_on_hurtbox_player_was_hit"]
 [connection signal="timeout" from="ItemActivationTimer" to="." method="_on_item_activation_timer_timeout"]
+[connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
 
 [editable path="UserInterface"]
