@@ -186,15 +186,6 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and !event.is_pressed() and event.is_action("use_item") and current_item == "Wall":
 		item_activation_stopped.emit()
-	if event.is_action_pressed("use_item"):
-		# Check if item was successfully used before activating power-up
-		if conveyor_belt.use_item():
-			print("Using item - Energy Regen activated!")
-			$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
-			energy_regen = true
-			$EnergyRegenTimer.start()
-		else:
-			print("No items in inventory!")
 
 
 func move_camera(_delta : float):
@@ -229,57 +220,76 @@ func check_for_use_item(item_name: String):
 	match item_name:
 		"EMP":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
-				var new_emp = emp_scene.instantiate()
-				new_emp.position = emp_spawn_pos
-				add_child(new_emp)
-				are_we_ready = true
-				var mother = get_parent()
-				new_emp.reparent(mother)
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					var new_emp = emp_scene.instantiate()
+					new_emp.position = emp_spawn_pos
+					add_child(new_emp)
+					are_we_ready = true
+					var mother = get_parent()
+					new_emp.reparent(mother)
 		"Wall":
 			if Input.is_action_just_pressed("use_item") and is_on_floor() and !walle:
-				#print_rich("[color=lightblue]just pressed")
-				var new_wall = wall_scene.instantiate()
-				var mult = -1 if sprite_2d.flip_h == true else 1 
-				new_wall.position = wall_spawn_pos * mult
-				add_child(new_wall)
-				are_we_ready = true
-				var mother = get_parent()
-				new_wall.reparent(mother)
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					#print_rich("[color=lightblue]just pressed")
+					var new_wall = wall_scene.instantiate()
+					var mult = -1 if sprite_2d.flip_h == true else 1 
+					new_wall.position = wall_spawn_pos * mult
+					add_child(new_wall)
+					are_we_ready = true
+					var mother = get_parent()
+					new_wall.reparent(mother)
 			elif Input.is_action_pressed("use_item") and is_on_floor() and walle:
-				$ItemActivationTimer.start()
-				item_activation_frametime += 1
-				print_rich("[color=lightgreen]" + str(item_activation_frametime), "; ", "[color=lightblue]" + str(item_activation_frametime * temp_delta * 5))
-				#await item_activation_stopped
-				$WallIndicator.visible = true
-				var mult = -1 if sprite_2d.flip_h == true else 1
-				$WallIndicator.position.x = (20 + wall_pos_inc * item_activation_frametime * temp_delta) * mult
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					$ItemActivationTimer.start()
+					item_activation_frametime += 1
+					print_rich("[color=lightgreen]" + str(item_activation_frametime), "; ", "[color=lightblue]" + str(item_activation_frametime * temp_delta * 5))
+					#await item_activation_stopped
+					$WallIndicator.visible = true
+					var mult = -1 if sprite_2d.flip_h == true else 1
+					$WallIndicator.position.x = (20 + wall_pos_inc * item_activation_frametime * temp_delta) * mult
 		"Sword":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
-				if not sword_instance:
-					var new_sword = sword_scene.instantiate()
-					var mult = -1 if sprite_2d.flip_h == true else 1 
-					new_sword.position = Vector2(15, 0) * mult
-					add_child(new_sword)
-					sword_instance = new_sword
-					sword_instance.flip_h = sprite_2d.flip_h
-					sword_instance.play_anim()
-					are_we_ready = true
-				else:
-					var mult = -1 if sprite_2d.flip_h == true else 1
-					sword_instance.position = Vector2(15, 0) * mult
-					sword_instance.flip_h = sprite_2d.flip_h
-					sword_instance.play_anim()
-					are_we_ready = true # might not be needed
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					if not sword_instance:
+						var new_sword = sword_scene.instantiate()
+						var mult = -1 if sprite_2d.flip_h == true else 1 
+						new_sword.position = Vector2(15, 0) * mult
+						add_child(new_sword)
+						sword_instance = new_sword
+						sword_instance.flip_h = sprite_2d.flip_h
+						sword_instance.play_anim()
+						are_we_ready = true
+					else:
+						var mult = -1 if sprite_2d.flip_h == true else 1
+						sword_instance.position = Vector2(15, 0) * mult
+						sword_instance.flip_h = sprite_2d.flip_h
+						sword_instance.play_anim()
+						are_we_ready = true # might not be needed
 		"Flash Grenade":
-			print_rich("[color=orangered]BANG!!!")
+			# Check if item was successfully used before activating power-up
+			if conveyor_belt.use_item():
+				print_rich("[color=orangered]BANG!!!")
 		"Bomb":
-			print_rich("[color=red]BOOOM!!!")
+			# Check if item was successfully used before activating power-up
+			if conveyor_belt.use_item():
+				print_rich("[color=red]BOOOM!!!")
 		"HP Restore":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
-				health = 3
-				health_bar.update_health(health)
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					health = 3
+					health_bar.update_health(health)
 		"Energy Restore":
-			print_rich("[color=lightgreen]ENERGY UP")
+			# Check if item was successfully used before activating power-up
+			if conveyor_belt.use_item():
+				print_rich("[color=lightgreen]ENERGY UP")
+				#$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
+				#energy_regen = true
+				#$EnergyRegenTimer.start()
 
 
 
