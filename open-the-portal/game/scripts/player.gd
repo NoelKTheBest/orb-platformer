@@ -271,15 +271,15 @@ func check_for_use_item(item_name: String):
 					sword_instance.play_anim()
 					are_we_ready = true # might not be needed
 		"Flash Grenade":
-			pass
+			print_rich("[color=orangered]BANG!!!")
 		"Bomb":
-			pass
+			print_rich("[color=red]BOOOM!!!")
 		"HP Restore":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
 				health = 3
 				health_bar.update_health(health)
 		"Energy Restore":
-			pass
+			print_rich("[color=lightgreen]ENERGY UP")
 
 
 
