@@ -242,8 +242,9 @@ func check_for_use_item(item_name: String):
 					new_wall.reparent(mother)
 			elif Input.is_action_pressed("use_item") and is_on_floor() and walle:
 				# Check if item was successfully used before activating power-up
-				if conveyor_belt.use_item():
-					$ItemActivationTimer.start()
+				if conveyor_belt.get_slot_content(0) == 2:
+					#$ItemActivationTimer.start()
+					
 					item_activation_frametime += 1
 					print_rich("[color=lightgreen]" + str(item_activation_frametime), "; ", "[color=lightblue]" + str(item_activation_frametime * temp_delta * 5))
 					#await item_activation_stopped
@@ -306,6 +307,7 @@ func _on_item_activation_stopped():
 	item_activation_frametime = 0
 	temp_delta = 0
 	$WallIndicator.visible = false
+	conveyor_belt.use_item()
 
 
 func _on_hurtbox_player_was_hit(collision_vector: Vector2) -> void:
