@@ -1,218 +1,89 @@
-[gd_scene load_steps=14 format=3 uid="uid://dmfs3dniol6cr"]
+[gd_scene load_steps=8 format=3 uid="uid://dmfs3dniol6cr"]
 
 [ext_resource type="Script" uid="uid://dbone50ld10kw" path="res://level_2.gd" id="1_2f1k2"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="3_7neg2"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
-
-[sub_resource type="Animation" id="Animation_uivyf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BR_Forcefield:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(140, 497)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BR_Forcefield:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BR_Forcefield:collision_layer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_bxukv"]
-resource_name = "path1"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BR_Forcefield:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-35, 497), Vector2(-35, 497), Vector2(522, 497), Vector2(140, 497)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BR_Forcefield:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BR_Forcefield:collision_layer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 3, 0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_go8g1"]
-_data = {
-&"RESET": SubResource("Animation_uivyf"),
-&"path1": SubResource("Animation_bxukv")
-}
-
-[sub_resource type="Animation" id="Animation_7dx7g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1395.785, 697)]
-}
-
-[sub_resource type="Animation" id="Animation_2f1k2"]
-resource_name = "path1"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1395.785, 697), Vector2(610, 697)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7dx7g"]
-_data = {
-&"RESET": SubResource("Animation_7dx7g"),
-&"path1": SubResource("Animation_2f1k2")
-}
-
-[sub_resource type="Animation" id="Animation_6jjde"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(274, 497)]
-}
-
-[sub_resource type="Animation" id="Animation_7neg2"]
-resource_name = "path1"
-length = 3.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(274, 497), Vector2(548.83, 497)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6jjde"]
-_data = {
-&"RESET": SubResource("Animation_6jjde"),
-&"path1": SubResource("Animation_7neg2")
-}
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="4_7neg2"]
+[ext_resource type="Texture2D" uid="uid://cbt7ukps6tmsr" path="res://@Platformer/Death.png" id="5_6jjde"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="6_bxukv"]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_2f1k2")
 
-[node name="Polygon2D4" type="Polygon2D" parent="."]
+[node name="BG" type="Polygon2D" parent="."]
 position = Vector2(-469.00003, 57.999996)
 scale = Vector2(1.566537, 2.8336828)
 color = Color(0.1512, 0.1533467, 0.28, 1)
 polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
 
 [node name="Polygon2D" parent="." instance=ExtResource("2_7dx7g")]
-position = Vector2(686.625, 843.00006)
-scale = Vector2(147.47499, 2.4755638)
-
-[node name="Player" parent="." instance=ExtResource("3_7neg2")]
-position = Vector2(-20, 562)
-
-[node name="BR_Forcefield" parent="." instance=ExtResource("4_6jjde")]
-visible = false
-position = Vector2(140, 497)
-scale = Vector2(0.2, 2)
-collision_layer = 0
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield"]
-root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_go8g1")
-}
-
-[node name="BR_Forcefield2" parent="." instance=ExtResource("4_6jjde")]
-position = Vector2(1395.785, 697)
-scale = Vector2(0.2, 2.073)
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield2"]
-libraries = {
-&"": SubResource("AnimationLibrary_7dx7g")
-}
-
-[node name="BR_Forcefield3" parent="." instance=ExtResource("4_6jjde")]
-position = Vector2(274, 497)
-scale = Vector2(0.2, 2.073)
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="BR_Forcefield3"]
-libraries = {
-&"": SubResource("AnimationLibrary_6jjde")
-}
+position = Vector2(290.425, 843.00006)
+scale = Vector2(72.245, 2.8)
 
 [node name="Polygon2D3" parent="." instance=ExtResource("2_7dx7g")]
-position = Vector2(265, 729.5)
-scale = Vector2(63.199993, 20.700003)
+position = Vector2(290.425, 709)
+scale = Vector2(72.245, 2.8)
 polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
+
+[node name="Polygon2D4" parent="." instance=ExtResource("2_7dx7g")]
+position = Vector2(290.425, 580.065)
+scale = Vector2(72.245, 2.8)
+polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
+
+[node name="Player" parent="." instance=ExtResource("3_7neg2")]
+position = Vector2(9, 788)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("2_7dx7g")]
+position = Vector2(-61, 712)
+scale = Vector2(1.5600002, 25.560007)
+
+[node name="Polygon2D5" parent="." instance=ExtResource("2_7dx7g")]
+position = Vector2(643, 775.95)
+scale = Vector2(1.56, 16.065)
+
+[node name="Enemy 1" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(435, 688)
+texture = ExtResource("4_7neg2")
+hframes = 5
+
+[node name="Enemy 2" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(537, 688)
+texture = ExtResource("4_7neg2")
+flip_h = true
+hframes = 5
+frame = 1
+
+[node name="Enemy 3" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(210, 688)
+texture = ExtResource("4_7neg2")
+flip_h = true
+hframes = 5
+frame = 2
+
+[node name="Victim" type="Sprite2D" parent="."]
+modulate = Color(0.73, 0.991, 1, 1)
+position = Vector2(468, 688)
+texture = ExtResource("5_6jjde")
+flip_h = true
+hframes = 7
+frame = 6
+
+[node name="BL_Door" parent="." instance=ExtResource("6_bxukv")]
+position = Vector2(138.19289, 813.1597)
+
+[node name="TL_Door" parent="." instance=ExtResource("6_bxukv")]
+position = Vector2(137.0741, 679.44763)
+
+[node name="BR_Door" parent="." instance=ExtResource("6_bxukv")]
+position = Vector2(373.0383, 813.09436)
+
+[node name="TR_Door" parent="." instance=ExtResource("6_bxukv")]
+position = Vector2(373.88693, 680.1405)
+
+[node name="BR_Forcefield" parent="." instance=ExtResource("4_6jjde")]
+position = Vector2(644, 645)
+scale = Vector2(0.082, 0.815)

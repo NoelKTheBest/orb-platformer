@@ -1,35 +1,35 @@
-[gd_scene load_steps=6 format=4 uid="uid://dw5iu2fqyi30v"]
+[gd_scene load_steps=6 format=4 uid="uid://1npaobpruimi"]
 
-[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_4ocoy"]
-[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="3_rifvl"]
-[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="4_l6jt4"]
-[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_qkxey"]
-[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="6_crrvt"]
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_qpxtm"]
+[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="2_p0pgv"]
+[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="3_12tya"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="4_r6jdw"]
+[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="5_u7kdy"]
 
-[node name="Level1" type="Node2D"]
+[node name="Level4" type="Node2D"]
 
 [node name="BG" type="Polygon2D" parent="."]
-position = Vector2(-387.51926, 57.554535)
+position = Vector2(-469.00003, 57.999996)
 scale = Vector2(1.566537, 2.8336828)
 color = Color(0.1512, 0.1533467, 0.28, 1)
 polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
 
-[node name="Polygon2D" parent="." instance=ExtResource("1_4ocoy")]
+[node name="Polygon2D" parent="." instance=ExtResource("1_qpxtm")]
 position = Vector2(861.25006, 636)
 scale = Vector2(70.7, 2.476)
 polygon = PackedVector2Array(-5, -5, -2.92705, -5, 5, -5, 5, 5, -5, 5)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-modulate = Color(0.63, 0.63, 0.63, 1)
+modulate = Color(0.6, 0.6, 0.6, 1)
 tile_map_data = PackedByteArray("AAAQABAAAAAAAAAAAAARABAAAAAAAAAAAAASABAAAAAAAAAAAAATABAAAAAAAAAAAAAVABAAAAAAAAAAAAAWABAAAAAAAAAAAAAXABAAAAAAAAAAAAAYABAAAAAAAAAAAAAZABAAAAAAAAAAAAAaABAAAAAAAAAAAAAbABAAAAAAAAAAAAAdABAAAAAAAAAAAAAeABAAAAAAAAAAAAAfABAAAAAAAAAAAAAgABAAAAAAAAAAAAAhABAAAAAAAAAAAAAiABAAAAAAAAAAAAAjABAAAAAAAAAAAAAkABAAAAAAAAAAAAAkAA8AAAABAAAAAAAjAA8AAAABAAAAAAAiAA8AAAABAAAAAAAhAA8AAAABAAAAAAAgAA8AAAABAAAAAAAfAA8AAAABAAAAAAAeAA8AAAABAAAAAAAdAA8AAAABAAAAAAAcAA8AAAABAAAAAAAbAA8AAAABAAAAAAAaAA8AAAABAAAAAAAZAA8AAAABAAAAAAAYAA8AAAABAAAAAAAXAA8AAAABAAAAAAAWAA8AAAABAAAAAAAVAA8AAAABAAAAAAAUAA8AAAABAAAAAAATAA8AAAABAAAAAAASAA8AAAABAAAAAAARAA8AAAABAAAAAAAQAA8AAAABAAAAAAAQAA4AAAACAAAAAAARAA4AAAACAAAAAAASAA4AAAACAAAAAAATAA4AAAACAAAAAAAUAA4AAAACAAAAAAAVAA4AAAACAAAAAAAWAA4AAAACAAAAAAAXAA4AAAACAAAAAAAbAA4AAAACAAAAAAAaAA4AAAACAAAAAAAZAA4AAAACAAAAAAAYAA4AAAACAAAAAAAcAA4AAAACAAAAAAAdAA4AAAACAAAAAAAeAA4AAAACAAAAAAAfAA4AAAACAAAAAAAgAA4AAAACAAAAAAAhAA4AAAACAAAAAAAiAA4AAAACAAAAAAAjAA4AAAACAAAAAAAkAA4AAAACAAAAAAAlAA4AAAACAAAAAAAlAA8AAAABAAAAAAAlABAAAAAAAAAAAAA=")
-tile_set = ExtResource("3_rifvl")
+tile_set = ExtResource("2_p0pgv")
 
 [node name="PointLight2D10" type="PointLight2D" parent="."]
 position = Vector2(912, 519.00006)
 scale = Vector2(2.1250002, 2.1875005)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("4_l6jt4")
+texture = ExtResource("3_12tya")
 offset = Vector2(0, 20.985)
 
 [node name="PointLight2D11" type="PointLight2D" parent="."]
@@ -37,18 +37,17 @@ position = Vector2(656.50006, 515.4965)
 scale = Vector2(4.171875, 2.0339844)
 energy = 2.45
 shadow_enabled = true
-texture = ExtResource("4_l6jt4")
+texture = ExtResource("3_12tya")
 offset = Vector2(0, 28.72)
 
-[node name="Player" parent="." instance=ExtResource("5_qkxey")]
-position = Vector2(549, 605)
+[node name="Player" parent="." instance=ExtResource("4_r6jdw")]
+position = Vector2(558, 600)
 
-[node name="BR_Forcefield" parent="." instance=ExtResource("6_crrvt")]
-position = Vector2(1198.9999, 551.99994)
-scale = Vector2(0.115, 1.15)
+[node name="BR_Forcefield" parent="." instance=ExtResource("5_u7kdy")]
+modulate = Color(1, 0.27999997, 0.27999997, 1)
+position = Vector2(1192, 546)
+scale = Vector2(0.23499998, 1.7099974)
 
-[node name="Polygon2D2" parent="." instance=ExtResource("1_4ocoy")]
+[node name="Polygon2D2" parent="." instance=ExtResource("1_qpxtm")]
 position = Vector2(516, 584)
 scale = Vector2(1, 9.039995)
-
-[connection signal="use_door" from="Player" to="." method="_on_player_use_door"]

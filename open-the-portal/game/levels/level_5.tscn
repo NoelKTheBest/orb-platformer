@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=4 uid="uid://bvl43epbpth1c"]
+
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_ey10t"]
+[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="2_ed38m"]
+[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="3_p2lkm"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="4_4tw6r"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_uetc8"]
+
+[node name="Level5" type="Node2D"]
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(84, 147.00002)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Polygon2D" parent="." instance=ExtResource("1_ey10t")]
+position = Vector2(496, 416)
+scale = Vector2(73.44, 2.2399988)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+modulate = Color(0.26, 0.26, 0.26, 1)
+tile_map_data = PackedByteArray("AAAEAAgAAAADAAAAAAAEAAcAAAADAAAAAAAFAAcAAAADAAAAAAAGAAcAAAADAAAAAAAHAAcAAAADAAAAAAAHAAgAAAADAAAAAAAGAAgAAAADAAAAAAAFAAgAAAADAAAAAAALAAgAAAADAAAAAAAMAAgAAAADAAAAAAANAAgAAAADAAAAAAAOAAgAAAADAAAAAAAQAAgAAAADAAAAAAASAAgAAAADAAAAAAATAAgAAAADAAAAAAAUAAgAAAADAAAAAAAYAAgAAAADAAAAAAAZAAgAAAADAAAAAAAaAAgAAAADAAAAAAAaAAcAAAADAAAAAAAZAAcAAAADAAAAAAAYAAcAAAADAAAAAAAXAAcAAAADAAAAAAAWAAcAAAADAAAAAAAVAAcAAAADAAAAAAAUAAcAAAADAAAAAAATAAcAAAADAAAAAAASAAcAAAADAAAAAAARAAcAAAADAAAAAAAQAAcAAAADAAAAAAAPAAcAAAADAAAAAAAOAAcAAAADAAAAAAANAAcAAAADAAAAAAAMAAcAAAADAAAAAAALAAcAAAADAAAAAAAKAAcAAAADAAAAAAAJAAcAAAADAAAAAAAIAAcAAAADAAAAAAAXAAgAAAADAAAAAAARAAgAAAADAAAAAAAKAAgAAAADAAAAAAAJAAgAAAADAAAAAAAVAAgAAAADAAAAAAA=")
+tile_set = ExtResource("2_ed38m")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(272, 256)
+scale = Vector2(2.4999998, 4.361)
+shadow_enabled = true
+texture = ExtResource("3_p2lkm")
+offset = Vector2(0, 20.985)
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(496, 256)
+scale = Vector2(2.4999998, 4.361)
+shadow_enabled = true
+texture = ExtResource("3_p2lkm")
+offset = Vector2(0, 20.985)
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(719.99994, 256)
+scale = Vector2(2.4999998, 4.361)
+shadow_enabled = true
+texture = ExtResource("3_p2lkm")
+offset = Vector2(0, 20.985)
+
+[node name="Enemy 1" type="Sprite2D" parent="."]
+modulate = Color(0.57, 0.399, 0.399, 1)
+position = Vector2(466, 398)
+texture = ExtResource("4_4tw6r")
+hframes = 5
+
+[node name="Enemy 2" type="Sprite2D" parent="."]
+modulate = Color(0.57, 0.399, 0.399, 1)
+position = Vector2(508, 398)
+texture = ExtResource("4_4tw6r")
+flip_h = true
+hframes = 5
+frame = 1
+
+[node name="Enemy 3" type="Sprite2D" parent="."]
+modulate = Color(0.57, 0.399, 0.399, 1)
+position = Vector2(400, 398)
+texture = ExtResource("4_4tw6r")
+hframes = 5
+frame = 2
+
+[node name="Enemy 4" type="Sprite2D" parent="."]
+modulate = Color(0.57, 0.399, 0.399, 1)
+position = Vector2(579, 398)
+texture = ExtResource("4_4tw6r")
+flip_h = true
+hframes = 5
+frame = 1
+
+[node name="Player" parent="." instance=ExtResource("5_uetc8")]
+position = Vector2(160, 392)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("1_ey10t")]
+position = Vector2(136, 344)
+scale = Vector2(1.48, 12.759997)
+
+[node name="Polygon2D3" parent="." instance=ExtResource("1_ey10t")]
+position = Vector2(856.00006, 344)
+scale = Vector2(1.48, 12.759997)

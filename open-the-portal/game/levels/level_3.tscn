@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://1m57r5ywqua2"]
+
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_u3bt3"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_pkj3y"]
+[ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://sprites/items/5.png" id="3_nangp"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="4_nangp"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="5_5rwuc"]
+[ext_resource type="Texture2D" uid="uid://bl2vlgtjg5cs1" path="res://ASSETS/EXPLOSION.png" id="6_5rwuc"]
+
+[node name="Level3" type="Node2D"]
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(-469.00003, 57.999996)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Polygon2D" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(708.225, 623.93506)
+scale = Vector2(72.245, 2.8)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(356.80005, 492.935)
+scale = Vector2(1.5600002, 25.560007)
+
+[node name="Polygon2D3" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(403.00003, 489)
+scale = Vector2(10.604986, 2.8)
+polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
+
+[node name="Polygon2D4" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(708.225, 361)
+scale = Vector2(72.245, 2.8)
+polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
+
+[node name="Polygon2D5" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(1061, 426.00006)
+scale = Vector2(1.56, 16.065)
+
+[node name="Polygon2D6" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(708, 489.00003)
+scale = Vector2(26.524994, 2.8)
+polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
+
+[node name="Polygon2D7" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(1015, 489)
+scale = Vector2(10.604986, 2.8)
+polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
+
+[node name="Glass_Ceiling" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(515, 481.99997)
+scale = Vector2(12.120009, 1.36)
+color = Color(0.5481, 0.85927, 0.87, 1)
+
+[node name="Glass_Ceiling2" parent="." instance=ExtResource("1_u3bt3")]
+position = Vector2(901, 481.99997)
+scale = Vector2(12.120009, 1.36)
+color = Color(0.5481, 0.85927, 0.87, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_pkj3y")]
+position = Vector2(403, 450)
+
+[node name="Bomba" type="Sprite2D" parent="."]
+position = Vector2(666, 465)
+texture = ExtResource("3_nangp")
+
+[node name="Top_Door" parent="." instance=ExtResource("4_nangp")]
+position = Vector2(699.14795, 459.8363)
+
+[node name="Bottom_Door" parent="." instance=ExtResource("4_nangp")]
+position = Vector2(695.88245, 594.19037)
+
+[node name="Enemy 1" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(627, 603)
+texture = ExtResource("5_5rwuc")
+hframes = 5
+
+[node name="Enemy 2" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(669, 603)
+texture = ExtResource("5_5rwuc")
+flip_h = true
+hframes = 5
+frame = 1
+
+[node name="Enemy 3" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(561, 603)
+texture = ExtResource("5_5rwuc")
+hframes = 5
+frame = 2
+
+[node name="Enemy 4" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(740, 603)
+texture = ExtResource("5_5rwuc")
+flip_h = true
+hframes = 5
+frame = 1
+
+[node name="Enemy 5" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(822, 603)
+texture = ExtResource("5_5rwuc")
+flip_h = true
+hframes = 5
+frame = 1
+
+[node name="Enemy 6" type="Sprite2D" parent="."]
+modulate = Color(1, 0.7, 0.7, 1)
+position = Vector2(784, 603)
+texture = ExtResource("5_5rwuc")
+hframes = 5
+frame = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(439, 591)
+texture = ExtResource("6_5rwuc")
+hframes = 12
+frame = 3
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(973.6035, 591.06494)
+texture = ExtResource("6_5rwuc")
+hframes = 12
+frame = 3
