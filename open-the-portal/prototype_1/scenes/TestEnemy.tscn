@@ -1,12 +1,12 @@
 [gd_scene load_steps=21 format=3 uid="uid://b2ius7ny1cpy5"]
 
 [ext_resource type="Script" uid="uid://gp1i8pwl22y" path="res://prototype_1/scripts/test_enemy.gd" id="1_6wim8"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="2_yv8y2"]
-[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://@Platformer/Walk.png" id="3_7ckaw"]
-[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://@Platformer/Bow Attack.png" id="4_fae76"]
-[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://@Platformer/Jump.png" id="5_mfgkr"]
-[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://@Platformer/Fall.png" id="6_1sm64"]
-[ext_resource type="Texture2D" uid="uid://v5161umy35el" path="res://@Platformer/Stab Dash.png" id="7_2jhqo"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="2_yv8y2"]
+[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://characters/@Platformer/Walk.png" id="3_7ckaw"]
+[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://characters/@Platformer/Bow Attack.png" id="4_fae76"]
+[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://characters/@Platformer/Jump.png" id="5_mfgkr"]
+[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://characters/@Platformer/Fall.png" id="6_1sm64"]
+[ext_resource type="Texture2D" uid="uid://v5161umy35el" path="res://characters/@Platformer/Stab Dash.png" id="7_2jhqo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0

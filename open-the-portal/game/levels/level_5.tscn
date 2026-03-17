@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_ey10t"]
 [ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="2_ed38m"]
 [ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="3_p2lkm"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="4_4tw6r"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="4_4tw6r"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_uetc8"]
 
 [node name="Level5" type="Node2D"]

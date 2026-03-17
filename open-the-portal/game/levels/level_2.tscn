@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="3_7neg2"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="4_7neg2"]
-[ext_resource type="Texture2D" uid="uid://cbt7ukps6tmsr" path="res://@Platformer/Death.png" id="5_6jjde"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="4_7neg2"]
+[ext_resource type="Texture2D" uid="uid://cbt7ukps6tmsr" path="res://characters/@Platformer/Death.png" id="5_6jjde"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="6_bxukv"]
 
 [node name="Level2" type="Node2D"]

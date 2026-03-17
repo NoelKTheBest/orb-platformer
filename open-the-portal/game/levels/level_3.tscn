@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_pkj3y"]
 [ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://sprites/items/5.png" id="3_nangp"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="4_nangp"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://@Platformer/Idle.png" id="5_5rwuc"]
-[ext_resource type="Texture2D" uid="uid://bl2vlgtjg5cs1" path="res://ASSETS/EXPLOSION.png" id="6_5rwuc"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="5_5rwuc"]
+[ext_resource type="Texture2D" uid="uid://bl2vlgtjg5cs1" path="res://sprites/ASSETS/EXPLOSION.png" id="6_5rwuc"]
 
 [node name="Level3" type="Node2D"]
 
