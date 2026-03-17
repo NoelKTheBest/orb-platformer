@@ -21,6 +21,8 @@ ItemNameDictionary="*res://game/scenes/item_name_dictionary.tscn"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/initial_position_type=2
 window/stretch/mode="canvas_items"
 
@@ -31,7 +33,15 @@ enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://game/": "green"
+"res://addons/": "orange",
+"res://audio/": "blue",
+"res://characters/": "pink",
+"res://characters/KALA/": "purple",
+"res://game/": "green",
+"res://game/levels/": "blue",
+"res://prototype_1/": "gray",
+"res://prototype_2/": "gray",
+"res://sprites/": "teal"
 }
 
 [global_group]
