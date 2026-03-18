@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://dw5iu2fqyi30v"]
+[gd_scene load_steps=7 format=4 uid="uid://dw5iu2fqyi30v"]
 
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_4ocoy"]
 [ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="3_rifvl"]
 [ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="4_l6jt4"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_qkxey"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="6_crrvt"]
+[ext_resource type="PackedScene" uid="uid://bvmw43rai1kyg" path="res://game/scenes/bomb.tscn" id="6_rifvl"]
 
 [node name="Level1" type="Node2D"]
 
@@ -50,5 +51,9 @@ scale = Vector2(0.115, 1.15)
 [node name="Polygon2D2" parent="." instance=ExtResource("1_4ocoy")]
 position = Vector2(516, 584)
 scale = Vector2(1, 9.039995)
+
+[node name="Bomb" parent="." instance=ExtResource("6_rifvl")]
+position = Vector2(618, 550)
+x_velocity = 150
 
 [connection signal="use_door" from="Player" to="." method="_on_player_use_door"]

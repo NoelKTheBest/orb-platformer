@@ -12,7 +12,7 @@ const ITEM_TEXTURES = {
 	7: preload("res://sprites/items/7.png"),
 }
 
-var inventory: Array[int] = [0, 0, 0, 0, 0, 0]  # 6 slots, 0 = empty
+var inventory: Array[int] = [5, 0, 0, 0, 0, 0]  # 6 slots, 0 = empty
 
 @onready var inventory_container: HBoxContainer = $Inventory
 

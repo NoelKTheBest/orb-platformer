@@ -34,9 +34,11 @@ var orb = preload("res://game/scenes/orb.tscn")
 var power_orb = preload("res://game/scenes/power_orb.tscn")
 var gun_blast_1 = preload("res://audio/Gun blast 1.wav")
 var gun_blast_2 = preload("res://audio/Gun blast 4.wav")
-var emp_scene = preload("res://game/emp.tscn")
+var emp_scene = preload("res://game/scenes/emp.tscn")
 var wall_scene = preload("res://game/scenes/wall.tscn")
 var sword_scene = preload("res://game/scenes/sword_slash.tscn")
+var grenade_scene = preload("res://game/scenes/flash_grenade.tscn")
+var bomb_scene = preload("res://game/scenes/bomb.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -271,26 +273,39 @@ func check_for_use_item(item_name: String):
 						sword_instance.play_anim()
 						are_we_ready = true # might not be needed
 		"Flash Grenade":
-			# Check if item was successfully used before activating power-up
-			if conveyor_belt.use_item():
-				print_rich("[color=orangered]BANG!!!")
+			if Input.is_action_just_pressed("use_item"):
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					var new_grenade = grenade_scene.instantiate()
+					var _mult = -1 if sprite_2d.flip_h == true else 1 
+					add_child(new_grenade)
+					are_we_ready = true
+					var mother = get_parent()
+					new_grenade.reparent(mother)
 		"Bomb":
-			# Check if item was successfully used before activating power-up
-			if conveyor_belt.use_item():
-				print_rich("[color=red]BOOOM!!!")
+			if Input.is_action_just_pressed("use_item"):
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					var new_bomb = bomb_scene.instantiate()
+					var _mult = -1 if sprite_2d.flip_h == true else 1 
+					add_child(new_bomb)
+					are_we_ready = true
+					var mother = get_parent()
+					new_bomb.reparent(mother)
 		"HP Restore":
-			if Input.is_action_just_pressed("use_item") and is_on_floor():
+			if Input.is_action_just_pressed("use_item"):
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
 					health = 3
 					health_bar.update_health(health)
 		"Energy Restore":
-			# Check if item was successfully used before activating power-up
-			if conveyor_belt.use_item():
-				print_rich("[color=lightgreen]ENERGY UP")
-				#$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
-				#energy_regen = true
-				#$EnergyRegenTimer.start()
+			if Input.is_action_just_pressed("use_item"):
+				# Check if item was successfully used before activating power-up
+				if conveyor_belt.use_item():
+					#print_rich("[color=lightgreen]ENERGY UP")
+					$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
+					energy_regen = true
+					$EnergyRegenTimer.start()
 
 
 
@@ -363,3 +378,7 @@ func _on_item_activation_timer_timeout() -> void:
 func _on_item_detector_body_entered(body: Node2D) -> void:
 	conveyor_belt.add_item(body.id)
 	if !conveyor_belt.is_full(): body.queue_free()
+
+
+func _on_energy_regen_timer_timeout() -> void:
+	energy_regen = false
