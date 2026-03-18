@@ -685,7 +685,7 @@ scale = Vector2(1.79, 1.79)
 [node name="CameraFollow" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
-zoom = Vector2(3.7, 3.7)
+zoom = Vector2(2.8, 2.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 9.72
 drag_vertical_offset = -0.05
