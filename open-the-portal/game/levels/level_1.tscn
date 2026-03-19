@@ -54,6 +54,5 @@ scale = Vector2(1, 9.039995)
 
 [node name="Bomb" parent="." instance=ExtResource("6_rifvl")]
 position = Vector2(618, 550)
-x_velocity = 150
 
 [connection signal="use_door" from="Player" to="." method="_on_player_use_door"]
