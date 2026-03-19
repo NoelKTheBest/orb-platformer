@@ -25,6 +25,13 @@ func _ready() -> void:
 	if not InputMap.has_action("use_item"):
 		push_warning("Input action 'use_item' not found in Input Map!")
 
+
+func _process(delta: float) -> void:
+	if DEBUG:
+		if Input.is_action_just_pressed("spawn_item_5"):
+			add_item(5)
+
+
 func add_item(item_id: int, _item_texture: Texture2D = null) -> bool:
 	# Find first empty slot (value 0)
 	var empty_index := -1
