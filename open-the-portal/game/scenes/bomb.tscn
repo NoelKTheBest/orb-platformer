@@ -14,7 +14,8 @@ collision_mask = 198
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_g4w1b")
-x_velocity = 150
+x_velocity = 225
+y_velocity = -305
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_g4w1b")
