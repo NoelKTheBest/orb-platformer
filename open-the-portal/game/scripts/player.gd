@@ -277,7 +277,8 @@ func check_for_use_item(item_name: String):
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
 					var new_grenade = grenade_scene.instantiate()
-					var _mult = -1 if sprite_2d.flip_h == true else 1 
+					var mult = -1 if sprite_2d.flip_h == true else 1
+					new_grenade.direction = mult
 					add_child(new_grenade)
 					are_we_ready = true
 					var mother = get_parent()
@@ -287,7 +288,8 @@ func check_for_use_item(item_name: String):
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
 					var new_bomb = bomb_scene.instantiate()
-					var _mult = -1 if sprite_2d.flip_h == true else 1 
+					var mult = -1 if sprite_2d.flip_h == true else 1
+					new_bomb.direction = mult
 					add_child(new_bomb)
 					are_we_ready = true
 					var mother = get_parent()
