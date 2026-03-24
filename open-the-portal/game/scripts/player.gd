@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+const DEBUG = true  # Set to false to disable all debug operations
+var never_ready = false
+
 @onready var orb_spawn_position: Node2D = $OrbSpawnPosition
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var camera_follow: Node2D = $CameraFollow
@@ -72,6 +75,11 @@ func _process(delta: float) -> void:
 	if enemy_pos: 
 		move_camera(delta)
 	
+	if DEBUG:
+		if Input.is_action_just_pressed("never_set_ready"):
+			never_ready = !never_ready
+			print("never ready: ", never_ready)
+	
 	# If energy regen is active, ensure the player isn't flagged as having no energy
 	if energy_regen:
 		no_energy = false
@@ -99,7 +107,7 @@ func _process(delta: float) -> void:
 				$AudioStreamPlayer2D.stream = gun_blast_1
 				$AudioStreamPlayer2D.play()
 			
-				are_we_ready = true
+				if !never_ready: are_we_ready = true
 
 		if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
 			# Consume returns -1 if there isn't enough energy.
@@ -119,7 +127,7 @@ func _process(delta: float) -> void:
 				$AudioStreamPlayer2D.stream = gun_blast_2
 				$AudioStreamPlayer2D.play()
 				
-				are_we_ready = true
+				if !never_ready: are_we_ready = true
 	
 	if Input.is_action_just_pressed("advance_belt"):
 		conveyor_belt.advance_belt()
@@ -228,7 +236,7 @@ func check_for_use_item(item_name: String):
 					var new_emp = emp_scene.instantiate()
 					new_emp.position = emp_spawn_pos
 					add_child(new_emp)
-					are_we_ready = true
+					if !never_ready: are_we_ready = true
 					var mother = get_parent()
 					new_emp.reparent(mother)
 		"Wall":
@@ -240,7 +248,7 @@ func check_for_use_item(item_name: String):
 					var mult = -1 if sprite_2d.flip_h == true else 1 
 					new_wall.position = wall_spawn_pos * mult
 					add_child(new_wall)
-					are_we_ready = true
+					if !never_ready: are_we_ready = true
 					var mother = get_parent()
 					new_wall.reparent(mother)
 			elif Input.is_action_pressed("use_item") and is_on_floor() and walle:
@@ -264,19 +272,19 @@ func check_for_use_item(item_name: String):
 					sword_instance = new_sword
 					sword_instance.flip_h = sprite_2d.flip_h
 					sword_instance.play_anim()
-					are_we_ready = true
+					if !never_ready: are_we_ready = true
 				else:
 					var mult = -1 if sprite_2d.flip_h == true else 1
 					sword_instance.position = Vector2(15, 0) * mult
 					sword_instance.flip_h = sprite_2d.flip_h
 					sword_instance.play_anim()
-					are_we_ready = true # might not be needed
+					if !never_ready: are_we_ready = true # might not be needed
 			elif Input.is_action_just_pressed("discard_sword") and sword_instance and is_on_floor():
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
-					var new_throwing_sword = throwing_sword.instantiate()
+					var new_throwing_sword: RigidBody2D = throwing_sword.instantiate()
 					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-					new_throwing_sword.linear_velocity = aim_dir.normalized() * ORB_VELOCITY * 1.02
+					new_throwing_sword.linear_velocity = aim_dir.normalized() * ORB_VELOCITY * 1
 					sword_instance.queue_free()
 		"Flash Grenade":
 			if Input.is_action_just_pressed("use_item"):
@@ -286,7 +294,7 @@ func check_for_use_item(item_name: String):
 					var mult = -1 if sprite_2d.flip_h == true else 1
 					new_grenade.direction = mult
 					add_child(new_grenade)
-					are_we_ready = true
+					if !never_ready: are_we_ready = true
 					var mother = get_parent()
 					new_grenade.reparent(mother)
 		"Bomb":
@@ -297,7 +305,7 @@ func check_for_use_item(item_name: String):
 					var mult = -1 if sprite_2d.flip_h == true else 1
 					new_bomb.direction = mult
 					add_child(new_bomb)
-					are_we_ready = true
+					if !never_ready: are_we_ready = true
 					var mother = get_parent()
 					new_bomb.reparent(mother)
 		"HP Restore":

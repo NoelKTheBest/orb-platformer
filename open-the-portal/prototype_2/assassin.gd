@@ -145,6 +145,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("Power Orbs"):
 		body.queue_free()
 		die()
+	elif body.name == "ThrownSword":
+		die()
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -170,3 +172,5 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.name == "EMP":
 		$AnimationPlayer.play("shock")
 		shocked_by_emp = true
+	elif area.name == "BombBlastRadius":
+		die()

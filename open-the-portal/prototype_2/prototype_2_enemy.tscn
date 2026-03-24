@@ -723,6 +723,7 @@ libraries = {
 }
 
 [node name="Hurtbox" parent="." instance=ExtResource("9_gvlb3")]
+collision_mask = 2336
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 1)

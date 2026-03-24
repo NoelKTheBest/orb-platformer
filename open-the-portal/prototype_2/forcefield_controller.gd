@@ -138,6 +138,15 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	enemy_on_screen.emit()
 
 
+func take_damage():
+	health -= 1
+	enemy_health_bar.update_health(health)
+	if health == 0:
+		enemy_health_bar.update_health(health)
+		controller_dead.emit()
+		die()
+
+
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "attack_3":
 		$Timer.start()
@@ -162,12 +171,7 @@ func _on_timer_timeout() -> void:
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs"):
 		body.queue_free()
-		health -= 1
-		enemy_health_bar.update_health(health)
-		if health == 0:
-			enemy_health_bar.update_health(health)
-			controller_dead.emit()
-			die()
+		take_damage()
 
 
 func _on_bullet_detection_range_body_entered(body: Node2D) -> void:
@@ -196,3 +200,5 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		print_rich("[color=lightgreen]You got me!")
 		animation_player.play("shock")
 		current_state = enemy_state.SHOCKED
+	elif area.name == "BombBlastRadius":
+		take_damage()

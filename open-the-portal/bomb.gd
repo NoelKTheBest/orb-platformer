@@ -5,18 +5,18 @@ var direction = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Area2D.set_collision_layer_value(12, false)
-	$Area2D.visible = false
+	$BombBlastRadius.set_collision_layer_value(12, false)
+	$BombBlastRadius.visible = false
 	apply_impulse(Vector2(x_velocity * direction, y_velocity), Vector2(0, 0))
 
 
 func _on_body_entered(_body: Node) -> void:
 	$Timer.start(0.2)
-	$Area2D.set_collision_layer_value(12, true)
-	$Area2D.visible = true
+	$BombBlastRadius.set_collision_layer_value(12, true)
+	$BombBlastRadius.visible = true
 
 
 func _on_timer_timeout() -> void:
-	$Area2D.set_collision_layer_value(12, false)
-	$Area2D.visible = false
+	$BombBlastRadius.set_collision_layer_value(12, false)
+	$BombBlastRadius.visible = false
 	queue_free()

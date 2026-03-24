@@ -146,3 +146,5 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.name == "EMP":
 		$AnimationPlayer.play("shock")
 		shocked_by_emp = true
+	elif area.name == "BombBlastRadius":
+		die()
