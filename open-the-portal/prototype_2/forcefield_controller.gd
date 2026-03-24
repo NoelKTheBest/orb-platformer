@@ -11,7 +11,11 @@ signal controller_dead()
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-enum enemy_state {IDLE, RUN, RUN_AWAY, RECOVER, ATTACK1, ATTACK2, ATTACK3, ROLL, BLOCK, DISAPPEAR, REAPPEAR, SHOCKED}
+enum enemy_state {
+	IDLE, RUN, RUN_AWAY, RECOVER, ATTACK1, ATTACK2, 
+	ATTACK3, ROLL, BLOCK, DISAPPEAR, REAPPEAR, SHOCKED,
+	HURT
+}
 var current_state = enemy_state.IDLE
 var monitor_player_position = false
 var return_point_x
