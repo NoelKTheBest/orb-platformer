@@ -220,5 +220,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitBox"]
-position = Vector2(-1, -1)
+position = Vector2(6, -3)
 shape = SubResource("RectangleShape2D_smxfr")

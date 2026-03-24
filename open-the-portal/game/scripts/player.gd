@@ -39,6 +39,7 @@ var wall_scene = preload("res://game/scenes/wall.tscn")
 var sword_scene = preload("res://game/scenes/sword_slash.tscn")
 var grenade_scene = preload("res://game/scenes/flash_grenade.tscn")
 var bomb_scene = preload("res://game/scenes/bomb.tscn")
+var throwing_sword = preload("res://game/scenes/throwable_sword.tscn")
 var enemy_pos : Vector2
 var on_cooldown = false
 var power_cooldown = false
@@ -255,23 +256,28 @@ func check_for_use_item(item_name: String):
 					$WallIndicator.position.x = (20 + wall_pos_inc * item_activation_frametime * temp_delta) * mult
 		"Sword":
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
+				if not sword_instance:
+					var new_sword = sword_scene.instantiate()
+					var mult = -1 if sprite_2d.flip_h == true else 1 
+					new_sword.position = Vector2(15, 0) * mult
+					add_child(new_sword)
+					sword_instance = new_sword
+					sword_instance.flip_h = sprite_2d.flip_h
+					sword_instance.play_anim()
+					are_we_ready = true
+				else:
+					var mult = -1 if sprite_2d.flip_h == true else 1
+					sword_instance.position = Vector2(15, 0) * mult
+					sword_instance.flip_h = sprite_2d.flip_h
+					sword_instance.play_anim()
+					are_we_ready = true # might not be needed
+			elif Input.is_action_just_pressed("discard_sword") and sword_instance and is_on_floor():
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
-					if not sword_instance:
-						var new_sword = sword_scene.instantiate()
-						var mult = -1 if sprite_2d.flip_h == true else 1 
-						new_sword.position = Vector2(15, 0) * mult
-						add_child(new_sword)
-						sword_instance = new_sword
-						sword_instance.flip_h = sprite_2d.flip_h
-						sword_instance.play_anim()
-						are_we_ready = true
-					else:
-						var mult = -1 if sprite_2d.flip_h == true else 1
-						sword_instance.position = Vector2(15, 0) * mult
-						sword_instance.flip_h = sprite_2d.flip_h
-						sword_instance.play_anim()
-						are_we_ready = true # might not be needed
+					var new_throwing_sword = throwing_sword.instantiate()
+					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+					new_throwing_sword.linear_velocity = aim_dir.normalized() * ORB_VELOCITY * 1.02
+					sword_instance.queue_free()
 		"Flash Grenade":
 			if Input.is_action_just_pressed("use_item"):
 				# Check if item was successfully used before activating power-up
