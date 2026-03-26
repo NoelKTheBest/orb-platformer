@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ItemNameDictionary="*res://game/scenes/item_name_dictionary.tscn"
 SfxSpawner="*res://game/sfx_spawner.tscn"
+VfxSpawner="*res://game/vfx_spawner.tscn"
 
 [display]
 

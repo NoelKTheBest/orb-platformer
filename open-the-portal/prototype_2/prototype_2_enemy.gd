@@ -111,6 +111,8 @@ func launch():
 
 
 func die():
+	SfxSpawner.set_player(position, 1)
+	VfxSpawner.set_player(position)
 	enemy_died.emit()
 	queue_free()
 

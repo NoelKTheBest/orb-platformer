@@ -129,6 +129,8 @@ func launch():
 
 
 func die():
+	SfxSpawner.set_player(position, 1)
+	VfxSpawner.set_player(position)
 	enemy_died.emit()
 	queue_free()
 
@@ -141,7 +143,6 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything:
 		body.has_bullet_hit_anything = true
 		body.queue_free()
-		SfxSpawner.set_player(position, 1)
 		die()
 	elif body.is_in_group("Power Orbs"):
 		body.queue_free()

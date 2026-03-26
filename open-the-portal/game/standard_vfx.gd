@@ -6,5 +6,5 @@ func _ready() -> void:
 	play(animation)
 
 
-func _on_animation_finished() -> void:
-	queue_free()
+func _process(_delta: float) -> void:
+	if !is_playing(): queue_free()

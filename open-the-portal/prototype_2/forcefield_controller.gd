@@ -143,6 +143,8 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 
 func take_damage():
+	SfxSpawner.set_player(position, 1)
+	VfxSpawner.set_player(position)
 	health -= 1
 	enemy_health_bar.update_health(health)
 	if health == 0:

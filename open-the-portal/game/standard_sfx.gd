@@ -7,5 +7,4 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	print("playing: ", playing)
 	if !playing: queue_free()
