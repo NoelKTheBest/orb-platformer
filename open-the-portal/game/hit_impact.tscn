@@ -1,22 +1,22 @@
 [gd_scene load_steps=8 format=3 uid="uid://dcn6eruqdwy5c"]
 
-[ext_resource type="Texture2D" uid="uid://crgxrgkwdt5xp" path="res://game/ATTACK VFX PACK PREMIUM/Impactmedium2.png" id="1_sgxj1"]
-[ext_resource type="Script" uid="uid://vnaqqq5dt5c4" path="res://standard_vfx.gd" id="2_rpuoj"]
+[ext_resource type="Texture2D" uid="uid://crgxrgkwdt5xp" path="res://game/ATTACK VFX PACK PREMIUM/Impactmedium2.png" id="1_6o8ce"]
+[ext_resource type="Script" uid="uid://vnaqqq5dt5c4" path="res://standard_vfx.gd" id="2_dlarx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgxj1"]
-atlas = ExtResource("1_sgxj1")
+atlas = ExtResource("1_6o8ce")
 region = Rect2(0, 0, 80, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rpuoj"]
-atlas = ExtResource("1_sgxj1")
+atlas = ExtResource("1_6o8ce")
 region = Rect2(80, 0, 80, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i3c64"]
-atlas = ExtResource("1_sgxj1")
+atlas = ExtResource("1_6o8ce")
 region = Rect2(160, 0, 80, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m7ruw"]
-atlas = ExtResource("1_sgxj1")
+atlas = ExtResource("1_6o8ce")
 region = Rect2(240, 0, 80, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_70yvh"]
@@ -34,7 +34,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m7ruw")
 }],
-"loop": true,
+"loop": false,
 "name": &"impact",
 "speed": 11.0
 }]
@@ -46,4 +46,6 @@ sprite_frames = SubResource("SpriteFrames_70yvh")
 animation = &"impact"
 frame_progress = 0.98420674
 offset = Vector2(18, -4)
-script = ExtResource("2_rpuoj")
+script = ExtResource("2_dlarx")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_finished"]

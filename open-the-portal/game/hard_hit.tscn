@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c648g7gkg37m3"]
+
+[ext_resource type="AudioStream" uid="uid://bt1lww47l2x11" path="res://audio/hard impact.wav" id="1_bvhep"]
+[ext_resource type="Script" uid="uid://nvwquo7f2yvd" path="res://game/standard_sfx.gd" id="2_nntsk"]
+
+[node name="HardHit" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_bvhep")
+script = ExtResource("2_nntsk")
