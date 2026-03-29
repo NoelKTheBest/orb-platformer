@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_bbphf"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_5wh2a"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_o1ewr"]
-[ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://prototype_2/conveyor_belt.tscn" id="15_33ej8"]
+[ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://game/scenes/conveyor_belt.tscn" id="15_33ej8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0

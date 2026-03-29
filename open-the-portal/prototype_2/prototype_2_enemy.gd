@@ -22,7 +22,7 @@ var on_cooldown : bool
 var in_anti_gravity_zone = false
 var zero_gravity_decel_easing : float
 var walking = true
-var shocked_by_emp = false
+var movement_paused = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -69,7 +69,7 @@ func _physics_process(delta: float) -> void:
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
-		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !shocked_by_emp:
+		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !movement_paused:
 			if velocity.x != 0:
 				anim_player.play("run")
 			elif velocity.x == 0:
@@ -136,8 +136,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		$Timer.start()
 		on_cooldown = true
 		attacking = false
-	elif anim_name == "shock":
-		shocked_by_emp = false
+	elif anim_name == "shock" or anim_name == "blinded":
+		movement_paused = false
 
 
 func _on_timer_timeout() -> void:
@@ -147,6 +147,9 @@ func _on_timer_timeout() -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.name == "EMP":
 		$AnimationPlayer.play("shock")
-		shocked_by_emp = true
+		movement_paused = true
 	elif area.name == "BombBlastRadius":
 		die()
+	elif area.name == "GrenadeRadius":
+		$AnimationPlayer.play("blinded")
+		movement_paused = true

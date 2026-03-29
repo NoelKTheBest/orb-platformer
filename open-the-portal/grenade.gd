@@ -1,0 +1,22 @@
+extends RigidBody2D
+@export var x_velocity: int = 10
+@export var y_velocity: int = 10
+var direction = 1
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$GrenadeRadius.set_collision_layer_value(13, false)
+	$GrenadeRadius.visible = false
+	apply_impulse(Vector2(x_velocity * direction, y_velocity), Vector2(0, 0))
+
+
+func _on_body_entered(_body: Node) -> void:
+	$Timer.start(0.2)
+	$GrenadeRadius.set_collision_layer_value(13, true)
+	$GrenadeRadius.visible = true
+
+
+func _on_timer_timeout() -> void:
+	$GrenadeRadius.set_collision_layer_value(13, false)
+	$GrenadeRadius.visible = false
+	queue_free()

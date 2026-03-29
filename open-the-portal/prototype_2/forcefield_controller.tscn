@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://3qf1pqlf7ymm"]
+[gd_scene load_steps=26 format=3 uid="uid://3qf1pqlf7ymm"]
 
 [ext_resource type="Texture2D" uid="uid://kimq6qwc6bx0" path="res://characters/The SwordMaster v1.2/The SwordMaster/Sword Master Sprite Sheet 90x37.png" id="1_i3umc"]
 [ext_resource type="Script" uid="uid://bqjx7lk3j3rhg" path="res://prototype_2/forcefield_controller.gd" id="1_lmgt8"]
@@ -469,6 +469,34 @@ tracks/1/keys = {
 "values": [Color(0.9843137, 1, 0, 1), Color(0, 0.88235295, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_50117"]
+resource_name = "blinded"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [64, 260, 261, 260, 261, 260, 261]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 16.797, 18.892, 1), Color(0, 1.198, 1.353, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mnccd"]
 _data = {
 &"RESET": SubResource("Animation_ykimm"),
@@ -476,6 +504,7 @@ _data = {
 &"attack_2": SubResource("Animation_niqlb"),
 &"attack_3": SubResource("Animation_7ftx5"),
 &"attack_4": SubResource("Animation_lie8r"),
+&"blinded": SubResource("Animation_50117"),
 &"block": SubResource("Animation_0nbeo"),
 &"disappear": SubResource("Animation_67ftq"),
 &"idle": SubResource("Animation_lmgt8"),
@@ -526,7 +555,7 @@ libraries = {
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2336
+collision_mask = 6432
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_i3umc")

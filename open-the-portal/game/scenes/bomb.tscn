@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvmw43rai1kyg"]
 
-[ext_resource type="Script" uid="uid://ccieekg4p5tuf" path="res://bomb.gd" id="1_g4w1b"]
+[ext_resource type="Script" uid="uid://b8htmed8kc2ji" path="res://grenade.gd" id="1_g4w1b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4w1b"]
 radius = 4.0

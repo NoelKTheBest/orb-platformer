@@ -12,7 +12,7 @@ const ITEM_TEXTURES = {
 	7: preload("res://sprites/items/7.png"),
 }
 
-var inventory: Array[int] = [5, 0, 0, 0, 0, 0]  # 6 slots, 0 = empty
+var inventory: Array[int] = [4, 4, 4, 4, 4, 4]  # 6 slots, 0 = empty
 
 @onready var inventory_container: HBoxContainer = $Inventory
 
@@ -26,8 +26,11 @@ func _ready() -> void:
 		push_warning("Input action 'use_item' not found in Input Map!")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if DEBUG:
+		if Input.is_action_just_pressed("spawn_item_4"):
+			add_item(4)
+		
 		if Input.is_action_just_pressed("spawn_item_5"):
 			add_item(5)
 

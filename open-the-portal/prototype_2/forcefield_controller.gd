@@ -14,7 +14,7 @@ const JUMP_VELOCITY = -400.0
 enum enemy_state {
 	IDLE, RUN, RUN_AWAY, RECOVER, ATTACK1, ATTACK2, 
 	ATTACK3, ROLL, BLOCK, DISAPPEAR, REAPPEAR, SHOCKED,
-	HURT
+	HURT, BLINDED
 }
 var current_state = enemy_state.IDLE
 var monitor_player_position = false
@@ -69,7 +69,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !in_anti_gravity_zone and current_state != enemy_state.SHOCKED:
+	if !in_anti_gravity_zone and (current_state != enemy_state.SHOCKED or current_state != enemy_state.BLINDED):
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
@@ -208,3 +208,6 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		current_state = enemy_state.SHOCKED
 	elif area.name == "BombBlastRadius":
 		take_damage()
+	elif area.name == "GrenadeRadius":
+		animation_player.play("blinded")
+		current_state = enemy_state.BLINDED

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cpllppu7ks4jx" path="res://characters/KALA/Player Animations-Sheet.png" id="6_br0p3"]
 [ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://characters/@Platformer/Bow Attack.png" id="7_gdsnf"]
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_4fdtx"]
-[ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://prototype_2/conveyor_belt.tscn" id="9_2k1gg"]
+[ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://game/scenes/conveyor_belt.tscn" id="9_2k1gg"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_3i3c3"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="10_4dyke"]
 [ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="11_06pfm"]
