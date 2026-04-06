@@ -40,7 +40,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if !animation_player.is_playing(): animation_player.play("idle")
+	print(enemy_state.keys()[current_state])
+	if animation_player.current_animation != "shocked" or animation_player.current_animation != "blinded":
+		if !animation_player.is_playing(): animation_player.play("idle")
 	
 	#if number_of_enemies < 3:
 	if velocity.x != 0:
@@ -75,7 +77,7 @@ func _physics_process(delta: float) -> void:
 		
 		# When the forcefield controller is not monitoring the player
 		#	they will go back to a certain point in the level
-		if current_state != enemy_state.RECOVER and current_state != enemy_state.BLOCK:
+		if current_state != enemy_state.RECOVER and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED and current_state != enemy_state.BLINDED:
 			if monitor_player_position and number_of_enemies < 3:
 				var _direction
 				var target_position = (player_position - position).normalized()
@@ -100,7 +102,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 		
-		if !player_attack_area.has_overlapping_bodies() and !attacking and current_state != enemy_state.RECOVER:
+		if !player_attack_area.has_overlapping_bodies() and !attacking and current_state != enemy_state.RECOVER  and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED and current_state != enemy_state.BLINDED:
 			if current_state != enemy_state.BLOCK:
 				if velocity.x != 0:
 					animation_player.play("run")
@@ -168,6 +170,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		#$BulletDetectionRange.set_collision_mask_value(6, true)
 	elif anim_name == "shock":
 		current_state = enemy_state.IDLE
+	elif anim_name == "blinded":
+		current_state = enemy_state.IDLE
 
 
 func _on_timer_timeout() -> void:
@@ -202,6 +206,7 @@ func _on_hitbox_1_body_entered(body: Node2D) -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
+	print(area.name)
 	if area.name == "EMP":
 		print_rich("[color=lightgreen]You got me!")
 		animation_player.play("shock")
@@ -211,3 +216,5 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	elif area.name == "GrenadeRadius":
 		animation_player.play("blinded")
 		current_state = enemy_state.BLINDED
+	elif area.name == "SwordHitBox":
+		take_damage()

@@ -750,6 +750,7 @@ shape = SubResource("RectangleShape2D_br0p3")
 [connection signal="timeout" from="EnergyRegenTimer" to="." method="_on_energy_regen_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="PowerSpawnTimer" to="." method="_on_power_spawn_timer_timeout"]
+[connection signal="player_has_sword" from="UserInterface/ConveyorBelt" to="." method="_on_conveyor_belt_player_has_sword"]
 [connection signal="player_was_hit" from="Hurtbox" to="." method="_on_hurtbox_player_was_hit"]
 [connection signal="timeout" from="ItemActivationTimer" to="." method="_on_item_activation_timer_timeout"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]

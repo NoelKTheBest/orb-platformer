@@ -125,9 +125,9 @@ func _process(_delta: float) -> void:
 		sprite1.visible = false
 		sprite2.visible = false
 	
-	if Input.is_action_just_pressed("spawn_new_item"):
-		item_spawner.item_id = item_spawner.random_roll_item()
-		item_spawner.spawn_item()
+	#if Input.is_action_just_pressed("spawn_new_item"):
+		#item_spawner.item_id = item_spawner.random_roll_item()
+		#item_spawner.spawn_item()
 
 
 func enemy_is_visible(enemy):

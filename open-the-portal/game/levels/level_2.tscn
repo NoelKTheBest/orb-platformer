@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmfs3dniol6cr"]
+[gd_scene load_steps=9 format=3 uid="uid://dmfs3dniol6cr"]
 
 [ext_resource type="Script" uid="uid://dbone50ld10kw" path="res://level_2.gd" id="1_2f1k2"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="4_7neg2"]
 [ext_resource type="Texture2D" uid="uid://cbt7ukps6tmsr" path="res://characters/@Platformer/Death.png" id="5_6jjde"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="6_bxukv"]
+[ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="8_bxukv"]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_2f1k2")
@@ -58,7 +59,7 @@ frame = 1
 
 [node name="Enemy 3" type="Sprite2D" parent="."]
 modulate = Color(1, 0.7, 0.7, 1)
-position = Vector2(210, 688)
+position = Vector2(230, 689)
 texture = ExtResource("4_7neg2")
 flip_h = true
 hframes = 5
@@ -87,3 +88,12 @@ position = Vector2(373.88693, 680.1405)
 [node name="BR_Forcefield" parent="." instance=ExtResource("4_6jjde")]
 position = Vector2(644, 645)
 scale = Vector2(0.082, 0.815)
+
+[node name="Enemy" parent="." instance=ExtResource("8_bxukv")]
+position = Vector2(230, 682)
+
+[node name="Enemy2" parent="." instance=ExtResource("8_bxukv")]
+position = Vector2(431.04623, 682.82184)
+
+[node name="Enemy3" parent="." instance=ExtResource("8_bxukv")]
+position = Vector2(537.7994, 682.5761)

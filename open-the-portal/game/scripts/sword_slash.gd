@@ -5,6 +5,7 @@ var slash_toggle = false
 
 # Called when the node enters the scene tree for the first time.
 func play_anim():
+	print(position, global_position, visible)
 	var anim_name = ""
 	if !slash_toggle:
 		anim_name = "slash1"

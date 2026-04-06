@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const DEBUG = true  # Set to false to disable all debug operations
+const DEBUG = false  # Set to false to disable all debug operations
 var never_ready = false
 
 @onready var orb_spawn_position: Node2D = $OrbSpawnPosition
@@ -65,9 +65,9 @@ var current_item: String = ""
 
 
 func _ready() -> void:
-	print(self)
 	item_activation_stopped.connect(_on_item_activation_stopped)
 	current_item = "HP Restore"
+	#never_ready = true
 
 
 func _process(delta: float) -> void:
@@ -120,6 +120,8 @@ func _process(delta: float) -> void:
 				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
 				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
 				add_child(new_orb)
+				var mother = get_parent()
+				new_orb.reparent(mother)
 				$PowerSpawnTimer.start()
 				$UserInterface/ColorRect2.visible = false
 				power_cooldown = true
@@ -146,6 +148,9 @@ func _process(delta: float) -> void:
 	if are_we_ready and !ready_signal_emitted: 
 		player_is_ready.emit()
 		ready_signal_emitted = true
+	
+	if Input.is_action_just_pressed("discard_sword"):
+		print("THROW SWORD")
 
 
 func _physics_process(delta: float) -> void:
@@ -263,15 +268,21 @@ func check_for_use_item(item_name: String):
 					var mult = -1 if sprite_2d.flip_h == true else 1
 					$WallIndicator.position.x = (20 + wall_pos_inc * item_activation_frametime * temp_delta) * mult
 		"Sword":
+			# I need to learn more about how the input system works in godot. 
+			# having the same key as part of two different actions causes one 
+			# to activate always and not the intended one in this case use_Sword
+			# activates insted of discard_sword
 			if Input.is_action_just_pressed("use_item") and is_on_floor():
 				if not sword_instance:
 					var new_sword = sword_scene.instantiate()
 					var mult = -1 if sprite_2d.flip_h == true else 1 
-					new_sword.position = Vector2(15, 0) * mult
+					new_sword.position = Vector2(-30, 0) if sprite_2d.flip_h == true else Vector2(15, 0)
 					add_child(new_sword)
-					sword_instance = new_sword
-					sword_instance.flip_h = sprite_2d.flip_h
-					sword_instance.play_anim()
+					new_sword.flip_h = sprite_2d.flip_h
+					new_sword.play_anim()
+					#sword_instance = new_sword
+					#sword_instance.flip_h = sprite_2d.flip_h
+					#sword_instance.play_anim()
 					if !never_ready: are_we_ready = true
 				else:
 					var mult = -1 if sprite_2d.flip_h == true else 1
@@ -279,13 +290,20 @@ func check_for_use_item(item_name: String):
 					sword_instance.flip_h = sprite_2d.flip_h
 					sword_instance.play_anim()
 					if !never_ready: are_we_ready = true # might not be needed
-			elif Input.is_action_just_pressed("discard_sword") and sword_instance and is_on_floor():
+			elif Input.is_action_just_pressed("discard_sword") and is_on_floor(): # may need to require sword instance later
+				print("throw?")
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
-					var new_throwing_sword: RigidBody2D = throwing_sword.instantiate()
+					var new_throwing_sword = throwing_sword.instantiate()
+					
+					orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+					new_throwing_sword.position = orb_spawn_position.position
 					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-					new_throwing_sword.linear_velocity = aim_dir.normalized() * ORB_VELOCITY * 1
-					sword_instance.queue_free()
+					new_throwing_sword.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
+					#sword_instance.queue_free()
+					#sword_instance = null
+					#var mother = get_parent()
+					#new_throwing_sword.reparent(mother)
 		"Flash Grenade":
 			if Input.is_action_just_pressed("use_item"):
 				# Check if item was successfully used before activating power-up
@@ -398,3 +416,8 @@ func _on_item_detector_body_entered(body: Node2D) -> void:
 
 func _on_energy_regen_timer_timeout() -> void:
 	energy_regen = false
+
+
+func _on_conveyor_belt_player_has_sword() -> void:
+	#sword_instance = sword_scene.instantiate()
+	pass

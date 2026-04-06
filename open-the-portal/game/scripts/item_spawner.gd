@@ -22,7 +22,7 @@ func spawn_item():
 func random_roll_item():
 	var rng = RandomNumberGenerator.new()
 	var random_num = rng.randi_range(0, 70)
-	if random_num > 0 and random_num <= 10:
+	if random_num >= 0 and random_num <= 10:
 		return(1)
 	elif random_num > 10 and random_num <= 20:
 		return(2)
@@ -36,3 +36,8 @@ func random_roll_item():
 		return(6)
 	elif random_num > 60 and random_num <= 70:
 		return(7)
+
+
+func _on_timer_timeout() -> void:
+	item_id = random_roll_item()
+	spawn_item()
