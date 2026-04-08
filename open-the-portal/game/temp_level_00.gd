@@ -170,7 +170,7 @@ func _on_game_over_timer_timeout() -> void:
 
 func _on_player_player_is_ready() -> void:
 	player_is_ready = true
-	enemy_spawn_timer.start()
+	#enemy_spawn_timer.start()
 
 
 func _on_enemy_spawn_interval_timeout() -> void:

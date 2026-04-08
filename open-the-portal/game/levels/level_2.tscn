@@ -1,69 +1,240 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmfs3dniol6cr"]
+[gd_scene load_steps=20 format=3 uid="uid://dmfs3dniol6cr"]
 
 [ext_resource type="Script" uid="uid://dbone50ld10kw" path="res://level_2.gd" id="1_2f1k2"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="3_7neg2"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="4_7neg2"]
 [ext_resource type="Texture2D" uid="uid://cbt7ukps6tmsr" path="res://characters/@Platformer/Death.png" id="5_6jjde"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="6_bxukv"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="8_bxukv"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dn4pq1kpwh8dq" path="res://game/levels/level2_rss/level2_SM.tres" id="9_uivyf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bxukv"]
+
+[sub_resource type="Animation" id="Animation_uivyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DOOR:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelCamera:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(72, 786)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Victim:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bxukv"]
+resource_name = "door_is_broken"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DOOR:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2a8w4"]
+resource_name = "kill_ally"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Victim:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_go8g1"]
+resource_name = "move_camera"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelCamera:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 2),
+"update": 0,
+"values": [Vector2(72, 786), Vector2(479, 660)]
+}
+
+[sub_resource type="Animation" id="Animation_ylsm2"]
+resource_name = "dialog"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelCamera:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(479, 660), Vector2(431, 660)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.56666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"print_dialog"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7c6gx"]
+resource_name = "move_cam2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelCamera:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(431, 660), Vector2(290, 660)]
+}
+
+[sub_resource type="Animation" id="Animation_u51cf"]
+resource_name = "move_cam_to_player"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelCamera:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(290, 660), Vector2(39, 808)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_go8g1"]
+_data = {
+&"RESET": SubResource("Animation_uivyf"),
+&"dialog": SubResource("Animation_ylsm2"),
+&"door_is_broken": SubResource("Animation_bxukv"),
+&"kill_ally": SubResource("Animation_2a8w4"),
+&"move_cam2": SubResource("Animation_7c6gx"),
+&"move_cam_to_player": SubResource("Animation_u51cf"),
+&"move_camera": SubResource("Animation_go8g1")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uivyf"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxukv"]
+size = Vector2(686, 100.00003)
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_2f1k2")
+SKIP_CUTSCENE = false
 
 [node name="BG" type="Polygon2D" parent="."]
-position = Vector2(-469.00003, 57.999996)
+position = Vector2(-458.00003, 95.99999)
 scale = Vector2(1.566537, 2.8336828)
 color = Color(0.1512, 0.1533467, 0.28, 1)
 polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
 
-[node name="Polygon2D" parent="." instance=ExtResource("2_7dx7g")]
+[node name="CameraPosition2" type="Node2D" parent="."]
+position = Vector2(479, 660)
+
+[node name="Area2D" type="Area2D" parent="CameraPosition2"]
+collision_layer = 0
+collision_mask = 2147483648
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraPosition2/Area2D"]
+shape = SubResource("CircleShape2D_bxukv")
+
+[node name="LevelGeometry" type="Node2D" parent="."]
+
+[node name="Polygon2D" parent="LevelGeometry" instance=ExtResource("2_7dx7g")]
 position = Vector2(290.425, 843.00006)
 scale = Vector2(72.245, 2.8)
 
-[node name="Polygon2D3" parent="." instance=ExtResource("2_7dx7g")]
+[node name="Polygon2D3" parent="LevelGeometry" instance=ExtResource("2_7dx7g")]
 position = Vector2(290.425, 709)
 scale = Vector2(72.245, 2.8)
 polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
 
-[node name="Polygon2D4" parent="." instance=ExtResource("2_7dx7g")]
+[node name="Polygon2D4" parent="LevelGeometry" instance=ExtResource("2_7dx7g")]
 position = Vector2(290.425, 580.065)
 scale = Vector2(72.245, 2.8)
 polygon = PackedVector2Array(-5, -5, -0.03145218, -4.999999, 5, -5, 5, 5, -5, 5)
 
-[node name="Player" parent="." instance=ExtResource("3_7neg2")]
-position = Vector2(9, 788)
-
-[node name="Polygon2D2" parent="." instance=ExtResource("2_7dx7g")]
+[node name="Polygon2D2" parent="LevelGeometry" instance=ExtResource("2_7dx7g")]
 position = Vector2(-61, 712)
 scale = Vector2(1.5600002, 25.560007)
 
-[node name="Polygon2D5" parent="." instance=ExtResource("2_7dx7g")]
+[node name="Polygon2D5" parent="LevelGeometry" instance=ExtResource("2_7dx7g")]
 position = Vector2(643, 775.95)
 scale = Vector2(1.56, 16.065)
 
-[node name="Enemy 1" type="Sprite2D" parent="."]
-modulate = Color(1, 0.7, 0.7, 1)
-position = Vector2(435, 688)
-texture = ExtResource("4_7neg2")
-hframes = 5
+[node name="Doors" type="Node2D" parent="."]
 
-[node name="Enemy 2" type="Sprite2D" parent="."]
-modulate = Color(1, 0.7, 0.7, 1)
-position = Vector2(537, 688)
-texture = ExtResource("4_7neg2")
-flip_h = true
-hframes = 5
-frame = 1
+[node name="BL_Door" parent="Doors" groups=["Doors"] instance=ExtResource("6_bxukv")]
+position = Vector2(138.19289, 813.1597)
 
-[node name="Enemy 3" type="Sprite2D" parent="."]
-modulate = Color(1, 0.7, 0.7, 1)
-position = Vector2(230, 689)
-texture = ExtResource("4_7neg2")
-flip_h = true
-hframes = 5
-frame = 2
+[node name="TL_Door" parent="Doors" groups=["Doors"] instance=ExtResource("6_bxukv")]
+position = Vector2(137.0741, 679.44763)
+
+[node name="Area2D" parent="Doors/TL_Door" index="0"]
+collision_mask = 3
+
+[node name="BR_Door" parent="Doors" groups=["Doors"] instance=ExtResource("6_bxukv")]
+position = Vector2(373.0383, 813.09436)
+
+[node name="TR_Door" parent="Doors" groups=["Doors"] instance=ExtResource("6_bxukv")]
+position = Vector2(373.88693, 680.1405)
+
+[node name="Area2D" parent="Doors/TR_Door" index="0"]
+collision_mask = 3
 
 [node name="Victim" type="Sprite2D" parent="."]
 modulate = Color(0.73, 0.991, 1, 1)
@@ -73,17 +244,8 @@ flip_h = true
 hframes = 7
 frame = 6
 
-[node name="BL_Door" parent="." instance=ExtResource("6_bxukv")]
-position = Vector2(138.19289, 813.1597)
-
-[node name="TL_Door" parent="." instance=ExtResource("6_bxukv")]
-position = Vector2(137.0741, 679.44763)
-
-[node name="BR_Door" parent="." instance=ExtResource("6_bxukv")]
-position = Vector2(373.0383, 813.09436)
-
-[node name="TR_Door" parent="." instance=ExtResource("6_bxukv")]
-position = Vector2(373.88693, 680.1405)
+[node name="Player" parent="." instance=ExtResource("3_7neg2")]
+position = Vector2(39, 808)
 
 [node name="BR_Forcefield" parent="." instance=ExtResource("4_6jjde")]
 position = Vector2(644, 645)
@@ -92,8 +254,72 @@ scale = Vector2(0.082, 0.815)
 [node name="Enemy" parent="." instance=ExtResource("8_bxukv")]
 position = Vector2(230, 682)
 
+[node name="AnimationTree" parent="Enemy" index="3"]
+tree_root = ExtResource("9_uivyf")
+
 [node name="Enemy2" parent="." instance=ExtResource("8_bxukv")]
 position = Vector2(431.04623, 682.82184)
 
+[node name="AnimationTree" parent="Enemy2" index="3"]
+tree_root = ExtResource("9_uivyf")
+
+[node name="CollisionShape2D" parent="Enemy2/PlayerAttackArea" index="0"]
+visible = false
+
 [node name="Enemy3" parent="." instance=ExtResource("8_bxukv")]
 position = Vector2(537.7994, 682.5761)
+
+[node name="AnimationTree" parent="Enemy3" index="3"]
+tree_root = ExtResource("9_uivyf")
+
+[node name="DOOR" type="Polygon2D" parent="."]
+position = Vector2(-44.28102, 766.05884)
+color = Color(1, 0.52, 0.19999999, 1)
+polygon = PackedVector2Array(-6.718979, -42.058838, -6.718979, 61.941162, 36.28102, 61.941162, 36.28102, -42.058838)
+
+[node name="LevelAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_go8g1")
+}
+autoplay = "door_is_broken"
+
+[node name="LevelCamera" type="Camera2D" parent="."]
+position = Vector2(72, 786)
+zoom = Vector2(2.8, 2.8)
+position_smoothing_enabled = true
+position_smoothing_speed = 9.075
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="LevelCamera"]
+collision_layer = 2147483648
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelCamera/Area2D"]
+shape = SubResource("CircleShape2D_uivyf")
+
+[node name="UpperFloorArea" type="Area2D" parent="."]
+position = Vector2(-52.6398, 595.57855)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperFloorArea"]
+visible = false
+position = Vector2(342.6398, 48.421448)
+shape = SubResource("RectangleShape2D_bxukv")
+
+[connection signal="area_entered" from="CameraPosition2/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="_player_can_use_door" from="Doors/BL_Door" to="." method="_on_bl_door__player_can_use_door"]
+[connection signal="_player_can_use_door" from="Doors/TL_Door" to="." method="_on_tl_door__player_can_use_door"]
+[connection signal="body_entered" from="Doors/TL_Door/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="_player_can_use_door" from="Doors/BR_Door" to="." method="_on_br_door__player_can_use_door"]
+[connection signal="_player_can_use_door" from="Doors/TR_Door" to="." method="_on_tr_door__player_can_use_door"]
+[connection signal="body_entered" from="Doors/TR_Door/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="LevelAnimations" to="." method="_on_level_animations_animation_finished"]
+
+[editable path="Doors/BL_Door"]
+[editable path="Doors/TL_Door"]
+[editable path="Doors/TR_Door"]
+[editable path="Enemy"]
+[editable path="Enemy2"]
+[editable path="Enemy3"]

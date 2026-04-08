@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=22 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/temp_level_00.gd" id="1_3m8ir"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yohrl"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="16_4c045"]
 [ext_resource type="PackedScene" uid="uid://byys6etblb6xq" path="res://game/scenes/moving_wall.tscn" id="16_7bxbr"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="16_ke71t"]
+[ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="17_ke71t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -286,6 +287,7 @@ position = Vector2(790.3617, 551.1946)
 position = Vector2(308, 504)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
+process_mode = 4
 position = Vector2(2068, 525)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -301,19 +303,27 @@ position = Vector2(691, 397)
 [node name="ItemSpawner2" parent="." instance=ExtResource("15_ke71t")]
 position = Vector2(1625, 400)
 
+[node name="Enemy3" parent="." instance=ExtResource("17_ke71t")]
+modulate = Color(0.29000002, 0.52666676, 1, 1)
+position = Vector2(184, 529)
+
 [node name="Enemy" parent="." instance=ExtResource("16_ke71t")]
+process_mode = 4
 position = Vector2(647, 530)
 
 [node name="Assassin" parent="." instance=ExtResource("15_7bxbr")]
 position = Vector2(416, 528)
 
 [node name="Assassin3" parent="." instance=ExtResource("15_7bxbr")]
+process_mode = 4
 position = Vector2(1662.7654, 513.4081)
 
 [node name="Assassin2" parent="." instance=ExtResource("15_7bxbr")]
+process_mode = 4
 position = Vector2(1351.3109, 506.753)
 
 [node name="Enemy2" parent="." instance=ExtResource("16_ke71t")]
+process_mode = 4
 position = Vector2(1066.9747, 522.60724)
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]

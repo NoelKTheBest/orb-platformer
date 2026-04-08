@@ -1,0 +1,72 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=16 format=3 uid="uid://dn4pq1kpwh8dq"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ms8l4"]
+animation = &"block"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_od8x3"]
+animation = &"block"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_03nyp"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mgloq"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1xl52"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l7ywq"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m7m7b"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ls3j7"]
+advance_mode = 2
+advance_expression = "attack == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xo648"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_30d0l"]
+advance_mode = 2
+advance_expression = "run == 1"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0qbqm"]
+advance_mode = 2
+advance_expression = "velocity.x > 0 or attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j688s"]
+advance_mode = 2
+advance_expression = "velocity.x == 0 and !attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4s3yn"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ls7yd"]
+advance_mode = 2
+advance_expression = "!attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ms8l4"]
+advance_mode = 2
+advance_expression = "!cutscene_active"
+
+[resource]
+states/End/position = Vector2(1227, 81)
+states/Start/position = Vector2(124, 100)
+states/block/node = SubResource("AnimationNodeAnimation_od8x3")
+states/block/position = Vector2(433, 36)
+"states/block 2/node" = SubResource("AnimationNodeAnimation_ms8l4")
+"states/block 2/position" = Vector2(942.3447, 123)
+states/idle/node = SubResource("AnimationNodeAnimation_mgloq")
+states/idle/position = Vector2(297, 100)
+"states/idle 3/node" = SubResource("AnimationNodeAnimation_03nyp")
+"states/idle 3/position" = Vector2(719.34467, 57)
+states/run/node = SubResource("AnimationNodeAnimation_l7ywq")
+states/run/position = Vector2(433, 173)
+"states/run 2/node" = SubResource("AnimationNodeAnimation_1xl52")
+"states/run 2/position" = Vector2(719.34467, 153)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_m7m7b"), "idle", "block", SubResource("AnimationNodeStateMachineTransition_ls3j7"), "block", "run", SubResource("AnimationNodeStateMachineTransition_xo648"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_30d0l"), "idle 3", "run 2", SubResource("AnimationNodeStateMachineTransition_0qbqm"), "run 2", "idle 3", SubResource("AnimationNodeStateMachineTransition_j688s"), "run 2", "block 2", SubResource("AnimationNodeStateMachineTransition_4s3yn"), "block 2", "run 2", SubResource("AnimationNodeStateMachineTransition_ls7yd"), "run", "idle 3", SubResource("AnimationNodeStateMachineTransition_ms8l4")]
+graph_offset = Vector2(54.344666, -17)

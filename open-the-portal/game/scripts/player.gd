@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const DEBUG = false  # Set to false to disable all debug operations
 var never_ready = false
+var cutscene_active = false
 
 @onready var orb_spawn_position: Node2D = $OrbSpawnPosition
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -71,132 +72,143 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	temp_delta = delta
-	if enemy_pos: 
-		move_camera(delta)
-	
-	if DEBUG:
-		if Input.is_action_just_pressed("never_set_ready"):
-			never_ready = !never_ready
-			print("never ready: ", never_ready)
-	
-	# If energy regen is active, ensure the player isn't flagged as having no energy
-	if energy_regen:
-		no_energy = false
-	
-	if Input.is_action_just_pressed("use_door"):
-		use_door.emit()
-	
-	if !cycle_active:
-		if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
-			# Consume returns -1 if there isn't enough energy.
-			# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
-			if energy_regen or $UserInterface/EnergyBar.consume(energy_consumption) != -1:
-				var new_orb = orb.instantiate()
+	if !cutscene_active:
+		temp_delta = delta
+		if enemy_pos: 
+			move_camera(delta)
+		
+		if DEBUG:
+			if Input.is_action_just_pressed("never_set_ready"):
+				never_ready = !never_ready
+				print("never ready: ", never_ready)
+		
+		# If energy regen is active, ensure the player isn't flagged as having no energy
+		if energy_regen:
+			no_energy = false
+		
+		if Input.is_action_just_pressed("use_door"):
+			use_door.emit()
+		
+		if !cycle_active:
+			if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
+				# Consume returns -1 if there isn't enough energy.
+				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
+				if energy_regen or $UserInterface/EnergyBar.consume(energy_consumption) != -1:
+					var new_orb = orb.instantiate()
+					
+					# Set properties before node is ready to have access to them
+					orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+					new_orb.position = orb_spawn_position.position
+					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+					new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
+					add_child(new_orb)
+					$SpawnTimer.start()
+					$UserInterface/ColorRect.visible = false
+					on_cooldown = true
+					orb_was_fired.emit()
+					$AudioStreamPlayer2D.stream = gun_blast_1
+					$AudioStreamPlayer2D.play()
 				
-				# Set properties before node is ready to have access to them
-				orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
-				new_orb.position = orb_spawn_position.position
-				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
-				add_child(new_orb)
-				$SpawnTimer.start()
-				$UserInterface/ColorRect.visible = false
-				on_cooldown = true
-				orb_was_fired.emit()
-				$AudioStreamPlayer2D.stream = gun_blast_1
-				$AudioStreamPlayer2D.play()
-			
-				if !never_ready: are_we_ready = true
+					if !never_ready: are_we_ready = true
 
-		if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
-			# Consume returns -1 if there isn't enough energy.
-			# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
-			if energy_regen or $UserInterface/EnergyBar.consume(power_energy_consumption) != -1:
-				var new_orb = power_orb.instantiate()
-				# Set properties before node is ready to have access to them
-				orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
-				new_orb.position = orb_spawn_position.position
-				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
-				add_child(new_orb)
-				var mother = get_parent()
-				new_orb.reparent(mother)
-				$PowerSpawnTimer.start()
-				$UserInterface/ColorRect2.visible = false
-				power_cooldown = true
-				orb_was_fired.emit()
-				$AudioStreamPlayer2D.stream = gun_blast_2
-				$AudioStreamPlayer2D.play()
-				
-				if !never_ready: are_we_ready = true
-	
-	if Input.is_action_just_pressed("advance_belt"):
-		conveyor_belt.advance_belt()
-	
-	if conveyor_belt.get_slot_content(0) != 0:
-		current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
-		check_for_use_item(current_item)
-	
-	#if Input.is_action_pressed("use_item"):
-		#print_rich("[color=orange]hello")
-		#await item_activation_stopped
-		#print_rich("[color=orangered]world")
-	
-	sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
-	
-	if are_we_ready and !ready_signal_emitted: 
-		player_is_ready.emit()
-		ready_signal_emitted = true
-	
-	if Input.is_action_just_pressed("discard_sword"):
-		print("THROW SWORD")
+			if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
+				# Consume returns -1 if there isn't enough energy.
+				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
+				if energy_regen or $UserInterface/EnergyBar.consume(power_energy_consumption) != -1:
+					var new_orb = power_orb.instantiate()
+					# Set properties before node is ready to have access to them
+					orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+					new_orb.position = orb_spawn_position.position
+					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+					new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
+					add_child(new_orb)
+					var mother = get_parent()
+					new_orb.reparent(mother)
+					$PowerSpawnTimer.start()
+					$UserInterface/ColorRect2.visible = false
+					power_cooldown = true
+					orb_was_fired.emit()
+					$AudioStreamPlayer2D.stream = gun_blast_2
+					$AudioStreamPlayer2D.play()
+					
+					if !never_ready: are_we_ready = true
+		
+		if Input.is_action_just_pressed("advance_belt"):
+			conveyor_belt.advance_belt()
+		
+		if conveyor_belt.get_slot_content(0) != 0:
+			current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
+			check_for_use_item(current_item)
+		
+		#if Input.is_action_pressed("use_item"):
+			#print_rich("[color=orange]hello")
+			#await item_activation_stopped
+			#print_rich("[color=orangered]world")
+		
+		sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
+		
+		if are_we_ready and !ready_signal_emitted: 
+			player_is_ready.emit()
+			ready_signal_emitted = true
+		
+		if Input.is_action_just_pressed("discard_sword"):
+			print("THROW SWORD")
 
 
 func _physics_process(delta: float) -> void:
-	if !was_hit:
+	if !cutscene_active:
+		if !was_hit:
+			# Add the gravity.
+			if not is_on_floor():
+				if velocity.y > 0: 
+					velocity += get_gravity() * fall_velocity_factor * delta
+				else:
+					velocity += get_gravity() * delta
+					
+
+			# Handle jump.
+			if Input.is_action_just_pressed("jump"):
+				jump_buffer_timer.start()
+			
+			if is_on_floor() and jump_buffer_timer.time_left > 0:
+				velocity.y = JUMP_VELOCITY
+				jump_buffer_timer.stop()
+			
+			if is_on_floor(): set_collision_mask_value(2, true)
+			else: set_collision_mask_value(2, false)
+
+			# Get the input direction and handle the movement/deceleration.
+			# As good practice, you should replace UI actions with custom gameplay actions.
+			var direction := Input.get_axis("move_left", "move_right")
+			if direction:
+				velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
+				if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
+			else:
+				velocity.x = move_toward(velocity.x, 0, accel)
+				if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
+			
+			if direction < 0: sprite_2d.flip_h = true 
+			elif direction > 0: sprite_2d.flip_h = false
+			
+			if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
+			if velocity.y > 0:
+				#print(velocity.y)
+				$AnimationPlayer.play("Player_Movement/fall")
+			
+			#print(velocity.x)
+			move_and_slide()
+		else:
+			move_and_slide()
+	else:
 		# Add the gravity.
 		if not is_on_floor():
 			if velocity.y > 0: 
 				velocity += get_gravity() * fall_velocity_factor * delta
 			else:
 				velocity += get_gravity() * delta
-				
-
-		# Handle jump.
-		if Input.is_action_just_pressed("jump"):
-			jump_buffer_timer.start()
-		
-		if is_on_floor() and jump_buffer_timer.time_left > 0:
-			velocity.y = JUMP_VELOCITY
-			jump_buffer_timer.stop()
-		
-		if is_on_floor(): set_collision_mask_value(2, true)
-		else: set_collision_mask_value(2, false)
-
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("move_left", "move_right")
-		if direction:
-			velocity.x = move_toward(velocity.x, direction * MAX_SPEED, accel)
-			if is_on_floor(): $AnimationPlayer.play("Player_Movement/run")
-		else:
-			velocity.x = move_toward(velocity.x, 0, accel)
-			if is_on_floor(): $AnimationPlayer.play("Player_Movement/idle")
-		
-		if direction < 0: sprite_2d.flip_h = true 
-		elif direction > 0: sprite_2d.flip_h = false
-		
-		if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
-		if velocity.y > 0:
-			#print(velocity.y)
-			$AnimationPlayer.play("Player_Movement/fall")
-		
-		#print(velocity.x)
+			
 		move_and_slide()
-	else:
-		
-		move_and_slide()
+		#$AnimationPlayer.play("Player_Movement/idle")
 
 
 func _input(event: InputEvent) -> void:
