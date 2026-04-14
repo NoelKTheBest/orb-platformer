@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://d30v7m85ufs4d"]
+
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_4ry5c"]
+
+[node name="Level10" type="Node"]
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(-48.000004, 39.999996)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Polygon2D" parent="." instance=ExtResource("1_uhbgd")]
+position = Vector2(264, 432)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D3" parent="." instance=ExtResource("1_uhbgd")]
+position = Vector2(1016, 432)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("1_uhbgd")]
+position = Vector2(640, 504)
+scale = Vector2(76.8, 1.5999986)
+
+[node name="Polygon2D4" parent="." instance=ExtResource("1_uhbgd")]
+position = Vector2(640, 360)
+scale = Vector2(76.8, 1.5999987)
+
+[node name="Player" parent="." instance=ExtResource("2_4ry5c")]
+position = Vector2(423.99997, 472)

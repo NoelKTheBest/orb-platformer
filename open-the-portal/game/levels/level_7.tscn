@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://o701ktr5ncul"]
+
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_2w2dg"]
+[ext_resource type="Texture2D" uid="uid://dywyfhlgjxwov" path="res://characters/assassin/fall.png" id="2_1t02d"]
+
+[node name="Level7" type="Node"]
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(-80, 119.999985)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Polygon2D" parent="." instance=ExtResource("1_2w2dg")]
+position = Vector2(384, 248)
+scale = Vector2(48.000004, 1.5999985)
+
+[node name="Polygon2D3" parent="." instance=ExtResource("1_2w2dg")]
+position = Vector2(384, 112)
+scale = Vector2(48.000004, 1.5999985)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("1_2w2dg")]
+position = Vector2(151.88406, 172)
+scale = Vector2(1.5768143, 13.599999)
+polygon = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5, -5, -0.10439491)
+
+[node name="Polygon2D4" parent="." instance=ExtResource("1_2w2dg")]
+position = Vector2(616.058, 172)
+scale = Vector2(1.5884064, 13.600001)
+polygon = PackedVector2Array(-5, -5, 0.11810303, -5.0000005, 5, -5, 5, 5, -5, 5, -5, -0.10439491)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(368, 232)
+texture = ExtResource("2_1t02d")
+hframes = 3
+vframes = 4
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(312, 232)
+texture = ExtResource("2_1t02d")
+hframes = 3
+vframes = 4
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(560, 232)
+texture = ExtResource("2_1t02d")
+flip_h = true
+hframes = 3
+vframes = 4

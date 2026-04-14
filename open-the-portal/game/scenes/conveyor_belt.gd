@@ -1,6 +1,6 @@
 extends Control
 
-const DEBUG = false  # Set to false to disable all debug prints
+const DEBUG = true  # Set to false to disable all debug prints
 const MIN_BOXES = 6  # Minimum slots always visible even if empty
 const ITEM_TEXTURES = {
 	1: preload("res://sprites/items/1.png"),

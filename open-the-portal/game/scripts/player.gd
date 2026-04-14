@@ -206,7 +206,8 @@ func _physics_process(delta: float) -> void:
 				velocity += get_gravity() * fall_velocity_factor * delta
 			else:
 				velocity += get_gravity() * delta
-			
+		
+		velocity.x = move_toward(velocity.x, 0, accel)
 		move_and_slide()
 		#$AnimationPlayer.play("Player_Movement/idle")
 

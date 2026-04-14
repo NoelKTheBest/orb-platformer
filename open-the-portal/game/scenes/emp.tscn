@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnxrrggj2e0w4"]
 
 [ext_resource type="Script" uid="uid://dgnfogd6n5uja" path="res://game/scripts/emp.gd" id="1_5kkky"]
-[ext_resource type="Shape2D" uid="uid://dhdt0oopelrv6" path="res://game/EMPCollider.tres" id="1_gv6i4"]
+[ext_resource type="Shape2D" uid="uid://dhdt0oopelrv6" path="res://game/game_rss/EMPCollider.tres" id="1_gv6i4"]
 
 [node name="EMP" type="Area2D"]
 collision_layer = 256

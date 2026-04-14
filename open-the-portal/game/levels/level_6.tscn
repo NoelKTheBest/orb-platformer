@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://x7dfg8wbchlk"]
+
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_pun3f"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_05wkx"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="3_tycs3"]
+[ext_resource type="Texture2D" uid="uid://dywyfhlgjxwov" path="res://characters/assassin/fall.png" id="4_05wkx"]
+[ext_resource type="Texture2D" uid="uid://dme61e1jcu3u4" path="res://sprites/items/3.png" id="5_tycs3"]
+
+[node name="Level6" type="Node2D"]
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(-672.00006, 1.9073486e-06)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Polygon2D" parent="." instance=ExtResource("1_pun3f")]
+position = Vector2(340, 248)
+scale = Vector2(55.2, 1.5999991)
+
+[node name="Polygon2D4" parent="." instance=ExtResource("1_pun3f")]
+position = Vector2(340, 135.87086)
+scale = Vector2(55.2, 1.5741725)
+
+[node name="Spawner" parent="." instance=ExtResource("3_tycs3")]
+position = Vector2(184, 224)
+color = Color(0.06883332, 0.014999998, 0.1, 1)
+
+[node name="Spawner2" parent="." instance=ExtResource("3_tycs3")]
+position = Vector2(496, 224)
+color = Color(0.06883332, 0.014999998, 0.1, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_05wkx")]
+position = Vector2(112, 224)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("1_pun3f")]
+position = Vector2(72, 192)
+scale = Vector2(1.6000001, 12.799999)
+
+[node name="Polygon2D3" parent="." instance=ExtResource("1_pun3f")]
+position = Vector2(608, 192)
+scale = Vector2(1.6000001, 12.799999)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(368, 232)
+texture = ExtResource("4_05wkx")
+hframes = 3
+vframes = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(12.375, -11.74)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("5_tycs3")

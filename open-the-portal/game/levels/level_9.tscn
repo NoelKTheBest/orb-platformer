@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://3bo6e207vcqw"]
+
+[ext_resource type="Texture2D" uid="uid://h60jf8b07ku0" path="res://sprites/Chest 1/Chest 1.1.png" id="1_pj6g8"]
+[ext_resource type="Texture2D" uid="uid://c67f7s0m2r3s7" path="res://sprites/items/1.png" id="2_47dml"]
+[ext_resource type="Texture2D" uid="uid://dhrgeh5ydm7v8" path="res://sprites/items/6.png" id="3_ade5l"]
+[ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://sprites/items/5.png" id="4_2b0q0"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_lhtvx"]
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="6_dme0v"]
+
+[node name="Level9" type="Node"]
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(136.00002, 167.99998)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(368, 152)
+texture = ExtResource("1_pj6g8")
+hframes = 35
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-16, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_47dml")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, -16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ade5l")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(16, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2b0q0")
+
+[node name="Player" parent="." instance=ExtResource("5_lhtvx")]
+position = Vector2(312, 144)
+
+[node name="Polygon2D" parent="." instance=ExtResource("6_dme0v")]
+position = Vector2(272, 128)
+scale = Vector2(1.599999, 6.4)
+
+[node name="Polygon2D4" parent="." instance=ExtResource("6_dme0v")]
+position = Vector2(479.99997, 128)
+scale = Vector2(1.6000062, 6.4)
+
+[node name="Polygon2D2" parent="." instance=ExtResource("6_dme0v")]
+position = Vector2(376, 168)
+scale = Vector2(22.400002, 1.5999991)
+
+[node name="Polygon2D3" parent="." instance=ExtResource("6_dme0v")]
+position = Vector2(376, 96)
+scale = Vector2(22.400002, 1.5999991)

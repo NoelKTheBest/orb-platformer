@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://characters/@Platformer/Walk.png" id="7_cewyd"]
 [ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://characters/@Platformer/Bow Attack.png" id="8_ap1v3"]
 [ext_resource type="PackedScene" uid="uid://61oj6aandu32" path="res://game/scenes/hurtbox.tscn" id="9_hispi"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://c3drt7ydwysao" path="res://game/basic_enemy_animtree.tres" id="9_ywcfe"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://c3drt7ydwysao" path="res://game/game_rss/basic_enemy_animtree.tres" id="9_ywcfe"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="10_cbwfl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]

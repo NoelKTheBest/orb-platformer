@@ -38,6 +38,7 @@ folder_colors={
 "res://characters/": "pink",
 "res://characters/KALA/": "purple",
 "res://game/": "green",
+"res://game/game_rss/": "orange",
 "res://game/levels/": "blue",
 "res://prototype_1/": "gray",
 "res://prototype_2/": "gray",
