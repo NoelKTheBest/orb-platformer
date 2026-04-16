@@ -665,7 +665,12 @@ transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
 offset_top = -9.411743
 offset_bottom = 89.58826
 
+[node name="Node2D" parent="UserInterface/Node" index="0"]
+position = Vector2(13.855, -630.13)
+scale = Vector2(2.81, 2.81)
+
 [node name="Label" type="Label" parent="UserInterface"]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 scale = Vector2(3.505, 3.505)
@@ -673,6 +678,7 @@ text = "Energy
 "
 
 [node name="ColorRect" type="ColorRect" parent="UserInterface"]
+visible = false
 offset_left = 2.3529434
 offset_top = -89.41174
 offset_right = 42.352943
@@ -681,6 +687,7 @@ scale = Vector2(1.675, 1.675)
 color = Color(0, 0.29999995, 1, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="UserInterface"]
+visible = false
 offset_left = 87.05881
 offset_top = -89.41174
 offset_right = 127.05881
@@ -758,6 +765,11 @@ collision_mask = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemDetector"]
 shape = SubResource("RectangleShape2D_br0p3")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(205, 0)
+collision_mask = 1073741830
+collide_with_areas = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="EnergyRegenTimer" to="." method="_on_energy_regen_timer_timeout"]

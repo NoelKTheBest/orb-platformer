@@ -73,6 +73,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if !cutscene_active:
+		$RayCast2D.target_position.x = 205 if !$Sprite2D.flip_h else -205
+		
 		temp_delta = delta
 		if enemy_pos: 
 			move_camera(delta)
@@ -90,6 +92,10 @@ func _process(delta: float) -> void:
 			use_door.emit()
 		
 		if !cycle_active:
+			if Input.is_action_just_pressed("instant_fire") and $UserInterface/Node.use_energy(2) != -1:
+				print("raycast hit something: ", $RayCast2D.is_colliding())
+				pass
+			
 			if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
 				# Consume returns -1 if there isn't enough energy.
 				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.

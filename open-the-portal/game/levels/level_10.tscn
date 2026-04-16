@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=4 format=3 uid="uid://d30v7m85ufs4d"]
 
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_4ry5c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uhbgd"]
 
 [node name="Level10" type="Node"]
 
@@ -29,3 +31,13 @@ scale = Vector2(76.8, 1.5999987)
 
 [node name="Player" parent="." instance=ExtResource("2_4ry5c")]
 position = Vector2(423.99997, 472)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(550.9403, 466.70325)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(1.0596924, 13.296753)
+shape = SubResource("CapsuleShape2D_uhbgd")
+debug_color = Color(0, 0.5950001, 0.7, 1)

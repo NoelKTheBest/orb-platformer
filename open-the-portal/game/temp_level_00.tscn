@@ -287,7 +287,6 @@ position = Vector2(790.3617, 551.1946)
 position = Vector2(308, 504)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
-process_mode = 4
 position = Vector2(2068, 525)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -298,9 +297,13 @@ process_mode = 4
 visible = false
 
 [node name="ItemSpawner" parent="." instance=ExtResource("15_ke71t")]
+process_mode = 4
+visible = false
 position = Vector2(691, 397)
 
 [node name="ItemSpawner2" parent="." instance=ExtResource("15_ke71t")]
+process_mode = 4
+visible = false
 position = Vector2(1625, 400)
 
 [node name="Enemy3" parent="." instance=ExtResource("17_ke71t")]
@@ -308,22 +311,18 @@ modulate = Color(0.29000002, 0.52666676, 1, 1)
 position = Vector2(184, 529)
 
 [node name="Enemy" parent="." instance=ExtResource("16_ke71t")]
-process_mode = 4
 position = Vector2(647, 530)
 
 [node name="Assassin" parent="." instance=ExtResource("15_7bxbr")]
 position = Vector2(416, 528)
 
 [node name="Assassin3" parent="." instance=ExtResource("15_7bxbr")]
-process_mode = 4
 position = Vector2(1662.7654, 513.4081)
 
 [node name="Assassin2" parent="." instance=ExtResource("15_7bxbr")]
-process_mode = 4
 position = Vector2(1351.3109, 506.753)
 
 [node name="Enemy2" parent="." instance=ExtResource("16_ke71t")]
-process_mode = 4
 position = Vector2(1066.9747, 522.60724)
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]

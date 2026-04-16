@@ -1,7 +1,7 @@
 extends Control
 
 const DEBUG = true  # Set to false to disable all debug prints
-const MIN_BOXES = 6  # Minimum slots always visible even if empty
+const MIN_BOXES = 3  # Minimum slots always visible even if empty
 const ITEM_TEXTURES = {
 	1: preload("res://sprites/items/1.png"),
 	2: preload("res://sprites/items/2.png"),
