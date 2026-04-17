@@ -5,16 +5,10 @@ const MIN_BOXES = 3  # Minimum slots always visible even if empty
 const ITEM_TEXTURES = {
 	1: preload("res://sprites/items/1.png"),
 	2: preload("res://sprites/items/2.png"),
-	3: preload("res://sprites/items/3.png"),
-	4: preload("res://sprites/items/4.png"),
-	5: preload("res://sprites/items/5.png"),
 	6: preload("res://sprites/items/6.png"),
-	7: preload("res://sprites/items/7.png"),
 }
 
-signal player_has_sword
-
-var inventory: Array[int] = [0, 0, 0, 0, 0, 0]  # 6 slots, 0 = empty
+var inventory: Array[int] = [2, 6, 1, 0, 0, 0]  # 6 slots, 0 = empty
 
 @onready var inventory_container: HBoxContainer = $Inventory
 
@@ -27,7 +21,6 @@ func _ready() -> void:
 	if not InputMap.has_action("use_item"):
 		push_warning("Input action 'use_item' not found in Input Map!")
 	
-	player_has_sword.emit()
 
 
 func _process(_delta: float) -> void:
@@ -50,8 +43,6 @@ func add_item(item_id: int, _item_texture: Texture2D = null) -> bool:
 	# Use empty_index to set the item id (Check if inventory is not full)
 	if empty_index != -1:
 		inventory[empty_index] = item_id
-		
-		if item_id == 3: player_has_sword.emit()
 		
 		# Show pickup notification
 		var item_name = ItemNameDictionary.ITEM_NAMES.get(item_id, "Unknown Item")

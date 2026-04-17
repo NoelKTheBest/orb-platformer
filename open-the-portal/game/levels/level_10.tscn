@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=9 format=3 uid="uid://d30v7m85ufs4d"]
 
+[ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_4ry5c"]
+[ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="4_wscno"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="5_i8l2g"]
+[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="6_4ubqe"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uhbgd"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wscno"]
+size = Vector2(20, 32)
+
 [node name="Level10" type="Node"]
+script = ExtResource("1_4ry5c")
 
 [node name="BG" type="Polygon2D" parent="."]
 position = Vector2(-48.000004, 39.999996)
@@ -30,14 +38,52 @@ position = Vector2(640, 360)
 scale = Vector2(76.8, 1.5999987)
 
 [node name="Player" parent="." instance=ExtResource("2_4ry5c")]
-position = Vector2(423.99997, 472)
+position = Vector2(576, 480)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(550.9403, 466.70325)
+process_mode = 4
+visible = false
+position = Vector2(400, 464)
 collision_layer = 2
 collision_mask = 0
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(1.0596924, 13.296753)
 shape = SubResource("CapsuleShape2D_uhbgd")
 debug_color = Color(0, 0.5950001, 0.7, 1)
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+position = Vector2(1.0596924, 13.296753)
+shape = SubResource("RectangleShape2D_wscno")
+debug_color = Color(0, 0.91, 0.1668334, 0.41960785)
+
+[node name="Enemy" parent="." instance=ExtResource("4_wscno")]
+process_mode = 4
+visible = false
+position = Vector2(280, 480)
+
+[node name="Enemy2" parent="." instance=ExtResource("4_wscno")]
+process_mode = 4
+visible = false
+position = Vector2(304, 480)
+
+[node name="Enemy3" parent="." instance=ExtResource("4_wscno")]
+process_mode = 4
+visible = false
+position = Vector2(986, 480)
+
+[node name="Assassin" parent="." instance=ExtResource("5_i8l2g")]
+process_mode = 4
+visible = false
+position = Vector2(968, 480)
+
+[node name="ForcefieldController" parent="." instance=ExtResource("6_4ubqe")]
+position = Vector2(760, 480)
+
+[connection signal="area_entered" from="CharacterBody2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="CharacterBody2D/Area2D" to="." method="_on_area_2d_body_entered"]

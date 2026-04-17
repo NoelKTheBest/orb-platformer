@@ -28,10 +28,11 @@ signal player_died
 signal player_is_ready
 signal use_door
 signal item_activation_stopped
+signal raycast_hit
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const ORB_VELOCITY = 400
+const ORB_VELOCITY = 475
 
 #region private vars
 var orb = preload("res://game/scenes/orb.tscn")
@@ -74,6 +75,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !cutscene_active:
 		$RayCast2D.target_position.x = 205 if !$Sprite2D.flip_h else -205
+		$RayCast2D.visible = false
+		$RayCast2D/Sprite2D2.position.x = 104 if !$Sprite2D.flip_h else -104
 		
 		temp_delta = delta
 		if enemy_pos: 
@@ -92,14 +95,26 @@ func _process(delta: float) -> void:
 			use_door.emit()
 		
 		if !cycle_active:
-			if Input.is_action_just_pressed("instant_fire") and $UserInterface/Node.use_energy(2) != -1:
-				print("raycast hit something: ", $RayCast2D.is_colliding())
-				pass
+			if Input.is_action_just_pressed("instant_fire") and $RayCast2D.is_colliding() and $UserInterface/Node.use_energy(8) != -1:
+				$RayCast2D.visible = true
+				var new_ray_area = Area2D.new()
+				var new_ray_collider = CollisionShape2D.new()
+				new_ray_collider.shape = CircleShape2D.new()
+				new_ray_collider.shape.radius = 5
+				new_ray_area.add_child(new_ray_collider)
+				new_ray_area.set_collision_layer_value(1, false)
+				new_ray_area.set_collision_layer_value(6, true)
+				new_ray_area.set_collision_mask_value(1, false)
+				new_ray_area.set_collision_mask_value(2, true)
+				new_ray_area.position = to_local($RayCast2D.get_collision_point())
+				new_ray_area.name = "RaycastArea"
+				add_child(new_ray_area)
+				if !never_ready: are_we_ready = true
 			
-			if Input.is_action_just_pressed("fire") and !on_cooldown and !no_energy:
+			if Input.is_action_just_pressed("fire"):
 				# Consume returns -1 if there isn't enough energy.
 				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
-				if energy_regen or $UserInterface/EnergyBar.consume(energy_consumption) != -1:
+				if $UserInterface/Node.use_energy(4) != -1:
 					var new_orb = orb.instantiate()
 					
 					# Set properties before node is ready to have access to them
@@ -108,9 +123,6 @@ func _process(delta: float) -> void:
 					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
 					new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
 					add_child(new_orb)
-					$SpawnTimer.start()
-					$UserInterface/ColorRect.visible = false
-					on_cooldown = true
 					orb_was_fired.emit()
 					$AudioStreamPlayer2D.stream = gun_blast_1
 					$AudioStreamPlayer2D.play()
@@ -120,7 +132,7 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
 				# Consume returns -1 if there isn't enough energy.
 				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
-				if energy_regen or $UserInterface/EnergyBar.consume(power_energy_consumption) != -1:
+				if $UserInterface/Node.use_energy(8) != -1:
 					var new_orb = power_orb.instantiate()
 					# Set properties before node is ready to have access to them
 					orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
@@ -131,7 +143,6 @@ func _process(delta: float) -> void:
 					var mother = get_parent()
 					new_orb.reparent(mother)
 					$PowerSpawnTimer.start()
-					$UserInterface/ColorRect2.visible = false
 					power_cooldown = true
 					orb_was_fired.emit()
 					$AudioStreamPlayer2D.stream = gun_blast_2
@@ -323,42 +334,12 @@ func check_for_use_item(item_name: String):
 					#sword_instance = null
 					#var mother = get_parent()
 					#new_throwing_sword.reparent(mother)
-		"Flash Grenade":
-			if Input.is_action_just_pressed("use_item"):
-				# Check if item was successfully used before activating power-up
-				if conveyor_belt.use_item():
-					var new_grenade = grenade_scene.instantiate()
-					var mult = -1 if sprite_2d.flip_h == true else 1
-					new_grenade.direction = mult
-					add_child(new_grenade)
-					if !never_ready: are_we_ready = true
-					var mother = get_parent()
-					new_grenade.reparent(mother)
-		"Bomb":
-			if Input.is_action_just_pressed("use_item"):
-				# Check if item was successfully used before activating power-up
-				if conveyor_belt.use_item():
-					var new_bomb = bomb_scene.instantiate()
-					var mult = -1 if sprite_2d.flip_h == true else 1
-					new_bomb.direction = mult
-					add_child(new_bomb)
-					if !never_ready: are_we_ready = true
-					var mother = get_parent()
-					new_bomb.reparent(mother)
 		"HP Restore":
 			if Input.is_action_just_pressed("use_item"):
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
 					health = 3
 					health_bar.update_health(health)
-		"Energy Restore":
-			if Input.is_action_just_pressed("use_item"):
-				# Check if item was successfully used before activating power-up
-				if conveyor_belt.use_item():
-					#print_rich("[color=lightgreen]ENERGY UP")
-					$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
-					energy_regen = true
-					$EnergyRegenTimer.start()
 
 
 
@@ -396,11 +377,6 @@ func die():
 	player_died.emit()
 
 
-func _on_spawn_timer_timeout() -> void:
-	on_cooldown = false
-	$UserInterface/ColorRect.visible = true
-
-
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "hit":
 		set_collision_layer_value(1, true)
@@ -409,7 +385,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func _on_power_spawn_timer_timeout() -> void:
 	power_cooldown = false
-	$UserInterface/ColorRect2.visible = true
 
 # Review later
 func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:

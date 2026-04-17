@@ -1,13 +1,78 @@
-[gd_scene load_steps=5 format=3 uid="uid://6yc8ybsjmhbo"]
+[gd_scene load_steps=10 format=3 uid="uid://6yc8ybsjmhbo"]
 
 [ext_resource type="Script" uid="uid://dsdheyvs6gtg0" path="res://game/scripts/orb.gd" id="1_38u4j"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_he0nr"]
+[ext_resource type="Texture2D" uid="uid://cmrawmqhcujqq" path="res://sprites/circle.png" id="3_mjrme"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jl1vc"]
 radius = 2.6607537
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_38u4j"]
-size = Vector2(54.055, 20)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dl5d"]
+radius = 64.0
+
+[sub_resource type="Animation" id="Animation_wdce1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShockwaveRadius:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shockwave:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.04, 0.04)]
+}
+
+[sub_resource type="Animation" id="Animation_gljvv"]
+resource_name = "shockwave"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShockwaveRadius:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(100, 100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shockwave:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0.04, 0.04), Vector2(4.135, 4.135)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4fjd"]
+_data = {
+&"RESET": SubResource("Animation_wdce1"),
+&"shockwave": SubResource("Animation_gljvv")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjrme"]
+radius = 1.0
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["Power Orbs"]]
 collision_layer = 32
@@ -32,14 +97,44 @@ scale = Vector2(0.34, 0.34)
 rect = Rect2(-14.705881, -14.705881, 29.411762, 29.411762)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.75
 one_shot = true
 autostart = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="BombBlastRadius" type="Area2D" parent="."]
+visible = false
+collision_layer = 2048
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_38u4j")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BombBlastRadius"]
+shape = SubResource("CircleShape2D_1dl5d")
+debug_color = Color(0.7, 0.14000003, 0, 0.039215688)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a4fjd")
+}
+
+[node name="ShockwaveRadius" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShockwaveRadius"]
+shape = SubResource("CircleShape2D_mjrme")
+debug_color = Color(0.3764706, 0.29411766, 0.7372549, 0.43529412)
+
+[node name="BombBlast" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 0.71000004, 0.71000004, 1)
+scale = Vector2(2.625, 2.625)
+texture = ExtResource("3_mjrme")
+
+[node name="Shockwave" type="Sprite2D" parent="."]
+self_modulate = Color(0.9, 0.8, 1, 0.32941177)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("3_mjrme")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

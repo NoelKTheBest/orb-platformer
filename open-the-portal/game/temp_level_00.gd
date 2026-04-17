@@ -12,7 +12,7 @@ extends Node2D
 @export var spawn_point_range = 150
 
 #region private vars
-var enemy_scene = preload("res://prototype_2/prototype_2_enemy.tscn")
+var enemy_scene = preload("res://game/scenes/basic_enemy.tscn")
 var assassin = preload("res://prototype_2/assassin.tscn")
 var godotbot = preload("res://icon.svg")
 var enemies_on_screen
@@ -170,7 +170,7 @@ func _on_game_over_timer_timeout() -> void:
 
 func _on_player_player_is_ready() -> void:
 	player_is_ready = true
-	#enemy_spawn_timer.start()
+	enemy_spawn_timer.start()
 
 
 func _on_enemy_spawn_interval_timeout() -> void:

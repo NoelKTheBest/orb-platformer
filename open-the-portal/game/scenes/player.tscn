@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dkr4cdkqpcfm"]
+[gd_scene load_steps=34 format=3 uid="uid://dkr4cdkqpcfm"]
 
 [ext_resource type="Script" uid="uid://qdlr8tjud1s6" path="res://game/scripts/player.gd" id="1_gocdo"]
 [ext_resource type="Texture2D" uid="uid://dn3wbbng8tg0j" path="res://characters/@Platformer/Hit.png" id="2_jfkb5"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="11_06pfm"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_f2egm"]
 [ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://audio/Gun blast 4.wav" id="14_ppdnp"]
+[ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://sprites/blank_filter.png" id="15_d1crr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
@@ -645,10 +646,6 @@ position = Vector2(22, 0)
 [node name="EnergyRegenTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.295
-one_shot = true
-
 [node name="PowerSpawnTimer" type="Timer" parent="."]
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
@@ -662,38 +659,13 @@ scale = Vector2(0.425, 0.425)
 transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
 
 [node name="EnergyBar" parent="UserInterface" index="0"]
+process_mode = 4
 offset_top = -9.411743
 offset_bottom = 89.58826
 
 [node name="Node2D" parent="UserInterface/Node" index="0"]
 position = Vector2(13.855, -630.13)
 scale = Vector2(2.81, 2.81)
-
-[node name="Label" type="Label" parent="UserInterface"]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
-scale = Vector2(3.505, 3.505)
-text = "Energy
-"
-
-[node name="ColorRect" type="ColorRect" parent="UserInterface"]
-visible = false
-offset_left = 2.3529434
-offset_top = -89.41174
-offset_right = 42.352943
-offset_bottom = -49.411743
-scale = Vector2(1.675, 1.675)
-color = Color(0, 0.29999995, 1, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="UserInterface"]
-visible = false
-offset_left = 87.05881
-offset_top = -89.41174
-offset_right = 127.05881
-offset_bottom = -49.411743
-scale = Vector2(1.675, 1.675)
-color = Color(1, 0, 0, 1)
 
 [node name="ConveyorBelt" parent="UserInterface" instance=ExtResource("9_2k1gg")]
 offset_left = 1296.4706
@@ -771,11 +743,15 @@ target_position = Vector2(205, 0)
 collision_mask = 1073741830
 collide_with_areas = true
 
+[node name="Sprite2D2" type="Sprite2D" parent="RayCast2D"]
+self_modulate = Color(0, 0.93333316, 1, 1)
+position = Vector2(-104.00001, 0)
+scale = Vector2(1.5734376, 0.015)
+texture = ExtResource("15_d1crr")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="EnergyRegenTimer" to="." method="_on_energy_regen_timer_timeout"]
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="PowerSpawnTimer" to="." method="_on_power_spawn_timer_timeout"]
-[connection signal="player_has_sword" from="UserInterface/ConveyorBelt" to="." method="_on_conveyor_belt_player_has_sword"]
 [connection signal="player_was_hit" from="Hurtbox" to="." method="_on_hurtbox_player_was_hit"]
 [connection signal="timeout" from="ItemActivationTimer" to="." method="_on_item_activation_timer_timeout"]
 [connection signal="body_entered" from="ItemDetector" to="." method="_on_item_detector_body_entered"]
