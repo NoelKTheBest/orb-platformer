@@ -27,6 +27,7 @@ var cutscene_active = false
 var on_cooldown : bool
 var walking = true
 var movement_paused = false
+var shocked = false
 
 var temp_v
 
@@ -140,8 +141,9 @@ func _on_timer_timeout() -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.name == "EMP":
-		$AnimationPlayer.play("shock")
+		#$AnimationPlayer.play("shock")
 		movement_paused = true
+		shocked = true
 	elif area.name == "BombBlastRadius":
 		die()
 	elif area.name == "GrenadeRadius":
@@ -163,3 +165,4 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 		#$AnimationTree["parameters/SwitchToAttack/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT
 	elif anim_name == "shock" or anim_name == "blinded":
 		movement_paused = false
+		shocked = false
