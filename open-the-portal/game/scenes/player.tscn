@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dkr4cdkqpcfm"]
+[gd_scene load_steps=35 format=3 uid="uid://dkr4cdkqpcfm"]
 
 [ext_resource type="Script" uid="uid://qdlr8tjud1s6" path="res://game/scripts/player.gd" id="1_gocdo"]
 [ext_resource type="Texture2D" uid="uid://dn3wbbng8tg0j" path="res://characters/@Platformer/Hit.png" id="2_jfkb5"]
@@ -561,6 +561,8 @@ _data = {
 &"shoot orb": SubResource("Animation_aob03")
 }
 
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d1crr"]
+
 [sub_resource type="Animation" id="Animation_rrmcd"]
 length = 0.001
 
@@ -639,6 +641,9 @@ libraries = {
 &"Player_Movement": SubResource("AnimationLibrary_wdrn2")
 }
 autoplay = "Player_Movement/idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_d1crr")
 
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)

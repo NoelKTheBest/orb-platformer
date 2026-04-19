@@ -2,7 +2,6 @@ extends Node2D
 
 @export var sp_spacing = 80
 @export var visible_sp = true
-@export var total_number_of_enemy_1: int
 ## Used to calculate how often secondary enemy types are spawned. The higher the number, the less frequently secondary enemies spawn
 @export var enemy_2_mod: int = 3
 @export var total_number_of_enemies: int = 15
@@ -134,25 +133,6 @@ func enemy_is_visible(enemy):
 	if enemy.visible_on_screen_notifier_2d.is_on_screen(): return enemy
 
 #region Signals
-
-
-func _on_player_anti_gravity_zone_created() -> void:
-	for enemy in enemies_on_screen:
-		enemy.player_position = $Player.position
-		enemy.launch()
-		enemies_affected_by_anti_g.append(enemy)
-	#print(enemies)
-	$ZeroGravityZoneTimer.start()
-
-
-func _on_zero_gravity_zone_timer_timeout() -> void:
-	for enemy in enemies_affected_by_anti_g:
-		enemy.in_anti_gravity_zone = false
-	
-	$Player.in_anti_gravity_zone = false
-	enemies_affected_by_anti_g = []
-
-
 func _on_enemy_spawn_timer_timeout() -> void:
 	$EnemySpawnInterval.start()
 
