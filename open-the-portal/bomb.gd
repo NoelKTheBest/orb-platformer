@@ -1,8 +1,7 @@
 extends RigidBody2D
-@export var x_velocity: int = 225
-@export var y_velocity: int = -200
+@export var x_velocity: int = 10
+@export var y_velocity: int = 10
 var direction = 1
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

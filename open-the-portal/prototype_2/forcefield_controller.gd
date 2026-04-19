@@ -185,8 +185,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 
 func _on_bullet_detection_range_body_entered(body: Node2D) -> void:
-	print(current_state)
-	if body.is_in_group("Orbs") and current_state != enemy_state.RECOVER and current_state != enemy_state.ATTACK3:
+	if body.is_in_group("Orbs") and current_state != enemy_state.RECOVER:
 		current_state = enemy_state.BLOCK
 		animation_player.play("block")
 		#$BulletDetectionRange.set_collision_mask_value(6, true)
@@ -202,11 +201,8 @@ func _on_recover_timer_timeout() -> void:
 
 
 func _on_hitbox_1_body_entered(body: Node2D) -> void:
-	if current_state != enemy_state.ATTACK3 and current_state != enemy_state.RECOVER:
-		if body.is_in_group("Orbs"): body.queue_free()
-	
-	if current_state != enemy_state.RECOVER:
-		if body.is_in_group("Power Orbs"): body.queue_free()
+	if body.is_in_group("Orbs"): body.queue_free()
+	if body.is_in_group("Power Orbs"): body.queue_free()
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
@@ -222,6 +218,3 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		current_state = enemy_state.BLINDED
 	elif area.name == "SwordHitBox":
 		take_damage()
-	elif area.name == "RaycastArea":
-		area.queue_free()
-		die()

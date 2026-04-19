@@ -12,7 +12,7 @@ extends Node2D
 @export var spawn_point_range = 150
 
 #region private vars
-var enemy_scene = preload("res://game/scenes/basic_enemy.tscn")
+var enemy_scene = preload("res://prototype_2/prototype_2_enemy.tscn")
 var assassin = preload("res://prototype_2/assassin.tscn")
 var godotbot = preload("res://icon.svg")
 var enemies_on_screen
@@ -34,6 +34,7 @@ var controller_is_dead = false
 var spawn_point_rate
 var player_close_to_sp1 = false
 var player_close_to_sp2 = false
+var pause_scene = preload("res://prototype_2/pause_menu.tscn")
 
 @onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
 @onready var player: CharacterBody2D = $Player
@@ -48,6 +49,11 @@ var player_close_to_sp2 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var pause_menu_instance = pause_scene.instantiate()
+	add_child(pause_menu_instance)
+
+	PauseManager.pause_menu = pause_menu_instance
+	pause_menu_instance.visible = false
 	#Engine.time_scale = 0.5
 	total_number_of_enemies += spawn_point_enemy_count
 	total_enemies_spawned = get_tree().get_nodes_in_group("Enemy").size()
@@ -170,7 +176,7 @@ func _on_game_over_timer_timeout() -> void:
 
 func _on_player_player_is_ready() -> void:
 	player_is_ready = true
-	enemy_spawn_timer.start()
+	#enemy_spawn_timer.start()
 
 
 func _on_enemy_spawn_interval_timeout() -> void:
@@ -239,3 +245,8 @@ func _on_you_win_timer_timeout() -> void:
 
 func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
 	pass
+
+
+func _unhandled_input(event):
+	if event.is_action_pressed("pause"):
+		PauseManager.toggle_pause()

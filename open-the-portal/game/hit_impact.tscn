@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcn6eruqdwy5c"]
 
-[ext_resource type="SpriteFrames" uid="uid://ck352hacv6l0x" path="res://game/game_rss/hit_impact.tres" id="1_6o8ce"]
+[ext_resource type="SpriteFrames" uid="uid://ck352hacv6l0x" path="res://game/hit_impact.tres" id="1_6o8ce"]
 [ext_resource type="Script" uid="uid://vnaqqq5dt5c4" path="res://game/standard_vfx.gd" id="2_dlarx"]
 
 [node name="Node2D" type="Node2D"]
