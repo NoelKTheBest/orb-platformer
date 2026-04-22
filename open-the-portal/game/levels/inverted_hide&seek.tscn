@@ -198,11 +198,21 @@ z_index = -1
 position = Vector2(1440, 360)
 texture = ExtResource("20_y6poj")
 
-[node name="Enemy" parent="." instance=ExtResource("21_xx5ju")]
-position = Vector2(264, 232)
-
 [node name="Player" parent="." instance=ExtResource("22_maqf1")]
-position = Vector2(120, 232)
+position = Vector2(328, 240)
+
+[node name="Enemy" parent="." instance=ExtResource("21_xx5ju")]
+position = Vector2(88, 232)
+vision_scale = 107.355
+metadata/_edit_group_ = true
+
+[node name="VisibilityArea" type="Area2D" parent="Enemy"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Enemy/VisibilityArea"]
+position = Vector2(0, -11)
+polygon = PackedVector2Array(8, 3, 205, -95, 205, 19, 8, 19)
 
 [node name="Assassin" parent="." instance=ExtResource("23_hepmx")]
 position = Vector2(792, 424)

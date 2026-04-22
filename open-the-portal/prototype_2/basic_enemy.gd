@@ -12,6 +12,7 @@ signal enemy_died()
 @export var attack_distance : int = 30
 @export var speed = 2
 @export var walk_velocity: float
+@export var vision_scale: float = 1.5
 
 #region Level Dependent Vars
 var idle = 0
@@ -26,6 +27,8 @@ var cutscene_active = false
 
 var on_cooldown : bool
 var walking = true
+var patrol_area = true
+var bodies = []
 var movement_paused = false
 var shocked = false
 
@@ -44,9 +47,13 @@ func _process(_delta: float) -> void:
 	if velocity.x < 0: 
 		sprite.flip_h = true
 		$Hitbox.position = Vector2(-18, 3)
+		if $VisibilityArea: $VisibilityArea.scale.x = -1
 	elif velocity.x > 0: 
 		sprite.flip_h = false
 		$Hitbox.position = Vector2(18, 3)
+		if $VisibilityArea: $VisibilityArea.scale.x = 1
+	
+	if $VisibilityArea: set_monitor_player_status()
 
 
 func _physics_process(delta: float) -> void:
@@ -108,21 +115,33 @@ func set_monitor_player_status():
 	#	player's position is within a specific x and y 
 	#	range
 	
-	# If body is found, set monitor_player_position to true
-	# Otherwise do nothing
+	# If a body overlaps, get ref to body
+	if $VisibilityArea.has_overlapping_bodies():
+		bodies = $VisibilityArea.get_overlapping_bodies()
+	# If we still have a ref to body and no current body, go to last known pos
+	elif !$VisibilityArea.has_overlapping_bodies():
+		bodies = []
+		if abs(position.x - player_position.x) < 5:
+			patrol_area = true
+			monitor_player_position = false
+		# If player was seen but managed to hide again,
+		#	wait 3-4 seconds and then continue with patrol cycle
+		#		(Animation Tree self updates)
 	
-	# If player was seen but managed to hide again,
-	#	wait 3-4 seconds and then continue with patrol cycle
-	#		Set *patrol_area* var to true
-	#		(Animation Tree self updates)
-	
-	pass
+	# If we have a player body, run to them
+	if bodies.size() > 0:
+		monitor_player_position = true
+		player_position = bodies[0].position
+		patrol_area = false
+		$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
+	else:
+		$VisibilityArea.scale.y = 1
 
 
 func die():
 	SfxSpawner.set_player(position, 1)
 	VfxSpawner.set_player(position)
-	enemy_died.emit()
+	enemy_died.emit() 
 	queue_free()
 
 
