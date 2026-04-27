@@ -33,6 +33,7 @@ enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://3d assets/": "yellow",
 "res://addons/": "orange",
 "res://audio/": "blue",
 "res://characters/": "pink",
@@ -51,6 +52,7 @@ Player=""
 Enemy=""
 Orbs=""
 "Power Orbs"=""
+Door=""
 
 [input]
 
