@@ -19,10 +19,16 @@ var idle = 0
 var run = 0
 var attack = 0
 var monitor_player_position = false
+var listen_for_player_coords = false
 var player_position = Vector2.ZERO
 var objective: Vector2
 var attacking : bool
 var cutscene_active = false
+var camera_position := Vector2.ZERO
+var sound_source_position := Vector2.ZERO
+var heat_sensor_position := Vector2.ZERO
+var nearest_door_position := Vector2.ZERO
+var current_floor : Area2D
 #endregion
 
 var on_cooldown : bool
@@ -53,6 +59,7 @@ func _process(_delta: float) -> void:
 		$Hitbox.position = Vector2(18, 3)
 		if $VisibilityArea: $VisibilityArea.scale.x = 1
 	
+	# if no other position is needed
 	if $VisibilityArea: set_monitor_player_status()
 
 
@@ -67,11 +74,20 @@ func _physics_process(delta: float) -> void:
 		#	The enemy will always move when the player is inside the first bubble
 		#if player_position: monitor_player_position = true
 		#print("enemy's player position: ", player_position)
-
+		
+		if listen_for_player_coords: monitor_player_position = true
+		
+		if camera_position != Vector2.ZERO and listen_for_player_coords:
+			player_position = camera_position
+		
 		if monitor_player_position:
-			var _direction
-			var target_position = (player_position - position).normalized()
-			var _distance_to = position.distance_squared_to(player_position)
+			var target_position
+			
+			if nearest_door_position != Vector2.ZERO:
+				target_position = (nearest_door_position - position).normalized()
+			else:
+				target_position = (player_position - position).normalized()
+				#var _distance_to = position.distance_squared_to(player_position)
 			
 			velocity.x = target_position.x * speed
 		else:
