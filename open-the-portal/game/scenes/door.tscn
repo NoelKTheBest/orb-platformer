@@ -18,6 +18,7 @@ script = ExtResource("1_2hid1")
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1, 0.87499905)
 collision_layer = 0
+collision_mask = 3
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -46,3 +47,4 @@ collision_mask = 0
 collide_with_bodies = false
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

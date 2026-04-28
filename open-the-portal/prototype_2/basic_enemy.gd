@@ -28,7 +28,8 @@ var camera_position := Vector2.ZERO
 var sound_source_position := Vector2.ZERO
 var heat_sensor_position := Vector2.ZERO
 var nearest_door_position := Vector2.ZERO
-var current_floor : Area2D
+var current_floor : int
+var using_door: bool = false
 #endregion
 
 var on_cooldown : bool
@@ -84,8 +85,10 @@ func _physics_process(delta: float) -> void:
 			var target_position
 			
 			if nearest_door_position != Vector2.ZERO:
+				if !using_door: using_door = true
 				target_position = (nearest_door_position - position).normalized()
 			else:
+				if using_door: using_door = false
 				target_position = (player_position - position).normalized()
 				#var _distance_to = position.distance_squared_to(player_position)
 			
