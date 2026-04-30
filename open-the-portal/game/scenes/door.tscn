@@ -36,8 +36,7 @@ theme_override_fonts/font = SubResource("SystemFont_2hid1")
 theme_override_font_sizes/font_size = 33
 text = "(Enter)"
 
-[node name="Pointer" type="Node" parent="."]
-process_mode = 4
+[node name="Pointer" type="Node2D" parent="."]
 script = ExtResource("2_insrw")
 
 [node name="RayCast2D" type="RayCast2D" parent="Pointer"]
