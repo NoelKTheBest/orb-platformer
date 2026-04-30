@@ -38,7 +38,7 @@ func find_nearest_door():
 		var going_down: bool = false
 		if enemy.position.y - $Player.position.y < 0: going_down = true
 		
-		print("door: ", door.name, " ; down? ", door.goes_down, " ; floors match? ", door.floor_number == enemy.current_floor)
+		#print("door: ", door.name, " ; down? ", door.goes_down, " ; floors match? ", door.floor_number == enemy.current_floor)
 		if comp_d < dist and door.goes_down == going_down and door.floor_number == enemy.current_floor:
 			dist = comp_d
 			$Enemy.nearest_door_position = door.position
