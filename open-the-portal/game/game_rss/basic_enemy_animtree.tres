@@ -112,7 +112,7 @@ autorestart = true
 autorestart_delay = 0.5
 
 [resource]
-graph_offset = Vector2(-554.2154, 39.28875)
+graph_offset = Vector2(-475.86655, -75.199524)
 nodes/output/position = Vector2(620, 100)
 nodes/SimepleBattleScene_SM/node = SubResource("AnimationNodeStateMachine_ap1v3")
 nodes/SimepleBattleScene_SM/position = Vector2(-300, 0)
