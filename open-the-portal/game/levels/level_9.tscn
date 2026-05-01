@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://3bo6e207vcqw"]
 
-[ext_resource type="Texture2D" uid="uid://h60jf8b07ku0" path="res://sprites/Chest 1/Chest 1.1.png" id="1_pj6g8"]
-[ext_resource type="Texture2D" uid="uid://c67f7s0m2r3s7" path="res://sprites/items/1.png" id="2_47dml"]
-[ext_resource type="Texture2D" uid="uid://dhrgeh5ydm7v8" path="res://sprites/items/6.png" id="3_ade5l"]
-[ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://sprites/items/5.png" id="4_2b0q0"]
+[ext_resource type="Texture2D" uid="uid://h60jf8b07ku0" path="res://rss/sprites/Chest 1/Chest 1.1.png" id="1_pj6g8"]
+[ext_resource type="Texture2D" uid="uid://c67f7s0m2r3s7" path="res://rss/sprites/items/1.png" id="2_47dml"]
+[ext_resource type="Texture2D" uid="uid://dhrgeh5ydm7v8" path="res://rss/sprites/items/6.png" id="3_ade5l"]
+[ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://rss/sprites/items/5.png" id="4_2b0q0"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_lhtvx"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="6_dme0v"]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqijx0goq5a7g"]
 
-[ext_resource type="Texture2D" uid="uid://cyjgab7ogm84n" path="res://sprites/items/2.png" id="1_wjooi"]
+[ext_resource type="Texture2D" uid="uid://cyjgab7ogm84n" path="res://rss/sprites/items/2.png" id="1_wjooi"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_cq1s7"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="3_6ggqm"]
-[ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://sprites/items/5.png" id="4_6ggqm"]
+[ext_resource type="Texture2D" uid="uid://dovrmtsyuulg7" path="res://rss/sprites/items/5.png" id="4_6ggqm"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_a57xi"]
 
 [node name="Level8" type="Node"]

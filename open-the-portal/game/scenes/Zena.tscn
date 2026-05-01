@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dsxbv6qlbd60t"]
 
-[ext_resource type="Texture2D" uid="uid://dcowbmfxvoyyc" path="res://sprites/Zena_scaled_3x_pngcrushed.png" id="1_7yg62"]
+[ext_resource type="Texture2D" uid="uid://dcowbmfxvoyyc" path="res://rss/sprites/Zena_scaled_3x_pngcrushed.png" id="1_7yg62"]
 [ext_resource type="Script" uid="uid://78ywob6bclwn" path="res://game/scripts/zena.gd" id="2_jnelm"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_jnelm"]

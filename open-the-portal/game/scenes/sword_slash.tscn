@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dop3ntsu5y15i"]
 
-[ext_resource type="Texture2D" uid="uid://co7u7ic1xpt7u" path="res://game/ATTACK VFX PACK PREMIUM/vSlash1.png" id="1_6lves"]
+[ext_resource type="Texture2D" uid="uid://co7u7ic1xpt7u" path="res://rss/vfx/ATTACK VFX PACK PREMIUM/vSlash1.png" id="1_6lves"]
 [ext_resource type="Script" uid="uid://bgsir054b8ude" path="res://game/scripts/sword_slash.gd" id="2_da61n"]
-[ext_resource type="Texture2D" uid="uid://b8paiq3078oo2" path="res://game/ATTACK VFX PACK PREMIUM/vSlash2.png" id="2_s5i5w"]
+[ext_resource type="Texture2D" uid="uid://b8paiq3078oo2" path="res://rss/vfx/ATTACK VFX PACK PREMIUM/vSlash2.png" id="2_s5i5w"]
 
 [sub_resource type="Animation" id="Animation_da61n"]
 length = 0.001

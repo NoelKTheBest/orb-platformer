@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://ck352hacv6l0x"]
 
-[ext_resource type="Texture2D" uid="uid://crgxrgkwdt5xp" path="res://game/ATTACK VFX PACK PREMIUM/Impactmedium2.png" id="1_jkmop"]
+[ext_resource type="Texture2D" uid="uid://crgxrgkwdt5xp" path="res://rss/vfx/ATTACK VFX PACK PREMIUM/Impactmedium2.png" id="1_jkmop"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgxj1"]
 atlas = ExtResource("1_jkmop")

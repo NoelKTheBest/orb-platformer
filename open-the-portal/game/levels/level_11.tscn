@@ -28,8 +28,8 @@
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="25_1b4qy"]
 [ext_resource type="AudioStream" uid="uid://byw2n41kq3q4d" path="res://audio/Project_55alt1.mp3" id="25_ip50x"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="26_ng2lw"]
-[ext_resource type="Texture2D" uid="uid://c2tar1n4rx5uu" path="res://sprites/Frame.png" id="27_ng2lw"]
-[ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://sprites/blank_filter.png" id="28_2sxvd"]
+[ext_resource type="Texture2D" uid="uid://c2tar1n4rx5uu" path="res://rss/sprites/Frame.png" id="27_ng2lw"]
+[ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://rss/sprites/blank_filter.png" id="28_2sxvd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vpfij"]
 texture = ExtResource("1_7ky48")

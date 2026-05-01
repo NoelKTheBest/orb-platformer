@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_ori8b"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_k012u"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_rluyb"]
-[ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://sprites/pixelart_starfields/pixelart_starfield.png" id="9_w6trw"]
-[ext_resource type="Texture2D" uid="uid://dkoy5ffj5yy86" path="res://sprites/pixelart_starfields/pixelart_starfield_corona.png" id="10_a2in8"]
-[ext_resource type="Texture2D" uid="uid://2kcerg3qjbue" path="res://sprites/pixelart_starfields/pixelart_starfield_diagonal_diffraction_spikes.png" id="11_k10st"]
+[ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://rss/sprites/pixelart_starfields/pixelart_starfield.png" id="9_w6trw"]
+[ext_resource type="Texture2D" uid="uid://dkoy5ffj5yy86" path="res://rss/sprites/pixelart_starfields/pixelart_starfield_corona.png" id="10_a2in8"]
+[ext_resource type="Texture2D" uid="uid://2kcerg3qjbue" path="res://rss/sprites/pixelart_starfields/pixelart_starfield_diagonal_diffraction_spikes.png" id="11_k10st"]
 [ext_resource type="Texture2D" uid="uid://pdieka2ti8j0" path="res://game/back.png" id="12_t20jl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]

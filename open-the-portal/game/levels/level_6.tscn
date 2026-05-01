@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_05wkx"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="3_tycs3"]
 [ext_resource type="Texture2D" uid="uid://dywyfhlgjxwov" path="res://characters/assassin/fall.png" id="4_05wkx"]
-[ext_resource type="Texture2D" uid="uid://dme61e1jcu3u4" path="res://sprites/items/3.png" id="5_tycs3"]
+[ext_resource type="Texture2D" uid="uid://dme61e1jcu3u4" path="res://rss/sprites/items/3.png" id="5_tycs3"]
 
 [node name="Level6" type="Node2D"]
 

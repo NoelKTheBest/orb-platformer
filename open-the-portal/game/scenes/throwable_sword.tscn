@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1lnafjnd8wtq"]
 
 [ext_resource type="Script" uid="uid://cyv7lbwx8ajfr" path="res://game/scripts/throwable_sword.gd" id="1_3qgff"]
-[ext_resource type="Texture2D" uid="uid://dme61e1jcu3u4" path="res://sprites/items/3.png" id="1_4to1l"]
+[ext_resource type="Texture2D" uid="uid://dme61e1jcu3u4" path="res://rss/sprites/items/3.png" id="1_4to1l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0uh3"]
 size = Vector2(50, 50)
