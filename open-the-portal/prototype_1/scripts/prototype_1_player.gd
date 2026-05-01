@@ -31,7 +31,6 @@ var normal_zoom = 3
 var t = 0.0
 var on_cooldown = false
 
-
 func _process(delta: float) -> void:
 	if enemy_pos: 
 		move_camera(delta)

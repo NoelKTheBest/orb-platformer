@@ -1,13 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7goqka2atf1i"]
+[gd_scene load_steps=2 format=3 uid="uid://c7goqka2atf1i"]
 
 [ext_resource type="Script" uid="uid://cvsxjqu52ujl6" path="res://game/scripts/energy_bar.gd" id="1_kxhmu"]
-[ext_resource type="Script" uid="uid://bmwok8y6ficvn" path="res://timertest2.gd" id="2_2w7t8"]
-[ext_resource type="Script" uid="uid://5ukkqp4v7xl1" path="res://polygon_2dtest.gd" id="3_sbvle"]
 
 [node name="UserInterface" type="CanvasLayer"]
 
 [node name="EnergyBar" type="ProgressBar" parent="."]
-visible = false
 modulate = Color(0.13999999, 0.5126667, 1, 1)
 offset_right = 569.0
 offset_bottom = 99.0
@@ -15,83 +12,3 @@ max_value = 500.0
 show_percentage = false
 script = ExtResource("1_kxhmu")
 value_inc = 2
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("2_2w7t8")
-
-[node name="Node2D" type="Node2D" parent="Node"]
-position = Vector2(10.515, -606.405)
-scale = Vector2(3.655, 3.655)
-
-[node name="Timer" type="Timer" parent="Node/Node2D"]
-process_priority = -1
-editor_description = "HIIIII"
-process_callback = 0
-wait_time = 0.25
-autostart = true
-
-[node name="Polygon2D" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(-0.6880983, -0.4363098)
-scale = Vector2(2.2799819, 1.0031916)
-color = Color(0.78, 0, 0, 1)
-polygon = PackedVector2Array(0, 168, 11.978911, 167.99998, 24, 168, 24, 179.48584, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 8
-
-[node name="Polygon2D2" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(60.597813, -0.43638465)
-scale = Vector2(2.2799814, 1.0031923)
-color = Color(0.78, 0, 0, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 16
-
-[node name="Polygon2D3" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(-0.68809855, 60.849545)
-scale = Vector2(1, 1.0031922)
-color = Color(0, 0.6252756, 0.4968735, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 4
-
-[node name="Polygon2D4" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(29.954857, 60.849644)
-scale = Vector2(1, 1.0031916)
-color = Color(0, 0.62352943, 0.49803922, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 8
-
-[node name="Polygon2D5" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(60.597813, 60.84958)
-scale = Vector2(1, 1.0031917)
-color = Color(0, 0.62352943, 0.49803922, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 12
-
-[node name="Polygon2D6" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(91.24076, 60.84958)
-scale = Vector2(1, 1.0031917)
-color = Color(0, 0.62352943, 0.49803922, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 16
-
-[node name="Polygon2D7" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(-0.68809855, 30.206223)
-scale = Vector2(2.279982, 1.0031941)
-color = Color(0, 0.85000014, 1, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 8
-
-[node name="Polygon2D8" type="Polygon2D" parent="Node/Node2D" groups=["Energy Bars"]]
-position = Vector2(60.597813, 30.206615)
-scale = Vector2(2.2799814, 1.003192)
-color = Color(0, 0.85000014, 1, 1)
-polygon = PackedVector2Array(0, 168, 24, 168, 24, 192, 0, 192)
-script = ExtResource("3_sbvle")
-ticks_needed = 16
-
-[connection signal="timeout" from="Node/Node2D/Timer" to="Node" method="_on_timer_timeout"]

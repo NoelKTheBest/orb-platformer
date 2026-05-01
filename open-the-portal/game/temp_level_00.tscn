@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://byys6etblb6xq" path="res://game/scenes/moving_wall.tscn" id="16_7bxbr"]
 [ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="16_ke71t"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="17_ke71t"]
-[ext_resource type="AudioStream" uid="uid://f8smuaf65a26" path="res://audio/tuto3arreglado.mp3" id="19_j2cgl"]
+[ext_resource type="PackedScene" uid="uid://csiwsjd5kcbjk" path="res://prototype_2/pause_menu.tscn" id="19_j2cgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -32,9 +32,12 @@ radius = 80.0
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3m8ir")
 sp_spacing = 218
-visible_sp = false
+visible_sp = null
+total_number_of_enemy_1 = null
+enemy_2_mod = null
 total_number_of_enemies = 30
 spawn_point_enemy_count = 5
+spawn_point_range = null
 
 [node name="Forcefield" parent="." instance=ExtResource("2_yohrl")]
 position = Vector2(2136, 451.00003)
@@ -159,13 +162,13 @@ scale = Vector2(0.15717897, 1.2920964)
 texture = ExtResource("8_ke71t")
 
 [node name="SpawnPoint1" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.80784315)
+modulate = Color(1, 1, 1, 0.41960785)
 position = Vector2(382, 539)
 scale = Vector2(0.1049952, -0.17683941)
 texture = ExtResource("8_ke71t")
 
 [node name="SpawnPoint2" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.79607844)
+modulate = Color(1, 1, 1, 0.41960785)
 position = Vector2(1798, 538.99994)
 scale = Vector2(0.1049952, -0.17683941)
 texture = ExtResource("8_ke71t")
@@ -281,14 +284,10 @@ visible = false
 position = Vector2(790.3617, 551.1946)
 
 [node name="Player" parent="." instance=ExtResource("16_4c045")]
-position = Vector2(309, 532)
-
-[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource("19_j2cgl")
-autoplay = true
-parameters/looping = true
+position = Vector2(308, 504)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
+process_mode = 4
 position = Vector2(2068, 525)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -299,13 +298,9 @@ process_mode = 4
 visible = false
 
 [node name="ItemSpawner" parent="." instance=ExtResource("15_ke71t")]
-process_mode = 4
-visible = false
 position = Vector2(691, 397)
 
 [node name="ItemSpawner2" parent="." instance=ExtResource("15_ke71t")]
-process_mode = 4
-visible = false
 position = Vector2(1625, 400)
 
 [node name="Enemy3" parent="." instance=ExtResource("17_ke71t")]
@@ -313,20 +308,27 @@ modulate = Color(0.29000002, 0.52666676, 1, 1)
 position = Vector2(184, 529)
 
 [node name="Enemy" parent="." instance=ExtResource("16_ke71t")]
+process_mode = 4
 position = Vector2(647, 530)
 
 [node name="Assassin" parent="." instance=ExtResource("15_7bxbr")]
 position = Vector2(416, 528)
 
 [node name="Assassin3" parent="." instance=ExtResource("15_7bxbr")]
+process_mode = 4
 position = Vector2(1662.7654, 513.4081)
 
 [node name="Assassin2" parent="." instance=ExtResource("15_7bxbr")]
+process_mode = 4
 position = Vector2(1351.3109, 506.753)
 
 [node name="Enemy2" parent="." instance=ExtResource("16_ke71t")]
+process_mode = 4
 position = Vector2(1066.9747, 522.60724)
 
+[node name="PauseMenu" parent="." instance=ExtResource("19_j2cgl")]
+
+[connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnInterval" to="." method="_on_enemy_spawn_interval_timeout"]

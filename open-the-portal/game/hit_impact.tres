@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://ck352hacv6l0x"]
+
+[ext_resource type="Texture2D" uid="uid://crgxrgkwdt5xp" path="res://game/ATTACK VFX PACK PREMIUM/Impactmedium2.png" id="1_jkmop"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgxj1"]
+atlas = ExtResource("1_jkmop")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpuoj"]
+atlas = ExtResource("1_jkmop")
+region = Rect2(80, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3c64"]
+atlas = ExtResource("1_jkmop")
+region = Rect2(160, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7ruw"]
+atlas = ExtResource("1_jkmop")
+region = Rect2(240, 0, 80, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgxj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpuoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3c64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7ruw")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 11.0
+}]
