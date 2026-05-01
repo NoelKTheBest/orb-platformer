@@ -1,0 +1,111 @@
+[gd_scene load_steps=2 format=3 uid="uid://csiwsjd5kcbjk"]
+
+[ext_resource type="Script" uid="uid://cpy4k656dxyu3" path="res://prototype_2/pause_menu.gd" id="1_cjshu"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_cjshu")
+
+[node name="PauseMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+custom_minimum_size = Vector2(600, 550)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(550, 500)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "SOUND EFFECTS:"
+
+[node name="HSlider" type="HSlider" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "MUSIC:"
+
+[node name="HSlider2" type="HSlider" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UP"
+
+[node name="Button2" type="Button" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "DOWN"
+
+[node name="Button3" type="Button" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "JUMP"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="fire" type="Button" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FIRE"
+
+[node name="powerfire" type="Button" parent="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "POWER FIRE"
+
+[node name="resume" type="Button" parent="PauseMenu/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -31.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "SAVE AND QUIT"
+
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_2_button_up"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer/Button3" to="." method="_on_button_3_button_up"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/fire" to="." method="_on_fire_button_up"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Panel/VBoxContainer/HBoxContainer2/powerfire" to="." method="_on_powerfire_button_up"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Panel/resume" to="." method="_on_resume_button_up"]

@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var id: int
+var id: int
 var item_name: String
 
 func ready():

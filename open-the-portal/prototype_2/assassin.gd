@@ -145,10 +145,11 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		body.has_bullet_hit_anything = true
 		body.queue_free()
 		die()
-	elif body.is_in_group("Power Orbs") and !body.has_bullet_hit_anything:
-		body.has_bullet_hit_anything = true
-		#body.queue_free()
-		#die()
+	elif body.is_in_group("Power Orbs"):
+		body.queue_free()
+		die()
+	elif body.name == "ThrownSword":
+		die()
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -180,7 +181,4 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		$AnimationPlayer.play("blinded")
 		movement_paused = true
 	elif area.name == "SwordHitBox":
-		die()
-	elif area.name == "RaycastArea":
-		area.queue_free()
 		die()

@@ -1,6 +1,6 @@
 extends Node
 
-var sprite_fr = preload("res://game/game_rss/hit_impact.tres")
+var sprite_fr = preload("res://game/hit_impact.tres")
 
 func set_player(position: Vector2, sprite_frames: SpriteFrames = null):
 	var new_animation = AnimatedSprite2D.new()

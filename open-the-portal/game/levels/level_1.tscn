@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://dw5iu2fqyi30v"]
 
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_4ocoy"]
-[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/game_rss/basic_ceiling_tileset.tres" id="3_rifvl"]
-[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/game_rss/basic_ceiling_light.tres" id="4_l6jt4"]
+[ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/basic_ceiling_tileset.tres" id="3_rifvl"]
+[ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/basic_ceiling_light.tres" id="4_l6jt4"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="5_qkxey"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="6_crrvt"]
 
@@ -52,5 +52,3 @@ position = Vector2(516, 584)
 scale = Vector2(1, 9.039995)
 
 [connection signal="use_door" from="Player" to="." method="_on_player_use_door"]
-
-[editable path="BR_Forcefield"]
