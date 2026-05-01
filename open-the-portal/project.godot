@@ -43,6 +43,8 @@ folder_colors={
 "res://game/game_rss/": "orange",
 "res://game/levels/": "blue",
 "res://prototype_1/": "gray",
+"res://prototype_1/scenes/": "yellow",
+"res://prototype_1/scripts/": "orange",
 "res://prototype_2/": "gray",
 "res://rss/": "purple",
 "res://rss/audio/": "blue",

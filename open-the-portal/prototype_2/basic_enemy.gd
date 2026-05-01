@@ -37,6 +37,7 @@ var walking = true
 var patrol_area = true
 var bodies = []
 var movement_paused = false
+var shocked = false
 
 var temp_v
 
@@ -64,6 +65,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	var collision
 	temp_v = velocity
 	if !cutscene_active:
 		
@@ -106,6 +108,11 @@ func _physics_process(delta: float) -> void:
 				attacking = true
 		
 		move_and_slide()
+		collision = get_last_slide_collision()
+		
+		if collision:
+			print(collision)
+			print(collision.get_position())
 	else:
 		if monitor_player_position:
 			var _direction
@@ -117,6 +124,9 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, speed)
 
 		move_and_slide()
+		collision = get_last_slide_collision()
+		
+		print(collision)
 
 
  ##function will be used to set and reset the
@@ -174,9 +184,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		die()
 	elif body.is_in_group("Power Orbs") and !body.has_bullet_hit_anything:
 		body.has_bullet_hit_anything = true
-	elif body.is_in_group("Power Orbs"):
-		body.queue_free()
-		die()
+		#body.queue_free()
+		#die()
 
 
 func _on_timer_timeout() -> void:
@@ -185,11 +194,14 @@ func _on_timer_timeout() -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.name == "EMP":
-		$AnimationPlayer.play("shock")
+		shocked = true
 		movement_paused = true
 	elif area.name == "BombBlastRadius":
 		die()
 	elif area.name == "SwordHitBox":
+		die()
+	elif area.name == "RaycastArea":
+		area.queue_free()
 		die()
 
 
@@ -198,5 +210,6 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 		$Timer.start()
 		on_cooldown = true
 		attacking = false
-	elif anim_name == "shock" or anim_name == "blinded":
+	elif anim_name == "shock":
 		movement_paused = false
+		shocked = false
