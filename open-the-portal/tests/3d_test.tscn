@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bwwvlpg6isev6"]
 
-[ext_resource type="Script" path="res://testing.gd" id="1_5o3kl"]
+[ext_resource type="Script" uid="uid://c3lhqji768obh" path="res://tests/testing.gd" id="1_5o3kl"]
 [ext_resource type="PackedScene" uid="uid://bcctqwbpo0e5s" path="res://3d assets/godot robot/3DGodotRobot.glb" id="1_mac0m"]
 [ext_resource type="Script" uid="uid://puw2smjy1fne" path="res://tests/3d_test.gd" id="2_mac0m"]
 
