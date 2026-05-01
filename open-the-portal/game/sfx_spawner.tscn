@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnin671oru3hx"]
-
-[ext_resource type="Script" uid="uid://da5grg43xa7e0" path="res://game/sfx_spawner.gd" id="1_gf3xp"]
-
-[node name="SFXSpawner" type="Node"]
-script = ExtResource("1_gf3xp")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://kimq6qwc6bx0" path="res://characters/The SwordMaster v1.2/The SwordMaster/Sword Master Sprite Sheet 90x37.png" id="1_i3umc"]
 [ext_resource type="Script" uid="uid://bqjx7lk3j3rhg" path="res://prototype_2/forcefield_controller.gd" id="1_lmgt8"]
-[ext_resource type="AnimationLibrary" uid="uid://cuhqljr7ne7r" path="res://Saemi_Animations.res" id="3_mnccd"]
+[ext_resource type="AnimationLibrary" uid="uid://cuhqljr7ne7r" path="res://game/game_rss/Saemi_Animations.res" id="3_mnccd"]
 [ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="3_ykimm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqp1g"]

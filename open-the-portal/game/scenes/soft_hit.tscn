@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj5hvcxaptgcm"]
+
+[ext_resource type="AudioStream" uid="uid://da1in715mjmlu" path="res://rss/audio/soft impact.wav" id="1_7c13x"]
+[ext_resource type="Script" uid="uid://nvwquo7f2yvd" path="res://game/scripts/standard_sfx.gd" id="2_mkuqm"]
+
+[node name="SoftHit" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_7c13x")
+script = ExtResource("2_mkuqm")

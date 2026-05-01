@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://4hvqsn8t0w4r"]
 
 [ext_resource type="Script" uid="uid://dxr3luhrehy73" path="res://game/scripts/door.gd" id="1_2hid1"]
-[ext_resource type="Script" path="res://pointer.gd" id="2_insrw"]
+[ext_resource type="Script" uid="uid://bdy3c2lylemoo" path="res://tools/pointer.gd" id="2_insrw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xnux1"]
 radius = 19.525623

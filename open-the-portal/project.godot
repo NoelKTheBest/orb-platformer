@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 ItemNameDictionary="*res://game/scenes/item_name_dictionary.tscn"
-SfxSpawner="*res://game/sfx_spawner.tscn"
-VfxSpawner="*res://game/vfx_spawner.tscn"
+SfxSpawner="*res://game/scenes/sfx_spawner.tscn"
+VfxSpawner="*res://game/scenes/vfx_spawner.tscn"
 PauseManager="*res://game/scripts/pause_manager.gd"
 InputManager="*res://game/scripts/input_manager.gd"
 
@@ -37,7 +37,6 @@ enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")
 folder_colors={
 "res://3d assets/": "yellow",
 "res://addons/": "orange",
-"res://audio/": "blue",
 "res://characters/": "pink",
 "res://characters/KALA/": "purple",
 "res://game/": "green",
@@ -45,7 +44,12 @@ folder_colors={
 "res://game/levels/": "blue",
 "res://prototype_1/": "gray",
 "res://prototype_2/": "gray",
-"res://rss/sprites/": "teal"
+"res://rss/": "purple",
+"res://rss/audio/": "blue",
+"res://rss/sprites/": "teal",
+"res://tests/": "teal",
+"res://tilesets/": "red",
+"res://tools/": "blue"
 }
 
 [global_group]

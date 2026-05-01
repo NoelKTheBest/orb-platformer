@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bt1lww47l2x11"
+path="res://.godot/imported/hard impact.wav-340babd71cbd49df8d2d613a369c2ca5.sample"
+
+[deps]
+
+source_file="res://rss/audio/hard impact.wav"
+dest_files=["res://.godot/imported/hard impact.wav-340babd71cbd49df8d2d613a369c2ca5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

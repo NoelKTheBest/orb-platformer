@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="10_4dyke"]
 [ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="11_06pfm"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_f2egm"]
-[ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://audio/Gun blast 4.wav" id="14_ppdnp"]
+[ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://rss/audio/Gun blast 4.wav" id="14_ppdnp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0

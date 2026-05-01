@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c4bvacg5dv3xg"
+path="res://.godot/imported/Gun blast 4.wav-43de5a8c05577db923b7c2839553a194.sample"
+
+[deps]
+
+source_file="res://rss/audio/Gun blast 4.wav"
+dest_files=["res://.godot/imported/Gun blast 4.wav-43de5a8c05577db923b7c2839553a194.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://da1in715mjmlu"
+path="res://.godot/imported/soft impact.wav-053c23b751f14123629ff4e635df779f.sample"
+
+[deps]
+
+source_file="res://rss/audio/soft impact.wav"
+dest_files=["res://.godot/imported/soft impact.wav-053c23b751f14123629ff4e635df779f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
