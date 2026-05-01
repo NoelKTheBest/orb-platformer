@@ -42,6 +42,8 @@ spawn_point_range = null
 [node name="Forcefield" parent="." instance=ExtResource("2_yohrl")]
 position = Vector2(2136, 451.00003)
 scale = Vector2(0.31, 3.1)
+collision_layer = 4
+collision_mask = 35
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("4_s43bn")]
 z_index = -1
@@ -283,12 +285,18 @@ process_mode = 4
 visible = false
 position = Vector2(790.3617, 551.1946)
 
-[node name="Player" parent="." instance=ExtResource("16_4c045")]
-position = Vector2(308, 504)
-
 [node name="ForcefieldController" parent="." instance=ExtResource("7_4c045")]
-process_mode = 4
 position = Vector2(2068, 525)
+
+[node name="Player" parent="." instance=ExtResource("16_4c045")]
+position = Vector2(303, 507)
+metadata/_edit_group_ = true
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("19_j2cgl")
+volume_db = -80.0
+autoplay = true
+parameters/looping = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(169.13, 300)
@@ -335,6 +343,6 @@ position = Vector2(1066.9747, 522.60724)
 [connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
 [connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]
 [connection signal="body_entered" from="Energy powerup/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
-[connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]
