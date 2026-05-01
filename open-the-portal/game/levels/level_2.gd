@@ -9,7 +9,7 @@ signal cam_to_2ndpos
 signal dialog_finished
 signal start_fight
 
-var state_machine = preload("res://game/basic_enemy_animtree.tres")
+#var state_machine = preload("res://game/basic_enemy_animtree.tres")
 var camera_in_place = false
 var on_bottom_floor = false
 var all_enemies_dead = false
