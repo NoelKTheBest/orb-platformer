@@ -73,10 +73,6 @@ z_index = -1
 position = Vector2(1060, 303)
 scale = Vector2(110.039986, 4.96)
 
-[node name="ZeroGravityZoneTimer" type="Timer" parent="."]
-process_callback = 0
-one_shot = true
-
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -105,7 +101,6 @@ position = Vector2(2095, 536)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ReturnPoint"]
-visible = false
 modulate = Color(0.116666794, 1, 0, 0.40392157)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("8_ke71t")

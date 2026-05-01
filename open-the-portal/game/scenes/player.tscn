@@ -560,6 +560,8 @@ _data = {
 &"shoot orb": SubResource("Animation_aob03")
 }
 
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d1crr"]
+
 [sub_resource type="Animation" id="Animation_rrmcd"]
 length = 0.001
 
@@ -638,6 +640,9 @@ libraries = {
 &"Player_Movement": SubResource("AnimationLibrary_wdrn2")
 }
 autoplay = "Player_Movement/idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_d1crr")
 
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
