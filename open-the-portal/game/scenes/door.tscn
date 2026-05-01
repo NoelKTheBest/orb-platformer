@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://4hvqsn8t0w4r"]
+[gd_scene load_steps=5 format=3 uid="uid://4hvqsn8t0w4r"]
 
 [ext_resource type="Script" uid="uid://dxr3luhrehy73" path="res://game/scripts/door.gd" id="1_2hid1"]
+[ext_resource type="Script" uid="uid://bdy3c2lylemoo" path="res://pointer.gd" id="2_insrw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xnux1"]
 radius = 19.525623
 
 [sub_resource type="SystemFont" id="SystemFont_2hid1"]
+subpixel_positioning = 0
 
-[node name="Door" type="Polygon2D"]
+[node name="Door" type="Polygon2D" groups=["Door"]]
 scale = Vector2(1, 1.1428584)
 color = Color(0.71, 0.32470664, 0.18459998, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693083, 13.896787, 0.059782505, 13.896726)
@@ -16,6 +18,7 @@ script = ExtResource("1_2hid1")
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1, 0.87499905)
 collision_layer = 0
+collision_mask = 3
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -32,3 +35,15 @@ scale = Vector2(0.295, 0.295)
 theme_override_fonts/font = SubResource("SystemFont_2hid1")
 theme_override_font_sizes/font_size = 33
 text = "(Enter)"
+
+[node name="Pointer" type="Node2D" parent="."]
+script = ExtResource("2_insrw")
+
+[node name="RayCast2D" type="RayCast2D" parent="Pointer"]
+visible = false
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+collision_mask = 0
+collide_with_bodies = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
