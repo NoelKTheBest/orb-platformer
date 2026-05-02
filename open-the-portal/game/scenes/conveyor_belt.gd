@@ -3,9 +3,9 @@ extends Control
 const DEBUG = true  # Set to false to disable all debug prints
 const MIN_BOXES = 3  # Minimum slots always visible even if empty
 const ITEM_TEXTURES = {
-	1: preload("res://sprites/items/1.png"),
-	2: preload("res://sprites/items/2.png"),
-	6: preload("res://sprites/items/6.png"),
+	1: preload("res://rss/sprites/items/1.png"),
+	2: preload("res://rss/sprites/items/2.png"),
+	6: preload("res://rss/sprites/items/6.png"),
 }
 
 var inventory: Array[int] = [2, 6, 1, 0, 0, 0]  # 6 slots, 0 = empty

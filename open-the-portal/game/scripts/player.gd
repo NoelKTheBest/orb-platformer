@@ -37,8 +37,8 @@ const ORB_VELOCITY = 475
 #region private vars
 var orb = preload("res://game/scenes/orb.tscn")
 var power_orb = preload("res://game/scenes/power_orb.tscn")
-var gun_blast_1 = preload("res://audio/Gun blast 1.wav")
-var gun_blast_2 = preload("res://audio/Gun blast 4.wav")
+var gun_blast_1 = preload("res://rss/audio/Gun blast 1.wav")
+var gun_blast_2 = preload("res://rss/audio/Gun blast 4.wav")
 var emp_scene = preload("res://game/scenes/emp.tscn")
 var wall_scene = preload("res://game/scenes/wall.tscn")
 var sword_scene = preload("res://game/scenes/sword_slash.tscn")
