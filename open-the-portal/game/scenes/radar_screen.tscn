@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjg2b4w41dcv5"]
+
+[ext_resource type="Script" uid="uid://ctm45f4he48fy" path="res://game/scripts/radar_screen.gd" id="1_y41bb"]
+
+[node name="RadarScreen" type="Node2D"]
+script = ExtResource("1_y41bb")

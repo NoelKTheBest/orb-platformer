@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dtr5o6mpt1m0v"]
 
-[ext_resource type="PackedScene" uid="uid://cjg2b4w41dcv5" path="res://game/scenes/radar.tscn" id="1_ftceq"]
+[ext_resource type="PackedScene" uid="uid://cjg2b4w41dcv5" path="res://game/scenes/radar_screen.tscn" id="1_ftceq"]
 
 [node name="Node2D" type="Node2D"]
 
