@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjg2b4w41dcv5"]
+
+[ext_resource type="Script" uid="uid://ctm45f4he48fy" path="res://game/scripts/radar.gd" id="1_y41bb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puc17"]
+size = Vector2(272, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7ml7"]
+size = Vector2(445.97498, 119.35901)
+
+[node name="Radar" type="Node2D"]
+script = ExtResource("1_y41bb")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Floor Areas"]]
+position = Vector2(208, 104)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_puc17")
+debug_color = Color(0.4358688, 0.6003385, 0, 0.41960785)
+
+[node name="Area2D2" type="Area2D" parent="." groups=["Floor Areas"]]
+position = Vector2(648, 160)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("RectangleShape2D_m7ml7")
+debug_color = Color(0.5838414, 0.39237547, 0.97670394, 0.41960785)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+zoom = Vector2(0.775, 0.775)
