@@ -1134,6 +1134,8 @@ visible = false
 scale = Vector2(0.035, 0.035)
 texture = ExtResource("8_0y2gr")
 
+[node name="WaitTimer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
@@ -1141,3 +1143,4 @@ texture = ExtResource("8_0y2gr")
 [connection signal="body_entered" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_entered"]
 [connection signal="body_exited" from="PlayerAttackArea" to="." method="_on_player_attack_area_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

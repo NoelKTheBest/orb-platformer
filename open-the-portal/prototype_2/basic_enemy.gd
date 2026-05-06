@@ -7,6 +7,7 @@ signal enemy_died()
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
+@onready var wait_timer: Timer = $WaitTimer
 
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
@@ -38,6 +39,7 @@ var patrol_area = true
 var bodies = []
 var movement_paused = false
 var shocked = false
+var is_being_commanded = false
 
 var temp_v
 
@@ -65,7 +67,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var collision
+	#var collision
 	temp_v = velocity
 	if !cutscene_active:
 		
@@ -94,9 +96,13 @@ func _physics_process(delta: float) -> void:
 				#var _distance_to = position.distance_squared_to(player_position)
 			
 			velocity.x = target_position.x * speed
+			#if is_being_commanded: velocity.x = target_position.x * 10
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
-
+		
+		if is_being_commanded:
+			velocity.x = move_toward(velocity.x, 0, speed)
+		
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
@@ -108,11 +114,11 @@ func _physics_process(delta: float) -> void:
 				attacking = true
 		
 		move_and_slide()
-		collision = get_last_slide_collision()
-		
-		if collision:
-			print(collision)
-			print(collision.get_position())
+		#collision = get_last_slide_collision()
+		#
+		#if collision:
+			#print(collision)
+			#print(collision.get_position())
 	else:
 		if monitor_player_position:
 			var _direction
@@ -124,9 +130,9 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, speed)
 
 		move_and_slide()
-		collision = get_last_slide_collision()
-		
-		print(collision)
+		#collision = get_last_slide_collision()
+		#
+		#print(collision)
 
 
  ##function will be used to set and reset the
@@ -164,6 +170,12 @@ func set_monitor_player_status():
 		$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
 	else:
 		$VisibilityArea.scale.y = 1
+
+
+func command():
+	if player_position:
+		print(name, " is gonna block")
+		is_being_commanded = true
 
 
 func die():
@@ -213,3 +225,7 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	elif anim_name == "shock":
 		movement_paused = false
 		shocked = false
+
+
+func _on_wait_timer_timeout() -> void:
+	is_being_commanded = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=18 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/scripts/temp_level_00.gd" id="1_ouwp2"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_xm7j3"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="11_eodc1"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="12_k12eq"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="13_owd3j"]
-[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="14_8q7t5"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="15_l25wb"]
 [ext_resource type="PackedScene" uid="uid://csiwsjd5kcbjk" path="res://prototype_2/pause_menu.tscn" id="16_5oagf"]
 
@@ -271,24 +270,24 @@ position = Vector2(169.13, 300)
 
 [node name="Enemy3" parent="." instance=ExtResource("13_owd3j")]
 modulate = Color(0.29000002, 0.52666676, 1, 1)
-position = Vector2(184, 529)
-
-[node name="Enemy" parent="." instance=ExtResource("14_8q7t5")]
-position = Vector2(647, 530)
+position = Vector2(35, 529)
 
 [node name="Assassin" parent="." instance=ExtResource("15_l25wb")]
-position = Vector2(416, 528)
+position = Vector2(1076, 527)
 
 [node name="Assassin3" parent="." instance=ExtResource("15_l25wb")]
-position = Vector2(1662.7654, 513.4081)
+position = Vector2(1941, 524)
 
 [node name="Assassin2" parent="." instance=ExtResource("15_l25wb")]
-position = Vector2(1351.3109, 506.753)
-
-[node name="Enemy2" parent="." instance=ExtResource("14_8q7t5")]
-position = Vector2(1066.9747, 522.60724)
+position = Vector2(1629, 527)
 
 [node name="PauseMenu" parent="." instance=ExtResource("16_5oagf")]
+
+[node name="Enemy" parent="." instance=ExtResource("13_owd3j")]
+position = Vector2(498, 533)
+
+[node name="Enemy2" parent="." instance=ExtResource("13_owd3j")]
+position = Vector2(1188, 524)
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

@@ -25,6 +25,8 @@ collision_layer = 2
 collision_mask = 69
 script = ExtResource("1_lmgt8")
 speed = 200
+min_req_for_helping = 6
+protection_vector = Vector2(20, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -45,6 +47,7 @@ libraries = {
 }
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 14624
 
@@ -53,12 +56,15 @@ shape = SubResource("CapsuleShape2D_i3umc")
 debug_color = Color(0.17830646, 0.6199579, 0.49277264, 0.41960785)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="BulletDetectionRange" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetectionRange"]
 shape = SubResource("CircleShape2D_lmgt8")
@@ -102,6 +108,10 @@ offset_top = -33.0
 offset_right = 31.0
 offset_bottom = 7.0
 
+[node name="ProtectTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
@@ -109,3 +119,4 @@ offset_bottom = 7.0
 [connection signal="body_entered" from="BulletDetectionRange" to="." method="_on_bullet_detection_range_body_entered"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]
 [connection signal="body_entered" from="Hitbox1" to="." method="_on_hitbox_1_body_entered"]
+[connection signal="timeout" from="ProtectTimer" to="." method="_on_protect_timer_timeout"]

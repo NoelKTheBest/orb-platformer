@@ -3,6 +3,8 @@ extends CharacterBody2D
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
 @export var speed = 2
+@export var min_req_for_helping = 3 # n amount of enemies left
+@export var protection_vector := Vector2.ZERO
 
 signal enemy_on_screen()
 signal enemy_died()
@@ -14,7 +16,7 @@ const JUMP_VELOCITY = -400.0
 enum enemy_state {
 	IDLE, RUN, RUN_AWAY, RECOVER, ATTACK1, ATTACK2, 
 	ATTACK3, ROLL, BLOCK, DISAPPEAR, REAPPEAR, SHOCKED,
-	HURT, BLINDED
+	HURT, PROTECT
 }
 var current_state = enemy_state.IDLE
 var monitor_player_position = false
@@ -40,8 +42,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	print(enemy_state.keys()[current_state])
-	if animation_player.current_animation != "shocked" or animation_player.current_animation != "blinded":
+	#print(enemy_state.keys()[current_state])
+	if animation_player.current_animation != "shocked":
 		if !animation_player.is_playing(): animation_player.play("idle")
 	
 	#if number_of_enemies < 3:
@@ -71,21 +73,24 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !in_anti_gravity_zone and (current_state != enemy_state.SHOCKED or current_state != enemy_state.BLINDED):
+	if !in_anti_gravity_zone and (current_state != enemy_state.SHOCKED):
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
+		if current_state == enemy_state.PROTECT:
+			velocity.x = move_toward(velocity.x, 0, speed)
+			animation_player.play("idle")
 		# When the forcefield controller is not monitoring the player
 		#	they will go back to a certain point in the level
-		if current_state != enemy_state.RECOVER and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED and current_state != enemy_state.BLINDED:
-			if monitor_player_position and number_of_enemies < 3:
+		if current_state != enemy_state.RECOVER and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED:
+			if monitor_player_position and number_of_enemies < min_req_for_helping:
 				var _direction
 				var target_position = (player_position - position).normalized()
 				var _distance_to = position.distance_squared_to(player_position)
 				
 				velocity.x = target_position.x * speed
 				current_state = enemy_state.RUN
-			elif monitor_player_position and number_of_enemies >= 3:
+			elif monitor_player_position and number_of_enemies >= min_req_for_helping:
 				var target_position = (Vector2(return_point_x, position.y) - position)
 				if target_position.x > 30: velocity.x = target_position.normalized().x * speed
 				else:
@@ -102,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 		
-		if !player_attack_area.has_overlapping_bodies() and !attacking and current_state != enemy_state.RECOVER  and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED and current_state != enemy_state.BLINDED:
+		if !player_attack_area.has_overlapping_bodies() and !attacking and current_state != enemy_state.RECOVER  and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED:
 			if current_state != enemy_state.BLOCK:
 				if velocity.x != 0:
 					animation_player.play("run")
@@ -179,7 +184,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Orbs"):
+	if body.is_in_group("Orbs") and current_state != enemy_state.PROTECT:
 		body.queue_free()
 		take_damage()
 
@@ -219,11 +224,44 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		current_state = enemy_state.SHOCKED
 	elif area.name == "BombBlastRadius":
 		take_damage()
-	elif area.name == "GrenadeRadius":
-		animation_player.play("blinded")
-		current_state = enemy_state.BLINDED
 	elif area.name == "SwordHitBox":
 		take_damage()
 	elif area.name == "RaycastArea":
 		area.queue_free()
 		die()
+
+
+func _on_protect_timer_timeout() -> void:
+	var all_enemies = get_tree().get_nodes_in_group("Enemy").filter(enemy_is_visible)
+	var min_dist = 1000000000
+	var closest_enemy
+	var direction = 0
+	var teleport_position_x = position.x
+	for enemy in all_enemies:
+		if abs(enemy.position.x - player_position.x) < min_dist:
+			closest_enemy = enemy
+			min_dist = abs(enemy.position.x - player_position.x)
+			
+			if enemy.position.x > player_position.x:
+				direction = -1
+			elif enemy.position.x < player_position.x:
+				direction = 1
+			
+			teleport_position_x = closest_enemy.position.x + (protection_vector.x * direction)
+	
+	
+	
+	position.x = teleport_position_x if closest_enemy else teleport_position_x + (protection_vector.x * direction)
+	current_state = enemy_state.PROTECT
+	
+	if closest_enemy:
+		closest_enemy.wait_timer.start()
+		closest_enemy.is_being_commanded = true
+	
+	await get_tree().create_timer(2.5).timeout
+	
+	current_state = enemy_state.IDLE
+
+
+func enemy_is_visible(enemy):
+	if enemy.visible_on_screen_notifier_2d.is_on_screen(): return enemy

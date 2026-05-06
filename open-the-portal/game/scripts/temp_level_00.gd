@@ -81,6 +81,9 @@ func _ready() -> void:
 	sprite2.position = temppos2
 	
 	level_rect = $Area2D/CollisionShape2D.shape.get_rect()
+	
+	# Start immediately
+	player_is_ready = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

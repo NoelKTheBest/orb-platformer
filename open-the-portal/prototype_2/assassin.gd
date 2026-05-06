@@ -7,6 +7,7 @@ signal enemy_died()
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
+@onready var wait_timer: Timer = $WaitTimer
 
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
@@ -26,6 +27,7 @@ var attack_anim_playing
 var walking = true
 var init_start_pos_x
 var movement_paused = false
+var is_being_commanded = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -66,6 +68,7 @@ func _physics_process(delta: float) -> void:
 				var _distance_to = position.distance_squared_to(player_position)
 				
 				velocity.x = target_position.x * speed
+				#if is_being_commanded: velocity.x = target_position.x * 10
 			else:
 				velocity.x = move_toward(velocity.x, 0, speed)
 		else:
@@ -73,11 +76,14 @@ func _physics_process(delta: float) -> void:
 				anim_player.play("walk")
 			@warning_ignore("integer_division")
 			velocity.x = walk_velocity * speed
-
+		
+		if is_being_commanded:
+			velocity.x = move_toward(velocity.x, 0, speed)
+		
 		# When the player enters the second bubble, the enemy begins it's attack cycle
 		#	The enemy will continuously attack the player with a breif cooldown in between 
 		#	when the player is inside the second bubble.
-		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !movement_paused:
+		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !movement_paused and !is_being_commanded:
 			if velocity.x != 0:
 				anim_player.play("run")
 			elif velocity.x == 0:
@@ -114,6 +120,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing)
 		
 		move_and_slide()
+
+
+func command():
+	if player_position: print(name, " is gonna block")
+	is_being_commanded = true
 
 
 func launch():
@@ -156,6 +167,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		$Timer.start()
 		on_cooldown = true
 		attacking = false
+		is_being_commanded = false
 		if attack_count < 3: attack_count += 1
 	elif anim_name == "cross_slice":
 		$Timer.start()
@@ -184,3 +196,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	elif area.name == "RaycastArea":
 		area.queue_free()
 		die()
+
+
+func _on_wait_timer_timeout() -> void:
+	is_being_commanded = false

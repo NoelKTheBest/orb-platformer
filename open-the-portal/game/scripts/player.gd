@@ -113,7 +113,7 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed("fire"):
 				# Consume returns -1 if there isn't enough energy.
 				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
-				if $UserInterface/Node.use_energy(4) != -1:
+				if $UserInterface/Node.use_energy(0) != -1:
 					var new_orb = orb.instantiate()
 					
 					# Set properties before node is ready to have access to them
