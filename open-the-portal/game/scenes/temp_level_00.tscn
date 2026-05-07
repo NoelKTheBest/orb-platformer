@@ -32,6 +32,7 @@ spawn_point_enemy_count = 5
 [node name="Forcefield" parent="." instance=ExtResource("2_xm7j3")]
 position = Vector2(2136, 451.00003)
 scale = Vector2(0.31, 3.1)
+collision_layer = 4
 
 [node name="StaticBody2D3" parent="." instance=ExtResource("3_pkce0")]
 z_index = -1
