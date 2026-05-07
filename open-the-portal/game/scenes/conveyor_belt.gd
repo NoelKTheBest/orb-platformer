@@ -95,7 +95,7 @@ func update_visual() -> void:
 		
 		if inventory[i] != 0:
 			# Load texture based on item ID
-			var texture_path := "res://sprites/items/" + str(inventory[i]) + ".png"
+			var texture_path := "res://rss/sprites/items/" + str(inventory[i]) + ".png"
 			item_rect.texture = load(texture_path)
 			item_rect.visible = true
 		else:
