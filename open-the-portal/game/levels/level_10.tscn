@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=10 format=3 uid="uid://d30v7m85ufs4d"]
 
 [ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="4_wscno"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="5_i8l2g"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="6_4ubqe"]
+[ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="7_388e8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uhbgd"]
 
@@ -55,7 +56,7 @@ position = Vector2(1016, 576)
 scale = Vector2(1.5999985, 14.400001)
 
 [node name="Player" parent="." instance=ExtResource("2_4ry5c")]
-position = Vector2(512, 424)
+position = Vector2(648, 568)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 process_mode = 4
@@ -100,7 +101,14 @@ visible = false
 position = Vector2(968, 480)
 
 [node name="ForcefieldController" parent="." instance=ExtResource("6_4ubqe")]
-position = Vector2(760, 480)
+process_mode = 4
+visible = false
+position = Vector2(944, 552)
+
+[node name="Saemi" parent="." instance=ExtResource("7_388e8")]
+position = Vector2(960, 552)
+
+[node name="PositionReceiver" type="Node" parent="Saemi"]
 
 [connection signal="area_entered" from="CharacterBody2D/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
