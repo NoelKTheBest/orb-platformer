@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://de8asau4hrxnh"]
+[gd_scene load_steps=19 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/scripts/temp_level_00.gd" id="1_ouwp2"]
 [ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_xm7j3"]
@@ -11,10 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://rss/sprites/blank_filter.png" id="9_3b17c"]
 [ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="10_agyxa"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="11_eodc1"]
-[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="12_k12eq"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="13_owd3j"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="15_l25wb"]
+[ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="15_otfas"]
 [ext_resource type="PackedScene" uid="uid://csiwsjd5kcbjk" path="res://prototype_2/pause_menu.tscn" id="16_5oagf"]
+[ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="16_ouwp2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -158,16 +159,18 @@ scale = Vector2(0.15717897, 1.2920964)
 texture = ExtResource("4_v6vvq")
 
 [node name="SpawnPoint1" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.80784315)
+modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(382, 539)
-scale = Vector2(0.1049952, -0.17683941)
+scale = Vector2(0.24, -0.405)
 texture = ExtResource("4_v6vvq")
+offset = Vector2(0, 35.85)
 
 [node name="SpawnPoint2" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.79607844)
+modulate = Color(0, 0, 0, 0.85490197)
 position = Vector2(1798, 538.99994)
-scale = Vector2(0.1049952, -0.17683941)
+scale = Vector2(0.24, -0.405)
 texture = ExtResource("4_v6vvq")
+offset = Vector2(0, 35.85)
 
 [node name="PixelartStarfield" type="Sprite2D" parent="."]
 modulate = Color(1.5229772, 1.5229772, 1.5229772, 1)
@@ -263,9 +266,6 @@ texture = ExtResource("5_ofs0p")
 [node name="Player" parent="." instance=ExtResource("11_eodc1")]
 position = Vector2(309, 532)
 
-[node name="ForcefieldController" parent="." instance=ExtResource("12_k12eq")]
-position = Vector2(2068, 525)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(169.13, 300)
 
@@ -290,6 +290,20 @@ position = Vector2(498, 533)
 [node name="Enemy2" parent="." instance=ExtResource("13_owd3j")]
 position = Vector2(1188, 524)
 
+[node name="Saemi" parent="." instance=ExtResource("15_otfas")]
+process_mode = 4
+visible = false
+position = Vector2(2075.5007, 517.8788)
+
+[node name="ProtectTimer" type="Timer" parent="Saemi"]
+wait_time = 5.0
+
+[node name="EnemyHealthBar" parent="Saemi" instance=ExtResource("16_ouwp2")]
+offset_left = -9.0
+offset_top = -33.0
+offset_right = 31.0
+offset_bottom = 7.0
+
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
@@ -298,4 +312,4 @@ position = Vector2(1188, 524)
 [connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
-[connection signal="controller_dead" from="ForcefieldController" to="." method="_on_forcefield_controller_controller_dead"]
+[connection signal="timeout" from="Saemi/ProtectTimer" to="Saemi" method="_on_protect_timer_timeout"]

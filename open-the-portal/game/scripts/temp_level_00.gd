@@ -101,10 +101,10 @@ func _process(_delta: float) -> void:
 			enemy.walking = false
 	
 	if !controller_is_dead:
-		$ForcefieldController.monitor_player_position = true
-		if !player_is_dead: $ForcefieldController.player_position = player.position
-		$ForcefieldController.number_of_enemies = get_tree().get_nodes_in_group("Enemy").size()
-		$ForcefieldController.return_point_x = $ReturnPoint.position.x
+		$Saemi.monitor_player_position = true
+		if !player_is_dead: $Saemi.player_position = player.position
+		#$Saemi.number_of_enemies = get_tree().get_nodes_in_group("Enemy").size()
+		#$Saemi.return_point_x = $ReturnPoint.position.x
 	else:
 		if get_tree().get_nodes_in_group("Enemy").size() == 0 and $Forcefield != null: $Forcefield.queue_free()
 	

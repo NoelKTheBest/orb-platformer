@@ -20,7 +20,7 @@ text = "Health:"
 layout_mode = 0
 offset_left = 5.0
 offset_top = 26.0
-offset_right = 207.0
+offset_right = 335.0
 offset_bottom = 168.0
 scale = Vector2(0.5, 0.5)
 color = Color(0.1, 0.1, 0.1, 1)
@@ -60,6 +60,32 @@ anchor_bottom = 0.5
 offset_left = 140.0
 offset_top = -56.835
 offset_right = 180.0
+offset_bottom = -16.835007
+grow_vertical = 2
+scale = Vector2(1.235, 2.88)
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect"]
+modulate = Color(0.16078432, 0.32941177, 1, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 204.00009
+offset_top = -56.835
+offset_right = 244.00009
+offset_bottom = -16.835007
+grow_vertical = 2
+scale = Vector2(1.235, 2.88)
+
+[node name="ColorRect5" type="ColorRect" parent="ColorRect"]
+modulate = Color(0.16078432, 0.32941177, 1, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 268.0
+offset_top = -56.835
+offset_right = 308.0
 offset_bottom = -16.835007
 grow_vertical = 2
 scale = Vector2(1.235, 2.88)

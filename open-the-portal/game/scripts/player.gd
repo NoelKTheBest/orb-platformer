@@ -17,8 +17,6 @@ var cutscene_active = false
 @export var jump_velocity : int
 @export var fall_velocity_factor : float = 3
 @export var orb_velocity : float
-@export var energy_consumption : int = 30
-@export var power_energy_consumption : int = 50
 @export var knockback: Vector2
 @export var walle = true # temp var for testing
 @export var wall_pos_inc = 2
@@ -52,7 +50,7 @@ var cycle_active = false
 var no_energy = false
 var are_we_ready = false
 var ready_signal_emitted = false
-var health = 3
+var health = 5
 var was_hit = false
 var energy_regen = false
 var emp_spawn_pos = Vector2(0, 15)
@@ -99,10 +97,10 @@ func _process(delta: float) -> void:
 				var new_ray_area = Area2D.new()
 				var new_ray_collider = CollisionShape2D.new()
 				new_ray_collider.shape = CircleShape2D.new()
-				new_ray_collider.shape.radius = 5
+				new_ray_collider.shape.radius = 2.5
 				new_ray_area.add_child(new_ray_collider)
 				new_ray_area.set_collision_layer_value(1, false)
-				new_ray_area.set_collision_layer_value(6, true)
+				new_ray_area.set_collision_layer_value(5, true)
 				new_ray_area.set_collision_mask_value(1, false)
 				new_ray_area.set_collision_mask_value(2, true)
 				new_ray_area.position = to_local($RayCast2D.get_collision_point())

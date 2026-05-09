@@ -40,12 +40,14 @@ var bodies = []
 var movement_paused = false
 var shocked = false
 var is_being_commanded = false
+var random_speed_inc
 
 var temp_v
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	monitor_player_position = false
+	random_speed_inc = randf()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -95,7 +97,7 @@ func _physics_process(delta: float) -> void:
 				target_position = (player_position - position).normalized()
 				#var _distance_to = position.distance_squared_to(player_position)
 			
-			velocity.x = target_position.x * speed
+			velocity.x = target_position.x * (speed + random_speed_inc)
 			#if is_being_commanded: velocity.x = target_position.x * 10
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
@@ -125,7 +127,7 @@ func _physics_process(delta: float) -> void:
 			var target_position = (objective - position).normalized()
 			var _distance_to = position.distance_squared_to(objective)
 			
-			velocity.x = target_position.x * speed
+			velocity.x = target_position.x * (speed + random_speed_inc)
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 

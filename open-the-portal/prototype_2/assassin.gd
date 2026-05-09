@@ -28,12 +28,14 @@ var walking = true
 var init_start_pos_x
 var movement_paused = false
 var is_being_commanded = false
+var random_speed_inc
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	monitor_player_position = false
 	init_start_pos_x = position.x
+	random_speed_inc = randf()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,7 +69,7 @@ func _physics_process(delta: float) -> void:
 				var target_position = (player_position - position).normalized()
 				var _distance_to = position.distance_squared_to(player_position)
 				
-				velocity.x = target_position.x * speed
+				velocity.x = target_position.x * (speed + random_speed_inc)
 				#if is_being_commanded: velocity.x = target_position.x * 10
 			else:
 				velocity.x = move_toward(velocity.x, 0, speed)
@@ -153,9 +155,10 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything:
-		body.has_bullet_hit_anything = true
-		body.queue_free()
-		die()
+		$AnimationPlayer.play("dodge")
+		movement_paused = true
+		#body.has_bullet_hit_anything = true
+		
 	elif body.is_in_group("Power Orbs") and !body.has_bullet_hit_anything:
 		body.has_bullet_hit_anything = true
 		#body.queue_free()
@@ -174,8 +177,11 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		on_cooldown = true
 		attacking = false
 		attack_count = 0
-	elif anim_name == "shock" or anim_name == "blinded":
+	elif anim_name == "dodge":
 		movement_paused = false
+		#$AnimationPlayer.play("cross_slice")
+	elif anim_name == "":
+		pass
 
 
 func _on_timer_timeout() -> void:
@@ -188,9 +194,6 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		movement_paused = true
 	elif area.name == "BombBlastRadius":
 		die()
-	elif area.name == "GrenadeRadius":
-		$AnimationPlayer.play("blinded")
-		movement_paused = true
 	elif area.name == "SwordHitBox":
 		die()
 	elif area.name == "RaycastArea":

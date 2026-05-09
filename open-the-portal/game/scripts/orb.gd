@@ -28,3 +28,5 @@ func _on_body_entered(_body: Node) -> void:
 		$BombBlastRadius.set_collision_layer_value(12, true)
 		$BombBlastRadius.visible = true
 	if $AnimationPlayer: $AnimationPlayer.play("shockwave")
+	
+	print(_body)
