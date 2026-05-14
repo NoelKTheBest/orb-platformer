@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5tyh3mannb30"]
+
+[ext_resource type="Script" uid="uid://dxq2oxk3tf254" path="res://game/scripts/code_bytes_ui.gd" id="1_env4x"]
+[ext_resource type="Texture2D" uid="uid://n1wtwseaoget" path="res://rss/sprites/codebytes1.png" id="1_grsd2"]
+[ext_resource type="Texture2D" uid="uid://tk61jnuhv2av" path="res://rss/sprites/codebytes2.png" id="2_env4x"]
+[ext_resource type="Texture2D" uid="uid://cpgwhdfi7kgoh" path="res://rss/sprites/codebytes3.png" id="3_brqme"]
+[ext_resource type="Texture2D" uid="uid://b4g5kb66k6j00" path="res://rss/sprites/codebytes4.png" id="4_4b5ml"]
+
+[node name="CodeBytesUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 141.08008
+offset_bottom = 40.0
+scale = Vector2(2.025, 2.025)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource("1_env4x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 76.0
+offset_bottom = 16.0
+scale = Vector2(2, 2)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_grsd2")
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_env4x")
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_brqme")
+
+[node name="TextureRect4" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_4b5ml")

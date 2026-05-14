@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwwnee8k6qvj6"]
+
+[ext_resource type="Script" uid="uid://bbjso820im364" path="res://game/scripts/code_byte.gd" id="1_5rffb"]
+[ext_resource type="Texture2D" uid="uid://n1wtwseaoget" path="res://rss/sprites/codebytes1.png" id="2_aulk7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6f4e"]
+
+[node name="CodeByte" type="RigidBody2D" groups=["Collectable"]]
+collision_layer = 1024
+collision_mask = 64
+script = ExtResource("1_5rffb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_b6f4e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_aulk7")
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+show_behind_parent = true
+scale = Vector2(1.08, 1.08)
+color = Color(0.09, 0.09, 0.09, 1)
+polygon = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+scale = Vector2(1.1, 1.1)
+color = Color(0.066, 0.086533315, 0.22, 1)
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

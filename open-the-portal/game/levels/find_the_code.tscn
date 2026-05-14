@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqijx0goq5a7g"]
+[gd_scene load_steps=20 format=3 uid="uid://dqijx0goq5a7g"]
 
 [ext_resource type="Script" uid="uid://t1wlkisbmea6" path="res://game/levels/find_the_code.gd" id="1_1y0ru"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_hp13q"]
@@ -7,8 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="5_3pljs"]
 [ext_resource type="Script" uid="uid://dnunrn8yamuap" path="res://game/levels/floor_area.gd" id="6_ot16x"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="7_154ea"]
+[ext_resource type="PackedScene" uid="uid://blmhdmsqnbexu" path="res://game/scenes/special_door.tscn" id="8_154ea"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="8_a2lcp"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="9_hp13q"]
+[ext_resource type="PackedScene" uid="uid://dwwnee8k6qvj6" path="res://game/scenes/code_byte.tscn" id="10_5g3t5"]
+[ext_resource type="Texture2D" uid="uid://tk61jnuhv2av" path="res://rss/sprites/codebytes2.png" id="12_a2lcp"]
+[ext_resource type="Texture2D" uid="uid://cpgwhdfi7kgoh" path="res://rss/sprites/codebytes3.png" id="13_ym8yp"]
+[ext_resource type="Texture2D" uid="uid://b4g5kb66k6j00" path="res://rss/sprites/codebytes4.png" id="14_m7vxn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a57xi"]
 size = Vector2(704, 128)
@@ -17,7 +22,7 @@ size = Vector2(704, 128)
 size = Vector2(704, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fcul"]
-size = Vector2(1024, 128)
+size = Vector2(1128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mss6"]
 size = Vector2(704, 128)
@@ -35,6 +40,9 @@ scale = Vector2(1.566537, 2.8336828)
 color = Color(0.1512, 0.1533467, 0.28, 1)
 polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
 
+[node name="Player" parent="." instance=ExtResource("7_154ea")]
+position = Vector2(1088, 464)
+
 [node name="Rooms" type="Node" parent="."]
 
 [node name="Polygon2D" parent="Rooms" instance=ExtResource("2_hp13q")]
@@ -42,16 +50,16 @@ position = Vector2(272, 432)
 scale = Vector2(1.5999985, 14.400001)
 
 [node name="Polygon2D3" parent="Rooms" instance=ExtResource("2_hp13q")]
-position = Vector2(1312, 432)
+position = Vector2(1416, 431.99997)
 scale = Vector2(1.5999985, 14.400001)
 
 [node name="Polygon2D2" parent="Rooms" instance=ExtResource("2_hp13q")]
-position = Vector2(792, 504)
-scale = Vector2(105.6, 1.5999986)
+position = Vector2(844, 504)
+scale = Vector2(115.999985, 1.5999986)
 
 [node name="Polygon2D4" parent="Rooms" instance=ExtResource("2_hp13q")]
-position = Vector2(792, 360)
-scale = Vector2(105.600006, 1.5999962)
+position = Vector2(844, 360)
+scale = Vector2(116, 1.5999962)
 
 [node name="Polygon2D5" parent="Rooms" instance=ExtResource("2_hp13q")]
 position = Vector2(63.99997, 223.99994)
@@ -120,6 +128,7 @@ scale = Vector2(73.6, 1.5999962)
 [node name="SpawnPoints" type="Node" parent="."]
 
 [node name="SpawnPoint1" type="Sprite2D" parent="SpawnPoints"]
+visible = false
 modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(480, 464)
 scale = Vector2(0.24, -0.5000002)
@@ -128,6 +137,7 @@ script = ExtResource("4_wm4qt")
 floor_number = 3
 
 [node name="SpawnPoint2" type="Sprite2D" parent="SpawnPoints"]
+visible = false
 modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(912, 464)
 scale = Vector2(0.24, -0.5000002)
@@ -136,6 +146,7 @@ script = ExtResource("4_wm4qt")
 floor_number = 3
 
 [node name="SpawnPoint3" type="Sprite2D" parent="SpawnPoints"]
+visible = false
 modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(208.00006, 256)
 scale = Vector2(0.24, -0.5000002)
@@ -144,6 +155,7 @@ script = ExtResource("4_wm4qt")
 floor_number = 2
 
 [node name="SpawnPoint4" type="Sprite2D" parent="SpawnPoints"]
+visible = false
 modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(1432, 144)
 scale = Vector2(0.24, -0.5000002)
@@ -152,6 +164,7 @@ script = ExtResource("4_wm4qt")
 floor_number = 1
 
 [node name="SpawnPoint5" type="Sprite2D" parent="SpawnPoints"]
+visible = false
 modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(1168, 719.99994)
 scale = Vector2(0.24, -0.5000002)
@@ -160,12 +173,82 @@ script = ExtResource("4_wm4qt")
 floor_number = 4
 
 [node name="SpawnPoint6" type="Sprite2D" parent="SpawnPoints"]
+visible = false
 modulate = Color(0, 0, 0, 0.8627451)
 position = Vector2(432.00006, 912)
 scale = Vector2(0.24, -0.5000002)
 texture = ExtResource("3_5g3t5")
 script = ExtResource("4_wm4qt")
 floor_number = 5
+
+[node name="Floors" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(1296, 112)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D"]
+position = Vector2(-24, 0)
+shape = SubResource("RectangleShape2D_a57xi")
+debug_color = Color(0.7249999, 0.25, 1, 0.101960786)
+
+[node name="Area2D2" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(416, 232)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D2"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_sska5")
+debug_color = Color(0, 0.5950001, 0.7, 0.13725491)
+
+[node name="Area2D3" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(808, 440)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D3"]
+position = Vector2(36, -8)
+shape = SubResource("RectangleShape2D_7fcul")
+debug_color = Color(0.9, 0.288, 0.3390001, 0.13333334)
+
+[node name="Area2D4" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(1184, 688)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 4
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D4"]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_5mss6")
+debug_color = Color(0, 0.7, 0.011666656, 0.12156863)
+
+[node name="Area2D5" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+editor_description = "This is a floor area
+"
+position = Vector2(296, 888)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 5
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D5"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_gu4wu")
+debug_color = Color(0.86, 0.35833335, 0, 0.11764706)
 
 [node name="Doors" type="Node" parent="."]
 
@@ -230,7 +313,7 @@ door = NodePath("../Door7")
 floor_number = 1
 
 [node name="Door10" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
-position = Vector2(1224, 479.99994)
+position = Vector2(1208, 480)
 color = Color(2.887845e-06, 0.6813012, 0.79492134, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
 door = NodePath("../Door12")
@@ -249,84 +332,49 @@ color = Color(0.30839306, 0.1662986, 0.49649686, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
 floor_number = 4
 
-[node name="Floors" type="Node" parent="."]
-
-[node name="Area2D" type="Area2D" parent="Floors" groups=["Floor Areas"]]
-position = Vector2(1296, 112)
-collision_layer = 4096
-collision_mask = 3
-script = ExtResource("6_ot16x")
-floor_number = 1
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D"]
-position = Vector2(-24, 0)
-shape = SubResource("RectangleShape2D_a57xi")
-debug_color = Color(0.7249999, 0.25, 1, 0.101960786)
-
-[node name="Area2D2" type="Area2D" parent="Floors" groups=["Floor Areas"]]
-position = Vector2(416, 232)
-collision_layer = 4096
-collision_mask = 3
-script = ExtResource("6_ot16x")
-floor_number = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D2"]
-position = Vector2(8, -8)
-shape = SubResource("RectangleShape2D_sska5")
-debug_color = Color(0, 0.5950001, 0.7, 0.13725491)
-
-[node name="Area2D3" type="Area2D" parent="Floors" groups=["Floor Areas"]]
-position = Vector2(808, 440)
-collision_layer = 4096
-collision_mask = 3
-script = ExtResource("6_ot16x")
-floor_number = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D3"]
-position = Vector2(-16, -8)
-shape = SubResource("RectangleShape2D_7fcul")
-debug_color = Color(0.9, 0.288, 0.3390001, 0.13333334)
-
-[node name="Area2D4" type="Area2D" parent="Floors" groups=["Floor Areas"]]
-position = Vector2(1184, 688)
-collision_layer = 4096
-collision_mask = 3
-script = ExtResource("6_ot16x")
-floor_number = 4
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D4"]
-position = Vector2(-8, 0)
-shape = SubResource("RectangleShape2D_5mss6")
-debug_color = Color(0, 0.7, 0.011666656, 0.12156863)
-
-[node name="Area2D5" type="Area2D" parent="Floors" groups=["Floor Areas"]]
-editor_description = "This is a floor area
-"
-position = Vector2(296, 888)
-collision_layer = 4096
-collision_mask = 3
-script = ExtResource("6_ot16x")
-floor_number = 5
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D5"]
-position = Vector2(8, -8)
-shape = SubResource("RectangleShape2D_gu4wu")
-debug_color = Color(0.86, 0.35833335, 0, 0.11764706)
+[node name="SpecialDoor" parent="Doors" instance=ExtResource("8_154ea")]
+position = Vector2(1384, 480)
 
 [node name="LevelCamera" type="Camera2D" parent="."]
 position = Vector2(768, 480)
 zoom = Vector2(0.655, 0.655)
 
-[node name="Player" parent="." instance=ExtResource("7_154ea")]
-position = Vector2(1272, 728)
-
 [node name="Assassin" parent="." instance=ExtResource("8_a2lcp")]
 position = Vector2(640, 264)
+defend_position = true
 
 [node name="Enemy" parent="." instance=ExtResource("9_hp13q")]
 position = Vector2(464, 264)
+defend_position = true
+
+[node name="Assassin2" parent="." instance=ExtResource("8_a2lcp")]
+position = Vector2(1200, 144)
+defend_position = true
+
+[node name="CodeByte" parent="." instance=ExtResource("10_5g3t5")]
+position = Vector2(728, 272)
+
+[node name="CodeByte2" parent="." instance=ExtResource("10_5g3t5")]
+position = Vector2(1488, 736)
+id = 1
+
+[node name="Sprite2D" parent="CodeByte2" index="1"]
+texture = ExtResource("12_a2lcp")
+
+[node name="CodeByte3" parent="." instance=ExtResource("10_5g3t5")]
+position = Vector2(312, 928)
+id = 2
+
+[node name="Sprite2D" parent="CodeByte3" index="1"]
+texture = ExtResource("13_ym8yp")
+
+[node name="CodeByte4" parent="." instance=ExtResource("10_5g3t5")]
+position = Vector2(944, 160)
+id = 3
+
+[node name="Sprite2D" parent="CodeByte4" index="1"]
+texture = ExtResource("14_m7vxn")
+
+[editable path="CodeByte2"]
+[editable path="CodeByte3"]
+[editable path="CodeByte4"]

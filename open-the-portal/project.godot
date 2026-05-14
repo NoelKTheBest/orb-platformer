@@ -64,6 +64,7 @@ Orbs=""
 "Power Orbs"=""
 Door=""
 "Floor Areas"=""
+Collectable=""
 
 [input]
 
@@ -198,7 +199,7 @@ shift_mode={
 2d_physics/layer_7="Ground"
 2d_physics/layer_8="Enemy Attacks"
 2d_physics/layer_9="EMP"
-2d_physics/layer_10="Moving Wall"
+2d_physics/layer_10="Collectable"
 2d_physics/layer_11="Items"
 2d_physics/layer_12="Bomb"
 2d_physics/layer_13="Floor Area"

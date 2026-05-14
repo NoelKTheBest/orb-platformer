@@ -14,6 +14,7 @@ signal enemy_died()
 @export var speed = 2
 @export var walk_velocity: float
 @export var vision_scale: float = 1.5
+@export var defend_position: bool = false
 
 #region Level Dependent Vars
 var idle = 0

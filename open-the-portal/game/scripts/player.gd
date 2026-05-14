@@ -52,7 +52,6 @@ var are_we_ready = false
 var ready_signal_emitted = false
 var health = 5
 var was_hit = false
-var energy_regen = false
 var emp_spawn_pos = Vector2(0, 15)
 var wall_spawn_pos = Vector2(20, 0)
 var item_activation_frametime = 0
@@ -60,6 +59,7 @@ var temp_delta = 0
 var sword_instance
 var current_item: String = ""
 var current_floor: int
+var ready_to_advance: bool = false
 #endregion
 
 @onready var conveyor_belt: Control = $UserInterface/ConveyorBelt
@@ -85,12 +85,9 @@ func _process(delta: float) -> void:
 				never_ready = !never_ready
 				print("never ready: ", never_ready)
 		
-		# If energy regen is active, ensure the player isn't flagged as having no energy
-		if energy_regen:
-			no_energy = false
-		
-		if Input.is_action_just_pressed("use_door"):
-			use_door.emit()
+		if $UserInterface/CodeBytesUI.all_collectables_obtained():
+			ready_to_advance = true
+			#print("ready_to_advance: ", ready_to_advance)
 		
 		if !cycle_active:
 			if Input.is_action_just_pressed("instant_fire") and $RayCast2D.is_colliding() and $UserInterface/Node.use_energy(8) != -1:
@@ -111,7 +108,6 @@ func _process(delta: float) -> void:
 			
 			if Input.is_action_just_pressed("fire"):
 				# Consume returns -1 if there isn't enough energy.
-				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
 				if $UserInterface/Node.use_energy(0) != -1:
 					var new_orb = orb.instantiate()
 					
@@ -129,7 +125,6 @@ func _process(delta: float) -> void:
 
 			if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
 				# Consume returns -1 if there isn't enough energy.
-				# If energy_regen is true, the consume check is skipped (short-circuit), allowing infinite fire.
 				if $UserInterface/Node.use_energy(8) != -1:
 					var new_orb = power_orb.instantiate()
 					# Set properties before node is ready to have access to them
@@ -412,32 +407,15 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func _on_power_spawn_timer_timeout() -> void:
 	power_cooldown = false
 
-# Review later
-func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
-	# Energy regen powerup test
-	$UserInterface/EnergyBar.value = $UserInterface/EnergyBar.max_value
-	energy_regen = true
-	
-	# Start the timer before awaiting
-	$EnergyRegenTimer.start()
-	
-	await $EnergyRegenTimer.timeout
-	energy_regen = false
-
 
 func _on_item_activation_timer_timeout() -> void:
 	print("ready")
 
 
 func _on_item_detector_body_entered(body: Node2D) -> void:
-	conveyor_belt.add_item(body.id)
-	if !conveyor_belt.is_full(): body.queue_free()
-
-
-func _on_energy_regen_timer_timeout() -> void:
-	energy_regen = false
-
-
-func _on_conveyor_belt_player_has_sword() -> void:
-	#sword_instance = sword_scene.instantiate()
-	pass
+	if body.is_in_group("Collectable"):
+		$UserInterface/CodeBytesUI.obtain_collectable(body.id)
+		body.queue_free()
+	else:
+		conveyor_belt.add_item(body.id)
+		if !conveyor_belt.is_full(): body.queue_free()

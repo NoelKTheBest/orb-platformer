@@ -14,6 +14,7 @@ signal enemy_died()
 @export var speed = 2
 @export var walk_velocity: float
 @export var vision_scale: float = 1.5
+@export var defend_position: bool = false
 
 var monitor_player_position = false
 var player_position = Vector2.ZERO

@@ -17,7 +17,7 @@ var enemies: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$LevelCamera.make_current()
+	#$LevelCamera.make_current()
 	doors = get_tree().get_nodes_in_group("Door")
 	areas = get_tree().get_nodes_in_group("Floor Areas")
 	enemies = get_tree().get_nodes_in_group("Enemy")
@@ -41,6 +41,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var player_floor_num
+	# refresh enemy list
+	enemies = get_tree().get_nodes_in_group("Enemy")
 	
 	# no reason to have this check here, this will need to be copied to every script that has more than one floor
 	# give player.gd a current_floor var
@@ -51,21 +53,21 @@ func _process(_delta: float) -> void:
 				if entity.is_in_group("Player"): player_floor_num = area.floor_number
 	
 	for enemy in enemies:
+		# if both of these conditions are true, do one thing, in any other case, do the other thing
 		if enemy.current_floor != player_floor_num:
-			find_objective_door(enemy)
+			if !enemy.defend_position: find_objective_door(enemy, enemy.current_floor, player_floor_num)
+		# in the case we are on the same floor as the player, fight them
 		else:
 			enemy.camera_position = player.position
 			enemy.listen_for_player_coords = true
 			enemy.nearest_door_position = Vector2.ZERO
+			if enemy.defend_position: enemy.defend_position = false
 
 
-func find_objective_door(entity: Node):
+func find_objective_door(entity: Node, ecf, pcf):
 	var no_doors_found = true
 	# Set door to main to always be Vector2.Zero in the case that while finding the right door, the interpreter doesn't get stuck
 	var door_to_main = Vector2.ZERO
-	# get current floor of both entity and player
-	var ecf = entity.current_floor
-	var pcf = player.current_floor
 	# if both ecf and pcf are 0 (happens on frame 1), ingore clauses where this need to be false
 	var no_current_floors = true if ecf == 0 and pcf == 0 else false
 	# set destination floor of entity to player's current floor
@@ -77,8 +79,6 @@ func find_objective_door(entity: Node):
 	
 	# Each floor in the scene has more than one door, therefore we only need to loop through the doors on each floor
 	for door in lod:
-		#print(entity.name, "; dest_d: ", door.destination_floor, "; dest_e: ", entity.destination_floor)
-		#print(entity.name, "; dest_to_p: ", pcf, "; dest_d: ", door.destination_floor)
 		#either find a door to the destination or find the door to the main floor
 		if door.destination_floor == pcf:
 			entity.nearest_door_position = door.position
@@ -87,10 +87,6 @@ func find_objective_door(entity: Node):
 		# if a door to the player is not found, get reference to door going to the main floor
 		elif door.destination_floor == main_floor_num:
 			door_to_main = door.position
-		
-		#print(entity.name, "; door obj: ", entity.nearest_door_position, "; curr_door: ", door.position)
-		#print(entity.name, "; is using door: ", entity.using_door)
-		#print(entity.name, "; to main: ", door_to_main)
 	
 	if no_doors_found and !no_current_floors:
 		entity.destination_floor = main_floor_num
