@@ -47,11 +47,7 @@ func _process(_delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
-		print(body.name, name, entrance_form)
-		print(body.name, door, body.using_door, body.destination_floor == destination_floor)
-		if door and entrance_form == entrance_mode.WALK and body.using_door and body.destination_floor == destination_floor:
-			door.entrance_form = entrance_mode.TELEPORT
-			body.position = door.position
+		teleport_body(body)
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
