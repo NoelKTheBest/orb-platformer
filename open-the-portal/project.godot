@@ -20,8 +20,9 @@ config/icon="res://icon.svg"
 ItemNameDictionary="*res://game/scenes/item_name_dictionary.tscn"
 SfxSpawner="*res://game/scenes/sfx_spawner.tscn"
 VfxSpawner="*res://game/scenes/vfx_spawner.tscn"
-PauseManager="*res://game/scripts/pause_manager.gd"
-InputManager="*res://game/scripts/input_manager.gd"
+PauseManager="*res://game/scripts/autoload/pause_manager.gd"
+InputManager="*res://game/scripts/autoload/input_manager.gd"
+Functions="*res://game/scripts/autoload/functions.gd"
 
 [display]
 
@@ -44,6 +45,7 @@ folder_colors={
 "res://game/character_statemachine_scripts/Saemi/": "pink",
 "res://game/game_rss/": "orange",
 "res://game/levels/": "blue",
+"res://game/scenes/loading_screen/": "gray",
 "res://prototype_1/": "gray",
 "res://prototype_1/scenes/": "yellow",
 "res://prototype_1/scripts/": "orange",

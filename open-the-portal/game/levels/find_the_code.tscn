@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dqijx0goq5a7g"]
+[gd_scene load_steps=21 format=3 uid="uid://dqijx0goq5a7g"]
 
 [ext_resource type="Script" uid="uid://t1wlkisbmea6" path="res://game/levels/find_the_code.gd" id="1_1y0ru"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_hp13q"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://tk61jnuhv2av" path="res://rss/sprites/codebytes2.png" id="12_a2lcp"]
 [ext_resource type="Texture2D" uid="uid://cpgwhdfi7kgoh" path="res://rss/sprites/codebytes3.png" id="13_ym8yp"]
 [ext_resource type="Texture2D" uid="uid://b4g5kb66k6j00" path="res://rss/sprites/codebytes4.png" id="14_m7vxn"]
+[ext_resource type="PackedScene" uid="uid://cpcmv3fq3u6i2" path="res://game/scenes/pause_menu.tscn" id="15_a2lcp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a57xi"]
 size = Vector2(704, 128)
@@ -374,6 +375,8 @@ id = 3
 
 [node name="Sprite2D" parent="CodeByte4" index="1"]
 texture = ExtResource("14_m7vxn")
+
+[node name="PauseMenu" parent="." instance=ExtResource("15_a2lcp")]
 
 [editable path="CodeByte2"]
 [editable path="CodeByte3"]

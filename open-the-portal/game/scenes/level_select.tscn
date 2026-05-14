@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5q8s0n71dlpc"]
+
+[ext_resource type="Script" uid="uid://bqrmavvkrujjf" path="res://game/scripts/level_select.gd" id="1_uh8wr"]
+[ext_resource type="PackedScene" uid="uid://h22edcjuv875" path="res://game/scenes/level_icon.tscn" id="1_vp07g"]
+[ext_resource type="PackedScene" uid="uid://21shg46qr6y2" path="res://game/scenes/player_icon.tscn" id="3_dp8ja"]
+
+[node name="LevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uh8wr")
+
+[node name="LevelIcon1" parent="." node_paths=PackedStringArray("next_level_left") instance=ExtResource("1_vp07g")]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 104.0
+offset_right = 248.0
+offset_bottom = 167.0
+next_level_left = NodePath("../LevelIcon2")
+
+[node name="LevelIcon2" parent="." node_paths=PackedStringArray("next_level_up", "next_level_down", "next_level_left", "next_level_right") instance=ExtResource("1_vp07g")]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 160.0
+offset_right = 360.0
+offset_bottom = 223.0
+level_name = "2"
+next_level_up = NodePath("../LevelIcon2b")
+next_level_down = NodePath("../LevelIcon2a")
+next_level_left = NodePath("../LevelIcon3")
+next_level_right = NodePath("../LevelIcon1")
+
+[node name="LevelIcon2a" parent="." node_paths=PackedStringArray("next_level_up") instance=ExtResource("1_vp07g")]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 280.0
+offset_right = 384.0
+offset_bottom = 343.0
+level_name = "2a"
+next_level_up = NodePath("../LevelIcon2")
+
+[node name="LevelIcon2b" parent="." node_paths=PackedStringArray("next_level_down") instance=ExtResource("1_vp07g")]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 40.0
+offset_right = 448.0
+offset_bottom = 103.0
+level_name = "2b"
+next_level_down = NodePath("../LevelIcon2")
+
+[node name="LevelIcon3" parent="." node_paths=PackedStringArray("next_level_right") instance=ExtResource("1_vp07g")]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 192.0
+offset_right = 600.0
+offset_bottom = 255.0
+level_name = "3"
+next_level_right = NodePath("../LevelIcon2")
+
+[node name="PlayerIcon" parent="." instance=ExtResource("3_dp8ja")]
+layout_mode = 0
