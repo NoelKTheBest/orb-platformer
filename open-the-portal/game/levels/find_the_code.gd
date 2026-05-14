@@ -2,11 +2,11 @@ extends Node
 
 @export var main_floor_num: int
 
-var floor1spawns = []
-var floor2spawns = []
-var floor3spawns = []
-var floor4spawns = []
-var floor5spawns = []
+#var floor1spawns = []
+#var floor2spawns = []
+#var floor3spawns = []
+#var floor4spawns = []
+#var floor5spawns = []
 
 var doors: Array
 var areas: Array
@@ -22,18 +22,18 @@ func _ready() -> void:
 	areas = get_tree().get_nodes_in_group("Floor Areas")
 	enemies = get_tree().get_nodes_in_group("Enemy")
 	
-	for sp in $SpawnPoints.get_children():
-		match sp.floor_number:
-			1:
-				floor1spawns.append(sp)
-			2:
-				floor2spawns.append(sp)
-			3:
-				floor3spawns.append(sp)
-			4:
-				floor4spawns.append(sp)
-			5:
-				floor5spawns.append(sp)
+	#for sp in $SpawnPoints.get_children():
+		#match sp.floor_number:
+			#1:
+				#floor1spawns.append(sp)
+			#2:
+				#floor2spawns.append(sp)
+			#3:
+				#floor3spawns.append(sp)
+			#4:
+				#floor4spawns.append(sp)
+			#5:
+				#floor5spawns.append(sp)
 	for door in doors:
 		door.show_label = true
 
