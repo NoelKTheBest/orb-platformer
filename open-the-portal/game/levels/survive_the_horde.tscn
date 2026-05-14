@@ -200,7 +200,7 @@ tile_set = SubResource("TileSet_hq7cf")
 
 [node name="UpperFloorArea" type="Area2D" parent="."]
 position = Vector2(400, 152)
-collision_layer = 0
+collision_layer = 4096
 monitorable = false
 metadata/_edit_group_ = true
 
@@ -211,7 +211,7 @@ debug_color = Color(0, 0.64383554, 0.29841512, 0.41960785)
 
 [node name="BottomFloorArea" type="Area2D" parent="."]
 position = Vector2(1040, 376)
-collision_layer = 0
+collision_layer = 4096
 monitorable = false
 metadata/_edit_group_ = true
 
@@ -256,7 +256,7 @@ texture = ExtResource("27_ng2lw")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="SpawnPoint1"]
-self_modulate = Color(0.62733334, 1, 0.48000002, 0.4392157)
+self_modulate = Color(0, 0, 0, 0.6901961)
 show_behind_parent = true
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("28_2sxvd")
@@ -274,7 +274,7 @@ texture = ExtResource("27_ng2lw")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="SpawnPoint2"]
-self_modulate = Color(0.62733334, 1, 0.48000002, 0.4392157)
+self_modulate = Color(0, 0, 0, 0.6901961)
 show_behind_parent = true
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("28_2sxvd")
@@ -292,7 +292,7 @@ texture = ExtResource("27_ng2lw")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="SpawnPoint3"]
-self_modulate = Color(0.62733334, 1, 0.48000002, 0.4392157)
+self_modulate = Color(0, 0, 0, 0.6901961)
 show_behind_parent = true
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("28_2sxvd")
@@ -310,7 +310,7 @@ texture = ExtResource("27_ng2lw")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="SpawnPoint4"]
-self_modulate = Color(0.62733334, 1, 0.48000002, 0.4392157)
+self_modulate = Color(0, 0, 0, 0.6901961)
 show_behind_parent = true
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("28_2sxvd")
@@ -327,7 +327,7 @@ texture = ExtResource("27_ng2lw")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="SpawnPoint5"]
-self_modulate = Color(0.62733334, 1, 0.48000002, 0.4392157)
+self_modulate = Color(0, 0, 0, 0.6901961)
 show_behind_parent = true
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("28_2sxvd")
@@ -347,11 +347,13 @@ modulate = Color(0.116666794, 1, 0, 0.40392157)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("3_2sxvd")
 
-[node name="Door" parent="." instance=ExtResource("26_ng2lw")]
+[node name="Door" parent="." node_paths=PackedStringArray("door") instance=ExtResource("26_ng2lw")]
 position = Vector2(1136, 432)
+door = NodePath("../Door2")
 
-[node name="Door2" parent="." instance=ExtResource("26_ng2lw")]
+[node name="Door2" parent="." node_paths=PackedStringArray("door") instance=ExtResource("26_ng2lw")]
 position = Vector2(792, 240.00002)
+door = NodePath("../Door")
 
 [node name="Player" parent="." instance=ExtResource("20_ybq20")]
 position = Vector2(144, 224)
@@ -363,7 +365,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="Assassin4" parent="." instance=ExtResource("23_cgf8m")]
-position = Vector2(208.94232, 232.54199)
+position = Vector2(432, 232)
 
 [node name="Assassin3" parent="." instance=ExtResource("23_cgf8m")]
 position = Vector2(937.29877, 413.02396)

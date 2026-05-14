@@ -33,7 +33,7 @@ func _draw() -> void:
 			mri.size = area.get_child(0).shape.get_rect().size
 			mri.position = area.position - (mri.size / 2)
 		draw_rect(mri, Color.ORANGE, false, draw_width)
-		print(mri.position)
+		#print(mri.position)
 
 
 # Render an image to display to the radar component

@@ -1,0 +1,332 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqijx0goq5a7g"]
+
+[ext_resource type="Script" uid="uid://t1wlkisbmea6" path="res://game/levels/find_the_code.gd" id="1_1y0ru"]
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_hp13q"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="3_5g3t5"]
+[ext_resource type="Script" uid="uid://c400bl3lhnu1d" path="res://game/levels/spawn_point.gd" id="4_wm4qt"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="5_3pljs"]
+[ext_resource type="Script" uid="uid://dnunrn8yamuap" path="res://game/levels/floor_area.gd" id="6_ot16x"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="7_154ea"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="8_a2lcp"]
+[ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="9_hp13q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a57xi"]
+size = Vector2(704, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sska5"]
+size = Vector2(704, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fcul"]
+size = Vector2(1024, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mss6"]
+size = Vector2(704, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu4wu"]
+size = Vector2(704, 128)
+
+[node name="FindTheCode" type="Node"]
+script = ExtResource("1_1y0ru")
+main_floor_num = 3
+
+[node name="BG" type="Polygon2D" parent="."]
+position = Vector2(-48.000004, 39.999996)
+scale = Vector2(1.566537, 2.8336828)
+color = Color(0.1512, 0.1533467, 0.28, 1)
+polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+
+[node name="Rooms" type="Node" parent="."]
+
+[node name="Polygon2D" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(272, 432)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D3" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1312, 432)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D2" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(792, 504)
+scale = Vector2(105.6, 1.5999986)
+
+[node name="Polygon2D4" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(792, 360)
+scale = Vector2(105.600006, 1.5999962)
+
+[node name="Polygon2D5" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(63.99997, 223.99994)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D6" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(784, 223.99991)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D7" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(424, 295.99997)
+scale = Vector2(73.6, 1.5999986)
+
+[node name="Polygon2D8" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(424, 151.99997)
+scale = Vector2(73.6, 1.5999962)
+
+[node name="Polygon2D9" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(912.0001, 111.99994)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D10" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1632.0001, 111.99991)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D11" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1272, 183.99998)
+scale = Vector2(73.6, 1.5999986)
+
+[node name="Polygon2D12" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1272, 39.999985)
+scale = Vector2(73.6, 1.5999962)
+
+[node name="Polygon2D13" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(-56, 880.00006)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D14" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(664, 880)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D15" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(304.00006, 952)
+scale = Vector2(73.6, 1.5999986)
+
+[node name="Polygon2D16" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(304, 808)
+scale = Vector2(73.6, 1.5999962)
+
+[node name="Polygon2D17" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(816.0001, 688)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D18" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1536.0001, 688)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D19" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1176, 760)
+scale = Vector2(73.6, 1.5999986)
+
+[node name="Polygon2D20" parent="Rooms" instance=ExtResource("2_hp13q")]
+position = Vector2(1176, 616)
+scale = Vector2(73.6, 1.5999962)
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="SpawnPoint1" type="Sprite2D" parent="SpawnPoints"]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(480, 464)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("3_5g3t5")
+script = ExtResource("4_wm4qt")
+floor_number = 3
+
+[node name="SpawnPoint2" type="Sprite2D" parent="SpawnPoints"]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(912, 464)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("3_5g3t5")
+script = ExtResource("4_wm4qt")
+floor_number = 3
+
+[node name="SpawnPoint3" type="Sprite2D" parent="SpawnPoints"]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(208.00006, 256)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("3_5g3t5")
+script = ExtResource("4_wm4qt")
+floor_number = 2
+
+[node name="SpawnPoint4" type="Sprite2D" parent="SpawnPoints"]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(1432, 144)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("3_5g3t5")
+script = ExtResource("4_wm4qt")
+floor_number = 1
+
+[node name="SpawnPoint5" type="Sprite2D" parent="SpawnPoints"]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(1168, 719.99994)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("3_5g3t5")
+script = ExtResource("4_wm4qt")
+floor_number = 4
+
+[node name="SpawnPoint6" type="Sprite2D" parent="SpawnPoints"]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(432.00006, 912)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("3_5g3t5")
+script = ExtResource("4_wm4qt")
+floor_number = 5
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(368, 480)
+color = Color(0.24598986, 0.4777593, 0.65771043, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door2")
+floor_number = 3
+
+[node name="Door2" parent="Doors" instance=ExtResource("5_3pljs")]
+position = Vector2(256, 272)
+color = Color(0.2442, 0.2442, 0.66, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+floor_number = 2
+
+[node name="Door3" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(552, 272)
+color = Color(0.195203, 0.51788217, 0.47031808, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door")
+floor_number = 2
+
+[node name="Door4" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(632, 480)
+color = Color(0.69356626, 0.2943536, 0.49052006, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door5")
+floor_number = 3
+
+[node name="Door5" parent="Doors" instance=ExtResource("5_3pljs")]
+position = Vector2(56, 928)
+color = Color(0.27024272, 0.5263758, 0.25083145, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+floor_number = 5
+
+[node name="Door6" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(600, 928.00006)
+color = Color(0.5132389, 0.45073152, 0.29180142, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door4")
+floor_number = 5
+
+[node name="Door7" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(1016, 480)
+color = Color(0.6614193, 0.3729343, 0.13621938, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door8")
+floor_number = 3
+
+[node name="Door8" parent="Doors" instance=ExtResource("5_3pljs")]
+position = Vector2(1104, 160)
+color = Color(0.77184045, 0.25197017, 0.20889139, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+floor_number = 1
+
+[node name="Door9" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(1528, 160)
+color = Color(0.8481469, 0, 0.26710388, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door7")
+floor_number = 1
+
+[node name="Door10" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(1224, 479.99994)
+color = Color(2.887845e-06, 0.6813012, 0.79492134, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door12")
+floor_number = 3
+
+[node name="Door11" parent="Doors" node_paths=PackedStringArray("door") instance=ExtResource("5_3pljs")]
+position = Vector2(976, 736)
+color = Color(0.0637661, 0.22085026, 0.58549786, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+door = NodePath("../Door10")
+floor_number = 4
+
+[node name="Door12" parent="Doors" instance=ExtResource("5_3pljs")]
+position = Vector2(1360, 735.99994)
+color = Color(0.30839306, 0.1662986, 0.49649686, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+floor_number = 4
+
+[node name="Floors" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(1296, 112)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D"]
+position = Vector2(-24, 0)
+shape = SubResource("RectangleShape2D_a57xi")
+debug_color = Color(0.7249999, 0.25, 1, 0.101960786)
+
+[node name="Area2D2" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(416, 232)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D2"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_sska5")
+debug_color = Color(0, 0.5950001, 0.7, 0.13725491)
+
+[node name="Area2D3" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(808, 440)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 3
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D3"]
+position = Vector2(-16, -8)
+shape = SubResource("RectangleShape2D_7fcul")
+debug_color = Color(0.9, 0.288, 0.3390001, 0.13333334)
+
+[node name="Area2D4" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+position = Vector2(1184, 688)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 4
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D4"]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_5mss6")
+debug_color = Color(0, 0.7, 0.011666656, 0.12156863)
+
+[node name="Area2D5" type="Area2D" parent="Floors" groups=["Floor Areas"]]
+editor_description = "This is a floor area
+"
+position = Vector2(296, 888)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("6_ot16x")
+floor_number = 5
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Area2D5"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_gu4wu")
+debug_color = Color(0.86, 0.35833335, 0, 0.11764706)
+
+[node name="LevelCamera" type="Camera2D" parent="."]
+position = Vector2(768, 480)
+zoom = Vector2(0.655, 0.655)
+
+[node name="Player" parent="." instance=ExtResource("7_154ea")]
+position = Vector2(1272, 728)
+
+[node name="Assassin" parent="." instance=ExtResource("8_a2lcp")]
+position = Vector2(640, 264)
+
+[node name="Enemy" parent="." instance=ExtResource("9_hp13q")]
+position = Vector2(464, 264)

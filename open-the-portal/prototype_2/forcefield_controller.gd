@@ -21,30 +21,33 @@ enum enemy_state {
 var current_state = enemy_state.IDLE
 var monitor_player_position = false
 var return_point_x
-var number_of_enemies
+var number_of_enemies = 1
 var player_position = Vector2.ZERO
 var attacking :  bool
+var recovering : bool
 var on_cooldown : bool
 var in_anti_gravity_zone = false
 var walking = false
 var health = 3
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+#@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
 @onready var enemy_health_bar: Control = $EnemyHealthBar
 
 func _ready() -> void:
 	monitor_player_position = false
+	attacking = false
+	recovering = false
 	current_state = enemy_state.IDLE
 	$BulletDetectionRange.set_collision_mask_value(6, true)
 
 
 func _process(_delta: float) -> void:
 	#print(enemy_state.keys()[current_state])
-	if animation_player.current_animation != "shocked":
-		if !animation_player.is_playing(): animation_player.play("idle")
+	#if animation_player.current_animation != "shocked":
+		#if !animation_player.is_playing(): animation_player.play("idle")
 	
 	#if number_of_enemies < 3:
 	if velocity.x != 0:
@@ -73,71 +76,34 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !in_anti_gravity_zone and (current_state != enemy_state.SHOCKED):
+	if (current_state != enemy_state.SHOCKED):
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
-		if current_state == enemy_state.PROTECT:
-			velocity.x = move_toward(velocity.x, 0, speed)
-			animation_player.play("idle")
-		# When the forcefield controller is not monitoring the player
-		#	they will go back to a certain point in the level
-		if current_state != enemy_state.RECOVER and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED:
-			if monitor_player_position and number_of_enemies < min_req_for_helping:
+		#if current_state == enemy_state.PROTECT:
+			#velocity.x = move_toward(velocity.x, 0, speed)
+			#animation_player.play("idle")
+		if !attacking:
+			if monitor_player_position: # and number_of_enemies < min_req_for_helping:
 				var _direction
 				var target_position = (player_position - position).normalized()
 				var _distance_to = position.distance_squared_to(player_position)
 				
 				velocity.x = target_position.x * speed
-				current_state = enemy_state.RUN
-			elif monitor_player_position and number_of_enemies >= min_req_for_helping:
-				var target_position = (Vector2(return_point_x, position.y) - position)
-				if target_position.x > 30: velocity.x = target_position.normalized().x * speed
-				else:
-					sprite_2d.flip_h = true
-					velocity.x = move_toward(velocity.x, 0, speed)
-				current_state = enemy_state.RUN_AWAY
-			else:
-				#var _direction
-				#var target_position = (player_position - position).normalized()
-				#var _distance_to = position.distance_squared_to(player_position)
-				#
-				#velocity.x = target_position.x * speed
-				velocity.x = move_toward(velocity.x, 0, speed)
+		# If the entity is currently attacking:
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 		
-		if !player_attack_area.has_overlapping_bodies() and !attacking and current_state != enemy_state.RECOVER  and current_state != enemy_state.BLOCK and current_state != enemy_state.SHOCKED:
-			if current_state != enemy_state.BLOCK:
-				if velocity.x != 0:
-					animation_player.play("run")
-				elif velocity.x == 0:
-					animation_player.play("idle")
-				#$Hurtbox.visible = false
-				#$Hurtbox.set_collision_layer_value(1, false)
-		elif player_attack_area.has_overlapping_bodies() and monitor_player_position:
-			if !on_cooldown:
-				animation_player.play('attack_3')
+		if player_attack_area.has_overlapping_bodies() and monitor_player_position:
+			if !recovering:
 				attacking = true
+			else:
+				attacking = false
 		
 		move_and_slide()
-	else:
-		velocity.x = 0
-		#zero_gravity_decel_easing = 3 if velocity.y > -200 else 1
-		#if velocity.y > -27:
-			#zero_gravity_decel_easing = 4
-			#velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
-		#if velocity.y > -60:
-			#velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
-		#else:
-			#velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing)
-		#print(velocity.y)
-		#print(delta)
-		move_and_slide()
-
-
-func launch():
-	pass
+	
+	print(speed)
+	print(attacking)
 
 
 func die():
@@ -160,29 +126,6 @@ func take_damage():
 		die()
 
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "attack_3":
-		$Timer.start()
-		on_cooldown = true
-		attacking = false
-		current_state = enemy_state.RECOVER
-		animation_player.play("recover")
-		#$BulletDetectionRange.set_collision_mask_value(6, false)
-	elif anim_name == "block":
-		current_state = enemy_state.IDLE
-	elif anim_name == "recover":
-		current_state = enemy_state.IDLE
-		#$BulletDetectionRange.set_collision_mask_value(6, true)
-	elif anim_name == "shock":
-		current_state = enemy_state.IDLE
-	elif anim_name == "blinded":
-		current_state = enemy_state.IDLE
-
-
-func _on_timer_timeout() -> void:
-	on_cooldown = false
-
-
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Orbs") and current_state != enemy_state.PROTECT:
 		body.queue_free()
@@ -190,15 +133,14 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 
 func _on_bullet_detection_range_body_entered(body: Node2D) -> void:
-	print(current_state)
 	if body.is_in_group("Orbs") and current_state != enemy_state.RECOVER and current_state != enemy_state.ATTACK3:
 		current_state = enemy_state.BLOCK
-		animation_player.play("block")
+		#animation_player.play("block")
 		#$BulletDetectionRange.set_collision_mask_value(6, true)
 	elif body.is_in_group("Power Orbs") and current_state != enemy_state.RECOVER:
 		current_state = enemy_state.ATTACK3
-		animation_player.play("attack_3")
-		animation_player.seek(0.2, true)
+		#animation_player.play("attack_3")
+		#animation_player.seek(0.2, true)
 		attacking = true
 
 
@@ -220,7 +162,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	print(area.name)
 	if area.name == "EMP":
 		print_rich("[color=lightgreen]You got me!")
-		animation_player.play("shock")
+		#animation_player.play("shock")
 		current_state = enemy_state.SHOCKED
 	elif area.name == "BombBlastRadius":
 		take_damage()
@@ -228,7 +170,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		take_damage()
 	elif area.name == "RaycastArea":
 		area.queue_free()
-		die()
+		take_damage()
 
 
 func _on_protect_timer_timeout() -> void:
@@ -265,3 +207,17 @@ func _on_protect_timer_timeout() -> void:
 
 func enemy_is_visible(enemy):
 	if enemy.visible_on_screen_notifier_2d.is_on_screen(): return enemy
+
+
+func _on_state_machine_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "recover":
+		recovering = false
+		#$BulletDetectionRange.set_collision_mask_value(6, false)
+	elif anim_name == "block":
+		current_state = enemy_state.IDLE
+		#$BulletDetectionRange.set_collision_mask_value(6, true)
+	elif anim_name == "shock":
+		current_state = enemy_state.IDLE
+	elif anim_name == "attack_3":
+		recovering = true
+		attacking = false

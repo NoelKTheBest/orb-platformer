@@ -98,7 +98,6 @@ func _process(_delta: float) -> void:
 		for enemy in enemies:
 			enemy.monitor_player_position = true
 			enemy.player_position = player.position
-			enemy.walking = false
 	
 	if !controller_is_dead:
 		$Saemi.monitor_player_position = true

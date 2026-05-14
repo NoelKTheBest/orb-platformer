@@ -1,7 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://ds2huogrjw6o5"]
+[gd_scene load_steps=44 format=3 uid="uid://ds2huogrjw6o5"]
 
 [ext_resource type="Script" uid="uid://y1pny7e1hqog" path="res://characters/SAEMI/saemi.gd" id="1_nqy3w"]
 [ext_resource type="Texture2D" uid="uid://kimq6qwc6bx0" path="res://characters/The SwordMaster v1.2/The SwordMaster/Sword Master Sprite Sheet 90x37.png" id="2_8yvst"]
+[ext_resource type="Script" uid="uid://cushh7sgtdgtj" path="res://characters/SAEMI/bullet_detection_area.gd" id="3_1ee41"]
 [ext_resource type="Script" uid="uid://bkd5p823grdw2" path="res://characters/SAEMI/hurtbox.gd" id="3_8yvst"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ee41"]
@@ -92,6 +93,46 @@ tracks/2/keys = {
 "values": [250, 0]
 }
 
+[sub_resource type="Animation" id="Animation_wljpv"]
+resource_name = "attack_2"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45263386),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [800, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
 [sub_resource type="Animation" id="Animation_8yvst"]
 resource_name = "block"
 length = 0.4
@@ -122,7 +163,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_1ee41"]
 resource_name = "dash"
-length = 0.6
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -146,6 +187,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [600, 200]
+}
+
+[sub_resource type="Animation" id="Animation_3jldi"]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 25), Vector2i(0, 25), Vector2i(0, 16), Vector2i(1, 16), Vector2i(3, 16), Vector2i(7, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
 }
 
 [sub_resource type="Animation" id="Animation_eb6ml"]
@@ -193,9 +262,9 @@ tracks/1/keys = {
 "values": [200]
 }
 
-[sub_resource type="Animation" id="Animation_3jldi"]
-resource_name = "hurt"
-length = 0.6
+[sub_resource type="Animation" id="Animation_is6dy"]
+resource_name = "protect"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -203,10 +272,10 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(1, 25), Vector2i(0, 25), Vector2i(0, 16), Vector2i(1, 16), Vector2i(3, 16), Vector2i(7, 16)]
+"values": [Vector2i(0, 11), Vector2i(1, 11), Vector2i(2, 11), Vector2i(3, 11)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -215,50 +284,10 @@ tracks/1/path = NodePath(".:speed")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.6),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_wljpv"]
-resource_name = "attack_2"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:speed")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45263386),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [800, 0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wljpv"]
@@ -269,6 +298,7 @@ _data = {
 &"dash": SubResource("Animation_1ee41"),
 &"hurt": SubResource("Animation_3jldi"),
 &"idle": SubResource("Animation_eb6ml"),
+&"protect": SubResource("Animation_is6dy"),
 &"run": SubResource("Animation_at24j")
 }
 
@@ -289,6 +319,9 @@ animation = &"Saemi_anims/hurt"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nqy3w"]
 animation = &"Saemi_anims/idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wljpv"]
+animation = &"Saemi_anims/protect"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8yvst"]
 animation = &"Saemi_anims/run"
@@ -321,17 +354,30 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wljpv"]
-advance_mode = 0
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_is6dy"]
-switch_mode = 2
-advance_mode = 0
+advance_mode = 2
+advance_expression = "can_protect"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xx6kk"]
 advance_mode = 2
 advance_expression = "bullets_blocked_in_a_row > max_bullet_block"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tl5yj"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_is6dy"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8fkbi"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e1uvu"]
+advance_mode = 2
+advance_expression = "was_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1a6al"]
 switch_mode = 2
 advance_mode = 2
 
@@ -350,10 +396,12 @@ states/hurt/node = SubResource("AnimationNodeAnimation_eb6ml")
 states/hurt/position = Vector2(805, 154)
 states/idle/node = SubResource("AnimationNodeAnimation_nqy3w")
 states/idle/position = Vector2(379, 63)
+states/protect/node = SubResource("AnimationNodeAnimation_wljpv")
+states/protect/position = Vector2(470, 209)
 states/run/node = SubResource("AnimationNodeAnimation_8yvst")
 states/run/position = Vector2(629, 63)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1ee41"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_k0uyg"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3jldi"), "run", "attack 1", SubResource("AnimationNodeStateMachineTransition_eb6ml"), "attack 1", "run", SubResource("AnimationNodeStateMachineTransition_at24j"), "run", "block", SubResource("AnimationNodeStateMachineTransition_nqy3w"), "block", "run", SubResource("AnimationNodeStateMachineTransition_8yvst"), "run", "dash", SubResource("AnimationNodeStateMachineTransition_wljpv"), "dash", "run", SubResource("AnimationNodeStateMachineTransition_is6dy"), "block", "attack 2", SubResource("AnimationNodeStateMachineTransition_xx6kk"), "attack 2", "run", SubResource("AnimationNodeStateMachineTransition_tl5yj")]
-graph_offset = Vector2(300, -102)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1ee41"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_k0uyg"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3jldi"), "run", "attack 1", SubResource("AnimationNodeStateMachineTransition_eb6ml"), "attack 1", "run", SubResource("AnimationNodeStateMachineTransition_at24j"), "run", "block", SubResource("AnimationNodeStateMachineTransition_nqy3w"), "block", "run", SubResource("AnimationNodeStateMachineTransition_8yvst"), "run", "dash", SubResource("AnimationNodeStateMachineTransition_wljpv"), "block", "attack 2", SubResource("AnimationNodeStateMachineTransition_xx6kk"), "attack 2", "run", SubResource("AnimationNodeStateMachineTransition_tl5yj"), "dash", "protect", SubResource("AnimationNodeStateMachineTransition_is6dy"), "protect", "run", SubResource("AnimationNodeStateMachineTransition_8fkbi"), "run", "hurt", SubResource("AnimationNodeStateMachineTransition_e1uvu"), "hurt", "run", SubResource("AnimationNodeStateMachineTransition_1a6al")]
+graph_offset = Vector2(187, 11)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb6ml"]
 radius = 48.0
@@ -408,6 +456,7 @@ debug_color = Color(0.7, 0, 0, 0.13333334)
 [node name="BulletDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 32
+script = ExtResource("3_1ee41")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetectionArea"]
@@ -427,7 +476,7 @@ debug_color = Color(0.60666674, 0, 0.7, 0.41960785)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 32
+collision_mask = 48
 script = ExtResource("3_8yvst")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -437,5 +486,6 @@ debug_color = Color(0.3028583, 0.6281823, 0, 0.41960785)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]

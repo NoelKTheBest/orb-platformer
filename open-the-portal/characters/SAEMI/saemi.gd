@@ -9,13 +9,16 @@ extends CharacterBody2D
 
 var monitor_player_position = false
 var player_position = Vector2.ZERO
+var return_position = null
 var hitbox_pos: Vector2
 var player_nearby: bool
 var bullet_nearby: bool
 var is_currently_attacking: bool
 var is_currently_blocking: bool
-var protect: bool
+var can_protect: bool
+var protect_position_x
 var has_health_bar: bool = false
+var was_hit: bool = false
 var health = 3
 var current_animation = ""
 var bullets_blocked_in_a_row := 0
@@ -117,29 +120,63 @@ func _on_protect_timer_timeout() -> void:
 			
 			teleport_position_x = closest_enemy.position.x + (protection_vector.x * direction)
 	
-	position.x = teleport_position_x if closest_enemy else teleport_position_x + (protection_vector.x * direction)
+	# We only protect the entity if they are in front of us and so is the player
+	var do_we_protect = is_in_front(closest_enemy)
+	print("do we protect?: ", do_we_protect)
 	
-	if closest_enemy:
-		closest_enemy.wait_timer.start()
-		closest_enemy.is_being_commanded = true
+	# if the enemy hasn't died: protect them
+	if closest_enemy and do_we_protect: 
+		#position.x = teleport_position_x
+		protect_position_x = teleport_position_x
+		can_protect = true
+	print()
 	
-	await get_tree().create_timer(2.5).timeout
+	#if closest_enemy:
+		#closest_enemy.wait_timer.start()
+		#closest_enemy.is_being_commanded = true
 	
+	#await get_tree().create_timer(2.5).timeout
+	
+	# Save for later
+	#(position.x > protect_position_x && !sprite2d.flip_h) 
+	#or (position.x < protect_position_x && sprite2d.flip_h)
+
+
+func is_in_front(entity: Node):
+	var in_front_left = sprite_2d.flip_h and entity.position.x < position.x
+	var in_front_right = !sprite_2d.flip_h and entity.position.x > position.x
+	#print(entity.name, ":",  entity.position.x, ":", position.x, ":", sprite_2d.flip_h)
+	var p_in_front_left = player_position.x < entity.position.x and in_front_left
+	var p_in_front_right = player_position.x > entity.position.x and in_front_right
+	
+	# True if sprite.fliph == true false otherwise
+	var player_facing_left = get_parent().get_player_facing_direction()
+	# Set var for attack if not facing player
+	# Set var for block if facing player
+	
+	# For now, set only var for blocking
+	
+	var _facing_player_and_entity_in_front_right = in_front_right and p_in_front_right and !player_facing_left
+	var _facing_player_and_entity_in_front_left = in_front_left and p_in_front_left and player_facing_left
+	print()
+	
+	return p_in_front_left or p_in_front_right
 
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
+	# Do nothing if current_animation == "attack_2"
+	var can_be_hit = current_animation != "block" and current_animation != "attack_2" and current_animation != "protect"
+	
 	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything and bullets_blocked_in_a_row < 25:
 		if current_animation == "block":
 			body.has_bullet_hit_anything = true
 			body.queue_free()
-		# Do nothing if current_animation == "attack_2"
-		elif current_animation != "block" and current_animation != "attack_2":
+		elif can_be_hit:
 			body.has_bullet_hit_anything = true
 			body.queue_free()
 			if $EnemyHealthBar: take_damage()
 			else:
 				print("ouch")
-		
 
 
 func _on_animation_tree_animation_started(anim_name: StringName) -> void:
@@ -149,15 +186,39 @@ func _on_animation_tree_animation_started(anim_name: StringName) -> void:
 		print(bullets_blocked_in_a_row)
 	elif anim_name != "Saemi_anims/block":
 		bullets_blocked_in_a_row = 0
-		current_animation = ""
+		current_animation = anim_name.get_slice("/", 1)
 	
 	# set current animation to attack 2
 	if anim_name == "Saemi_anims/attack_2":
 		current_animation = "attack_2"
+	
+	if anim_name == "Saemi_anims/protect":
+		current_animation = "protect"
 
 
+# Clear current_animation variable when a specific animation ends
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	print(anim_name)
 	if anim_name == "Saemi_anims/attack_1":
 		if bullets_blocked_in_a_row > max_bullet_block:
 			bullets_blocked_in_a_row = 0
 			set_collision_mask_value(6, true)
+	
+	if anim_name == "Saemi_anims/dash":
+		can_protect = false
+	
+	if anim_name == "Saemi_anims/protect":
+		current_animation = ""
+	
+	if anim_name == "Saemi_anims/hurt":
+		was_hit = false
+		if return_position: position.x = return_position.x
+		else: print("hide")
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if area.name == "RaycastArea":
+		area.queue_free()
+		if $EnemyHealthBar: take_damage()
+		else: print("ouch")
+		was_hit = true

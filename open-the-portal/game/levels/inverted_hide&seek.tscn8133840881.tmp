@@ -379,23 +379,10 @@ goes_down = true
 floor_number = 3
 
 [node name="Player" parent="." instance=ExtResource("22_maqf1")]
-position = Vector2(1448, 784)
-
-[node name="Assassin" parent="." instance=ExtResource("23_hepmx")]
-position = Vector2(792, 424)
-vision_scale = 107.355
-metadata/_edit_group_ = true
-
-[node name="VisibilityArea" type="Area2D" parent="Assassin"]
-collision_layer = 0
-monitorable = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Assassin/VisibilityArea"]
-position = Vector2(0, -11)
-polygon = PackedVector2Array(8, 3, 205, -95, 205, 19, 8, 19)
+position = Vector2(1432, 768)
 
 [node name="Enemy" parent="." instance=ExtResource("21_xx5ju")]
-position = Vector2(936, 424)
+position = Vector2(496, 952)
 vision_scale = 107.355
 metadata/_edit_group_ = true
 
@@ -407,9 +394,20 @@ monitorable = false
 position = Vector2(0, -11)
 polygon = PackedVector2Array(8, 3, 205, -95, 205, 19, 8, 19)
 
+[node name="Assassin" parent="." instance=ExtResource("23_hepmx")]
+position = Vector2(792, 424)
+
+[node name="VisibilityArea" type="Area2D" parent="Assassin"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Assassin/VisibilityArea"]
+position = Vector2(0, -11)
+polygon = PackedVector2Array(8, 3, 205, -95, 205, 19, 8, 19)
+
 [node name="LevelCamera" type="Camera2D" parent="."]
 position = Vector2(736, 512)
-zoom = Vector2(0.625, 0.625)
+zoom = Vector2(0.635, 0.635)
 
 [node name="Radar" parent="." instance=ExtResource("27_rm30p")]
 visible = false

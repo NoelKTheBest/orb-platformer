@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwb6f82l33tg0"
-path="res://.godot/imported/Player Animations-Sheet_ARMSONLY.png-5cfcdf87d1d9a6726f37b508d0f2cfe8.ctex"
+uid="uid://ho4wkow8ff2k"
+path="res://.godot/imported/Player Animations-Sheet2.png-6eec7749dac9a6ec0fac944637f394de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/KALA/Player Animations-Sheet_ARMSONLY.png"
-dest_files=["res://.godot/imported/Player Animations-Sheet_ARMSONLY.png-5cfcdf87d1d9a6726f37b508d0f2cfe8.ctex"]
+source_file="res://characters/KALA/Player Animations-Sheet2.png"
+dest_files=["res://.godot/imported/Player Animations-Sheet2.png-6eec7749dac9a6ec0fac944637f394de.ctex"]
 
 [params]
 

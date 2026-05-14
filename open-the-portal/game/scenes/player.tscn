@@ -612,7 +612,7 @@ size = Vector2(9, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_br0p3"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 582
+collision_mask = 4166
 platform_floor_layers = 4294967293
 script = ExtResource("1_gocdo")
 accel = 25
@@ -697,6 +697,7 @@ scale = Vector2(1.675, 1.675)
 color = Color(1, 0, 0, 1)
 
 [node name="ConveyorBelt" parent="UserInterface" instance=ExtResource("9_2k1gg")]
+z_index = -10
 offset_left = 1296.4706
 offset_top = -1075.2941
 offset_right = 1296.4707

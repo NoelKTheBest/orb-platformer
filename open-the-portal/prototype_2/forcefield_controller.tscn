@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://3qf1pqlf7ymm"]
+[gd_scene load_steps=32 format=3 uid="uid://3qf1pqlf7ymm"]
 
 [ext_resource type="Texture2D" uid="uid://kimq6qwc6bx0" path="res://characters/The SwordMaster v1.2/The SwordMaster/Sword Master Sprite Sheet 90x37.png" id="1_i3umc"]
 [ext_resource type="Script" uid="uid://bqjx7lk3j3rhg" path="res://prototype_2/forcefield_controller.gd" id="1_lmgt8"]
@@ -6,6 +6,100 @@
 [ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="3_ykimm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqp1g"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k1sms"]
+animation = &"attack_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0nbeo"]
+animation = &"attack_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a0nqb"]
+animation = &"attack_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_niqlb"]
+animation = &"attack_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mnccd"]
+animation = &"idle"
+
+[sub_resource type="GDScript" id="GDScript_mnccd"]
+script/source = "class HelloWorld:
+	var hi = \"Hello World\"
+"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7ftx5"]
+animation = &"recover"
+script = SubResource("GDScript_mnccd")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k3dmg"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k1sms"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nbeo"]
+advance_mode = 2
+advance_expression = "velocity.x != 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a0nqb"]
+advance_mode = 2
+advance_expression = "velocity.x == 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lie8r"]
+advance_mode = 2
+advance_expression = "false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_67ftq"]
+advance_mode = 2
+advance_expression = "false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xhvhb"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w46wk"]
+advance_mode = 2
+advance_expression = "false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ppu4j"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_50117"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4f8o3"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hdwba"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ycu4r"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mnccd"]
+states/End/position = Vector2(914, 199)
+states/Start/position = Vector2(204, 199)
+states/attack_1/node = SubResource("AnimationNodeAnimation_k1sms")
+states/attack_1/position = Vector2(565, -34)
+states/attack_2/node = SubResource("AnimationNodeAnimation_0nbeo")
+states/attack_2/position = Vector2(683, -34)
+states/attack_3/node = SubResource("AnimationNodeAnimation_a0nqb")
+states/attack_3/position = Vector2(811, -34)
+states/attack_4/node = SubResource("AnimationNodeAnimation_niqlb")
+states/attack_4/position = Vector2(933, -34)
+states/idle/node = SubResource("AnimationNodeAnimation_mnccd")
+states/idle/position = Vector2(351, 118)
+states/recover/node = SubResource("AnimationNodeAnimation_7ftx5")
+states/recover/position = Vector2(738, 199)
+states/run/node = SubResource("AnimationNodeAnimation_k3dmg")
+states/run/position = Vector2(494, 199)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_k1sms"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_0nbeo"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_a0nqb"), "run", "attack_1", SubResource("AnimationNodeStateMachineTransition_lie8r"), "run", "attack_2", SubResource("AnimationNodeStateMachineTransition_67ftq"), "run", "attack_3", SubResource("AnimationNodeStateMachineTransition_xhvhb"), "run", "attack_4", SubResource("AnimationNodeStateMachineTransition_w46wk"), "attack_1", "recover", SubResource("AnimationNodeStateMachineTransition_ppu4j"), "attack_2", "recover", SubResource("AnimationNodeStateMachineTransition_50117"), "attack_3", "recover", SubResource("AnimationNodeStateMachineTransition_4f8o3"), "attack_4", "recover", SubResource("AnimationNodeStateMachineTransition_hdwba"), "recover", "run", SubResource("AnimationNodeStateMachineTransition_ycu4r")]
+graph_offset = Vector2(211, 54)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3umc"]
 
@@ -46,6 +140,12 @@ libraries = {
 &"": ExtResource("3_mnccd")
 }
 
+[node name="StateMachine" type="AnimationTree" parent="."]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_mnccd")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
@@ -57,8 +157,6 @@ debug_color = Color(0.17830646, 0.6199579, 0.49277264, 0.41960785)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
-
-[node name="Timer" type="Timer" parent="."]
 
 [node name="BulletDetectionRange" type="Area2D" parent="."]
 visible = false
@@ -98,7 +196,6 @@ collision_layer = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
-visible = false
 shape = SubResource("CircleShape2D_ykimm")
 debug_color = Color(0.7, 0, 0, 0.09411765)
 
@@ -110,12 +207,10 @@ offset_bottom = 7.0
 
 [node name="ProtectTimer" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="StateMachine" to="." method="_on_state_machine_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="BulletDetectionRange" to="." method="_on_bullet_detection_range_body_entered"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]
 [connection signal="body_entered" from="Hitbox1" to="." method="_on_hitbox_1_body_entered"]

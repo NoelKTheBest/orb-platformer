@@ -12,23 +12,30 @@ signal enemy_died()
 ## Distance from the player where enemy starts attacking
 @export var attack_distance : int = 30
 @export var speed = 2
-@export var launch_velocity : int
-@export var zero_gravity_deceleration : int
 @export var walk_velocity: float
+@export var vision_scale: float = 1.5
 
 var monitor_player_position = false
 var player_position = Vector2.ZERO
 var attacking :  bool
 var on_cooldown : bool
-var in_anti_gravity_zone = false
-var zero_gravity_decel_easing : float
 var attack_count = 0
 var attack_anim_playing
-var walking = true
+var walking = false
 var init_start_pos_x
 var movement_paused = false
 var is_being_commanded = false
 var random_speed_inc
+var bodies = []
+var patrol_area = true
+var camera_position := Vector2.ZERO
+var sound_source_position := Vector2.ZERO
+var heat_sensor_position := Vector2.ZERO
+var nearest_door_position := Vector2.ZERO
+var current_floor : int
+var using_door: bool = false
+var destination_floor: int
+var listen_for_player_coords = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -47,99 +54,128 @@ func _process(_delta: float) -> void:
 		sprite.flip_h = true
 		$Hitbox.position = Vector2(-14, 1)
 		player_attack_area.position = Vector2(2, 0)
+		if $VisibilityArea: $VisibilityArea.scale.x = -1
 	elif velocity.x > 0: 
 		sprite.flip_h = false
 		$Hitbox.position = Vector2(17, 1)
 		player_attack_area.position = Vector2.ZERO
+		if $VisibilityArea: $VisibilityArea.scale.x = 1
+	
+	
+	# if no other position is needed
+	if $VisibilityArea: set_monitor_player_status()
 
 
 func _physics_process(delta: float) -> void:
-	if !in_anti_gravity_zone:
-		if not is_on_floor():
-			velocity += get_gravity() * delta
+	#print(monitor_player_position, " s:pp")
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	# When the player enters the first bubble, enemy movement is triggered
+	#	The enemy will always move when the player is inside the first bubble
+	#if player_position: monitor_player_position = true
+	#print("enemy's player position: ", player_position)
+	
+	if listen_for_player_coords: monitor_player_position = true
+	
+	if camera_position != Vector2.ZERO and listen_for_player_coords:
+		player_position = camera_position
+	
+	if monitor_player_position:
+		var target_position
 		
-		# When the player enters the first bubble, enemy movement is triggered
-		#	The enemy will always move when the player is inside the first bubble
-		#if player_position: monitor_player_position = true
-		#print("enemy's player position: ", player_position)
-		
-		if !walking:
-			if monitor_player_position:
-				var _direction
-				var target_position = (player_position - position).normalized()
-				var _distance_to = position.distance_squared_to(player_position)
-				
-				velocity.x = target_position.x * (speed + random_speed_inc)
-				#if is_being_commanded: velocity.x = target_position.x * 10
-			else:
-				velocity.x = move_toward(velocity.x, 0, speed)
+		if nearest_door_position != Vector2.ZERO:
+			if !using_door: using_door = true
+			target_position = (nearest_door_position - position).normalized()
 		else:
-			if anim_player.current_animation != "shock" or anim_player.current_animation == "blinded":
-				anim_player.play("walk")
-			@warning_ignore("integer_division")
-			velocity.x = walk_velocity * speed
+			if using_door: using_door = false
+			target_position = (player_position - position).normalized()
+			var _distance_to = position.distance_squared_to(player_position)
 		
-		if is_being_commanded:
-			velocity.x = move_toward(velocity.x, 0, speed)
-		
-		# When the player enters the second bubble, the enemy begins it's attack cycle
-		#	The enemy will continuously attack the player with a breif cooldown in between 
-		#	when the player is inside the second bubble.
-		if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !movement_paused and !is_being_commanded:
-			if velocity.x != 0:
-				anim_player.play("run")
-			elif velocity.x == 0:
-				anim_player.play("idle")
-			$Hitbox.visible = false
-			$Hitbox.set_collision_layer_value(1, false)
-		elif player_attack_area.has_overlapping_bodies() and monitor_player_position:
-			if !on_cooldown:
-				#anim_player.play('block')
-				if attack_count < 3:
-					anim_player.play('block')
-					attacking = true
-					#attack_count += 1
-					#print(attack_count)
-				elif attack_count == 3:
-					anim_player.play("cross_slice")
-					attacking = true
-					#attack_count = 0
-					#print(attack_count)
-		
-		#if attacking and !player_attack_area.has_overlapping_bodies():
-			#attacking = false
-		
-		move_and_slide()
+		# Velocity should be set outside of the if/else blocks
+		velocity.x = target_position.x * (speed + random_speed_inc)
+		#print(velocity.x)
+		#if is_being_commanded: velocity.x = target_position.x * 10
 	else:
-		zero_gravity_decel_easing = 3 if velocity.y > -200 else 1
-		velocity.x = 1
-		if velocity.y > -27:
-			zero_gravity_decel_easing = 4
-			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
-		if velocity.y > -60:
-			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing * delta)
-		else:
-			velocity.y = move_toward(velocity.y, 0, zero_gravity_deceleration * zero_gravity_decel_easing)
-		
-		move_and_slide()
+		velocity.x = move_toward(velocity.x, 0, speed)
+		#print(velocity.x)
+	
+	if is_being_commanded:
+		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	# When the player enters the second bubble, the enemy begins it's attack cycle
+	#	The enemy will continuously attack the player with a breif cooldown in between 
+	#	when the player is inside the second bubble.
+	if !player_attack_area.has_overlapping_bodies() and !attacking and !walking and !movement_paused and !is_being_commanded:
+		if velocity.x != 0:
+			anim_player.play("run")
+		elif velocity.x == 0:
+			anim_player.play("idle")
+		$Hitbox.visible = false
+		$Hitbox.set_collision_layer_value(1, false)
+	elif player_attack_area.has_overlapping_bodies() and monitor_player_position:
+		if !on_cooldown:
+			#anim_player.play('block')
+			if attack_count < 3:
+				anim_player.play('block')
+				attacking = true
+				#attack_count += 1
+				#print(attack_count)
+			elif attack_count == 3:
+				anim_player.play("cross_slice")
+				attacking = true
+				#attack_count = 0
+				#print(attack_count)
+	
+	#if attacking and !player_attack_area.has_overlapping_bodies():
+		#attacking = false
+	
+	move_and_slide()
+
+
+ ##function will be used to set and reset the
+		##variable 'monitor_player_position' so that
+		##when the enemy spots the player, that enemy
+		##becomes hostile and only that enemy. Other
+		##other enemies in the area will also become
+		##if they see the player as well and the enemy
+		##that first spots the player may have the option
+		##to call for reinforcements
+func set_monitor_player_status():
+	#print(monitor_player_position, " s:smps")
+	# Check if area 2d representing vision space has
+	#	overlapping bodies (player) of check if 
+	#	player's position is within a specific x and y 
+	#	range
+	
+	# If a body overlaps, get ref to body
+	if $VisibilityArea.has_overlapping_bodies():
+		bodies = $VisibilityArea.get_overlapping_bodies()
+	# If we still have a ref to body and no current body, go to last known pos
+	elif !$VisibilityArea.has_overlapping_bodies():
+		bodies = []
+		if abs(position.x - player_position.x) < 5:
+			patrol_area = true
+			monitor_player_position = false
+		# If player was seen but managed to hide again,
+		#	wait 3-4 seconds and then continue with patrol cycle
+		#		(Animation Tree self updates)
+	
+	# If we have a player body, run to them
+	if bodies.size() > 0:
+		monitor_player_position = true
+		player_position = bodies[0].position
+		patrol_area = false
+		$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
+	else:
+		$VisibilityArea.scale.y = 1
+	
+	#print(monitor_player_position, " e:smps")
 
 
 func command():
 	if player_position: print(name, " is gonna block")
 	is_being_commanded = true
-
-
-func launch():
-	in_anti_gravity_zone = true
-	var distance_from_player = position.distance_squared_to(player_position)
-	var launch_factor = 1
-	if distance_from_player < 15000:
-		launch_factor = 1
-	elif distance_from_player > 15000:
-		launch_factor = 0.9
-	velocity.y = launch_velocity * launch_factor
-	#velocity.y = launch_velocity * (10000 / position.distance_squared_to(player_position))
-	#print(position.distance_squared_to(player_position))
 
 
 func die():

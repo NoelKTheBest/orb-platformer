@@ -59,6 +59,7 @@ var item_activation_frametime = 0
 var temp_delta = 0
 var sword_instance
 var current_item: String = ""
+var current_floor: int
 #endregion
 
 @onready var conveyor_belt: Control = $UserInterface/ConveyorBelt
@@ -154,19 +155,11 @@ func _process(delta: float) -> void:
 			current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
 			check_for_use_item(current_item)
 		
-		#if Input.is_action_pressed("use_item"):
-			#print_rich("[color=orange]hello")
-			#await item_activation_stopped
-			#print_rich("[color=orangered]world")
-		
 		sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
 		
 		if are_we_ready and !ready_signal_emitted: 
 			player_is_ready.emit()
 			ready_signal_emitted = true
-		
-		if Input.is_action_just_pressed("discard_sword"):
-			print("THROW SWORD")
 
 
 func _physics_process(delta: float) -> void:
@@ -206,10 +199,8 @@ func _physics_process(delta: float) -> void:
 			
 			if velocity.y == JUMP_VELOCITY: $AnimationPlayer.play("Player_Movement/jump")
 			if velocity.y > 0:
-				#print(velocity.y)
 				$AnimationPlayer.play("Player_Movement/fall")
 			
-			#print(velocity.x)
 			move_and_slide()
 		else:
 			move_and_slide()
@@ -229,6 +220,44 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and !event.is_pressed() and event.is_action("use_item") and current_item == "Wall":
 		item_activation_stopped.emit()
+	
+	#if event is InputEventKey and event.is_pressed() and event.is_action("shift_mode"):
+		#print(event)
+	
+	if event is InputEventKey:
+		#print(event)
+		# If we get an input key event and that corresponds to the action for shift mode
+		# set the player to be in shift mode. if we stop pressing the key for shift mode
+		# reset the shift mode var
+		# perform the same actions for any other key that we want to use when entering into shift mode
+		if event.is_pressed():
+			#if event.keycode == KEY_SHIFT
+			#if event.is_action("shift_mode"): 
+				#print_rich("[color=aliceblue]shift mode button was pressed")
+			#if event.is_action("move_down"):
+				#print_rich("[color=teal]down was pressed for parry")
+			
+			# Disabled for now to avoid lots of print statements
+			#if event.echo:
+				#print_rich("[color=lime]", event.shift_pressed)
+			
+			#if event.is_action_pressed("shift_mode") and event.is_action_pressed("move_down"):
+				#print_rich("[color=lime]BLOCK")
+			pass
+		else:
+			pass
+	
+	# input events that are not inputeventkeys will not go past here
+	
+	# The next code block will not trigger if whatever triggers shift mode is currently not being pressed
+	
+	# this code block will get skipped if the event isn't already an inputeventkey
+	# if in shift mode:
+	#	check for the keycodes corresponding to certain actions or check the actions directly
+	#	ensure that the actions have the modifier for whatever enables shift mode
+	#		if another key that is not shift, alt, or ctrl is used for entering shift mode:
+	#			do nothing (the
+	
 
 
 func move_camera(_delta : float):
@@ -358,7 +387,7 @@ func _on_item_activation_stopped():
 
 func _on_hurtbox_player_was_hit(collision_vector: Vector2) -> void:
 	$CameraFollow/Camera2D.apply_shake()
-	set_collision_layer_value(1, false)
+	set_collision_mask_value(2, false)
 	was_hit = true
 	$AnimationPlayer.play("hit")
 	velocity.x = collision_vector.normalized().x * knockback.x
@@ -376,7 +405,7 @@ func die():
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "hit":
-		set_collision_layer_value(1, true)
+		set_collision_mask_value(2, true)
 		was_hit = false
 
 

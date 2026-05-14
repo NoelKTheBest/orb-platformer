@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://4hvqsn8t0w4r"]
+[gd_scene load_steps=6 format=3 uid="uid://4hvqsn8t0w4r"]
 
 [ext_resource type="Script" uid="uid://dxr3luhrehy73" path="res://game/scripts/door.gd" id="1_2hid1"]
+[ext_resource type="Script" uid="uid://dsg24tiso7vee" path="res://game/scripts/door_area.gd" id="2_hb13g"]
 [ext_resource type="Script" uid="uid://bdy3c2lylemoo" path="res://tools/pointer.gd" id="2_insrw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xnux1"]
@@ -18,11 +19,11 @@ script = ExtResource("1_2hid1")
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1, 0.87499905)
 collision_layer = 0
-collision_mask = 3
+collision_mask = 4099
+script = ExtResource("2_hb13g")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource("CircleShape2D_xnux1")
 
 [node name="Label" type="Label" parent="."]
@@ -42,6 +43,7 @@ script = ExtResource("2_insrw")
 [node name="RayCast2D" type="RayCast2D" parent="Pointer"]
 visible = false
 modulate = Color(18.892157, 18.892157, 18.892157, 1)
+z_index = 1
 collision_mask = 0
 collide_with_bodies = false
 

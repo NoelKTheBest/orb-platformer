@@ -37,7 +37,7 @@ func _ready() -> void:
 	$Door.show_label = true
 	$Door2.show_label = true
 	player = $Player
-	$Player/UserInterface/Node.game_ticks = 16
+	#$Player/UserInterface/Node.game_ticks = 16
 	spawn_points = [spawn_point_1, spawn_point_2, spawn_point_3, spawn_point_4, spawn_point_5]
 	spawn_points_U = [spawn_point_1, spawn_point_2, spawn_point_3]
 	spawn_points_B = [spawn_point_4, spawn_point_5]
@@ -58,21 +58,18 @@ func _ready() -> void:
 	spawn_point_rate = (total_number_of_enemies / spawn_point_enemy_count) - 3
 	#print("rem: ", 8 % spawn_point_rate, "; 2nd rem: ", 16 % spawn_point_rate, "; 3rd rem: ", 12 % spawn_point_rate)
 	print()
+	
+	# Start immediately
+	#player_is_ready = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if $Door.player_can_use_door and Input.is_action_just_pressed("use_door"):
-		$Player.position = $Door2.position
-	if $Door2.player_can_use_door and Input.is_action_just_pressed("use_door"):
-		$Player.position = $Door.position
-	
 	if player_is_ready and !player_is_dead:
 		var enemies = get_tree().get_nodes_in_group("Enemy")
 		for enemy in enemies:
 			enemy.monitor_player_position = true
 			enemy.player_position = player.position
-			enemy.walking = false
 	
 	if !controller_is_dead:
 		$ForcefieldController.monitor_player_position = true
@@ -116,20 +113,20 @@ func _on_enemy_spawn_interval_timeout() -> void:
 		use_spawn_point = true
 		
 		if !player_is_dead and use_spawn_point:
-			var min_dist = 10000
+			var max_dist = 0
 			var closest_point
 			
 			if $UpperFloorArea.has_overlapping_bodies():
 				for sp in spawn_points_U:
 					var dist = abs(player.position.x - sp.position.x)
-					if dist < spawn_point_range and dist < min_dist:
-						min_dist = dist
+					if dist > max_dist:
+						max_dist = dist
 						closest_point = sp
 			elif !$UpperFloorArea.has_overlapping_bodies():
 				for sp in spawn_points_B:
 					var dist = abs(player.position.x - sp.position.x)
-					if dist < spawn_point_range and dist < min_dist:
-						min_dist = dist
+					if dist > max_dist:
+						max_dist = dist
 						closest_point = sp
 			
 			add_child(new_enemy)

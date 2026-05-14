@@ -31,10 +31,11 @@ var heat_sensor_position := Vector2.ZERO
 var nearest_door_position := Vector2.ZERO
 var current_floor : int
 var using_door: bool = false
+var destination_floor: int
 #endregion
 
 var on_cooldown : bool
-var walking = true
+#var walking = true
 var patrol_area = true
 var bodies = []
 var movement_paused = false
@@ -69,6 +70,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	#print(monitor_player_position, " s:pp")
 	#var collision
 	temp_v = velocity
 	if !cutscene_active:
@@ -146,6 +148,7 @@ func _physics_process(delta: float) -> void:
 		##that first spots the player may have the option
 		##to call for reinforcements
 func set_monitor_player_status():
+	#print(monitor_player_position, " s:smps")
 	# Check if area 2d representing vision space has
 	#	overlapping bodies (player) of check if 
 	#	player's position is within a specific x and y 
@@ -172,6 +175,8 @@ func set_monitor_player_status():
 		$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
 	else:
 		$VisibilityArea.scale.y = 1
+	
+	#print(monitor_player_position, " e:smps")
 
 
 func command():
