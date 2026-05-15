@@ -15,4 +15,4 @@ func _process(_delta: float) -> void:
 			if b.name == player_node_name:
 				if b.ready_to_advance and Input.is_action_just_pressed("use_door"):
 					end_game.emit()
-					print("game over")
+					get_tree().quit()

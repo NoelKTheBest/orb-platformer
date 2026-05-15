@@ -43,11 +43,16 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="ControlsScreenButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Controls"
+
+[node name="LevelSelectButton" type="Button" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-text = "Config"
+text = "Level Select"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -66,5 +71,52 @@ text = "Volume:"
 layout_mode = 2
 size_flags_vertical = 4
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 440.0
+offset_top = 176.0
+offset_right = 712.0
+offset_bottom = 408.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "<-----
+Back"
+
+[node name="EmptyLabel" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "WASD: move"
+
+[node name="Label2" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = " J: Fire"
+
+[node name="Label3" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "N: Fire"
+
+[node name="Label4" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Space: Jump"
+
+[node name="Label5" type="Label" parent="VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Esc: Pause"
+
 [connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ControlsScreenButton" to="." method="_on_controls_screen_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -10,6 +10,7 @@ extends Node2D
 @export var spawn_point_enemy_count: int = 2
 ## Determines how close player should be before an enemy spawn there
 @export var spawn_point_range = 150
+@export var spawn_point_y: int
 
 #region private vars
 var enemy_scene = preload("res://game/scenes/basic_enemy.tscn")
@@ -75,12 +76,13 @@ func _ready() -> void:
 	sprite1.texture = godotbot
 	sprite2.texture = godotbot
 	
-	var temppos1 = player.position - Vector2(sp_spacing, 5)
-	var temppos2 = player.position + Vector2(sp_spacing, -5)
+	var temppos1 = player.position - Vector2(sp_spacing, spawn_point_y)
+	var temppos2 = player.position + Vector2(sp_spacing, -spawn_point_y)
 	sprite1.position = temppos1
 	sprite2.position = temppos2
 	
 	level_rect = $Area2D/CollisionShape2D.shape.get_rect()
+	$Saemi.return_position = $ReturnPosition.position
 	
 	# Start immediately
 	player_is_ready = true
@@ -108,8 +110,8 @@ func _process(_delta: float) -> void:
 		if get_tree().get_nodes_in_group("Enemy").size() == 0 and $Forcefield != null: $Forcefield.queue_free()
 	
 	if !player_is_dead:
-		enemy_spawn_point1 = player.position - Vector2(sp_spacing, 5)
-		enemy_spawn_point2 = player.position + Vector2(sp_spacing, -5)
+		enemy_spawn_point1.x = player.position.x - sp_spacing
+		enemy_spawn_point2.x = player.position.x + sp_spacing
 		
 		if (player.position.x - lwp.position.x) < sp_spacing:
 			var x = (player.position.x - lwp.position.x) / 2
@@ -117,8 +119,12 @@ func _process(_delta: float) -> void:
 		if (rwp.position.x - player.position.x) < sp_spacing:
 			var x = (rwp.position.x - player.position.x) / 2 + player.position.x
 			enemy_spawn_point2 = Vector2(x, enemy_spawn_point2.y)
-		sprite1.position.x = enemy_spawn_point1.x
-		sprite2.position.x = enemy_spawn_point2.x
+		#sprite1.position.x = enemy_spawn_point1.x
+		#sprite2.position.x = enemy_spawn_point2.x
+		enemy_spawn_point1.y = spawn_point_y
+		enemy_spawn_point2.y = spawn_point_y
+		sprite1.position = enemy_spawn_point1
+		sprite2.position = enemy_spawn_point2
 	
 	if visible_sp:
 		sprite1.visible = true
@@ -202,17 +208,10 @@ func _on_enemy_spawn_interval_timeout() -> void:
 			pass
 
 
-func _on_forcefield_controller_controller_dead() -> void:
-	controller_is_dead = true
-	if get_tree().get_nodes_in_group("Enemy").size() == 0: $Forcefield.queue_free()
-
-
 func _on_goal_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		$CanvasLayer/Label.visible = true
 		$YouWinTimer.start()
-		
-
 
 
 func _on_you_win_timer_timeout() -> void:
@@ -222,3 +221,12 @@ func _on_you_win_timer_timeout() -> void:
 
 func _on_area_2d_body_entered(_body: CharacterBody2D) -> void:
 	pass
+
+
+func get_player_facing_direction():
+	return $Player/Sprite2D.flip_h
+
+
+func _on_saemi_dead() -> void:
+	controller_is_dead = true
+	if get_tree().get_nodes_in_group("Enemy").size() == 0: $Forcefield.queue_free()

@@ -4,13 +4,15 @@ extends Control
 @export var full_color = Color("2954ff")
 var blank_color = Color("2954ff00")
 
+var max_health = 5
+
 # Create and instantiate ColorRect nodes at runtime
 # Set the properties of each
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	max_health = get_child(1).get_children().size()
 
 
 func update_health(health: int):

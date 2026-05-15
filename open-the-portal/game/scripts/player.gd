@@ -104,6 +104,8 @@ func _process(delta: float) -> void:
 				new_ray_area.position = to_local($RayCast2D.get_collision_point())
 				new_ray_area.name = "RaycastArea"
 				add_child(new_ray_area)
+				$AudioStreamPlayer2D.stream = gun_blast_2
+				$AudioStreamPlayer2D.play()
 				if !never_ready: are_we_ready = true
 			
 			if Input.is_action_just_pressed("fire"):
@@ -123,25 +125,25 @@ func _process(delta: float) -> void:
 				
 					if !never_ready: are_we_ready = true
 
-			if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
-				# Consume returns -1 if there isn't enough energy.
-				if $UserInterface/Node.use_energy(8) != -1:
-					var new_orb = power_orb.instantiate()
-					# Set properties before node is ready to have access to them
-					orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
-					new_orb.position = orb_spawn_position.position
-					var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-					new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
-					add_child(new_orb)
-					var mother = get_parent()
-					new_orb.reparent(mother)
-					$PowerSpawnTimer.start()
-					power_cooldown = true
-					orb_was_fired.emit()
-					$AudioStreamPlayer2D.stream = gun_blast_2
-					$AudioStreamPlayer2D.play()
-					
-					if !never_ready: are_we_ready = true
+			#if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
+				## Consume returns -1 if there isn't enough energy.
+				#if $UserInterface/Node.use_energy(8) != -1:
+					#var new_orb = power_orb.instantiate()
+					## Set properties before node is ready to have access to them
+					#orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+					#new_orb.position = orb_spawn_position.position
+					#var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+					#new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
+					#add_child(new_orb)
+					#var mother = get_parent()
+					#new_orb.reparent(mother)
+					#$PowerSpawnTimer.start()
+					#power_cooldown = true
+					#orb_was_fired.emit()
+					#$AudioStreamPlayer2D.stream = gun_blast_2
+					#$AudioStreamPlayer2D.play()
+					#
+					#if !never_ready: are_we_ready = true
 		
 		if Input.is_action_just_pressed("advance_belt"):
 			conveyor_belt.advance_belt()
@@ -359,7 +361,7 @@ func check_for_use_item(item_name: String):
 			if Input.is_action_just_pressed("use_item"):
 				# Check if item was successfully used before activating power-up
 				if conveyor_belt.use_item():
-					health = 3
+					health = health_bar.max_health
 					health_bar.update_health(health)
 
 

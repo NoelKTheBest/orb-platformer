@@ -8,36 +8,67 @@ var move_tween: Tween
 func _ready():
 	$PlayerIcon.global_position = current_level.global_position
 
-func _input(event):
-	if move_tween and move_tween.is_running():
-		return
+
+func _process(_delta: float) -> void:
+	print("hello world")
 	
-	if event.is_action_pressed("move_right") and current_level.next_level_left:
+	if Input.is_action_just_pressed("move_right") and current_level.next_level_left:
 		current_level = current_level.next_level_left
 		$PlayerIcon.global_position = current_level.global_position
-		#tween_icon()
-	if event.is_action_pressed("move_left") and current_level.next_level_right:
+	if Input.is_action_just_pressed("move_left") and current_level.next_level_right:
 		current_level = current_level.next_level_right
 		$PlayerIcon.global_position = current_level.global_position
-		#tween_icon()
-	if event.is_action_pressed("move_up") and current_level.next_level_up:
+	if Input.is_action_just_pressed("move_up") and current_level.next_level_up:
 		current_level = current_level.next_level_up
 		$PlayerIcon.global_position = current_level.global_position
-		#tween_icon()
-	if event.is_action_pressed("move_down") and current_level.next_level_down:
+	if Input.is_action_just_pressed("move_down") and current_level.next_level_down:
 		current_level = current_level.next_level_down
 		$PlayerIcon.global_position = current_level.global_position
-		#tween_icon()
 	
-	if event.is_action_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept"):
 		if current_level.next_scene_path:
 			print(current_level.next_scene_path)
+			# Save ref to the current (level select) scene
+			SceneManager.level_select_scene = self
+			# Add loading screen to scene and switch to gameplay scene
 			Functions.load_screen_to_scene(current_level.next_scene_path)
 
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().get_root().add_child(parent_world_select)
-		get_tree().current_scene = parent_world_select
-		get_tree().get_root().remove_child(self)
+
+func _input(_event):
+	#if move_tween and move_tween.is_running():
+		#return
+	#
+	#if event.is_action_pressed("move_right") and current_level.next_level_left:
+		#current_level = current_level.next_level_left
+		#$PlayerIcon.global_position = current_level.global_position
+		##tween_icon()
+	#if event.is_action_pressed("move_left") and current_level.next_level_right:
+		#current_level = current_level.next_level_right
+		#$PlayerIcon.global_position = current_level.global_position
+		##tween_icon()
+	#if event.is_action_pressed("move_up") and current_level.next_level_up:
+		#current_level = current_level.next_level_up
+		#$PlayerIcon.global_position = current_level.global_position
+		##tween_icon()
+	#if event.is_action_pressed("move_down") and current_level.next_level_down:
+		#current_level = current_level.next_level_down
+		#$PlayerIcon.global_position = current_level.global_position
+		##tween_icon()
+	#
+	#if event.is_action_pressed("ui_accept"):
+		#if current_level.next_scene_path:
+			#print(current_level.next_scene_path)
+			## Save ref to the current (level select) scene
+			#SceneManager.level_select_scene = self
+			## Add loading screen to scene and switch to gameplay scene
+			#Functions.load_screen_to_scene(current_level.next_scene_path)
+	
+	# We currently do not need a world selection screen
+	#if event.is_action_pressed("ui_cancel"):
+		#get_tree().get_root().add_child(parent_world_select)
+		#get_tree().current_scene = parent_world_select
+		#get_tree().get_root().remove_child(self)
+	pass
 
 func tween_icon():
 	move_tween = get_tree().create_tween()

@@ -15,8 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="13_owd3j"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="15_l25wb"]
 [ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="15_otfas"]
-[ext_resource type="PackedScene" uid="uid://csiwsjd5kcbjk" path="res://prototype_2/pause_menu.tscn" id="16_5oagf"]
 [ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="16_ouwp2"]
+[ext_resource type="PackedScene" uid="uid://cpcmv3fq3u6i2" path="res://game/scenes/pause_menu.tscn" id="17_xm7j3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]
 size = Vector2(2093, 198)
@@ -27,9 +27,9 @@ size = Vector2(310.00006, 325)
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ouwp2")
 sp_spacing = 218
-visible_sp = false
 total_number_of_enemies = 30
 spawn_point_enemy_count = 5
+spawn_point_y = 538
 
 [node name="Forcefield" parent="." instance=ExtResource("2_xm7j3")]
 position = Vector2(2136, 451.00003)
@@ -265,12 +265,11 @@ texture_filter = 0
 texture = ExtResource("5_ofs0p")
 
 [node name="Player" parent="." instance=ExtResource("11_eodc1")]
-position = Vector2(1824, 496)
+position = Vector2(264, 504)
 metadata/_edit_group_ = true
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("12_xm7j3")
-volume_db = -80.0
 autoplay = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -284,12 +283,10 @@ position = Vector2(35, 529)
 position = Vector2(1076, 527)
 
 [node name="Assassin3" parent="." instance=ExtResource("15_l25wb")]
-position = Vector2(2064, 528)
+position = Vector2(1904, 528)
 
 [node name="Assassin2" parent="." instance=ExtResource("15_l25wb")]
 position = Vector2(1512, 520)
-
-[node name="PauseMenu" parent="." instance=ExtResource("16_5oagf")]
 
 [node name="Enemy" parent="." instance=ExtResource("13_owd3j")]
 position = Vector2(498, 533)
@@ -298,18 +295,24 @@ position = Vector2(498, 533)
 position = Vector2(1188, 524)
 
 [node name="Saemi" parent="." instance=ExtResource("15_otfas")]
-process_mode = 4
-visible = false
-position = Vector2(2075.5007, 517.8788)
+position = Vector2(2064, 520)
+metadata/_edit_group_ = true
 
 [node name="ProtectTimer" type="Timer" parent="Saemi"]
+process_callback = 0
 wait_time = 5.0
+autostart = true
 
 [node name="EnemyHealthBar" parent="Saemi" instance=ExtResource("16_ouwp2")]
 offset_left = -9.0
 offset_top = -33.0
 offset_right = 31.0
 offset_bottom = 7.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("17_xm7j3")]
+
+[node name="ReturnPosition" type="Node2D" parent="."]
+position = Vector2(1448, 520)
 
 [connection signal="timeout" from="ZeroGravityZoneTimer" to="." method="_on_zero_gravity_zone_timer_timeout"]
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
@@ -319,4 +322,5 @@ offset_bottom = 7.0
 [connection signal="timeout" from="YouWinTimer" to="." method="_on_you_win_timer_timeout"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="player_is_ready" from="Player" to="." method="_on_player_player_is_ready"]
+[connection signal="dead" from="Saemi" to="." method="_on_saemi_dead"]
 [connection signal="timeout" from="Saemi/ProtectTimer" to="Saemi" method="_on_protect_timer_timeout"]

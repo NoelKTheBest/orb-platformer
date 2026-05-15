@@ -18,6 +18,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 pivot_offset = Vector2(32, 32)
 script = ExtResource("1_so5qv")
+descriptive_name = null
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -25,6 +26,13 @@ offset_top = -25.0
 offset_right = 64.0
 offset_bottom = -2.0
 text = "Level 1"
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 63.0
+offset_right = 64.0
+offset_bottom = 86.0
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0

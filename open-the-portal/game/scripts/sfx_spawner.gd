@@ -12,4 +12,4 @@ func set_player(position: Vector2, audioStreamID: int):
 	new_stream.stream = stream
 	new_stream.position = position
 	new_stream.set_script(load("res://game/standard_sfx.gd"))
-	get_tree().root.add_child(new_stream)
+	get_tree().current_scene.add_child(new_stream)

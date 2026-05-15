@@ -7,4 +7,4 @@ func set_player(position: Vector2, sprite_frames: SpriteFrames = null):
 	new_animation.sprite_frames = sprite_fr
 	new_animation.position = position
 	new_animation.set_script(load("res://game/scripts/standard_vfx.gd"))
-	get_tree().root.add_child(new_animation)
+	get_tree().current_scene.add_child(new_animation)

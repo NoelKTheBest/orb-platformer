@@ -11,6 +11,7 @@ extends Node
 var doors: Array
 var areas: Array
 var enemies: Array
+var player_is_dead = false
 
 @onready var player: CharacterBody2D = $Player
 
@@ -52,16 +53,17 @@ func _process(_delta: float) -> void:
 			for entity in area.get_overlapping_bodies():
 				if entity.is_in_group("Player"): player_floor_num = area.floor_number
 	
-	for enemy in enemies:
-		# if both of these conditions are true, do one thing, in any other case, do the other thing
-		if enemy.current_floor != player_floor_num:
-			if !enemy.defend_position: find_objective_door(enemy, enemy.current_floor, player_floor_num)
-		# in the case we are on the same floor as the player, fight them
-		else:
-			enemy.camera_position = player.position
-			enemy.listen_for_player_coords = true
-			enemy.nearest_door_position = Vector2.ZERO
-			if enemy.defend_position: enemy.defend_position = false
+	if !player_is_dead:
+		for enemy in enemies:
+			# if both of these conditions are true, do one thing, in any other case, do the other thing
+			if enemy.current_floor != player_floor_num:
+				if !enemy.defend_position: find_objective_door(enemy, enemy.current_floor, player_floor_num)
+			# in the case we are on the same floor as the player, fight them
+			else:
+				enemy.camera_position = player.position
+				enemy.listen_for_player_coords = true
+				enemy.nearest_door_position = Vector2.ZERO
+				if enemy.defend_position: enemy.defend_position = false
 
 
 func find_objective_door(entity: Node, ecf, pcf):
@@ -92,3 +94,14 @@ func find_objective_door(entity: Node, ecf, pcf):
 		entity.destination_floor = main_floor_num
 		entity.nearest_door_position = door_to_main
 		entity.monitor_player_position = true
+
+
+func _on_player_player_died() -> void:
+	player_is_dead = true
+	$Player.queue_free()
+	#game_over = true
+	$GameOverTimer.start()
+
+
+func _on_game_over_timer_timeout() -> void:
+	get_tree().reload_current_scene()

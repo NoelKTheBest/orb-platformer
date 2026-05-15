@@ -60,7 +60,7 @@ func _ready() -> void:
 	print()
 	
 	# Start immediately
-	#player_is_ready = true
+	player_is_ready = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

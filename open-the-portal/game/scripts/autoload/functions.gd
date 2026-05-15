@@ -4,8 +4,11 @@ extends Node
 ## target: The target scene resource path
 ## parameters: An optional set of parameters to pass to the new scene. Keep in mind the target scene needs to understand the parameters for them to work.
 func load_screen_to_scene(target: String, parameters: Dictionary = {}) -> void:
+	# we can set godot to start with a loading screen
+	# since this script is an autoload function, it loads this scene into memory and will stay in memory until the user quits the application
 	var loading_screen = preload("res://game/scenes/loading_screen/loading_screen.tscn").instantiate() # Godot handles loading the loading screen upon game startup. We'll instance a new one here.
 	loading_screen.next_scene_path = target # Assign the next scene to the loader so it knows what to load
-	loading_screen.parameters = parameters # And the parameters to pass along
+	#loading_screen.parameters = parameters # And the parameters to pass along
+	#breakpoint
 	get_tree().current_scene.add_child(loading_screen) # Add the loading screen to the current scene. Note that this does not replace the current scene, so if you want the current scene to stop doing things, you'll need to pause it.
-	
+		# Apparently scenes can be loaded one on top of the other ?

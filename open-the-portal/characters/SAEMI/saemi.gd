@@ -23,6 +23,8 @@ var health = 3
 var current_animation = ""
 var bullets_blocked_in_a_row := 0
 
+signal dead
+
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
 @onready var hitbox: Area2D = $Hitbox
@@ -92,7 +94,7 @@ func take_damage():
 	$EnemyHealthBar.update_health(health)
 	if health == 0:
 		$EnemyHealthBar.update_health(health)
-		#controller_dead.emit()
+		dead.emit()
 		die()
 
 
@@ -121,7 +123,8 @@ func _on_protect_timer_timeout() -> void:
 			teleport_position_x = closest_enemy.position.x + (protection_vector.x * direction)
 	
 	# We only protect the entity if they are in front of us and so is the player
-	var do_we_protect = is_in_front(closest_enemy)
+	var do_we_protect
+	if closest_enemy: do_we_protect = is_in_front(closest_enemy)
 	print("do we protect?: ", do_we_protect)
 	
 	# if the enemy hasn't died: protect them
