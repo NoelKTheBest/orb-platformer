@@ -74,7 +74,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !cutscene_active:
 		$RayCast2D.target_position.x = 205 if !$Sprite2D.flip_h else -205
-		$RayCast2D.visible = false
+		#$RayCast2D.visible = false
+		$RailgunBeam.scale.x = 12.855 if !$Sprite2D.flip_h else -12.855
+		$RailgunBeam.visible = false
 		
 		temp_delta = delta
 		if enemy_pos: 
@@ -91,7 +93,7 @@ func _process(delta: float) -> void:
 		
 		if !cycle_active:
 			if Input.is_action_just_pressed("instant_fire") and $RayCast2D.is_colliding() and $UserInterface/Node.use_energy(8) != -1:
-				$RayCast2D.visible = true
+				$RailgunBeam.visible = true
 				var new_ray_area = Area2D.new()
 				var new_ray_collider = CollisionShape2D.new()
 				new_ray_collider.shape = CircleShape2D.new()
