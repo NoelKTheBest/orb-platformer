@@ -22,6 +22,7 @@ var was_hit: bool = false
 var health = 3
 var current_animation = ""
 var bullets_blocked_in_a_row := 0
+var kicked: bool
 
 signal dead
 
@@ -161,7 +162,6 @@ func is_in_front(entity: Node):
 	
 	var _facing_player_and_entity_in_front_right = in_front_right and p_in_front_right and !player_facing_left
 	var _facing_player_and_entity_in_front_left = in_front_left and p_in_front_left and player_facing_left
-	print()
 	
 	return p_in_front_left or p_in_front_right
 

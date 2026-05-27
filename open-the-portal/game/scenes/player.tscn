@@ -615,7 +615,7 @@ size = Vector2(9, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 4166
-platform_floor_layers = 4294967293
+platform_floor_layers = 68
 script = ExtResource("1_gocdo")
 accel = 25
 fall_velocity_factor = 2.53
@@ -686,7 +686,7 @@ offset_bottom = -129.41174
 [node name="CameraFollow" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
-zoom = Vector2(2.8, 2.8)
+zoom = Vector2(3.805, 3.805)
 position_smoothing_enabled = true
 position_smoothing_speed = 9.72
 drag_vertical_offset = -0.05

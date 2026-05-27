@@ -22,6 +22,7 @@ SfxSpawner="*res://game/scenes/sfx_spawner.tscn"
 VfxSpawner="*res://game/scenes/vfx_spawner.tscn"
 Functions="*res://game/scripts/autoload/functions.gd"
 SceneManager="*res://scene_manager.gd"
+Framefreeze="*res://framefreeze.gd"
 
 [display]
 

@@ -418,6 +418,7 @@ size = Vector2(20, 24)
 [node name="Saemi" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 101
+platform_floor_layers = 68
 script = ExtResource("1_nqy3w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

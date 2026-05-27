@@ -1,14 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=10 format=3 uid="uid://d30v7m85ufs4d"]
 
 [ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
-[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="2_4ry5c"]
-[ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="4_wscno"]
-[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="5_i8l2g"]
 [ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="6_4ubqe"]
 [ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="6_h6q6v"]
 [ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="7_388e8"]
 [ext_resource type="PackedScene" uid="uid://d1x2wb7hdgv5x" path="res://characters/KALA/kala.tscn" id="8_4t8w5"]
+[ext_resource type="PackedScene" uid="uid://dniwwpp3500ir" path="res://game/scenes/assassin.tscn" id="8_h6q6v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uhbgd"]
 
@@ -23,6 +21,7 @@ position = Vector2(-48.000004, 39.999996)
 scale = Vector2(1.566537, 2.8336828)
 color = Color(0.1512, 0.1533467, 0.28, 1)
 polygon = PackedVector2Array(-120.86426, -93.00778, 1748.1357, -93.00778, 1748.1357, 359.99222, -120.95517, 360.81866)
+metadata/_edit_lock_ = true
 
 [node name="Polygon2D" parent="." instance=ExtResource("1_uhbgd")]
 position = Vector2(264, 432)
@@ -57,9 +56,6 @@ scale = Vector2(43.199997, 1.5999986)
 position = Vector2(1016, 576)
 scale = Vector2(1.5999985, 14.400001)
 
-[node name="Player" parent="." instance=ExtResource("2_4ry5c")]
-position = Vector2(648, 568)
-
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 process_mode = 4
 visible = false
@@ -90,6 +86,8 @@ position = Vector2(1544, 528)
 position = Vector2(976, 616)
 
 [node name="Saemi" parent="." instance=ExtResource("7_388e8")]
+process_mode = 4
+visible = false
 position = Vector2(976, 592)
 protection_vector = Vector2(20, 0)
 
@@ -107,17 +105,10 @@ offset_right = 31.0
 offset_bottom = 7.0
 
 [node name="Kala" parent="." instance=ExtResource("8_4t8w5")]
-process_mode = 4
-visible = false
-position = Vector2(632, 560)
+position = Vector2(641, 595)
 
-[node name="Assassin2" parent="." instance=ExtResource("5_i8l2g")]
-process_mode = 4
-position = Vector2(720, 624)
-
-[node name="Enemy4" parent="." instance=ExtResource("4_wscno")]
-process_mode = 4
-position = Vector2(864, 624)
+[node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
+position = Vector2(815.8505, 608.60706)
 
 [connection signal="area_entered" from="CharacterBody2D/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="." method="_on_area_2d_body_entered"]

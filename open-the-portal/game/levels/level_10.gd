@@ -4,13 +4,17 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Saemi.return_position = $ReturnPosition.position
+	#Engine.time_scale = 0.5
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if $Saemi:
-		$Saemi.monitor_player_position = true
-		$Saemi.player_position = $Player.position
+	#if $Saemi:
+		#$Saemi.monitor_player_position = true
+		#$Saemi.player_position = $Player.position
+	
+	$Assassin.monitor_player_position = true
+	$Assassin.player_position = $Kala.position
 	#$Kala/CameraFollow/Camera2D.make_current()
 
 

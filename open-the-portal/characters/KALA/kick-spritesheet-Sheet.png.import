@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqdhotvv50a70"
-path="res://.godot/imported/Player Animations-Sheet_NOARMS.png-45f001305f24f7dfc749207d94c9ebff.ctex"
+uid="uid://ch2boh0lbnay4"
+path="res://.godot/imported/kick-spritesheet-Sheet.png-79e48f8fd9a85cf56859debc179bac7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/KALA/Player Animations-Sheet_NOARMS.png"
-dest_files=["res://.godot/imported/Player Animations-Sheet_NOARMS.png-45f001305f24f7dfc749207d94c9ebff.ctex"]
+source_file="res://characters/KALA/kick-spritesheet-Sheet.png"
+dest_files=["res://.godot/imported/kick-spritesheet-Sheet.png-79e48f8fd9a85cf56859debc179bac7c.ctex"]
 
 [params]
 

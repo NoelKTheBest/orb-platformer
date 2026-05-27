@@ -42,6 +42,7 @@ var bodies = []
 var movement_paused = false
 var shocked = false
 var is_being_commanded = false
+var kicked: bool
 var random_speed_inc
 
 var temp_v
