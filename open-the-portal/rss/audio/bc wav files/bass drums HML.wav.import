@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://68qb04eqbonh"
+path="res://.godot/imported/bass drums HML.wav-77add749ad10bd7682b35e652386fbf6.sample"
+
+[deps]
+
+source_file="res://rss/audio/bc wav files/bass drums HML.wav"
+dest_files=["res://.godot/imported/bass drums HML.wav-77add749ad10bd7682b35e652386fbf6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

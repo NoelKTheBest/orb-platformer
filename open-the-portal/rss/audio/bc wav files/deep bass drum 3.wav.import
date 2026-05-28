@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cl427wc08pgm6"
+path="res://.godot/imported/deep bass drum 3.wav-068c575706ab425f2a9385ee5a0bd16d.sample"
+
+[deps]
+
+source_file="res://rss/audio/bc wav files/deep bass drum 3.wav"
+dest_files=["res://.godot/imported/deep bass drum 3.wav-068c575706ab425f2a9385ee5a0bd16d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

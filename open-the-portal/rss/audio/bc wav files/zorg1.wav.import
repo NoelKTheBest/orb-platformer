@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxpopucrlmpvx"
+path="res://.godot/imported/zorg1.wav-e31d55ec165b4a46428f79cdfa174af5.sample"
+
+[deps]
+
+source_file="res://rss/audio/bc wav files/zorg1.wav"
+dest_files=["res://.godot/imported/zorg1.wav-e31d55ec165b4a46428f79cdfa174af5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
