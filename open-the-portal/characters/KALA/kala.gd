@@ -11,6 +11,7 @@ var kickbox_scene = preload("res://game/scenes/kickbox.tscn")
 @export var x_slow_amount: float = 1
 @export var accel : int
 @export var sprite_init_point: Vector2
+@export var kick_fall_timer_time: float = 0.4
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -43,7 +44,7 @@ func _process(_delta: float) -> void:
 		collided_enemy = kick_hitbox.get_overlapping_bodies()[0]
 	
 	kick_enemy = true if kick_hitbox.has_overlapping_bodies() and velocity.y > 0 else false
-	if $KickFallTimer.is_stopped() and kick_enemy: $KickFallTimer.start(0.4)
+	if $KickFallTimer.is_stopped() and kick_enemy: $KickFallTimer.start(kick_fall_timer_time)
 	#print($KickFallTimer.time_left)
 
 
@@ -60,16 +61,23 @@ func _physics_process(delta: float) -> void:
 				velocity += get_gravity() * fall_velocity_factor * delta
 		else:
 			velocity += get_gravity() * delta
+		
+		#print("factor: ", kick_fall_factor, "; inc: ", kick_fall_factor_inc, "; init: ", kick_fall_factor_init_val, "; y velocity: ", velocity.y)
 	else:
 		kick_fall_factor_inc = kick_fall_factor_init_val
+		#print_rich("[color=limegreen]--------------------------------------------------------")
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		SfxSpawner.set_player(position, 4)
 
 	if is_on_floor() and jump_buffer_timer.time_left > 0:
 		velocity.y = JUMP_VELOCITY
 		jump_buffer_timer.stop()
+	
+	if is_on_floor() and velocity.y > 0:
+		print("landed")
 
 	if is_on_floor(): set_collision_mask_value(2, true)
 	else: set_collision_mask_value(2, false)
@@ -88,9 +96,13 @@ func _physics_process(delta: float) -> void:
 	if $KickFallTimer.time_left == 0:
 		if direction < 0: sprite_2d.flip_h = true 
 		elif direction > 0: sprite_2d.flip_h = false
-		sprite_2d.position = Vector2(-11, 0) if sprite_2d.flip_h else Vector2(11, 0)
+		sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
 	
 	move_and_slide()
+	
+	#for i in get_slide_collision_count():
+		#var collision = get_slide_collision(i)
+		#print("Collided with: ", collision.get_collider().name)
 
 
 #func move_camera(_delta : float):
@@ -118,12 +130,11 @@ func _physics_process(delta: float) -> void:
 
 
 func freeze_frame(time_scale: float, duration: float):
-
 	Framefreeze.frame_freeze(time_scale, duration)
 
 
 func add_kickbox():
-		# Play sound effect
+	# Play sound effect
 	# Set variable for how long the game should wait to start animating the kick
 	# Allow animation to progress after hitstop
 	var area = kickbox_scene.instantiate()

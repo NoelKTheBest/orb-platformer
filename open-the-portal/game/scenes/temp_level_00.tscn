@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://d1rvlwvq6bvx2" path="res://rss/sprites/blank_filter.png" id="9_3b17c"]
 [ext_resource type="PackedScene" uid="uid://dsxbv6qlbd60t" path="res://game/scenes/Zena.tscn" id="10_agyxa"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="11_eodc1"]
-[ext_resource type="AudioStream" uid="uid://f8smuaf65a26" path="res://rss/audio/tuto3arreglado.mp3" id="12_xm7j3"]
+[ext_resource type="AudioStream" uid="uid://f8smuaf65a26" path="res://rss/audio/music/tuto3arreglado.mp3" id="12_xm7j3"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="13_owd3j"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="15_l25wb"]
 [ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="15_otfas"]

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://blmhdmsqnbexu" path="res://game/scenes/special_door.tscn" id="8_154ea"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="8_a2lcp"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="9_hp13q"]
-[ext_resource type="AudioStream" uid="uid://bp7ljdb574it8" path="res://rss/audio/silence_2v2.mp3" id="9_ym8yp"]
+[ext_resource type="AudioStream" uid="uid://bp7ljdb574it8" path="res://rss/audio/music/silence_2v2.mp3" id="9_ym8yp"]
 [ext_resource type="PackedScene" uid="uid://dwwnee8k6qvj6" path="res://game/scenes/code_byte.tscn" id="10_5g3t5"]
 [ext_resource type="Texture2D" uid="uid://tk61jnuhv2av" path="res://rss/sprites/codebytes2.png" id="12_a2lcp"]
 [ext_resource type="Texture2D" uid="uid://cpgwhdfi7kgoh" path="res://rss/sprites/codebytes3.png" id="13_ym8yp"]
