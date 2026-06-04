@@ -24,6 +24,7 @@ var player_nearby: bool
 var dodge_orb: bool
 var kicked: bool
 var player_about_to_kick
+var prev_x_velocity = 0
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
@@ -87,12 +88,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		#print(velocity.x)
+		
 	
 	if kicked and $Kickbox: velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
 	
 	player_nearby = true if player_attack_area.has_overlapping_bodies() else false
 
 	move_and_slide()
+	
+	
+	
+	prev_x_velocity = velocity.x
 
 
 func die():
