@@ -19,6 +19,7 @@ const JUMP_VELOCITY = -400.0
 var collided_enemy
 var kick_fall_factor_init_val
 var set_kick_true
+var prev_y_velocity = 0
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -70,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		SfxSpawner.set_player(position, 4)
+		#SfxSpawner.set_player(position, 4)
 
 	if is_on_floor() and jump_buffer_timer.time_left > 0:
 		velocity.y = JUMP_VELOCITY
@@ -100,9 +101,14 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	#for i in get_slide_collision_count():
-		#var collision = get_slide_collision(i)
-		#print("Collided with: ", collision.get_collider().name)
+	if velocity.y == 0 and prev_y_velocity > 0:
+		#breakpoint
+		#print_rich("[color=pink]----here----")
+		SfxSpawner.set_player(position, 4)
+	
+	#print("p: ", prev_y_velocity, " ;v: ", velocity.y)
+	
+	prev_y_velocity = velocity.y
 
 
 #func move_camera(_delta : float):
@@ -131,6 +137,15 @@ func _physics_process(delta: float) -> void:
 
 func freeze_frame(time_scale: float, duration: float):
 	Framefreeze.frame_freeze(time_scale, duration)
+
+
+func play_sfx(id: int):
+	match id:
+		0:
+			SfxSpawner.set_player(position, 0)
+			SfxSpawner.set_player(position, 5)
+			#SfxSpawner.set_player(position, 2)
+			SfxSpawner.set_player(position, 15)
 
 
 func add_kickbox():
