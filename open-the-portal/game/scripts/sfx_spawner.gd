@@ -27,12 +27,13 @@ const audio_stream_lib_names = {
 	17: "zang1",
 	18: "zing1",
 	19: "zorg1",
+	20: "hard impact"
 }
 
 func set_player(position: Vector2, audioStreamID: int):
 	var new_stream = AudioStreamPlayer2D.new()
-	var stream = load("res://audio/bc wav files/" + audio_stream_lib_names[audioStreamID] + ".wav")
+	var stream = load("res://rss/audio/bc wav files/" + audio_stream_lib_names[audioStreamID] + ".wav")
 	new_stream.stream = stream
 	new_stream.position = position
-	new_stream.set_script(load("res://game/standard_sfx.gd"))
+	new_stream.set_script(load("res://game/scripts/standard_sfx.gd"))
 	get_tree().current_scene.add_child(new_stream)
