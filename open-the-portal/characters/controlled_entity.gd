@@ -1,6 +1,12 @@
 @abstract extends CharacterBody2D
 
 @export var speed = 2
+var random_speed_inc
+
+
+func _ready() -> void:
+	random_speed_inc = randf()
+
 
 func _physics_process(delta: float) -> void:
 		# Add the gravity.
