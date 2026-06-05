@@ -1,5 +1,4 @@
-#extends "../../game/scripts/character_base.gd".Enemy
-extends "../../navigating_enemy.gd"
+extends BasicEntity
 
 var i := 0
 
@@ -7,7 +6,6 @@ var i := 0
 
 func _ready():
 	print("hello world")
-	print(monitor_player_position)
 
 
 func _process(delta: float) -> void:
@@ -20,11 +18,6 @@ func _process(delta: float) -> void:
 
 
 func change_state():
-	monitor_player_position = true
 	print("hello my baby, hello my darling, hello my ragtime gaaaal")
 	velocity.y = 50
 	velocity.x = 50
-
-
-func change_objective():
-	print("hi ", temp_name)

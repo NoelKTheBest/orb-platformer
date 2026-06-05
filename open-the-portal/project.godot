@@ -23,6 +23,10 @@ VfxSpawner="*res://game/scenes/vfx_spawner.tscn"
 Functions="*res://game/scripts/autoload/functions.gd"
 SceneManager="*res://scene_manager.gd"
 Framefreeze="*res://framefreeze.gd"
+ControlledEntity="*res://characters/controlled_entity.gd"
+NavigatableEntity="*res://characters/navigatable_entity.gd"
+BasicEntity="*res://characters/basic_entity.gd"
+AdvancedEntity="*res://characters/advanced_entity.gd"
 
 [display]
 
@@ -40,6 +44,7 @@ folder_colors={
 "res://addons/": "orange",
 "res://characters/": "pink",
 "res://characters/KALA/": "purple",
+"res://characters/SAEMI/": "yellow",
 "res://game/": "green",
 "res://game/character_statemachine_scripts/": "red",
 "res://game/character_statemachine_scripts/Saemi/": "pink",
