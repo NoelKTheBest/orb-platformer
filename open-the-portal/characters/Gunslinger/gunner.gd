@@ -6,7 +6,7 @@ var i := 0
 
 
 func update_state():
-	print("hello my baby, hello my darling, hello my ragtime gaaaal")
+	print("")
 
 
 func set_target_position():
