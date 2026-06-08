@@ -8,6 +8,7 @@
 var random_speed_inc
 
 
+## Sets random_speed_inc for entity
 func _ready() -> void:
 	random_speed_inc = randf()
 
