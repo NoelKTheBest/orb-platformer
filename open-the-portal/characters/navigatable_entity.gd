@@ -13,17 +13,16 @@
 ## End position for patrol area
 @export var patrol_end_x: float = 1.0
 
-#var target_position: Vector2
+## Internal variable for checking if the entity should pursue the player
 var monitor_player_position = false
 var player_position = Vector2.ZERO
 var camera_position := Vector2.ZERO
 var sound_source_position := Vector2.ZERO
-var heat_sensor_position := Vector2.ZERO
 var nearest_door_position := Vector2.ZERO
 var current_floor : int
 var using_door: bool = false
 var destination_floor: int
-var listen_for_player_coords = false
+#var listen_for_player_coords = false
 
 var squad_position
 var patrol_target_position_x
@@ -38,6 +37,16 @@ func _ready() -> void:
 	super()
 	
 	if on_gaurd: squad_position = position
+	print(2)
+
+
+func _physics_process(delta: float) -> void:
+	super(delta)
+	
+	player_position = SceneVariables.player_position
+	velocity.x = get_target_position().x * speed
+	
+	move_and_slide()
 
 
 ## Function to implement to set the target position of the entity based on position relative to player

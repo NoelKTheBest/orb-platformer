@@ -19,6 +19,7 @@ func _ready() -> void:
 	super()
 	
 	set_sprite_flip_h()
+	print(3)
 
 
 ## Sets [b]is_sprite_flipped[/b] and [b]flip_scale[/b] based on current x velocity[br][br]
@@ -43,12 +44,8 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	
-	velocity.x = get_target_position().x * speed
-	
 	# Call function to update player_nearby and other states
 	update_state()
-	
-	move_and_slide() # shouldn't be called here, velocity shouldn't change here(?)
 
 
 ## Function to override when changing any state variables for the entity

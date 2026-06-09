@@ -13,9 +13,11 @@ func _process(_delta: float) -> void:
 		#$Saemi.monitor_player_position = true
 		#$Saemi.player_position = $Player.position
 	
-	$Assassin.monitor_player_position = true
-	$Assassin.player_position = $Kala.position
+	#$Assassin.monitor_player_position = true
+	#$Assassin.player_position = $Kala.position
 	#$Kala/CameraFollow/Camera2D.make_current()
+	
+	SceneVariables.player_position = $Kala.position
 
 
 func get_player_facing_direction():

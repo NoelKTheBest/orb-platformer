@@ -5,8 +5,15 @@ var i := 0
 @export var gun_ammo_count = 3
 
 
+func _ready() -> void:
+	super()
+	
+	monitor_player_position = true
+	print(4)
+
+
 func update_state():
-	print("")
+	print(velocity.x, "; ", speed, "; ", get_target_position().x)
 
 
 func set_target_position():
@@ -18,4 +25,5 @@ func update_node_scale():
 
 
 func set_sprite_flip_h():
-	$Sprite2D.flip_h = false
+	#$Sprite2D.flip_h = false
+	pass

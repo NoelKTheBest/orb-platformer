@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ItemNameDictionary="*res://game/scenes/item_name_dictionary.tscn"
+ItemNameDictionary="res://game/scenes/item_name_dictionary.tscn"
 SfxSpawner="*res://game/scenes/sfx_spawner.tscn"
 VfxSpawner="*res://game/scenes/vfx_spawner.tscn"
 Functions="*res://game/scripts/autoload/functions.gd"
@@ -27,6 +27,7 @@ ControlledEntity="*res://characters/controlled_entity.gd"
 NavigatableEntity="*res://characters/navigatable_entity.gd"
 BasicEntity="*res://characters/basic_entity.gd"
 AdvancedEntity="*res://characters/advanced_entity.gd"
+SceneVariables="*res://game/scripts/autoload/scene_variables.gd"
 
 [display]
 
