@@ -8,12 +8,14 @@ var i := 0
 func _ready() -> void:
 	super()
 	
+	$AnimationTree.active = true
 	monitor_player_position = true
 	print(4)
 
 
 func update_state():
 	print(velocity.x, "; ", speed, "; ", get_target_position().x)
+	$Sprite2D.flip_h = is_sprite_flipped
 
 
 func set_target_position():

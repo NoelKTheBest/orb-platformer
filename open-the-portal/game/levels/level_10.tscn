@@ -120,6 +120,7 @@ speed = 150
 metadata/_edit_group_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="Gunner"]
+visible = false
 color = Color(0.27864504, 0.69, 0.18629998, 1)
 polygon = PackedVector2Array(-7, -12, 7, -12, 7, 13, -7, 13)
 
