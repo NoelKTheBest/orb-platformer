@@ -18,7 +18,7 @@ var current_animation : String
 func _ready() -> void:
 	super()
 	
-	set_sprite_flip_h()
+	#set_sprite_flip_h()
 	print(3)
 
 
@@ -57,4 +57,4 @@ func update_node_scale():
 	pass
 
 
-@abstract func set_sprite_flip_h()
+#@abstract func set_sprite_flip_h()

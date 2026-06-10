@@ -1,16 +1,14 @@
+# meta-description: Predefined setup for combat entities including basic state, navigation, and movement
+# meta-default: true
+# meta-space-indent: 4
+
 extends BasicEntity
-
-var i := 0
-
-@export var gun_ammo_count = 3
-
 
 func _ready() -> void:
 	super()
 	
 	$AnimationTree.active = true
 	monitor_player_position = true
-	print(4)
 
 
 func update_state():
