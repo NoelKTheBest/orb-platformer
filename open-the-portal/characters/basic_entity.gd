@@ -3,16 +3,18 @@
 
 ## Determines whether or not the sprite has been flipped due to negative velocity
 var is_sprite_flipped := false
-var hitbox_init_pos : Vector2
 ## Current scale to apply to sprite2D node and other nodes that point to a specific direction
 var flip_scale = -1
 ## Determines whether a player is nearby. Must be used with AnimationTree StateMachine Node
 var player_nearby := false
 ## Determines whether the entity was kicked by the player
 var kicked_by_player := false
+## Determines whether the entity should dodge and oncoming attack
+var dodge_orb: bool
+## Determines if the player's kick hitbox is detected
+var player_about_to_kick
 ## Variable for the currently playing animation from the AnimationTree node
 var current_animation : String
-
 
 ## Adds to base implementation in ControlledEntity and also forces [b]is_sprite_flipped[/b] to false
 func _ready() -> void:
