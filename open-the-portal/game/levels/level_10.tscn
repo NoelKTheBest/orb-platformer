@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
-[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="6_4ubqe"]
-[ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="6_h6q6v"]
+[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://game/prototype_2/forcefield_controller.tscn" id="6_4ubqe"]
+[ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://game/prototype_2/enemy_health_bar.tscn" id="6_h6q6v"]
 [ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="7_388e8"]
 [ext_resource type="PackedScene" uid="uid://beh6myo6hh71l" path="res://characters/Gunslinger/gunner.tscn" id="8_1rw26"]
 [ext_resource type="PackedScene" uid="uid://d1x2wb7hdgv5x" path="res://characters/KALA/kala.tscn" id="8_4t8w5"]
@@ -115,6 +115,7 @@ visible = false
 position = Vector2(815.8505, 608.60706)
 
 [node name="Gunner" parent="." instance=ExtResource("8_1rw26")]
+process_mode = 4
 position = Vector2(740, 596)
 speed = 150
 metadata/_edit_group_ = true

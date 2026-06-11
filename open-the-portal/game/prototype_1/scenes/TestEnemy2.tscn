@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://dn13chktqysaw"]
 
-[ext_resource type="Script" uid="uid://cgemk1845y8tm" path="res://prototype_1/scripts/test_enemy_2.gd" id="1_ub4r4"]
+[ext_resource type="Script" uid="uid://cgemk1845y8tm" path="res://game/prototype_1/scripts/test_enemy_2.gd" id="1_ub4r4"]
 [ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="2_aqr2d"]
 [ext_resource type="Texture2D" uid="uid://v5161umy35el" path="res://characters/@Platformer/Stab Dash.png" id="3_sl1nq"]
 [ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://characters/@Platformer/Fall.png" id="4_d1lt8"]

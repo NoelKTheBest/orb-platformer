@@ -1,144 +1,17 @@
-[gd_scene load_steps=39 format=3 uid="uid://bq0jk7scaq7j8"]
+[gd_scene load_steps=30 format=3 uid="uid://c315v4sddvhwd"]
 
-[ext_resource type="Script" uid="uid://dvu15etdbb08u" path="res://prototype_2/prototype_2_player.gd" id="1_3hypu"]
-[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="1_427xp"]
-[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://characters/@Platformer/Fall.png" id="2_3hypu"]
-[ext_resource type="Texture2D" uid="uid://dn3wbbng8tg0j" path="res://characters/@Platformer/Hit.png" id="2_66ah0"]
-[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://characters/@Platformer/Jump.png" id="3_bbphf"]
-[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://characters/@Platformer/Walk.png" id="4_lh3xe"]
-[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://characters/@Platformer/Bow Attack.png" id="5_o1ewr"]
-[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="6_5wh2a"]
-[ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://game/scripts/path.gd" id="7_66ah0"]
-[ext_resource type="Animation" uid="uid://ctyfyswdc7epw" path="res://game/launch_anim.res" id="7_lh3xe"]
-[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="8_33ej8"]
-[ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_bbphf"]
-[ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_5wh2a"]
-[ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_o1ewr"]
-[ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://game/scenes/conveyor_belt.tscn" id="15_33ej8"]
+[ext_resource type="Script" uid="uid://bil3j2sd3e0ie" path="res://game/prototype_1/scripts/prototype_1_player.gd" id="1_1toj7"]
+[ext_resource type="Texture2D" uid="uid://cksgf4ashlugy" path="res://characters/@Platformer/Idle.png" id="2_q7m5i"]
+[ext_resource type="Texture2D" uid="uid://clj2i4aoa50bj" path="res://characters/@Platformer/Fall.png" id="3_t8m4n"]
+[ext_resource type="Texture2D" uid="uid://dht3pa203ok2s" path="res://characters/@Platformer/Jump.png" id="4_bajr3"]
+[ext_resource type="Texture2D" uid="uid://dfxqj7sv1fc7d" path="res://characters/@Platformer/Walk.png" id="5_75ael"]
+[ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://characters/@Platformer/Bow Attack.png" id="6_o7yjn"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="7_siuk2"]
+[ext_resource type="Script" uid="uid://bhnehbalr51fi" path="res://game/scripts/path.gd" id="8_yf3v8"]
+[ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="9_n8c1r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]
 height = 26.0
-
-[sub_resource type="Animation" id="Animation_lh3xe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:launch_velocity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_66ah0")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_33ej8"]
-resource_name = "hit"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_66ah0")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 0, 1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o1ewr"]
-_data = {
-&"RESET": SubResource("Animation_lh3xe"),
-&"hit": SubResource("Animation_33ej8")
-}
 
 [sub_resource type="Animation" id="Animation_g4peo"]
 length = 0.001
@@ -152,7 +25,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_427xp")]
+"values": [ExtResource("2_q7m5i")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -205,7 +78,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_3hypu")]
+"values": [ExtResource("3_t8m4n")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -231,18 +104,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 4)]
-}
 
 [sub_resource type="Animation" id="Animation_2ke4t"]
 resource_name = "idle"
@@ -258,7 +119,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_427xp")]
+"values": [ExtResource("2_q7m5i")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -311,7 +172,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_bbphf")]
+"values": [ExtResource("4_bajr3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -337,18 +198,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 5)]
-}
 
 [sub_resource type="Animation" id="Animation_fkivj"]
 resource_name = "run"
@@ -364,7 +213,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_lh3xe")]
+"values": [ExtResource("5_75ael")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -390,18 +239,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 5)]
-}
 
 [sub_resource type="Animation" id="Animation_aob03"]
 resource_name = "shoot_orb"
@@ -416,7 +253,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_o1ewr")]
+"values": [ExtResource("6_o7yjn")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -451,56 +288,6 @@ _data = {
 &"jump": SubResource("Animation_efl2j"),
 &"run": SubResource("Animation_fkivj"),
 &"shoot orb": SubResource("Animation_aob03")
-}
-
-[sub_resource type="Animation" id="Animation_o1ewr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:launch_velocity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Path1/PathFollow2D:progress_ratio")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_5wh2a"]
-resource_name = "cycle_fire"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Path1/PathFollow2D:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0.0, 0.5, 1.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5wh2a"]
-_data = {
-&"RESET": SubResource("Animation_o1ewr"),
-&"cycle_fire": SubResource("Animation_5wh2a"),
-&"launch_anim": ExtResource("7_lh3xe")
 }
 
 [sub_resource type="Animation" id="Animation_rrmcd"]
@@ -551,114 +338,78 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_5lvp3"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 6, 25, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 6, -25)
+"points": PackedVector2Array(0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 16, -25, 0, 0, 0, 0, 1, -44)
 }
 point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_3gudb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 5, -21, 0, 0, 0, 0, 11, -55, 0, 0, 0, 0, 24, -73, 0, 0, 0, 0, 32, -62, 0, 0, 0, 0, 29, -28)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_ao4mi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 45, -59, 0, 0, 0, 0, 120, -65)
+}
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x6ccw"]
 size = Vector2(255, 216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w886"]
-size = Vector2(255, 216)
+size = Vector2(417, 216)
+
+[sub_resource type="Curve2D" id="Curve2D_khinc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, -34, 0, 0, 0, 0, 20, -52, 0, 0, 0, 0, -17, -50, 0, 0, 0, 0, -40, -32)
+}
+point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khinc"]
 size = Vector2(9, 14)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 582
-platform_floor_layers = 4294967293
-script = ExtResource("1_3hypu")
-accel = 25
-fall_velocity_factor = 2.53
-launch_velocity = 5
-influence_factor = Vector2(2, 1.5)
-energy_consumption = 150
-power_energy_consumption = 190
-knockback = Vector2(100, 15)
+collision_mask = 70
+script = ExtResource("1_1toj7")
+player_camera_focus_range = 234000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.4, 0.4, 0.4, 1)
-texture = ExtResource("2_66ah0")
-hframes = 2
+position = Vector2(0, 5)
+texture = ExtResource("2_q7m5i")
+hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_o1ewr"),
 &"Player_Movement": SubResource("AnimationLibrary_wdrn2")
-}
-
-[node name="LaunchAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_5wh2a")
 }
 
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
 
-[node name="EnergyRegenTimer" type="Timer" parent="."]
-wait_time = 5.0
-
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 0.295
+wait_time = 0.4
 one_shot = true
 
-[node name="PowerSpawnTimer" type="Timer" parent="."]
-
-[node name="JumpBufferTimer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.07
+wait_time = 0.25
 one_shot = true
-
-[node name="AntiGravityTimer" type="Timer" parent="."]
-
-[node name="UserInterface" parent="." instance=ExtResource("8_bbphf")]
-offset = Vector2(5, 600)
-scale = Vector2(0.425, 0.425)
-transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
-
-[node name="EnergyBar" parent="UserInterface" index="0"]
-offset_top = -9.411743
-offset_bottom = 89.58826
-
-[node name="Label" type="Label" parent="UserInterface"]
-offset_right = 40.0
-offset_bottom = 23.0
-scale = Vector2(3.505, 3.505)
-text = "Energy
-"
-
-[node name="ColorRect" type="ColorRect" parent="UserInterface"]
-offset_left = 2.3529434
-offset_top = -89.41174
-offset_right = 42.352943
-offset_bottom = -49.411743
-scale = Vector2(1.675, 1.675)
-color = Color(0, 0.29999995, 1, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="UserInterface"]
-offset_left = 87.05881
-offset_top = -89.41174
-offset_right = 127.05881
-offset_bottom = -49.411743
-scale = Vector2(1.675, 1.675)
-color = Color(1, 0, 0, 1)
 
 [node name="CameraFollow" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
 zoom = Vector2(2.25, 2.25)
 position_smoothing_enabled = true
-position_smoothing_speed = 9.72
+position_smoothing_speed = 7.16
 drag_vertical_offset = -0.05
 drag_top_margin = 0.59
 drag_bottom_margin = 0.63
 editor_draw_limits = true
-script = ExtResource("9_5wh2a")
-random_strength = 5.0
+editor_draw_drag_margin = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraFollow"]
 libraries = {
@@ -669,30 +420,48 @@ libraries = {
 modulate = Color(0.02, 0.934667, 1, 0.717647)
 z_index = -1
 scale = Vector2(0.046875, 0.046875)
-texture = ExtResource("6_5wh2a")
+texture = ExtResource("7_siuk2")
 
 [node name="Path1" type="Path2D" parent="."]
 visible = false
 curve = SubResource("Curve2D_5lvp3")
-script = ExtResource("7_66ah0")
+script = ExtResource("8_yf3v8")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path1"]
-position = Vector2(6, 25)
+position = Vector2(1, -44)
+rotation = -2.23909
+progress = 49.9174
 rotates = false
 
 [node name="OrbSpawnCyclePosition" type="Node2D" parent="Path1/PathFollow2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="Path1/PathFollow2D"]
-z_index = 1
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("6_5wh2a")
+[node name="Path2" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_3gudb")
 
-[node name="Timer" type="Timer" parent="Path1"]
-wait_time = 0.4
-one_shot = true
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2"]
+position = Vector2(20.020073, -67.489334)
+rotation = -2.23909
+progress = 49.9174
+rotates = false
+
+[node name="OrbSpawnCyclePosition" type="Node2D" parent="Path2/PathFollow2D"]
+
+[node name="Path3" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_ao4mi")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path3"]
+position = Vector2(18, 0)
+rotates = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Path3/PathFollow2D"]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("7_siuk2")
+
+[node name="OrbSpawnCyclePosition" type="Node2D" parent="Path3/PathFollow2D"]
 
 [node name="LeftEnemyDetection" type="Area2D" parent="."]
-visible = false
 position = Vector2(-88, 0)
 collision_layer = 0
 collision_mask = 2
@@ -700,13 +469,11 @@ monitorable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftEnemyDetection"]
-visible = false
 position = Vector2(-40, -4)
 shape = SubResource("RectangleShape2D_x6ccw")
 debug_color = Color(0.583333, 0, 0.7, 0.211765)
 
 [node name="RightEnemyDetection" type="Area2D" parent="."]
-visible = false
 position = Vector2(96, 0)
 collision_layer = 0
 collision_mask = 2
@@ -714,42 +481,27 @@ monitorable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightEnemyDetection"]
-visible = false
-position = Vector2(31.5, -4)
+position = Vector2(113.5, -4)
 shape = SubResource("RectangleShape2D_2w886")
 debug_color = Color(0.7, 0.63, 0, 0.223529)
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Path2D" type="Path2D" parent="."]
 visible = false
+curve = SubResource("Curve2D_khinc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = -0.5536813
+
+[node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 128
 monitorable = false
-script = ExtResource("8_33ej8")
+script = ExtResource("9_n8c1r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_khinc")
 debug_color = Color(0.12833337, 0.7, 0, 0.41960785)
 
-[node name="DamageTakenTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HealthBar" parent="CanvasLayer" instance=ExtResource("12_o1ewr")]
-
-[node name="Belt" type="CanvasLayer" parent="."]
-
-[node name="ConveyorBelt" parent="Belt" instance=ExtResource("15_33ej8")]
-pivot_offset = Vector2(0, 75)
-size_flags_vertical = 8
-
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="EnergyRegenTimer" to="." method="_on_energy_regen_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="PowerSpawnTimer" to="." method="_on_power_spawn_timer_timeout"]
-[connection signal="cycle_finished" from="Path1" to="." method="_on_path_1_cycle_finished"]
-[connection signal="progress_updated" from="Path1" to="." method="_on_path_1_progress_updated"]
-[connection signal="timeout" from="Path1/Timer" to="Path1" method="_on_timer_timeout"]
 [connection signal="player_was_hit" from="Hurtbox" to="." method="_on_hurtbox_player_was_hit"]
-
-[editable path="UserInterface"]

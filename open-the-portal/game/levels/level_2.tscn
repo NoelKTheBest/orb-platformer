@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbone50ld10kw" path="res://game/levels/level_2.gd" id="1_2f1k2"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_7dx7g"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="3_7neg2"]
-[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
+[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://game/prototype_2/breakable_forcefield.tscn" id="4_6jjde"]
 [ext_resource type="Texture2D" uid="uid://cbt7ukps6tmsr" path="res://characters/@Platformer/Death.png" id="5_6jjde"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="6_bxukv"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="8_bxukv"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://csiwsjd5kcbjk"]
 
-[ext_resource type="Script" uid="uid://cpy4k656dxyu3" path="res://prototype_2/pause_menu.gd" id="1_cjshu"]
+[ext_resource type="Script" uid="uid://cpy4k656dxyu3" path="res://game/prototype_2/pause_menu.gd" id="1_cjshu"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 process_mode = 2

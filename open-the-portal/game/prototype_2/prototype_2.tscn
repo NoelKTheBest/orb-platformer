@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://iyrs8bhoid4b"]
 
-[ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://prototype_2/prototype_2.gd" id="1_7x6nc"]
-[ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://prototype_2/prototype_2_player.tscn" id="1_d82v5"]
+[ext_resource type="Script" uid="uid://by1rwu3ysnsaq" path="res://game/prototype_2/prototype_2.gd" id="1_7x6nc"]
+[ext_resource type="PackedScene" uid="uid://bq0jk7scaq7j8" path="res://game/prototype_2/prototype_2_player.tscn" id="1_d82v5"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://game/scenes/ground.tscn" id="2_t48kh"]
-[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_yss4c"]
-[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
-[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="6_yss4c"]
-[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://prototype_2/forcefield_controller.tscn" id="7_vad36"]
+[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://game/prototype_2/forcefield.tscn" id="2_yss4c"]
+[ext_resource type="PackedScene" uid="uid://df87nlvinfr3e" path="res://game/prototype_2/prototype_2_enemy.tscn" id="4_7x6nc"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://game/prototype_2/assassin.tscn" id="6_yss4c"]
+[ext_resource type="PackedScene" uid="uid://3qf1pqlf7ymm" path="res://game/prototype_2/forcefield_controller.tscn" id="7_vad36"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="8_kbs4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]

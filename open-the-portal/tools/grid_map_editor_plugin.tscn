@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bm8gwnt1168wi"]
 
-[ext_resource type="Script" uid="uid://c0nu8dsqj25bj" path="res://grid_map_editor_plugin.gd" id="1_773h0"]
+[ext_resource type="Script" uid="uid://c0nu8dsqj25bj" path="res://tools/grid_map_editor_plugin.gd" id="1_773h0"]
 
 [node name="GridMapEditorPlugin" type="GridMapEditorPlugin"]
 script = ExtResource("1_773h0")

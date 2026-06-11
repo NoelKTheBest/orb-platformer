@@ -25,7 +25,7 @@ SceneManager="*res://scene_manager.gd"
 Framefreeze="*res://framefreeze.gd"
 ControlledEntity="*res://characters/controlled_entity.gd"
 NavigatableEntity="*res://characters/navigatable_entity.gd"
-BasicEntity="*res://characters/basic_entity.gd"
+BasicEntity="*res://characters/Gunslinger/basic_entity.gd"
 AdvancedEntity="*res://characters/advanced_entity.gd"
 SceneVariables="*res://game/scripts/autoload/scene_variables.gd"
 
@@ -41,7 +41,6 @@ enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://3d assets/": "yellow",
 "res://addons/": "orange",
 "res://characters/": "pink",
 "res://characters/KALA/": "purple",
@@ -51,11 +50,11 @@ folder_colors={
 "res://game/character_statemachine_scripts/Saemi/": "pink",
 "res://game/game_rss/": "orange",
 "res://game/levels/": "blue",
+"res://game/prototype_1/": "gray",
+"res://game/prototype_1/scenes/": "yellow",
+"res://game/prototype_1/scripts/": "orange",
+"res://game/prototype_2/": "gray",
 "res://game/scenes/loading_screen/": "gray",
-"res://prototype_1/": "gray",
-"res://prototype_1/scenes/": "yellow",
-"res://prototype_1/scripts/": "orange",
-"res://prototype_2/": "gray",
 "res://rss/": "purple",
 "res://rss/audio/": "blue",
 "res://rss/sprites/": "teal",

@@ -7,13 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://dawew04o1jji4" path="res://characters/KALA/Player Idle-Sheet.png" id="5_d1crr"]
 [ext_resource type="Texture2D" uid="uid://cpllppu7ks4jx" path="res://characters/KALA/Player Animations-Sheet.png" id="6_br0p3"]
 [ext_resource type="Texture2D" uid="uid://bvppc2fb0sq4e" path="res://characters/@Platformer/Bow Attack.png" id="7_gdsnf"]
-[ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://prototype_2/user_interface.tscn" id="8_4fdtx"]
+[ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://game/prototype_2/user_interface.tscn" id="8_4fdtx"]
 [ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://game/scenes/conveyor_belt.tscn" id="9_2k1gg"]
-[ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://prototype_2/camera_2d.gd" id="9_3i3c3"]
+[ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://game/prototype_2/camera_2d.gd" id="9_3i3c3"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="10_4dyke"]
 [ext_resource type="PackedScene" uid="uid://c5tyh3mannb30" path="res://game/scenes/code_bytes_ui.tscn" id="10_d1crr"]
 [ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="11_06pfm"]
-[ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://prototype_2/healthbars.tscn" id="12_f2egm"]
+[ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://game/prototype_2/healthbars.tscn" id="12_f2egm"]
 [ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://rss/audio/Gun blast 4.wav" id="14_ppdnp"]
 [ext_resource type="Texture2D" uid="uid://bclg6x34c84kt" path="res://rss/sprites/railgun_beam.png" id="16_dpk1l"]
 
@@ -621,6 +621,7 @@ accel = 25
 fall_velocity_factor = 2.53
 knockback = Vector2(100, 15)
 wall_pos_inc = 75
+launch_velocity = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

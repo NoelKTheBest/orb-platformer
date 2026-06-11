@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://de8asau4hrxnh"]
 
 [ext_resource type="Script" uid="uid://x3by28f00txk" path="res://game/scripts/temp_level_00.gd" id="1_ouwp2"]
-[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://prototype_2/forcefield.tscn" id="2_xm7j3"]
+[ext_resource type="PackedScene" uid="uid://cxkjcc3erp8bg" path="res://game/prototype_2/forcefield.tscn" id="2_xm7j3"]
 [ext_resource type="PackedScene" uid="uid://d077s8yfviux" path="res://game/scenes/ground.tscn" id="3_pkce0"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="4_v6vvq"]
 [ext_resource type="Texture2D" uid="uid://bjrhsao854oe1" path="res://rss/sprites/pixelart_starfields/pixelart_starfield.png" id="5_ofs0p"]
@@ -13,9 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="11_eodc1"]
 [ext_resource type="AudioStream" uid="uid://f8smuaf65a26" path="res://rss/audio/music/tuto3arreglado.mp3" id="12_xm7j3"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="13_owd3j"]
-[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="15_l25wb"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://game/prototype_2/assassin.tscn" id="15_l25wb"]
 [ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="15_otfas"]
-[ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://prototype_2/enemy_health_bar.tscn" id="16_ouwp2"]
+[ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://game/prototype_2/enemy_health_bar.tscn" id="16_ouwp2"]
 [ext_resource type="PackedScene" uid="uid://cpcmv3fq3u6i2" path="res://game/scenes/pause_menu.tscn" id="17_xm7j3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wds2"]

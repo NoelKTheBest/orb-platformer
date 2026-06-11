@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="21_xx5ju"]
 [ext_resource type="Script" uid="uid://dnunrn8yamuap" path="res://game/levels/floor_area.gd" id="22_j6wgf"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="22_maqf1"]
-[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://prototype_2/assassin.tscn" id="23_hepmx"]
+[ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://game/prototype_2/assassin.tscn" id="23_hepmx"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="25_j6wgf"]
 [ext_resource type="PackedScene" uid="uid://nfdqn7o63hfg" path="res://game/scenes/radar.tscn" id="27_rm30p"]
 

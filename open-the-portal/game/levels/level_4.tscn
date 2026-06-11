@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/game_rss/basic_ceiling_tileset.tres" id="2_p0pgv"]
 [ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/game_rss/basic_ceiling_light.tres" id="3_12tya"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="4_r6jdw"]
-[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://prototype_2/breakable_forcefield.tscn" id="5_u7kdy"]
+[ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://game/prototype_2/breakable_forcefield.tscn" id="5_u7kdy"]
 
 [node name="Level4" type="Node2D"]
 
