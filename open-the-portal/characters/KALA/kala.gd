@@ -63,9 +63,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity += get_gravity() * delta
 		
+		$KickHitbox.monitorable = true
 		#print("factor: ", kick_fall_factor, "; inc: ", kick_fall_factor_inc, "; init: ", kick_fall_factor_init_val, "; y velocity: ", velocity.y)
 	else:
 		kick_fall_factor_inc = kick_fall_factor_init_val
+		$KickHitbox.monitorable = false
 		#print_rich("[color=limegreen]--------------------------------------------------------")
 
 	# Handle jump.

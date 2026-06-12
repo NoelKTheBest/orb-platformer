@@ -599,9 +599,8 @@ collision_mask = 2
 [node name="KickHitbox" type="Area2D" parent="."]
 visible = false
 position = Vector2(0, 3)
-collision_layer = 0
+collision_layer = 16384
 collision_mask = 2
-monitorable = false
 priority = 2
 metadata/_edit_group_ = true
 
