@@ -1,8 +1,6 @@
 extends BasicEntity
 
-var i := 0
-
-@export var gun_ammo_count = 3
+const KICK_ANIMATION_NAME = "kicked"
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -38,9 +36,15 @@ func update_node_scale():
 @warning_ignore("unused_parameter")
 func area_entered_hurtbox(area: Area2D):
 	print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
-	#kicked_by_player = true
+	if area.is_in_group("Physical Attacks"):
+		kicked_by_player = true
 
 
 @warning_ignore("unused_parameter")
 func body_entered_hurtbox(body: Node2D):
 	pass
+
+
+func animation_finished(anim_name: StringName):
+	if anim_name == KICK_ANIMATION_NAME:
+		kicked_by_player = false

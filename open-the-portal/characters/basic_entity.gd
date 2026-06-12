@@ -47,6 +47,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Call function to update player_nearby and other states
 	update_state()
+	move_and_slide()
 
 
 ## Function to override when changing any state variables for the entity

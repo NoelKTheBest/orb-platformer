@@ -4,6 +4,9 @@
 
 extends BasicEntity
 
+const KICK_ANIMATION_NAME = "kicked"
+
+
 func _ready() -> void:
 	super()
 	
@@ -21,6 +24,8 @@ func update_state():
 	print(velocity.x, "; ", speed, "; ", get_target_position().x)
 	
 	$Sprite2D.flip_h = is_sprite_flipped
+	
+	if kicked_by_player and $Kickbox: velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
 
 
 func set_target_position():
@@ -36,8 +41,15 @@ func update_node_scale():
 @warning_ignore("unused_parameter")
 func area_entered_hurtbox(area: Area2D):
 	print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
+	if area.is_in_group("Physical Attacks"):
+		kicked_by_player = true
 
 
 @warning_ignore("unused_parameter")
 func body_entered_hurtbox(body: Node2D):
 	pass
+
+
+func animation_finished(anim_name: StringName):
+	if anim_name == KICK_ANIMATION_NAME:
+		kicked_by_player = false

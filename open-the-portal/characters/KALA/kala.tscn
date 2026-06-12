@@ -596,7 +596,7 @@ visible = false
 target_position = Vector2(0, 19)
 collision_mask = 2
 
-[node name="KickHitbox" type="Area2D" parent="."]
+[node name="KickHitbox" type="Area2D" parent="." groups=["Physical Attacks"]]
 visible = false
 position = Vector2(0, 3)
 collision_layer = 16384
