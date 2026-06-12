@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://beh6myo6hh71l"]
+[gd_scene load_steps=16 format=3 uid="uid://beh6myo6hh71l"]
 
 [ext_resource type="Script" uid="uid://ulwm4fi5msee" path="res://characters/Gunslinger/gunner.gd" id="1_mtho0"]
 [ext_resource type="Texture2D" uid="uid://s7fqk0iepawt" path="res://characters/Gunslinger/Gunslinger Run-Sheet.png" id="2_dbfto"]
 [ext_resource type="Texture2D" uid="uid://cd0la0wf11dva" path="res://characters/Gunslinger/Gunslinger Charge-Sheet.png" id="3_rjjsp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aad6l"]
+radius = 7.0
+height = 24.0
 
 [sub_resource type="Animation" id="Animation_uefk6"]
 length = 0.001
@@ -194,18 +196,16 @@ states/run/node = SubResource("AnimationNodeAnimation_xt6ul")
 states/run/position = Vector2(707, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_uefk6"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_oo7p7"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_xt6ul")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjjsp"]
+size = Vector2(20, 24)
+
 [node name="Gunner" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 101
 script = ExtResource("1_mtho0")
-gun_ammo_count = null
-patrol_area = null
-on_gaurd = null
-patrol_start_x = null
-patrol_end_x = null
-speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 3)
 shape = SubResource("CapsuleShape2D_aad6l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -224,3 +224,17 @@ active = false
 tree_root = SubResource("AnimationNodeStateMachine_jgwp0")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="PlayerAttackArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 24880
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_rjjsp")
+debug_color = Color(0.79809237, 0.41083765, 0.27730364, 0.41960785)

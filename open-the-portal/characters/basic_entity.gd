@@ -20,7 +20,6 @@ var current_animation : String
 func _ready() -> void:
 	super()
 	
-	#set_sprite_flip_h()
 	print(3)
 
 
@@ -59,4 +58,7 @@ func update_node_scale():
 	pass
 
 
-#@abstract func set_sprite_flip_h()
+@abstract func area_entered_hurtbox(area: Area2D)
+
+
+@abstract func body_entered_hurtbox(body: Node2D)
