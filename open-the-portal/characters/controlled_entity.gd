@@ -12,6 +12,10 @@ var prev_x_velocity = 0.0
 var prev_y_velocity = 0.0
 ## Initial position for player hitboxes
 var hitbox_init_pos : Vector2
+## Initial position for collider
+var collider_init_pos: Vector2
+## Initial position for hurtbox
+var hurtbox_init_pos: Vector2
 
 
 ## Sets random_speed_inc for entity
