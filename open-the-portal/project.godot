@@ -211,6 +211,8 @@ shift_mode={
 2d_physics/layer_12="Bomb"
 2d_physics/layer_13="Floor Area"
 2d_physics/layer_14="Sword"
+2d_physics/layer_15="Physical Attacks"
+2d_physics/layer_16="Struck Body"
 
 [rendering]
 
