@@ -111,11 +111,9 @@ position = Vector2(641, 595)
 
 [node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
 process_mode = 4
-visible = false
 position = Vector2(815.8505, 608.60706)
 
 [node name="Gunner" parent="." instance=ExtResource("8_1rw26")]
-process_mode = 4
 position = Vector2(740, 596)
 speed = 150
 metadata/_edit_group_ = true
