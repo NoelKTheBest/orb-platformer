@@ -35,6 +35,21 @@ func _physics_process(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, 0, speed)
 	
 	move_and_slide()
+	
+	# Detect change in velocity to make play impact sounds and vfx
+	if velocity.x == 0 and prev_x_velocity != 0:
+		impact()
+	
+	if velocity.y == 0 and prev_y_velocity != 0:
+		land_on_ground()
+	
+	prev_x_velocity = velocity.x
+	prev_y_velocity = velocity.y
 
 
-#@abstract func fart()
+func impact():
+	print("Play sfx and vfx")
+
+
+func land_on_ground():
+	print("Play sfx")
