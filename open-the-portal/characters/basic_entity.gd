@@ -7,6 +7,8 @@ var is_sprite_flipped := false
 var flip_scale = -1
 ## Determines whether a player is nearby. Must be used with AnimationTree StateMachine Node
 var player_nearby := false
+## Determines whether a bullet is nearby. Must be used with AnimationTree StateMachine Node
+var bullet_nearby := false
 ## Determines whether the entity was kicked by the player
 var kicked_by_player := false
 ## Determines whether the entity should dodge and oncoming attack
@@ -47,11 +49,16 @@ func _physics_process(delta: float) -> void:
 	
 	# Call function to update player_nearby and other states
 	update_state()
+	update_velocity()
 	move_and_slide()
 
 
 ## Function to override when changing any state variables for the entity
 @abstract func update_state()
+
+
+## Function to override when state must change velocity
+@abstract func update_velocity()
 
 
 ## Use to update scale and/or position for optional custom nodes such as VisibilityArea

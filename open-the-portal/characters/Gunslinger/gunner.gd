@@ -1,9 +1,11 @@
 extends BasicEntity
 
 const KICK_ANIMATION_NAME = "kicked"
+const BDA_NAME = "BulletDetectionArea"
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var player_attack_area: Area2D = $PlayerAttackArea
 
 
 func _ready() -> void:
@@ -22,11 +24,20 @@ func _ready() -> void:
 func update_state():
 	#print(velocity.x, "; ", speed, "; ", get_target_position().x)
 	
+	player_nearby = true if player_attack_area.has_overlapping_bodies() else false
+	if has_child(BDA_NAME):
+		bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
+		
+	if initially_guarding:
+		if player_nearby or bullet_nearby: on_guard = false
+		if !player_nearby and !bullet_nearby: on_guard = true
+	
 	$Sprite2D.flip_h = is_sprite_flipped
 
 
-func set_target_position():
-	pass
+func update_velocity():
+	if kicked_by_player and $Kickbox: 
+		velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
 
 
 func update_node_scale():

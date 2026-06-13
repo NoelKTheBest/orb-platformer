@@ -4,6 +4,9 @@
 
 ## Base speed of enemy
 @export var speed = 2
+@export_group("Random Speed Increase")
+@export var range_bottom := 0.1
+@export var range_top := 1.0
 ## amount to increase speed by to differentiate it this body's speed slightly from similar entities of the same type 
 var random_speed_inc
 ## Used to check for sudden changes in x velocity
@@ -20,7 +23,8 @@ var hurtbox_init_pos: Vector2
 
 ## Sets random_speed_inc for entity
 func _ready() -> void:
-	random_speed_inc = randf()
+	random_speed_inc = randf_range(range_bottom, range_top)
+	speed *= random_speed_inc
 	print(1)
 
 
@@ -53,3 +57,13 @@ func impact():
 
 func land_on_ground():
 	print("Play sfx")
+
+
+func has_child(child_name: StringName):
+	var children = get_children()
+	
+	for c in children:
+		if c.name == child_name:
+			return true
+	
+	return false

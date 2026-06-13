@@ -6,42 +6,73 @@
 ## waiting to see if the player enters their FOV. Overrides [b]monitor_player_position[/b]
 @export var patrol_area = true
 ## Determines if entity should stay in position as part of a squadron. Overrides [b]patrol_area[/b]
-@export var on_gaurd := true
-#@export var patrol_rect: Rect2
+@export var on_guard := true
+@export_group("Patrol Bounds")
 ## Start position for patrol area
 @export var patrol_start_x: float = 0.0
 ## End position for patrol area
 @export var patrol_end_x: float = 1.0
+@export_group("Guard Bounds")
+## Start position for guard bounds
+@export var guard_bound_start: float
+## End position for guard bounds
+@export var guard_bound_end: float
 
 ## Internal variable for checking if the entity should pursue the player
 var monitor_player_position = false
+## Internal variable for player's position
 var player_position = Vector2.ZERO
+## Not in use
 var camera_position := Vector2.ZERO
+## Not in use
 var sound_source_position := Vector2.ZERO
+## Position of nearest door that gets the entity closer to player
 var nearest_door_position := Vector2.ZERO
+## Number of the floor the entity is currently on
 var current_floor : int
+## Determines whether the entity is trying to use a door or not
 var using_door: bool = false
+## Number of the destination floor the entity wants to reach
 var destination_floor: int
 #var listen_for_player_coords = false
 
+## Initial position of entity if [b]on_guard[/b] is true
 var squad_position
+## Determines whether the entity was initially on guard at the start of the scene
+var initially_guarding := false
+## Not in use
 var patrol_target_position_x
+
 
 var player_out_of_range: bool = true
 
 #func normalize_target_position(): return target_position.normalized()
 
 
-## Sets [b]squad_position[/b] to current position if [b]on_gaurd[/b] is set to true
+## Sets [b]squad_position[/b] to current position if [b]on_guard[/b] is set to true
 func _ready() -> void:
 	super()
 	
-	if on_gaurd: squad_position = position
+	if on_guard:
+		squad_position = position
+		initially_guarding = true
 	print(2)
 
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	
+	if initially_guarding:
+		if on_guard:
+			monitor_player_position = false # do not pursue player
+			patrol_area = false # do not patrol area
+			
+			# return to squad_position
+			velocity.x = (squad_position - position).normalized().x * speed
+		else:
+			# Do stuff; check notebook
+			monitor_player_position = true # pursue player if they get too close
+			pass
 	
 	player_position = SceneVariables.player_position
 	velocity.x = get_target_position().x * speed
@@ -51,7 +82,7 @@ func _physics_process(delta: float) -> void:
 
 ## Function to implement to set the target position of the entity based on position relative to player
 func get_target_position() -> Vector2:
-	var target_position: Vector2
+	var target_position: Vector2 = position
 	
 	if monitor_player_position: # and number_of_enemies < min_req_for_helping:
 		if nearest_door_position != Vector2.ZERO:
@@ -60,6 +91,9 @@ func get_target_position() -> Vector2:
 		else:
 			if using_door: using_door = false
 			target_position = (player_position - position).normalized()
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, speed) # remove lines
+		# We should be setting target position to something that will force the enemy to stay in place and then not move
 	
 	return target_position
   
