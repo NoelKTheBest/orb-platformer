@@ -1,6 +1,9 @@
 @abstract extends NavigatableEntity
 ## Base abstract class for tying physics and state together for all combat entities
 
+## Signal sent when the entity wishes to call for backup
+signal call_for_reinforcements
+
 ## Determines whether or not the sprite has been flipped due to negative velocity
 var is_sprite_flipped := false
 ## Current scale to apply to sprite2D node and other nodes that point to a specific direction
@@ -45,7 +48,7 @@ func _process(_delta: float) -> void:
 
 ## Adds to the base _physics_process implementation by calling state update functions and updating other physics based variables within the physics loop
 func _physics_process(delta: float) -> void:
-	super(delta)
+	super(delta) # on guard variable can change during this call
 	
 	# Call function to update player_nearby and other states
 	update_state()

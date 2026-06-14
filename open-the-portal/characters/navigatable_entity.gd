@@ -56,6 +56,10 @@ func _ready() -> void:
 	if on_guard:
 		squad_position = position
 		initially_guarding = true
+		# use magic numbers for now to make the logic easier to understand and implement
+		# default bounds to keep the enemies understanding their position and state
+		guard_bound_start = position.x - 75
+		guard_bound_end = position.x + 75
 	print(2)
 
 
@@ -63,6 +67,7 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	
 	if initially_guarding:
+		# if we are on guard, we should stay that way for the entire frame so everything that needs to happen bc of it is predictable
 		if on_guard:
 			monitor_player_position = false # do not pursue player
 			patrol_area = false # do not patrol area
@@ -70,14 +75,19 @@ func _physics_process(delta: float) -> void:
 			# return to squad_position
 			velocity.x = (squad_position - position).normalized().x * speed
 		else:
-			# Do stuff; check notebook
 			monitor_player_position = true # pursue player if they get too close
-			pass
 	
 	player_position = SceneVariables.player_position
 	velocity.x = get_target_position().x * speed
 	
 	move_and_slide()
+	
+	# move to basic entity if we need to make sure basic entity doesn't override this code
+	# If entity is outside of guard bounds
+	if (position.x < guard_bound_start or position.x > guard_bound_end):
+		# and was initially guarding and not on_guard
+		if initially_guarding and !on_guard:
+			on_guard = true # Go back to guard position (squad_position)
 
 
 ## Function to implement to set the target position of the entity based on position relative to player

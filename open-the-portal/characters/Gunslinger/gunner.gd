@@ -29,7 +29,9 @@ func update_state():
 		bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
 		
 	if initially_guarding:
-		if player_nearby or bullet_nearby: on_guard = false
+		if player_nearby or bullet_nearby:
+			on_guard = false
+			call_for_reinforcements.emit()
 		if !player_nearby and !bullet_nearby: on_guard = true
 	
 	$Sprite2D.flip_h = is_sprite_flipped
