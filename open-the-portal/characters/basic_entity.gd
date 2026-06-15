@@ -14,12 +14,16 @@ var player_nearby := false
 var bullet_nearby := false
 ## Determines whether the entity was kicked by the player
 var kicked_by_player := false
+## Determines whether the entity is affected by another body that was kicked by the player
+var dominoed := false
 ## Determines whether the entity should dodge and oncoming attack
 var dodge_orb: bool
 ## Determines if the player's kick hitbox is detected
 var player_about_to_kick
 ## Variable for the currently playing animation from the AnimationTree node
 var current_animation : String
+## Determines if the enemy is currently facing the player
+var facing_player : bool
 
 ## Adds to base implementation in ControlledEntity and also forces [b]is_sprite_flipped[/b] to false
 func _ready() -> void:
@@ -54,6 +58,16 @@ func _physics_process(delta: float) -> void:
 	update_state()
 	update_velocity()
 	move_and_slide()
+
+
+func is_facing_player():
+	if player_position.x > position.x and SceneVariables.player_facing_left and !is_sprite_flipped:
+		facing_player = true
+	elif player_position.x < position.x and !SceneVariables.player_facing_left and is_sprite_flipped:
+		facing_player = true
+	# If none of the above conditions are true, set to false
+	else:
+		facing_player = false
 
 
 ## Function to override when changing any state variables for the entity

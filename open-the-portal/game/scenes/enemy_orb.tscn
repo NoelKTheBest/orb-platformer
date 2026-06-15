@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce1djlwvyf45n"]
+
+[ext_resource type="Script" uid="uid://dsdheyvs6gtg0" path="res://game/scripts/orb.gd" id="1_6ysay"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_ja16p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jl1vc"]
+radius = 2.0
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["Enemy Orbs"]]
+collision_layer = 32
+collision_mask = 96
+gravity_scale = 0.0
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_6ysay")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2.255, 2.255)
+shape = SubResource("CircleShape2D_jl1vc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.055, 0.055)
+texture = ExtResource("2_ja16p")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.34, 0.34)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,10 +1,6 @@
-# meta-description: Predefined setup for combat entities including basic state, navigation, and movement
-# meta-default: true
-# meta-space-indent: 4
-
 extends BasicEntity
 
-const KICK_ANIMATION_NAME = "kicked"
+const KICK_ANIMATION_NAME = "Assassin_Anims/kicked"
 const BDA_NAME = "BulletDetectionArea"
 const GA_NAME = "GuardArea"
 const VA_NAME = "VisibilityArea"
@@ -79,6 +75,7 @@ func area_entered_hurtbox(area: Area2D):
 			kicked_by_player = true
 		elif area.name == "Kickbox":
 			dominoed = true
+	
 
 
 @warning_ignore("unused_parameter")

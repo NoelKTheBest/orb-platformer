@@ -150,9 +150,9 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("advance_belt"):
 			conveyor_belt.advance_belt()
 		
-		if conveyor_belt.get_slot_content(0) != 0:
-			current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
-			check_for_use_item(current_item)
+		#if conveyor_belt.get_slot_content(0) != 0:
+			#current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
+			#check_for_use_item(current_item)
 		
 		sprite_2d.self_modulate = Color("676767") if !are_we_ready else Color("ffffff")
 		

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bljljsgic0wtv" path="res://game/scripts/kickbox.gd" id="1_p5rd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2ic6"]
+size = Vector2(32, 32)
 
 [sub_resource type="Animation" id="Animation_k2ic6"]
 length = 0.001

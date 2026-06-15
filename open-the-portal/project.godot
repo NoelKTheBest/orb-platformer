@@ -73,6 +73,7 @@ Door=""
 "Floor Areas"=""
 Collectable=""
 "Physical Attacks"="Group for physical attacks"
+"Enemy Orbs"="Group for enemy orbs and projectiles"
 
 [input]
 

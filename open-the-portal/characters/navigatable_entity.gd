@@ -4,19 +4,22 @@
 
 ## Determines if entity should walk from position to position in an area and
 ## waiting to see if the player enters their FOV. Overrides [b]monitor_player_position[/b]
-@export var patrol_area = true
-## Determines if entity should stay in position as part of a squadron. Overrides [b]patrol_area[/b]
+@export var on_patrol = true
+## Determines if entity should stay in position as part of a squadron. Overrides [b]on_patrol[/b]
 @export var on_guard := true
-@export_group("Patrol Bounds")
+@export_group("Patrol")
+@export var patrol_wait := 1.0
+@export_subgroup("Patrol Bounds")
 ## Start position for patrol area
-@export var patrol_start_x: float = 0.0
+@export var patrol_start := Vector2.ZERO
 ## End position for patrol area
-@export var patrol_end_x: float = 1.0
+@export var patrol_end := Vector2.ZERO
 @export_group("Guard Bounds")
 ## Start position for guard bounds
 @export var guard_bound_start: float
 ## End position for guard bounds
 @export var guard_bound_end: float
+
 
 ## Internal variable for checking if the entity should pursue the player
 var monitor_player_position = false
@@ -43,7 +46,7 @@ var initially_guarding := false
 ## Determines whether the entity was initially patrolling at the start of the scene
 var initially_patrolling := false
 ## Not in use
-var patrol_target_position_x
+var patrol_target_position: Vector2
 
 
 var player_out_of_range: bool = true
@@ -55,13 +58,18 @@ var player_out_of_range: bool = true
 func _ready() -> void:
 	super()
 	
-	if patrol_area:
-		# Entity is on patrol
+	if on_patrol:
+		initially_patrolling = true
 		# Make sure patrol bounds are set
-		# Setup periodic function calls so that entity knows to go back and forth between two locations
 		# Add in a wait period so the entity, stays at a location for a bit and then turns around and walks the other way
+		# default bounds to keep the enemies understanding their position and state
+		patrol_start = position - Vector2(40, 0)
+		patrol_end = position + Vector2(40, 0)
+		
 		# Add a VisibilityArea node as default. If added manually, I can change the shape and size of the area if needed
-		pass
+		var visibility_area = load("res://game/scenes/visibility_area.tscn")
+		var new_visibility_area = visibility_area.instantiate()
+		add_child(new_visibility_area)
 	
 	# guard state should overrride patrol state
 	if on_guard:
@@ -73,6 +81,9 @@ func _ready() -> void:
 		guard_bound_end = position.x + 75
 		
 		# Add GuardArea node as default. If added manually, I can change slightly the size or shape of the area if i so choose
+		var guard_area = load("res://game/scenes/guard_area.tscn")
+		var new_guard_area = guard_area.instantiate()
+		add_child(new_guard_area)
 	
 	print(2)
 
@@ -80,11 +91,17 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	
+	if on_patrol:
+		monitor_player_position = false
+		
+		velocity.x = patrol_target_position.normalized().x * (speed / 2)
+		check_for_end_of_area()
+	
 	if initially_guarding:
 		# if we are on guard, we should stay that way for the entire frame so everything that needs to happen bc of it is predictable
 		if on_guard:
 			monitor_player_position = false # do not pursue player
-			patrol_area = false # do not patrol area
+			on_patrol = false # do not patrol area
 			
 			# return to squad_position
 			velocity.x = (squad_position - position).normalized().x * speed
@@ -122,14 +139,14 @@ func get_target_position() -> Vector2:
 	return target_position
   
 
-## If [b]patrol_area[/b] is set to true, checks if the entity has reached the end of the patrolling area
+## If [b]on_patrol[/b] is set to true, checks if the entity has reached the end of the patrolling area
 func check_for_end_of_area():
 	# If position surpasses the bounds of the area, 
 	# 	set target position to opposite side of area
-	if position.x > patrol_end_x:
-		patrol_target_position_x = patrol_start_x
-	elif position.x < patrol_start_x:
-		patrol_target_position_x = patrol_end_x
+	if position.x > patrol_end.x:
+		patrol_target_position.x = patrol_start.x
+	elif position.x < patrol_start.x:
+		patrol_target_position.x = patrol_end.x
 
 
 ## Send the position the enemy should move to if the player is out of reach of the entity

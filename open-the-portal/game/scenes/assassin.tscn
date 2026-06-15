@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://dniwwpp3500ir"]
 
-[ext_resource type="Script" uid="uid://cwpfyla8ei2sf" path="res://game/scenes/assassin.gd" id="1_hvaqs"]
+[ext_resource type="Script" uid="uid://o3ofd778cq84" path="res://characters/assassin/assassin.gd" id="1_iin3u"]
 [ext_resource type="Texture2D" uid="uid://c635ff6w5alg0" path="res://characters/assassin/idle.png" id="1_taxno"]
 [ext_resource type="Texture2D" uid="uid://d2wk7547f1xc4" path="res://characters/assassin/run with VFX.png" id="3_hvaqs"]
 [ext_resource type="Texture2D" uid="uid://cui226i7cbbhe" path="res://characters/assassin/Sweep Attack without VFX.png" id="4_py2lc"]
@@ -64,26 +64,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath(".:speed")
+tracks/4/path = NodePath("Hitbox:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [false]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Hitbox:visible")
+tracks/5/path = NodePath(".:speed")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [285]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_72s3j"]
@@ -160,7 +160,7 @@ tracks/5/path = NodePath(".:speed")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.032203197),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
@@ -393,7 +393,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [285]
+"values": [10]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0nv64"]
@@ -487,8 +487,8 @@ size = Vector2(18, 20)
 collision_layer = 2
 collision_mask = 69
 platform_floor_layers = 68
-script = ExtResource("1_hvaqs")
-speed = 0
+script = ExtResource("1_iin3u")
+speed = 285
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_aad6l")
@@ -505,6 +505,7 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
 tree_root = SubResource("AnimationNodeStateMachine_f5qpw")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
