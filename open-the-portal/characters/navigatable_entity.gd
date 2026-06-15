@@ -40,6 +40,8 @@ var destination_floor: int
 var squad_position
 ## Determines whether the entity was initially on guard at the start of the scene
 var initially_guarding := false
+## Determines whether the entity was initially patrolling at the start of the scene
+var initially_patrolling := false
 ## Not in use
 var patrol_target_position_x
 
@@ -53,6 +55,15 @@ var player_out_of_range: bool = true
 func _ready() -> void:
 	super()
 	
+	if patrol_area:
+		# Entity is on patrol
+		# Make sure patrol bounds are set
+		# Setup periodic function calls so that entity knows to go back and forth between two locations
+		# Add in a wait period so the entity, stays at a location for a bit and then turns around and walks the other way
+		# Add a VisibilityArea node as default. If added manually, I can change the shape and size of the area if needed
+		pass
+	
+	# guard state should overrride patrol state
 	if on_guard:
 		squad_position = position
 		initially_guarding = true
@@ -60,6 +71,9 @@ func _ready() -> void:
 		# default bounds to keep the enemies understanding their position and state
 		guard_bound_start = position.x - 75
 		guard_bound_end = position.x + 75
+		
+		# Add GuardArea node as default. If added manually, I can change slightly the size or shape of the area if i so choose
+	
 	print(2)
 
 

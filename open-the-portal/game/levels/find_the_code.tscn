@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dqijx0goq5a7g"]
+[gd_scene load_steps=23 format=3 uid="uid://dqijx0goq5a7g"]
 
 [ext_resource type="Script" uid="uid://t1wlkisbmea6" path="res://game/levels/find_the_code.gd" id="1_1y0ru"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="2_hp13q"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://bp7ljdb574it8" path="res://rss/audio/music/silence_2v2.mp3" id="9_ym8yp"]
 [ext_resource type="PackedScene" uid="uid://dwwnee8k6qvj6" path="res://game/scenes/code_byte.tscn" id="10_5g3t5"]
 [ext_resource type="Texture2D" uid="uid://tk61jnuhv2av" path="res://rss/sprites/codebytes2.png" id="12_a2lcp"]
+[ext_resource type="PackedScene" uid="uid://dipxiwgexp3dp" path="res://game/scenes/guard_area.tscn" id="12_m7vxn"]
 [ext_resource type="Texture2D" uid="uid://cpgwhdfi7kgoh" path="res://rss/sprites/codebytes3.png" id="13_ym8yp"]
 [ext_resource type="Texture2D" uid="uid://b4g5kb66k6j00" path="res://rss/sprites/codebytes4.png" id="14_m7vxn"]
 [ext_resource type="PackedScene" uid="uid://cpcmv3fq3u6i2" path="res://game/scenes/pause_menu.tscn" id="15_a2lcp"]
@@ -373,6 +374,8 @@ defend_position = true
 position = Vector2(1080, 720)
 defend_position = true
 
+[node name="GuardArea" parent="Enemy10" instance=ExtResource("12_m7vxn")]
+
 [node name="Enemy11" parent="." instance=ExtResource("9_hp13q")]
 position = Vector2(1216, 712)
 defend_position = true
@@ -478,7 +481,6 @@ visible = false
 
 [node name="GameOverTimer" type="Timer" parent="."]
 
-[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 
 [editable path="CodeByte2"]

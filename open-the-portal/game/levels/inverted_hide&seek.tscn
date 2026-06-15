@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://derf073sh1442"]
+[gd_scene load_steps=54 format=4 uid="uid://derf073sh1442"]
 
 [ext_resource type="Texture2D" uid="uid://jxwub44swbvj" path="res://tilesets/Free Industrial Zone Tileset/1 Tiles/IndustrialTile_02.png" id="1_l0dmc"]
 [ext_resource type="Script" uid="uid://3yjem3rrifuy" path="res://game/levels/inverted_hide&seek.gd" id="1_xexdt"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="22_maqf1"]
 [ext_resource type="PackedScene" uid="uid://bisn4yccayopb" path="res://game/prototype_2/assassin.tscn" id="23_hepmx"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="25_j6wgf"]
+[ext_resource type="PackedScene" uid="uid://dmfi2vbui0obv" path="res://game/scenes/visibility_area.tscn" id="26_pwqfw"]
 [ext_resource type="PackedScene" uid="uid://nfdqn7o63hfg" path="res://game/scenes/radar.tscn" id="27_rm30p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jvm8s"]
@@ -386,13 +387,7 @@ position = Vector2(792, 424)
 vision_scale = 107.355
 metadata/_edit_group_ = true
 
-[node name="VisibilityArea" type="Area2D" parent="Assassin"]
-collision_layer = 0
-monitorable = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Assassin/VisibilityArea"]
-position = Vector2(0, -11)
-polygon = PackedVector2Array(8, 3, 205, -95, 205, 19, 8, 19)
+[node name="VisibilityArea" parent="Assassin" instance=ExtResource("26_pwqfw")]
 
 [node name="Enemy" parent="." instance=ExtResource("21_xx5ju")]
 position = Vector2(936, 424)

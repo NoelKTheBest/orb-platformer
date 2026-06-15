@@ -6,10 +6,16 @@ extends BasicEntity
 
 const KICK_ANIMATION_NAME = "kicked"
 const BDA_NAME = "BulletDetectionArea"
+const GA_NAME = "GuardArea"
+const VA_NAME = "VisibilityArea"
+
+var player_within_vicinity
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
+#@onready var guard_area: Area2D = $GuardArea
+#@onready var visibility_area: Area2D = $VisibilityArea
 
 
 func _ready() -> void:
@@ -28,9 +34,14 @@ func _ready() -> void:
 func update_state():
 	print(velocity.x, "; ", speed, "; ", get_target_position().x)
 	
+	# This is used to transition to attack state if player is close enough
 	player_nearby = true if player_attack_area.has_overlapping_bodies() else false
 	if has_child(BDA_NAME):
 		bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
+	if has_child(GA_NAME):
+		player_within_vicinity = true if $GuardArea.has_overlapping_bodies() else false
+	if has_child(VA_NAME):
+		player_within_vicinity = true if $VisibilityArea.has_overlapping_bodies() else false
 	
 	if initially_guarding:
 		if player_nearby or bullet_nearby:
