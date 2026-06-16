@@ -45,7 +45,8 @@ func add_item(item_id: int, _item_texture: Texture2D = null) -> bool:
 		inventory[empty_index] = item_id
 		
 		# Show pickup notification
-		var item_name = ItemNameDictionary.ITEM_NAMES.get(item_id, "Unknown Item")
+		#var item_name = ItemNameDictionary.ITEM_NAMES.get(item_id, "Unknown Item")
+		var item_name = ""
 		show_pickup_notification(item_name)
 		
 		if DEBUG:

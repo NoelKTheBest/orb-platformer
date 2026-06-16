@@ -16,7 +16,7 @@ var enemy_2_mod_rem
 var player_is_ready = false
 var player_is_dead = false
 var enemy_scene = preload("res://game/scenes/basic_enemy.tscn")
-var assassin = preload("res://prototype_2/assassin.tscn")
+var assassin = preload("res://game/scenes/assassin.tscn")
 var player
 var sp_toggle = 0
 var controller_is_dead = false
