@@ -28,6 +28,8 @@
 ## Resistance amount
 @export var domino_force_resistance: float
 
+var debug = false
+
 ## amount to increase speed by to differentiate it this body's speed slightly from similar entities of the same type 
 var random_speed_inc
 ## Used to check for sudden changes in x velocity
@@ -92,3 +94,7 @@ func has_child(child_name: StringName):
 			return true
 	
 	return false
+
+
+func print_velocity():
+	if debug: print(velocity.x, "; ", speed)

@@ -1,24 +1,14 @@
 extends BasicEntity
 
 const KICK_ANIMATION_NAME = "kicked"
-const BDA_NAME = "BulletDetectionArea"
-const GA_NAME = "GuardArea"
-const VA_NAME = "VisibilityArea"
-
-var player_within_vicinity
 
 var orb_spawn_position
 var orb = preload("res://game/scenes/enemy_orb.tscn")
 const ORB_VELOCITY = 475
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var player_attack_area: Area2D = $PlayerAttackArea
-
 
 func _ready() -> void:
 	super()
-	
-	collider_init_pos = collision_shape_2d.position
 	
 	$AnimationTree.active = true
 	$AnimationTree.animation_finished.connect(animation_finished)
@@ -26,7 +16,6 @@ func _ready() -> void:
 	$Hurtbox.body_entered.connect(body_entered_hurtbox)
 	
 	monitor_player_position = true
-	print(4)
 
 
 func _process(_delta: float) -> void:
@@ -42,34 +31,6 @@ func _process(_delta: float) -> void:
 		new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
 		add_child(new_orb)
 		SfxSpawner.set_player(orb_spawn_position, 17)
-
-
-func update_state():
-	#print(velocity.x, "; ", speed, "; ", get_target_position().x)
-	
-	player_nearby = true if player_attack_area.has_overlapping_bodies() else false
-	if has_child(BDA_NAME):
-		bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
-	if has_child(GA_NAME):
-		player_within_vicinity = true if $GuardArea.has_overlapping_bodies() else false
-	if has_child(VA_NAME):
-		player_within_vicinity = true if $VisibilityArea.has_overlapping_bodies() else false
-	
-	if initially_guarding:
-		if player_nearby or bullet_nearby:
-			on_guard = false
-			call_for_reinforcements.emit() # Called whenever guard state changes. parent can ignore if needed
-		if !player_nearby and !bullet_nearby: on_guard = true
-	
-	if initially_patrolling:
-		if player_nearby or player_within_vicinity:
-			on_patrol = false
-			call_for_reinforcements.emit() # Called whenever patrol state changes. parent can ignore if needed
-	
-	if kicked_by_player: set_collision_mask_value(2, true)
-	else: set_collision_mask_value(2, false)
-	
-	$Sprite2D.flip_h = is_sprite_flipped
 
 
 @warning_ignore("unused_parameter")
