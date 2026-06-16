@@ -489,6 +489,12 @@ collision_mask = 69
 platform_floor_layers = 68
 script = ExtResource("1_iin3u")
 speed = 285
+kick_force = 600.0
+kick_deceleration = 20.0
+kick_deceleration_time = 6.0
+domino_force = 70.0
+domino_deceleration = 10.0
+domino_deceleration_time = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_aad6l")

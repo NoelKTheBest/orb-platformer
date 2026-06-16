@@ -7,7 +7,6 @@ const VA_NAME = "VisibilityArea"
 
 var player_within_vicinity
 
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
 #@onready var guard_area: Area2D = $GuardArea
@@ -28,7 +27,7 @@ func _ready() -> void:
 
 
 func update_state():
-	print(velocity.x, "; ", speed, "; ", get_target_position().x)
+	#print(velocity.x, "; ", speed, "; ", get_target_position().x)
 	
 	# This is used to transition to attack state if player is close enough
 	player_nearby = true if player_attack_area.has_overlapping_bodies() else false
@@ -54,17 +53,6 @@ func update_state():
 	else: set_collision_mask_value(2, false)
 	
 	$Sprite2D.flip_h = is_sprite_flipped
-
-
-func update_velocity():
-	if kicked_by_player and $Kickbox: 
-		velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
-
-
-func update_node_scale():
-	# Uncomment this line when the scene has the node mentioned below
-	#collision_shape_2d.position.x = collider_init_pos.x * -1 if is_sprite_flipped else collider_init_pos.x * 1
-	pass
 
 
 @warning_ignore("unused_parameter")

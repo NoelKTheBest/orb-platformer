@@ -11,7 +11,6 @@ var orb_spawn_position
 var orb = preload("res://game/scenes/enemy_orb.tscn")
 const ORB_VELOCITY = 475
 
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player_attack_area: Area2D = $PlayerAttackArea
 
@@ -73,23 +72,16 @@ func update_state():
 	$Sprite2D.flip_h = is_sprite_flipped
 
 
-func update_velocity():
-	if kicked_by_player and $Kickbox: 
-		velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
-
-
-func update_node_scale():
-	collision_shape_2d.position.x = collider_init_pos.x * -1 if is_sprite_flipped else collider_init_pos.x * 1
-
-
 @warning_ignore("unused_parameter")
 func area_entered_hurtbox(area: Area2D):
 	print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
 	if area.is_in_group("Physical Attacks"):
 		if area.name == "KickHitbox":
 			kicked_by_player = true
-		elif area.name == "Kickbox":
+			print("KICKED HARD", name)
+		elif area.name == "Kickbox" and !kicked_by_player:
 			dominoed = true
+			print("DOMINOED HARD", name)
 
 
 @warning_ignore("unused_parameter")

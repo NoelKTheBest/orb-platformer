@@ -1,6 +1,9 @@
 @abstract extends NavigatableEntity
 ## Base abstract class for tying physics and state together for all combat entities
 
+const KICK_AREA_NAME = "Kickbox"
+
+
 ## Signal sent when the entity wishes to call for backup
 signal call_for_reinforcements
 
@@ -24,6 +27,12 @@ var player_about_to_kick
 var current_animation : String
 ## Determines if the enemy is currently facing the player
 var facing_player : bool
+## Reference to a scene tree timer
+var kick_timer
+var domino_timer
+
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 
 ## Adds to base implementation in ControlledEntity and also forces [b]is_sprite_flipped[/b] to false
 func _ready() -> void:
@@ -54,6 +63,9 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	super(delta) # on guard variable can change during this call
 	
+	#if kicked_by_player and has_child(KICK_AREA_NAME):
+		
+	
 	# Call function to update player_nearby and other states
 	update_state()
 	update_velocity()
@@ -70,17 +82,47 @@ func is_facing_player():
 		facing_player = false
 
 
+## Freeze the x movement of an entity...
+func set_speed():
+	# If an entity is going to dodge an attack
+	#if dodge_orb:
+		#speed = 0
+	# If an entity is going to attack the player
+	#elif player_nearby:
+		#speed = 0
+	pass
+
+
 ## Function to override when changing any state variables for the entity
 @abstract func update_state()
 
 
 ## Function to override when state must change velocity
-@abstract func update_velocity()
+func update_velocity():
+	if kicked_by_player and has_child(KICK_AREA_NAME):
+		# First frame of kick
+		if kick_timer == null:
+			kick_timer = get_tree().create_timer(kick_deceleration_time)
+			remaining_kick_force = kick_force - kick_force_resistance
+		
+		if kick_timer.time_left > 0:
+			remaining_kick_force -= kick_deceleration
+		
+		velocity.x = remaining_kick_force * 1 if player_position.x < position.x else remaining_kick_force * -1
+	elif dominoed:
+		# First frame of domino effect
+		if domino_timer == null:
+			domino_timer = get_tree().create_timer(domino_deceleration_time)
+			remaining_domino_effect_force = domino_force - domino_force_resistance
+		
+		if domino_timer.time_left > 0:
+			remaining_domino_effect_force -= domino_deceleration
+		velocity.x = remaining_domino_effect_force * 1 if player_position.x < position.x else remaining_domino_effect_force * -1
 
 
 ## Use to update scale and/or position for optional custom nodes such as VisibilityArea
 func update_node_scale():
-	pass
+	collision_shape_2d.position.x = collider_init_pos.x * -1 if is_sprite_flipped else collider_init_pos.x * 1
 
 
 @abstract func area_entered_hurtbox(area: Area2D)
