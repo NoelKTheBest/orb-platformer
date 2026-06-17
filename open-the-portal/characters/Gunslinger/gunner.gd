@@ -9,6 +9,7 @@ const ORB_VELOCITY = 475
 
 func _ready() -> void:
 	super()
+	debug = true
 	
 	$AnimationTree.active = true
 	$AnimationTree.animation_finished.connect(animation_finished)
@@ -35,14 +36,14 @@ func _process(_delta: float) -> void:
 
 @warning_ignore("unused_parameter")
 func area_entered_hurtbox(area: Area2D):
-	print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
+	#print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
 	if area.is_in_group("Physical Attacks"):
 		if area.name == "KickHitbox":
 			kicked_by_player = true
-			print("KICKED HARD", name)
+			#print("KICKED HARD", name)
 		elif area.name == "Kickbox" and !kicked_by_player:
 			dominoed = true
-			print("DOMINOED HARD", name)
+			#print("DOMINOED HARD", name)
 
 
 @warning_ignore("unused_parameter")
@@ -53,3 +54,4 @@ func body_entered_hurtbox(body: Node2D):
 func animation_finished(anim_name: StringName):
 	if anim_name == KICK_ANIMATION_NAME:
 		kicked_by_player = false
+		kick_force = 600

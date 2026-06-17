@@ -51,12 +51,20 @@ func _ready() -> void:
 	super()
 	
 	collider_init_pos = collision_shape_2d.position
+	Performance.add_custom_monitor("Movement/X Velocity", fetch_velocity)
+	Performance.add_custom_monitor("Movement/Direction", fetch_direction)
+	Performance.add_custom_monitor("Movement/Kick Force", fetch_kick_force)
+	Performance.add_custom_monitor("State/Kick", fetch_kick_status)
+	Performance.add_custom_monitor("State/Domino", fetch_domino_status)
+	Performance.add_custom_monitor("State/Player Nearby", fetch_player_nearby_status)
+	Performance.add_custom_monitor("State/Player Within Vicinity", fetch_player_within_vicinity_status)
+	
 
 
 ## Sets [b]is_sprite_flipped[/b] and [b]flip_scale[/b] based on current x velocity[br][br]
 ## Do [b]not[/b] override this function unless a very specific implementation is needed
 func _process(_delta: float) -> void:
-	if !kicked_by_player:
+	if !kicked_by_player and !dominoed:
 		if velocity.x < 0: 
 			is_sprite_flipped = true
 			flip_scale = -1
@@ -90,8 +98,12 @@ func _physics_process(delta: float) -> void:
 	# if the player is currently in attack or dodge state, pause movement
 	if !attacking and !dodging:
 		move_and_slide()
+		
+	#for i in get_slide_collision_count():
+		#var collision = get_slide_collision(i)
+		#print("I collided with ", collision.get_collider().name)
 	
-	print_velocity()
+	print_rich("[color=red]kicked: ", kicked_by_player, "[color=orangered]; dominoed: ", dominoed, "[color=salmon]; name:", name)
 
 
 ## Returns true if the entity is currently facing the player, returns false otherwise
@@ -140,33 +152,47 @@ func update_state():
 ## Function to override when state must change velocity
 func update_velocity():
 	if kicked_by_player and has_child(KICK_AREA_NAME):
-		# First frame of kick
-		if kick_timer == null:
-			kick_timer = get_tree().create_timer(kick_deceleration_time)
-			remaining_kick_force = kick_force - kick_force_resistance
-		
-		if kick_timer.time_left > 0:
-			remaining_kick_force -= kick_deceleration
-		else:
-			kick_timer = null
-			kicked_by_player = false
-		
-		velocity.x = remaining_kick_force * 1 if player_position.x < position.x else remaining_kick_force * -1
+		#var tween = get_tree().create_tween()
+		#tween.tween_property(self, "kick_force", 0, 1.0)
+		## First frame of kick
+		#if kick_timer == null:
+			#kick_timer = get_tree().create_timer(kick_deceleration_time)
+			#remaining_kick_force = kick_force - kick_force_resistance
+		#
+		#if kick_timer.time_left > 0:
+			#remaining_kick_force -= kick_deceleration
+		#else:
+			#kick_timer = null
+			#kicked_by_player = false
+		#
+		position = position.snapped(Vector2(5, 0))
+		velocity.x = kick_force * 1 if player_position.x < position.x else kick_force * -1
+		#velocity.x = remaining_kick_force * 1 if player_position.x < position.x else remaining_kick_force * -1
 	elif dominoed:
-		# First frame of domino effect
+		#var tween = get_tree().create_tween()
+		#tween.tween_property(self, "domino_force", 0, 1.0)
+		## First frame of domino effect
 		if domino_timer == null:
-			domino_timer = get_tree().create_timer(domino_deceleration_time)
-			remaining_domino_effect_force = domino_force - domino_force_resistance
-		
-		if domino_timer.time_left > 0:
-			remaining_domino_effect_force -= domino_deceleration
-		else: 
+			domino_timer = get_tree().create_timer(0.5)
+			#remaining_domino_effect_force = domino_force - domino_force_resistance
+		#
+		#if domino_timer.time_left > 0:
+			#remaining_domino_effect_force -= domino_deceleration
+		#else: 
+			#domino_timer = null
+			#dominoed = false
+		if domino_timer.time_left == 0:
 			domino_timer = null
 			dominoed = false
-		
-		velocity.x = remaining_domino_effect_force * 1 if player_position.x < position.x else remaining_domino_effect_force * -1
-		
-		
+		#
+		velocity.x = domino_force * 1 if player_position.x < position.x else domino_force * -1
+	
+	
+	#if kicked_by_player and $Kickbox: 
+		#position = position.snapped(Vector2(5, 1))
+		#velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
+		#print(velocity.x)
+	
 
 
 ## Use to update scale and/or position for optional custom nodes such as VisibilityArea
@@ -178,3 +204,31 @@ func update_node_scale():
 
 
 @abstract func body_entered_hurtbox(body: Node2D)
+
+
+func fetch_velocity():
+	return abs(velocity.x)
+
+
+func fetch_direction():
+	return 1 if is_sprite_flipped else 0
+
+
+func fetch_kick_force():
+	return abs(remaining_kick_force)
+
+
+func fetch_kick_status():
+	return 1 if kicked_by_player else 0
+
+
+func fetch_domino_status():
+	return 1 if dominoed else 0
+
+
+func fetch_player_nearby_status():
+	return 1 if player_nearby else 0
+
+
+func fetch_player_within_vicinity_status():
+	return 1 if player_within_vicinity else 0

@@ -37,6 +37,7 @@ func _ready() -> void:
 	$AnimationTree.active = true
 	sprite_init_point = sprite_2d.position
 	kick_fall_factor_init_val = kick_fall_factor_inc
+	$CameraFollow/Camera2D.limit_top = position.y - 150
 
 
 func _process(_delta: float) -> void:
@@ -45,7 +46,9 @@ func _process(_delta: float) -> void:
 		collided_enemy = kick_hitbox.get_overlapping_bodies()[0]
 	
 	kick_enemy = true if kick_hitbox.has_overlapping_bodies() and velocity.y > 0 else false
-	if $KickFallTimer.is_stopped() and kick_enemy: $KickFallTimer.start(kick_fall_timer_time)
+	if $KickFallTimer.is_stopped() and kick_enemy: 
+		$KickFallTimer.start(kick_fall_timer_time)
+		print_rich("[color=lightgreen]Kala kicked ", collided_enemy.name)
 	#print($KickFallTimer.time_left)
 
 
@@ -79,8 +82,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jump_buffer_timer.stop()
 	
-	if is_on_floor() and velocity.y > 0:
-		print("landed")
+	#if is_on_floor() and velocity.y > 0:
+		#print("landed")
 
 	if is_on_floor(): set_collision_mask_value(2, true)
 	else: set_collision_mask_value(2, false)
@@ -113,7 +116,8 @@ func _physics_process(delta: float) -> void:
 	prev_y_velocity = velocity.y
 
 
-#func move_camera(_delta : float):
+func move_camera():
+	$CameraFollow/Camera2D.limit_top = position.y - 200
 	#if enemy_pos and enemy_pos != position:
 		##t += delta * 0.4
 		#var _line_to_enemy : Vector2 = enemy_pos - position

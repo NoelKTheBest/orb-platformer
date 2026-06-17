@@ -52,7 +52,6 @@ var remaining_domino_effect_force: float
 func _ready() -> void:
 	random_speed_inc = randf_range(range_bottom, range_top)
 	speed *= random_speed_inc
-	print(1)
 
 
 func _physics_process(delta: float) -> void:
@@ -79,11 +78,13 @@ func _physics_process(delta: float) -> void:
 
 
 func impact():
-	print("Play sfx and vfx")
+	#print("Play sfx and vfx")
+	pass
 
 
 func land_on_ground():
-	print("Play sfx")
+	#print("Play sfx")
+	pass
 
 
 func has_child(child_name: StringName):
@@ -97,4 +98,4 @@ func has_child(child_name: StringName):
 
 
 func print_velocity():
-	if debug: print(velocity.x, "; ", speed)
+	if debug: print(velocity.x, "; ", speed, "; ", name)

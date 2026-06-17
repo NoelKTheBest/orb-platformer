@@ -84,8 +84,6 @@ func _ready() -> void:
 		var guard_area = load("res://game/scenes/guard_area.tscn")
 		var new_guard_area = guard_area.instantiate()
 		add_child(new_guard_area)
-	
-	print(2)
 
 
 func _physics_process(delta: float) -> void:
@@ -94,7 +92,7 @@ func _physics_process(delta: float) -> void:
 	if on_patrol:
 		monitor_player_position = false
 		
-		velocity.x = patrol_target_position.normalized().x * (speed / 2)
+		velocity.x = patrol_target_position.normalized().x * (speed / 2.0)
 		check_for_end_of_area()
 	
 	if initially_guarding:

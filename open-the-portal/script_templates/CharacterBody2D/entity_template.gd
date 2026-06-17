@@ -23,11 +23,11 @@ func _ready() -> void:
 
 @warning_ignore("unused_parameter")
 func area_entered_hurtbox(area: Area2D):
-	print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
+	#print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
 	if area.is_in_group("Physical Attacks"):
 		if area.name == "KickHitbox":
 			kicked_by_player = true
-		elif area.name == "Kickbox":
+		elif area.name == "Kickbox" and !kicked_by_player:
 			dominoed = true
 
 
