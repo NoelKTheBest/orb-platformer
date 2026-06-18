@@ -49,7 +49,7 @@ var temp_v
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	monitor_player_position = false
+	monitor_player_position = true
 	random_speed_inc = randf()
 
 
@@ -90,6 +90,8 @@ func _physics_process(delta: float) -> void:
 		if camera_position != Vector2.ZERO and listen_for_player_coords:
 			player_position = camera_position
 		
+		player_position = SceneVariables.player_position
+		
 		if monitor_player_position:
 			var target_position
 			
@@ -101,8 +103,13 @@ func _physics_process(delta: float) -> void:
 				target_position = (player_position - position).normalized()
 				#var _distance_to = position.distance_squared_to(player_position)
 			
+			print("5.5th; ", velocity.x, "; ", target_position, "; ", speed)
+			
 			velocity.x = target_position.x * (speed + random_speed_inc)
 			#if is_being_commanded: velocity.x = target_position.x * 10
+			
+			print("6th; ", velocity.x, "; ", target_position, "; ", speed)
+			
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 		

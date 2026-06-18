@@ -89,6 +89,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	
+	#print(i, "; 5th; ", velocity.x, "; ", speed)
+	
 	if on_patrol:
 		monitor_player_position = false
 		
@@ -109,7 +111,12 @@ func _physics_process(delta: float) -> void:
 	player_position = SceneVariables.player_position
 	velocity.x = get_target_position().x * speed
 	
-	move_and_slide()
+	#print(i, "; 6th; ", velocity.x, "; " , speed)
+	
+	#move_and_slide()
+	print(i, "; 2nd; ", position.x)
+	
+	#print(i, "; 7th; ", velocity.x)
 	
 	# move to basic entity if we need to make sure basic entity doesn't override this code
 	# If entity is outside of guard bounds
@@ -133,6 +140,8 @@ func get_target_position() -> Vector2:
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, speed) # remove lines
 		# We should be setting target position to something that will force the enemy to stay in place and then not move
+	
+	#print(i, "; 5.5th; ", velocity.x, "; ", target_position, "; ", speed)
 	
 	return target_position
   

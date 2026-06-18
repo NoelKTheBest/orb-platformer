@@ -498,7 +498,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w7xhs"]
 advance_mode = 2
-advance_expression = "kicked"
+advance_expression = "kicked_by_player"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lcvkp"]
 switch_mode = 2
@@ -506,21 +506,23 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iin3u"]
 advance_mode = 2
-advance_expression = "kicked"
+advance_expression = "kicked_by_player"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f5qpw"]
+states/End/position = Vector2(899, 63)
+states/Start/position = Vector2(190, 63)
 states/attack/node = SubResource("AnimationNodeAnimation_py2lc")
-states/attack/position = Vector2(646, 71)
+states/attack/position = Vector2(644, 63)
 states/dodge/node = SubResource("AnimationNodeAnimation_ica8k")
-states/dodge/position = Vector2(378, -32)
+states/dodge/position = Vector2(366, -45)
 states/idle/node = SubResource("AnimationNodeAnimation_0nv64")
 states/idle/position = Vector2(366, 63)
 states/kicked/node = SubResource("AnimationNodeAnimation_828hi")
-states/kicked/position = Vector2(582.5715, -27)
+states/kicked/position = Vector2(644, -45)
 states/run/node = SubResource("AnimationNodeAnimation_iin3u")
-states/run/position = Vector2(382, 171)
+states/run/position = Vector2(366, 184)
 transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_828hi"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_68j7n"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_f5qpw"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_1wmcp"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_2xl14"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_xjxeo"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_quord"), "idle", "kicked", SubResource("AnimationNodeStateMachineTransition_w7xhs"), "kicked", "idle", SubResource("AnimationNodeStateMachineTransition_lcvkp"), "attack", "kicked", SubResource("AnimationNodeStateMachineTransition_iin3u")]
-graph_offset = Vector2(-61.428513, -61)
+graph_offset = Vector2(-179.42851, -83)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ica8k"]
 size = Vector2(64, 32)

@@ -47,24 +47,37 @@ var remaining_kick_force: float
 ## Amount of initial domino effect force left after factoring in resistance
 var remaining_domino_effect_force: float
 
+var i = 0
+
 
 ## Sets random_speed_inc for entity
 func _ready() -> void:
 	random_speed_inc = randf_range(range_bottom, range_top)
-	speed *= random_speed_inc
+	speed += random_speed_inc
+	
 
 
 func _physics_process(delta: float) -> void:
+	
+	#print(i, "; 1st; ", velocity.x)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
 	#normalize_target_position()
 	
+	#print(i, "; 2nd; ", velocity.x)
+	
 	# Set default behaviour to not move
 	velocity.x = move_toward(velocity.x, 0, speed)
 	
+	#print(i, "; 3rd; ", velocity.x)
+	
+	print(i, "; 0; ", position.x, speed)
 	move_and_slide()
+	print(i, "; 1st; ", position.x, speed)
+	#print(i, "; 4th; ", velocity.x)
 	
 	# Detect change in velocity to make play impact sounds and vfx
 	if velocity.x == 0 and prev_x_velocity != 0:

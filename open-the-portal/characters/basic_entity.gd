@@ -88,6 +88,8 @@ func _physics_process(delta: float) -> void:
 	#if kicked_by_player and has_child(KICK_AREA_NAME):
 		
 	
+	#print(i, "; 8th; ", velocity.x)
+	
 	# Call function to update player_nearby and other states
 	update_state()
 	# Update velocity if entity was kicked or dominoed
@@ -95,15 +97,21 @@ func _physics_process(delta: float) -> void:
 	# Change properties of node based on state
 	change_properties()
 	
+	#print(i, "; 9th; ", velocity.x)
+	
 	# if the player is currently in attack or dodge state, pause movement
 	if !attacking and !dodging:
 		move_and_slide()
-		
+		print(i, "; 3rd; ", position.x)
+	
+	#print(i, "; 10th; ", velocity.x)
+	
 	#for i in get_slide_collision_count():
 		#var collision = get_slide_collision(i)
 		#print("I collided with ", collision.get_collider().name)
 	
-	print_rich("[color=red]kicked: ", kicked_by_player, "[color=orangered]; dominoed: ", dominoed, "[color=salmon]; name:", name)
+	#print_rich("[color=red]kicked: ", kicked_by_player, "[color=orangered]; dominoed: ", dominoed, "[color=salmon]; name:", name)
+	i += 1
 
 
 ## Returns true if the entity is currently facing the player, returns false otherwise
@@ -128,25 +136,27 @@ func change_properties():
 
 ## Function to override when changing any state variables for the entity
 func update_state():
+	if !kicked_by_player and !dominoed:
 		# This is used to transition to attack state if player is close enough
-	player_nearby = true if player_attack_area.has_overlapping_bodies() else false
-	if has_child(BDA_NAME):
-		bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
-	if has_child(GA_NAME):
-		player_within_vicinity = true if $GuardArea.has_overlapping_bodies() else false
-	if has_child(VA_NAME):
-		player_within_vicinity = true if $VisibilityArea.has_overlapping_bodies() else false
+		player_nearby = true if player_attack_area.has_overlapping_bodies() else false
+		if has_child(BDA_NAME):
+			bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
+		if has_child(GA_NAME):
+			player_within_vicinity = true if $GuardArea.has_overlapping_bodies() else false
+		if has_child(VA_NAME):
+			player_within_vicinity = true if $VisibilityArea.has_overlapping_bodies() else false
 	
-	if initially_guarding:
-		if player_nearby or bullet_nearby:
-			on_guard = false
-			call_for_reinforcements.emit() # Called whenever guard state changes. parent can ignore if needed
-		if !player_nearby and !bullet_nearby: on_guard = true
-	
-	if initially_patrolling:
-		if player_nearby or player_within_vicinity:
-			on_patrol = false
-			call_for_reinforcements.emit() # Called whenever patrol state changes. parent can ignore if needed
+		# If the entity is kicked, essentially they are mostly helpless and cannot do anything else
+		if initially_guarding:
+			if player_nearby or bullet_nearby:
+				on_guard = false
+				call_for_reinforcements.emit() # Called whenever guard state changes. parent can ignore if needed
+			if !player_nearby and !bullet_nearby: on_guard = true
+		
+		if initially_patrolling:
+			if player_nearby or player_within_vicinity:
+				on_patrol = false
+				call_for_reinforcements.emit() # Called whenever patrol state changes. parent can ignore if needed
 
 
 ## Function to override when state must change velocity
