@@ -16,10 +16,12 @@ var kickbox_scene = preload("res://game/scenes/kickbox.tscn")
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-var collided_enemy
+var collided_enemies = []
 var kick_fall_factor_init_val
 var set_kick_true
 var prev_y_velocity = 0
+var lateral_footstool_queued := false
+var do_lateral_footstool := false
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -43,12 +45,14 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Grab collider and save ref for later
 	if kick_hitbox.has_overlapping_bodies():
-		collided_enemy = kick_hitbox.get_overlapping_bodies()[0]
+		collided_enemies = kick_hitbox.get_overlapping_bodies()
+		#print(collided_enemies)
 	
 	kick_enemy = true if kick_hitbox.has_overlapping_bodies() and velocity.y > 0 else false
 	if $KickFallTimer.is_stopped() and kick_enemy: 
 		$KickFallTimer.start(kick_fall_timer_time)
-		print_rich("[color=lightgreen]Kala kicked ", collided_enemy.name)
+		#for ce in collided_enemies:
+			#print_rich("[color=lightgreen]Kala kicked ", ce.name)
 	#print($KickFallTimer.time_left)
 
 
@@ -63,6 +67,20 @@ func _physics_process(delta: float) -> void:
 				kick_fall_factor_inc -= kick_fall_inc_step_val
 			else:
 				velocity += get_gravity() * fall_velocity_factor * delta
+			
+			if Input.is_action_just_pressed("jump"):
+				if !$FootstoolArea.has_overlapping_bodies():
+					# This will put the player in a slightly different fall animation
+					# that will automatically connect to the footstool animation state
+					# when the player gets close enough to the enemies
+					lateral_footstool_queued = true
+				elif $FootstoolArea.has_overlapping_bodies() and !lateral_footstool_queued:
+					velocity.y = JUMP_VELOCITY
+					print($FootstoolArea.get_overlapping_bodies()[0])
+			
+			if $FootstoolArea.has_overlapping_bodies() and lateral_footstool_queued:
+				# AnimationTree listens for this state when falling and switches if need be 
+				do_lateral_footstool = true
 		else:
 			velocity += get_gravity() * delta
 		
@@ -158,11 +176,13 @@ func add_kickbox():
 	# Play sound effect
 	# Set variable for how long the game should wait to start animating the kick
 	# Allow animation to progress after hitstop
-	var area = kickbox_scene.instantiate()
+	
 	#area.name = "IWasAddedToThisObject"
 	# Get collider (from raycast or area)
 	#var enemy = ray_cast_kick.get_collider()
-	collided_enemy.add_child(area)
+	for ce in collided_enemies:
+		var area = kickbox_scene.instantiate()
+		ce.add_child(area)
 
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:

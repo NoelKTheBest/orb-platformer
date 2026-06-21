@@ -13,6 +13,9 @@ signal call_for_reinforcements
 @export var attacking: bool
 ## Determines whether the entity should dodge and oncoming attack
 @export var dodging: bool
+@export var kick_state_color: Color
+@export var domino_state_color: Color
+var initial_state_color: Color
 
 ## Determines whether or not the sprite has been flipped due to negative velocity
 var is_sprite_flipped := false
@@ -24,6 +27,8 @@ var player_nearby := false
 var bullet_nearby := false
 ## Determines whether the entity was kicked by the player
 var kicked_by_player := false
+## Determines whether the entity was footstooled by the player
+var footstooled := false
 ## Determines whether the entity is affected by another body that was kicked by the player
 var dominoed := false
 ## Determines whether the entity should dodge and oncoming attack
@@ -59,6 +64,7 @@ func _ready() -> void:
 	Performance.add_custom_monitor("State/Player Nearby", fetch_player_nearby_status)
 	Performance.add_custom_monitor("State/Player Within Vicinity", fetch_player_within_vicinity_status)
 	
+	initial_state_color = $Sprite2D.self_modulate
 
 
 ## Sets [b]is_sprite_flipped[/b] and [b]flip_scale[/b] based on current x velocity[br][br]
@@ -77,6 +83,13 @@ func _process(_delta: float) -> void:
 			#if $VisibilityArea: $VisibilityArea.scale.x = 1
 	
 	update_node_scale()
+	
+	if kicked_by_player:
+		$Sprite2D.self_modulate = kick_state_color
+	elif dominoed:
+		$Sprite2D.self_modulate = domino_state_color
+	else:
+		$Sprite2D.self_modulate = initial_state_color
 
 
 ## Adds to the base _physics_process implementation by calling state update functions and updating other physics based variables within the physics loop
@@ -88,8 +101,6 @@ func _physics_process(delta: float) -> void:
 	#if kicked_by_player and has_child(KICK_AREA_NAME):
 		
 	
-	#print(i, "; 8th; ", velocity.x)
-	
 	# Call function to update player_nearby and other states
 	update_state()
 	# Update velocity if entity was kicked or dominoed
@@ -97,20 +108,14 @@ func _physics_process(delta: float) -> void:
 	# Change properties of node based on state
 	change_properties()
 	
-	#print(i, "; 9th; ", velocity.x)
-	
 	# if the player is currently in attack or dodge state, pause movement
 	if !attacking and !dodging:
 		move_and_slide()
-		print(i, "; 3rd; ", position.x)
-	
-	#print(i, "; 10th; ", velocity.x)
 	
 	#for i in get_slide_collision_count():
 		#var collision = get_slide_collision(i)
 		#print("I collided with ", collision.get_collider().name)
 	
-	#print_rich("[color=red]kicked: ", kicked_by_player, "[color=orangered]; dominoed: ", dominoed, "[color=salmon]; name:", name)
 	i += 1
 
 
@@ -127,15 +132,15 @@ func is_facing_player():
 
 ## Change properties of scene based on current state
 func change_properties():
-	if kicked_by_player: set_collision_mask_value(2, true)
-	else: set_collision_mask_value(2, false)
-	
 	sprite_2d.flip_h = is_sprite_flipped
-	pass
 
 
 ## Function to override when changing any state variables for the entity
 func update_state():
+	# if entity is kicked from the front and there is an entity that is behind the current entity, 
+	# the enemy that was also kicked behind doesn't seem to move as well 
+	# Remove the domino effect
+	
 	if !kicked_by_player and !dominoed:
 		# This is used to transition to attack state if player is close enough
 		player_nearby = true if player_attack_area.has_overlapping_bodies() else false

@@ -24,8 +24,8 @@ func area_entered_hurtbox(area: Area2D):
 	if area.is_in_group("Physical Attacks"):
 		if area.name == "KickHitbox":
 			kicked_by_player = true
-		elif area.name == "Kickbox" and !kicked_by_player:
-			dominoed = true
+		#elif area.name == "Kickbox" and !kicked_by_player:
+			#dominoed = true
 	
 
 

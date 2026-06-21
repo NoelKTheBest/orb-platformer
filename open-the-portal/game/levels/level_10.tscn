@@ -108,24 +108,26 @@ offset_right = 31.0
 offset_bottom = 7.0
 
 [node name="Kala" parent="." instance=ExtResource("8_4t8w5")]
-position = Vector2(648, 624)
+position = Vector2(800, 624)
 
 [node name="Gunner" parent="." instance=ExtResource("8_1rw26")]
 process_mode = 4
 visible = false
-position = Vector2(740, 596)
+position = Vector2(720, 624)
 platform_floor_layers = 68
+kick_state_color = Color(0.89162844, 0.27196687, 0.5222416, 1)
+domino_state_color = Color(0.92557496, 0.57980466, 0.18457898, 1)
 on_patrol = false
 on_guard = false
+speed = 100
 metadata/_edit_group_ = true
 
-[node name="Polygon2D" type="Polygon2D" parent="Gunner"]
-visible = false
-color = Color(0.27864504, 0.69, 0.18629998, 1)
-polygon = PackedVector2Array(-7, -12, 7, -12, 7, 13, -7, 13)
-
 [node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
-position = Vector2(920, 616)
+process_mode = 4
+visible = false
+position = Vector2(920, 628)
+kick_state_color = Color(0.8901961, 0.27058825, 0.52156866, 1)
+domino_state_color = Color(0.9254902, 0.5803922, 0.18431373, 1)
 on_patrol = false
 on_guard = false
 
