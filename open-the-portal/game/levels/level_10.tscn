@@ -123,8 +123,6 @@ speed = 100
 metadata/_edit_group_ = true
 
 [node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
-process_mode = 4
-visible = false
 position = Vector2(920, 628)
 kick_state_color = Color(0.8901961, 0.27058825, 0.52156866, 1)
 domino_state_color = Color(0.9254902, 0.5803922, 0.18431373, 1)

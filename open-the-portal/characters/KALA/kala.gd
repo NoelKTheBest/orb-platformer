@@ -78,14 +78,16 @@ func _physics_process(delta: float) -> void:
 					velocity.y = JUMP_VELOCITY
 					print($FootstoolArea.get_overlapping_bodies()[0])
 			
-			if $FootstoolArea.has_overlapping_bodies() and lateral_footstool_queued:
-				# AnimationTree listens for this state when falling and switches if need be 
-				do_lateral_footstool = true
+			#if $FootstoolArea.has_overlapping_bodies() and lateral_footstool_queued:
+				## AnimationTree listens for this state when falling and switches if need be 
+				#do_lateral_footstool = true
 		else:
 			velocity += get_gravity() * delta
 		
 		$KickHitbox.monitorable = true
 		#print("factor: ", kick_fall_factor, "; inc: ", kick_fall_factor_inc, "; init: ", kick_fall_factor_init_val, "; y velocity: ", velocity.y)
+		if Input.is_action_just_pressed("jump") and !$FootstoolArea.has_overlapping_bodies():
+			lateral_footstool_queued = true
 	else:
 		kick_fall_factor_inc = kick_fall_factor_init_val
 		$KickHitbox.monitorable = false
@@ -103,7 +105,9 @@ func _physics_process(delta: float) -> void:
 	#if is_on_floor() and velocity.y > 0:
 		#print("landed")
 
-	if is_on_floor(): set_collision_mask_value(2, true)
+	if is_on_floor(): 
+		set_collision_mask_value(2, true)
+		lateral_footstool_queued = false
 	else: set_collision_mask_value(2, false)
 	
 	
@@ -131,6 +135,7 @@ func _physics_process(delta: float) -> void:
 	
 	#print("p: ", prev_y_velocity, " ;v: ", velocity.y)
 	
+	$Polygon2D.visible = true if lateral_footstool_queued else false
 	prev_y_velocity = velocity.y
 
 
@@ -195,5 +200,7 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 func _on_animation_tree_animation_started(anim_name: StringName) -> void:
 	if anim_name == "Kala_anims/fall":
 		current_animation = "fall"
+	#elif anim_name == "Kala_anims/lateral_footstool":
+		#lateral_footstool_queued = false
 	else:
 		current_animation = ""
