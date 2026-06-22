@@ -60,6 +60,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	#region Y Velocity Handling
 	# When the player is in the air
 	if not is_on_floor():
 		# When the player is falling
@@ -120,8 +121,9 @@ func _physics_process(delta: float) -> void:
 		set_collision_mask_value(2, true)
 		lateral_footstool_queued = false
 		current_animation = ""
+	#endregion
 	
-	
+	#region X Velocity Handling
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
@@ -143,6 +145,7 @@ func _physics_process(delta: float) -> void:
 		if direction < 0: sprite_2d.flip_h = true 
 		elif direction > 0: sprite_2d.flip_h = false
 		sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
+	#endregion
 	
 	move_and_slide()
 	
