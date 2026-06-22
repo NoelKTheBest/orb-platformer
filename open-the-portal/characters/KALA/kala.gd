@@ -15,13 +15,15 @@ var kickbox_scene = preload("res://game/scenes/kickbox.tscn")
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+const L_FOOTSTOOL_VELOCITY_X = 700.0
+const L_FOOTSTOOL_VELOCITY_Y = 100.0
 
 var collided_enemies = []
 var kick_fall_factor_init_val
 var set_kick_true
 var prev_y_velocity = 0
 var lateral_footstool_queued := false
-var do_lateral_footstool := false
+var l_footstool_direction
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -33,6 +35,7 @@ var current_animation := ""
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var ray_cast_kick: RayCast2D = $RayCastKick
 @onready var kick_hitbox: Area2D = $KickHitbox
+@onready var footstool_area: Area2D = $FootstoolArea
 
 
 func _ready() -> void:
@@ -57,8 +60,9 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# When the player is in the air
 	if not is_on_floor():
+		# When the player is falling
 		if velocity.y > 0:
 			if $KickFallTimer.time_left > 0:
 				#print(velocity.y)
@@ -69,46 +73,53 @@ func _physics_process(delta: float) -> void:
 				velocity += get_gravity() * fall_velocity_factor * delta
 			
 			if Input.is_action_just_pressed("jump"):
-				if !$FootstoolArea.has_overlapping_bodies():
+				if !footstool_area.has_overlapping_bodies():
 					# This will put the player in a slightly different fall animation
 					# that will automatically connect to the footstool animation state
 					# when the player gets close enough to the enemies
 					lateral_footstool_queued = true
-				elif $FootstoolArea.has_overlapping_bodies() and !lateral_footstool_queued:
+				elif footstool_area.has_overlapping_bodies() and !lateral_footstool_queued:
 					velocity.y = JUMP_VELOCITY
-					print($FootstoolArea.get_overlapping_bodies()[0])
+					print(footstool_area.get_overlapping_bodies()[0])
 			
-			#if $FootstoolArea.has_overlapping_bodies() and lateral_footstool_queued:
-				## AnimationTree listens for this state when falling and switches if need be 
-				#do_lateral_footstool = true
+			if current_animation == "l_footstool":
+				velocity.y = L_FOOTSTOOL_VELOCITY_Y
+			
+		# When the player is rising
 		else:
 			velocity += get_gravity() * delta
 		
+		# Do this regardless of whether the player is rising or falling
+		#region Todo regardless
 		$KickHitbox.monitorable = true
-		#print("factor: ", kick_fall_factor, "; inc: ", kick_fall_factor_inc, "; init: ", kick_fall_factor_init_val, "; y velocity: ", velocity.y)
 		if Input.is_action_just_pressed("jump") and !$FootstoolArea.has_overlapping_bodies():
 			lateral_footstool_queued = true
+		
+		set_collision_mask_value(2, false)
+		#endregion
+	# When the player is grounded
 	else:
 		kick_fall_factor_inc = kick_fall_factor_init_val
 		$KickHitbox.monitorable = false
 		#print_rich("[color=limegreen]--------------------------------------------------------")
+		
+		#region Jump Handling
+		# Handle jump.
+		if Input.is_action_just_pressed("jump"):
+			velocity.y = JUMP_VELOCITY
+			#SfxSpawner.set_player(position, 4)
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		#SfxSpawner.set_player(position, 4)
-
-	if is_on_floor() and jump_buffer_timer.time_left > 0:
-		velocity.y = JUMP_VELOCITY
-		jump_buffer_timer.stop()
-	
-	#if is_on_floor() and velocity.y > 0:
-		#print("landed")
-
-	if is_on_floor(): 
+		if jump_buffer_timer.time_left > 0:
+			velocity.y = JUMP_VELOCITY
+			jump_buffer_timer.stop()
+		#endregion
+		
+		#if is_on_floor() and velocity.y > 0:
+			#print("landed")
+		
 		set_collision_mask_value(2, true)
 		lateral_footstool_queued = false
-	else: set_collision_mask_value(2, false)
+		current_animation = ""
 	
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -117,7 +128,14 @@ func _physics_process(delta: float) -> void:
 	
 	if direction:
 		var slow_scale = x_slow_amount if $KickFallTimer.time_left > 0 else 1.0
-		velocity.x = move_toward(velocity.x, direction * MAX_SPEED * (1.0/(slow_scale)), accel)
+		if current_animation == "l_footstool" and l_footstool_direction == null:
+			l_footstool_direction = direction
+			#breakpoint
+			#velocity.x = 0
+			velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
+		else:
+			l_footstool_direction = null
+			velocity.x = move_toward(velocity.x, direction * MAX_SPEED * (1.0/(slow_scale)), accel)
 	else:
 		velocity.x = move_toward(velocity.x, 0, accel)
 	
@@ -129,14 +147,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if velocity.y == 0 and prev_y_velocity > 0:
-		#breakpoint
-		#print_rich("[color=pink]----here----")
 		SfxSpawner.set_player(position, 4)
 	
-	#print("p: ", prev_y_velocity, " ;v: ", velocity.y)
-	
 	$Polygon2D.visible = true if lateral_footstool_queued else false
-	prev_y_velocity = velocity.y
+	prev_y_velocity = velocity.y 
 
 
 func move_camera():
@@ -191,16 +205,20 @@ func add_kickbox():
 
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	print("finishing anim: ", anim_name)
 	if anim_name == "Kala_anims/kick":
 		kick_enemy = false
 	elif anim_name == "Kala_anims/fall":
 		current_animation = ""
+	elif anim_name == "Kala_anims/lateral_footstool":
+		current_animation = ""
 
 
 func _on_animation_tree_animation_started(anim_name: StringName) -> void:
+	#print("current anim: ", anim_name)
 	if anim_name == "Kala_anims/fall":
 		current_animation = "fall"
-	#elif anim_name == "Kala_anims/lateral_footstool":
-		#lateral_footstool_queued = false
+	elif anim_name == "Kala_anims/lateral_footstool":
+		current_animation = "l_footstool"
 	else:
 		current_animation = ""
