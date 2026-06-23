@@ -62,11 +62,13 @@ func _ready() -> void:
 		# default bounds to keep the enemies understanding their position and state
 		patrol_start = position - Vector2(40, 0)
 		patrol_end = position + Vector2(40, 0)
+		choose_initial_direction()
 		
 		# Add a VisibilityArea node as default. If added manually, I can change the shape and size of the area if needed
 		var visibility_area = load("res://game/scenes/visibility_area.tscn")
 		var new_visibility_area = visibility_area.instantiate()
 		add_child(new_visibility_area)
+		# we need to make sure that the scale of visibility area is reversed so it goes where the player thinks the enemy is going to go 
 	
 	# guard state should overrride patrol state
 	if on_guard:
@@ -89,7 +91,9 @@ func _physics_process(delta: float) -> void:
 	if on_patrol:
 		monitor_player_position = false
 		
-		velocity.x = patrol_target_position.normalized().x * (speed / 2.0)
+		velocity.x = (patrol_target_position - position).normalized().x * (speed / 4.0)
+		#print(velocity.x)
+		print(position, "; ", patrol_start, "; ", patrol_end)
 		check_for_end_of_area()
 	
 	if initially_guarding:
@@ -103,8 +107,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			monitor_player_position = true # pursue player if they get too close
 	
-	player_position = SceneVariables.player_position
-	velocity.x = get_target_position().x * speed
+	if !on_guard and !on_patrol:
+		player_position = SceneVariables.player_position
+		velocity.x = get_target_position().x * speed
 	
 	# move to basic entity if we need to make sure basic entity doesn't override this code
 	# If entity is outside of guard bounds
@@ -129,16 +134,25 @@ func get_target_position() -> Vector2:
 		#velocity.x = move_toward(velocity.x, 0, speed) # remove lines
 		# We should be setting target position to something that will force the enemy to stay in place and then not move
 	
-	return target_position
-  
+	return target_position.normalized()
+
+
+## Automatically changes [b]patrol_target_position[/b] to whatever direction the entity is facing
+func choose_initial_direction():
+	if $Sprite2D.flip_h:
+		patrol_target_position = patrol_start
+	else:
+		patrol_target_position = patrol_end
+
 
 ## If [b]on_patrol[/b] is set to true, checks if the entity has reached the end of the patrolling area
 func check_for_end_of_area():
+	#breakpoint
 	# If position surpasses the bounds of the area, 
 	# 	set target position to opposite side of area
-	if position.x > patrol_end.x:
+	if position.x > patrol_end.x - 1:
 		patrol_target_position.x = patrol_start.x
-	elif position.x < patrol_start.x:
+	elif position.x < patrol_start.x + 1:
 		patrol_target_position.x = patrol_end.x
 
 

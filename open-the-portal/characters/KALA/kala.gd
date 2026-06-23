@@ -132,8 +132,6 @@ func _physics_process(delta: float) -> void:
 		var slow_scale = x_slow_amount if $KickFallTimer.time_left > 0 else 1.0
 		if current_animation == "l_footstool" and l_footstool_direction == null:
 			l_footstool_direction = direction
-			#breakpoint
-			#velocity.x = 0
 			velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
 		else:
 			l_footstool_direction = null
