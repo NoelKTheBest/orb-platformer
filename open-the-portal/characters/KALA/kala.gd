@@ -1,11 +1,21 @@
 extends CharacterBody2D
 
+const DEBUG = false  # Set to false to disable all debug operations
+
+signal orb_was_fired
+@warning_ignore("unused_signal")
+signal player_died
+
 #region Preloads
 var kickbox_scene = preload("res://game/scenes/kickbox.tscn")
 var aerial_normal_bullet_scene = preload("res://game/scenes/aerial_normal_bullet.tscn")
-
+var gun_blast_1 = preload("res://rss/audio/Gun blast 1.wav")
+var gun_blast_2 = preload("res://rss/audio/Gun blast 4.wav")
+var orb = preload("res://game/scenes/orb.tscn")
 #endregion
 
+## The distance from the enemy at which the camera will focus on the player
+@export var player_camera_focus_range : float = 132551.375
 @export var fall_velocity_factor : float = 3
 @export var kick_fall_factor: float = 0.4
 @export var kick_fall_factor_inc: float = 10
@@ -19,6 +29,7 @@ const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const L_FOOTSTOOL_VELOCITY_X = 700.0
 const L_FOOTSTOOL_VELOCITY_Y = 100.0
+const ORB_VELOCITY = 475
 
 var collided_enemies = []
 var kick_fall_factor_init_val
@@ -27,6 +38,8 @@ var prev_y_velocity = 0
 var lateral_footstool_queued := false
 var l_footstool_direction
 var closest_enemy_position := Vector2.ZERO
+var temp_delta = 0
+var enemy_pos : Vector2
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -39,6 +52,9 @@ var current_animation := ""
 @onready var ray_cast_kick: RayCast2D = $RayCastKick
 @onready var kick_hitbox: Area2D = $KickHitbox
 @onready var footstool_area: Area2D = $FootstoolArea
+@onready var orb_spawn_position: Node2D = $OrbSpawnPosition
+@onready var conveyor_belt: Control = $UserInterface/ConveyorBelt
+@onready var camera_follow: Node2D = $CameraFollow
 
 
 func _ready() -> void:
@@ -48,7 +64,7 @@ func _ready() -> void:
 	$CameraFollow/Camera2D.limit_top = position.y - 150
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	# Grab collider and save ref for later
 	if kick_hitbox.has_overlapping_bodies():
 		collided_enemies = kick_hitbox.get_overlapping_bodies()
@@ -59,7 +75,81 @@ func _process(_delta: float) -> void:
 		$KickFallTimer.start(kick_fall_timer_time)
 	
 	find_closest_enemy()
+	
 	$ClosestEnemyRaycast.target_position = to_local(closest_enemy_position)
+	
+	$RayCast2D.target_position.x = 205 if !$Sprite2D.flip_h else -205
+	#$RayCast2D.visible = false
+	$RailgunBeam.scale.x = 12.855 if !$Sprite2D.flip_h else -12.855
+	$RailgunBeam.visible = false
+	
+	temp_delta = delta
+	if enemy_pos: 
+		move_camera_d(delta)
+	
+	#if DEBUG:
+		#if Input.is_action_just_pressed("never_set_ready"):
+			#never_ready = !never_ready
+			#print("never ready: ", never_ready)
+	
+	if Input.is_action_just_pressed("instant_fire") and $RayCast2D.is_colliding() and $UserInterface/Node.use_energy(8) != -1:
+		$RailgunBeam.visible = true
+		var new_ray_area = Area2D.new()
+		var new_ray_collider = CollisionShape2D.new()
+		new_ray_collider.shape = CircleShape2D.new()
+		new_ray_collider.shape.radius = 2.5
+		new_ray_area.add_child(new_ray_collider)
+		new_ray_area.set_collision_layer_value(1, false)
+		new_ray_area.set_collision_layer_value(5, true)
+		new_ray_area.set_collision_mask_value(1, false)
+		new_ray_area.set_collision_mask_value(2, true)
+		new_ray_area.position = to_local($RayCast2D.get_collision_point())
+		new_ray_area.name = "RaycastArea"
+		add_child(new_ray_area)
+		$AudioStreamPlayer2D.stream = gun_blast_2
+		$AudioStreamPlayer2D.play()
+	
+	if Input.is_action_just_pressed("fire"):
+		# Consume returns -1 if there isn't enough energy.
+		if $UserInterface/Node.use_energy(0) != -1:
+			var new_orb = orb.instantiate()
+			
+			# Set properties before node is ready to have access to them
+			orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+			new_orb.position = orb_spawn_position.position
+			var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+			new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
+			add_child(new_orb)
+			orb_was_fired.emit()
+			$AudioStreamPlayer2D.stream = gun_blast_1
+			$AudioStreamPlayer2D.play()
+		
+	#if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
+		## Consume returns -1 if there isn't enough energy.
+		#if $UserInterface/Node.use_energy(8) != -1:
+			#var new_orb = power_orb.instantiate()
+			## Set properties before node is ready to have access to them
+			#orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+			#new_orb.position = orb_spawn_position.position
+			#var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+			#new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY * 1.02
+			#add_child(new_orb)
+			#var mother = get_parent()
+			#new_orb.reparent(mother)
+			#$PowerSpawnTimer.start()
+			#power_cooldown = true
+			#orb_was_fired.emit()
+			#$AudioStreamPlayer2D.stream = gun_blast_2
+			#$AudioStreamPlayer2D.play()
+			#
+			#if !never_ready: are_we_ready = true
+	
+	if Input.is_action_just_pressed("advance_belt"):
+		conveyor_belt.advance_belt()
+	
+	#if conveyor_belt.get_slot_content(0) != 0:
+		#current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
+		#check_for_use_item(current_item)
 
 
 func _physics_process(delta: float) -> void:
@@ -182,6 +272,30 @@ func move_camera():
 		#camera_follow.position = Vector2.ZERO
 
 
+func move_camera_d(_delta : float):
+	if enemy_pos and enemy_pos != position:
+		#t += delta * 0.4
+		var _line_to_enemy : Vector2 = enemy_pos - position
+		var m = (enemy_pos.y - position.y)/(enemy_pos.x - position.x)
+		var x_mid = (enemy_pos.x - position.x)/2
+		var y = x_mid * m
+		camera_follow.position = Vector2(x_mid, y)
+		#print(position.distance_squared_to(enemy_pos))
+		#if position.distance_squared_to(enemy_pos) < close_zoom_range:
+			#if !is_zoomed_close: $CameraFollow/AnimationPlayer.play("close_zoom")
+			#is_zoomed_close = true
+		#else:
+			#if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
+			#is_zoomed_close = false
+		
+		# if there is only one enemy in the scene
+		#	focus on enemy if they are close enough
+		if position.distance_squared_to(enemy_pos) > player_camera_focus_range:
+			camera_follow.position = Vector2.ZERO
+	else:
+		camera_follow.position = Vector2.ZERO
+
+
 func freeze_frame(time_scale: float, duration: float):
 	Framefreeze.frame_freeze(time_scale, duration)
 
@@ -209,10 +323,10 @@ func add_kickbox():
 
 
 func find_closest_enemy():
-	var min = 100000000
+	var min_d = 100000000
 	for e in get_tree().get_nodes_in_group("Enemy"):
-		if abs(e.position.x - position.x) < min:
-			min = abs(e.position.x - position.x)
+		if abs(e.position.x - position.x) < min_d:
+			min_d = abs(e.position.x - position.x)
 			closest_enemy_position = e.position
 			print(e.position.x, "; ", e.name, "; ", position.x)
 	pass

@@ -621,7 +621,6 @@ accel = 25
 fall_velocity_factor = 2.53
 knockback = Vector2(100, 15)
 wall_pos_inc = 75
-launch_velocity = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -658,10 +657,6 @@ one_shot = true
 offset = Vector2(5, 600)
 scale = Vector2(0.425, 0.425)
 transform = Transform2D(0.425, 0, 0, 0.425, 5, 600)
-
-[node name="EnergyBar" parent="UserInterface" index="0"]
-offset_top = -9.411743
-offset_bottom = 89.58826
 
 [node name="Node2D" parent="UserInterface/Node" index="0"]
 position = Vector2(13.855, -630.13)
