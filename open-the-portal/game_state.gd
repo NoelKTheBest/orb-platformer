@@ -28,6 +28,7 @@ var grid = [
 	[0, 0, 0, 0],
 	[0, 0, 0, 0],
 ]
+var astargrid = AStarGrid2D.new()
 
 
 func initialize_dictionary():
@@ -56,6 +57,28 @@ func clear_room():
 
 func register_death():
 	current_state[player_death_key] += 1
+
+
+func setup_grid():
+	astargrid.region = Rect2i(0, 0, 4, 3)
+	astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	astargrid.update()
+	var i = 0
+	var j = 0
+	for row in grid:
+		for column in row:
+			astargrid.set_point_solid(Vector2i(i, j), is_cell_survivor_occupied(Vector2i(i, j)))
+			i += 1
+		j += 1
+
+
+func show_path(start_x: int, start_y: int, end_x: int, end_y: int):
+	var _path_taken = astargrid.get_id_path(Vector2(start_x, start_y), Vector2(end_x, end_y))
+
+
+func is_cell_survivor_occupied(cell: Vector2i) -> bool:
+	return true if grid[cell.x][cell.y] > 0 else false
 
 
 class GridCoordinate:
