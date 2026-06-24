@@ -71,6 +71,7 @@ func _process(_delta: float) -> void:
 			enemy.monitor_player_position = true
 			enemy.player_position = player.position
 	
+	# Boss of the level should be capable of handling this themselves
 	if !controller_is_dead:
 		$ForcefieldController.monitor_player_position = true
 		if !player_is_dead: $ForcefieldController.player_position = player.position
