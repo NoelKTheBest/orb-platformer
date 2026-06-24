@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfrm650jmwapo"]
+
+[ext_resource type="Script" uid="uid://kfqwunfiw26r" path="res://game_state.gd" id="1_mmopi"]
+[ext_resource type="PackedScene" uid="uid://dw5iu2fqyi30v" path="res://game/levels/level_1.tscn" id="2_krv0r"]
+
+[node name="GameState" type="Node"]
+script = ExtResource("1_mmopi")
+grid_areas = {
+"00": ExtResource("2_krv0r"),
+"01": null,
+"02": null,
+"03": null,
+"10": null,
+"11": null,
+"12": null,
+"13": null,
+"20": null,
+"21": null,
+"22": null,
+"23": null
+}

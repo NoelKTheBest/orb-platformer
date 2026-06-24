@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GameState="*res://game_state.tscn"
 ItemNameDictionary="res://game/scenes/item_name_dictionary.tscn"
 SfxSpawner="*res://game/scenes/sfx_spawner.tscn"
 VfxSpawner="*res://game/scenes/vfx_spawner.tscn"
