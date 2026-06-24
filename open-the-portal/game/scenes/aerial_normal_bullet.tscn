@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6aauoils6cf4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbqb0"]
+
+[node name="AerialNormalBullet" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kbqb0")
+debug_color = Color(0, 0.7140001, 0.84, 0.64705884)

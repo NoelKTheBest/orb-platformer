@@ -4,7 +4,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Saemi.return_position = $ReturnPosition.position
-	$Camera2D.make_current()
+	#$Camera2D.make_current()
 	#Engine.time_scale = 0.5
 
 

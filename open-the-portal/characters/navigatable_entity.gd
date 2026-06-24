@@ -55,7 +55,7 @@ var player_out_of_range: bool = true
 func _ready() -> void:
 	super()
 	
-	if on_patrol:
+	if on_patrol and !on_guard:
 		initially_patrolling = true
 		# Make sure patrol bounds are set
 		# Add in a wait period so the entity, stays at a location for a bit and then turns around and walks the other way
@@ -88,12 +88,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	
-	if on_patrol:
+	if on_patrol and !initially_guarding:
 		monitor_player_position = false
 		
 		velocity.x = (patrol_target_position - position).normalized().x * (speed / 4.0)
-		#print(velocity.x)
-		print(position, "; ", patrol_start, "; ", patrol_end)
+		if abs(patrol_target_position.x - position.x) < 1: velocity.x = 0.0
 		check_for_end_of_area()
 	
 	if initially_guarding:
@@ -104,6 +103,7 @@ func _physics_process(delta: float) -> void:
 			
 			# return to squad_position
 			velocity.x = (squad_position - position).normalized().x * speed
+			if abs(squad_position.x - position.x) < 1: velocity.x = 0.0
 		else:
 			monitor_player_position = true # pursue player if they get too close
 	
@@ -147,7 +147,6 @@ func choose_initial_direction():
 
 ## If [b]on_patrol[/b] is set to true, checks if the entity has reached the end of the patrolling area
 func check_for_end_of_area():
-	#breakpoint
 	# If position surpasses the bounds of the area, 
 	# 	set target position to opposite side of area
 	if position.x > patrol_end.x - 1:

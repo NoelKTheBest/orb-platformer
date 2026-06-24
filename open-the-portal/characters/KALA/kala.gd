@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 #region Preloads
 var kickbox_scene = preload("res://game/scenes/kickbox.tscn")
+var aerial_normal_bullet_scene = preload("res://game/scenes/aerial_normal_bullet.tscn")
+
 #endregion
 
 @export var fall_velocity_factor : float = 3
@@ -24,6 +26,7 @@ var set_kick_true
 var prev_y_velocity = 0
 var lateral_footstool_queued := false
 var l_footstool_direction
+var closest_enemy_position := Vector2.ZERO
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -54,9 +57,9 @@ func _process(_delta: float) -> void:
 	kick_enemy = true if kick_hitbox.has_overlapping_bodies() and velocity.y > 0 else false
 	if $KickFallTimer.is_stopped() and kick_enemy: 
 		$KickFallTimer.start(kick_fall_timer_time)
-		#for ce in collided_enemies:
-			#print_rich("[color=lightgreen]Kala kicked ", ce.name)
-	#print($KickFallTimer.time_left)
+	
+	find_closest_enemy()
+	$ClosestEnemyRaycast.target_position = to_local(closest_enemy_position)
 
 
 func _physics_process(delta: float) -> void:
@@ -203,6 +206,16 @@ func add_kickbox():
 	for ce in collided_enemies:
 		var area = kickbox_scene.instantiate()
 		ce.add_child(area)
+
+
+func find_closest_enemy():
+	var min = 100000000
+	for e in get_tree().get_nodes_in_group("Enemy"):
+		if abs(e.position.x - position.x) < min:
+			min = abs(e.position.x - position.x)
+			closest_enemy_position = e.position
+			print(e.position.x, "; ", e.name, "; ", position.x)
+	pass
 
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
