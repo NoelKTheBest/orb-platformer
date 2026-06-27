@@ -1,0 +1,111 @@
+[gd_scene load_steps=9 format=3 uid="uid://0kcahcmtty1d"]
+
+[ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_2ovxn"]
+[ext_resource type="Script" uid="uid://cpov6ncv3rsih" path="res://tests/enemy_spawning_test_scene.gd" id="1_xgegh"]
+[ext_resource type="Script" uid="uid://dnunrn8yamuap" path="res://game/levels/floor_area.gd" id="2_xgegh"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="3_srdks"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="4_5q6ds"]
+[ext_resource type="Script" uid="uid://c400bl3lhnu1d" path="res://game/levels/spawn_point.gd" id="5_7c3ev"]
+[ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="6_pesrr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rcbl"]
+size = Vector2(704, 128)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_xgegh")
+
+[node name="Polygon2D13" parent="." instance=ExtResource("1_2ovxn")]
+position = Vector2(184.00003, 304)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D14" parent="." instance=ExtResource("1_2ovxn")]
+position = Vector2(904, 303.99994)
+scale = Vector2(1.5999985, 14.400001)
+
+[node name="Polygon2D15" parent="." instance=ExtResource("1_2ovxn")]
+position = Vector2(544.00006, 376)
+scale = Vector2(73.6, 1.5999986)
+
+[node name="Polygon2D16" parent="." instance=ExtResource("1_2ovxn")]
+position = Vector2(544, 231.99998)
+scale = Vector2(73.6, 1.5999962)
+
+[node name="Area2D5" type="Area2D" parent="." groups=["Floor Areas"]]
+editor_description = "This is a floor area
+"
+position = Vector2(536, 312)
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("2_xgegh")
+floor_number = 5
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D5"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_3rcbl")
+debug_color = Color(0.86, 0.35833335, 0, 0.11764706)
+
+[node name="Door5" parent="." instance=ExtResource("3_srdks")]
+position = Vector2(282.30692, 352.11798)
+color = Color(0.27024272, 0.5263758, 0.25083145, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+floor_number = 5
+
+[node name="Door6" parent="." instance=ExtResource("3_srdks")]
+position = Vector2(826.3069, 352.11804)
+color = Color(0.5132389, 0.45073152, 0.29180142, 1)
+polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
+floor_number = 5
+
+[node name="SpawnPoint6" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(232.00003, 336)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("4_5q6ds")
+script = ExtResource("5_7c3ev")
+floor_number = 5
+
+[node name="SpawnPoint7" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(336, 336)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("4_5q6ds")
+script = ExtResource("5_7c3ev")
+floor_number = 5
+
+[node name="SpawnPoint8" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(400, 336)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("4_5q6ds")
+script = ExtResource("5_7c3ev")
+floor_number = 5
+
+[node name="SpawnPoint9" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(696, 336)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("4_5q6ds")
+script = ExtResource("5_7c3ev")
+floor_number = 5
+
+[node name="SpawnPoint10" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(768.00006, 336)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("4_5q6ds")
+script = ExtResource("5_7c3ev")
+floor_number = 5
+
+[node name="SpawnPoint11" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.8627451)
+position = Vector2(872.00006, 336)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("4_5q6ds")
+script = ExtResource("5_7c3ev")
+floor_number = 5
+
+[node name="Player" parent="." instance=ExtResource("6_pesrr")]
+position = Vector2(544, 344)
+
+[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

@@ -1,3 +1,4 @@
+extends Node
 
 @export var grid_areas = {
 	"00": "",

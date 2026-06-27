@@ -73,6 +73,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if !cutscene_active:
+		if Input.is_action_just_pressed("kill_player"):
+			die()
+		
 		$RayCast2D.target_position.x = 205 if !$Sprite2D.flip_h else -205
 		#$RayCast2D.visible = false
 		$RailgunBeam.scale.x = 12.855 if !$Sprite2D.flip_h else -12.855
