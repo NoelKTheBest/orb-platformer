@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b64r4vp2l8smk"]
+
+[ext_resource type="Shader" uid="uid://bcfrv3j1x8oj5" path="res://my_first_shader.gdshader" id="1_1jxlj"]
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="2_ymmhh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p61bp"]
+shader = ExtResource("1_1jxlj")
+shader_parameter/blue = 1.0
+
+[sub_resource type="GDScript" id="GDScript_1jxlj"]
+resource_name = "my_first_shader"
+script/source = "extends Sprite2D
+
+@export var blue_value = 1.0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	material.set_shader_parameter(\"blue\", blue_value)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_p61bp")
+texture = ExtResource("2_ymmhh")
+script = SubResource("GDScript_1jxlj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.75, 1.75)

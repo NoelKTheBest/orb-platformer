@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0ny5x0lh6boi"]
+
+[ext_resource type="Texture2D" uid="uid://ho4wkow8ff2k" path="res://characters/KALA/Player Animations-Sheet2.png" id="1_7ilr3"]
+[ext_resource type="Shader" uid="uid://b4bo7ggcq6caf" path="res://change_color_shader.gdshader" id="1_r651w"]
+[ext_resource type="Texture2D" uid="uid://b1gqpmnteivyg" path="res://example_texture_2.png" id="2_nrcun"]
+[ext_resource type="Texture2D" uid="uid://dp2hsbixqlrqo" path="res://example_texture.png" id="3_05pb1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r651w"]
+shader = ExtResource("1_r651w")
+shader_parameter/cut_mask = ExtResource("3_05pb1")
+shader_parameter/add_mask = ExtResource("2_nrcun")
+
+[sub_resource type="GDScript" id="GDScript_3iemo"]
+resource_name = "test_uniforms"
+script/source = "extends Sprite2D
+var t1 = preload(\"res://example_texture.png\")
+var t2 = preload(\"res://example_texture.png\")
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	material.set_shader_parameter(\"cut_mask\", t1)
+	material.set_shader_parameter(\"add_mask\", t2)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_r651w")
+texture = ExtResource("1_7ilr3")
+script = SubResource("GDScript_3iemo")
