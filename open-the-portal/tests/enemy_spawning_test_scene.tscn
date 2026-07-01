@@ -111,10 +111,10 @@ position = Vector2(544, 344)
 
 [node name="Enemy_Spawner" type="Node" parent="."]
 script = ExtResource("8_srdks")
-enemy_types = Array[String](["res://characters/Gunslinger/gunner.tscn", "res://characters/SAEMI/saemi.tscn", "", "", "", "", ""])
-wave_enemy_type = Array[int]([0, 1])
-wave_enemy_count = Array[int]([3, 2])
-door_spawn = Array[NodePath]([NodePath("../SpawnPoint6"), NodePath("../SpawnPoint11")])
+enemy_types = Array[String](["res://characters/Gunslinger/gunner.tscn", "", "", "", "", "", ""])
+wave_enemy_type = Array[int]([0])
+wave_enemy_count = Array[int]([4])
+door_spawn = Array[NodePath]([NodePath("../SpawnPoint7"), NodePath("../SpawnPoint8"), NodePath("../SpawnPoint9")])
 enemy_spawn_trigger = NodePath("../Area2D5")
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

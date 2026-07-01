@@ -9,3 +9,6 @@ func _ready() -> void:
 func _on_player_player_died() -> void:
 	print("Player Died")
 	pass # Replace with function body.
+
+func _process(delta: float) -> void:
+	print($Enemy_Spawner.spawned)
