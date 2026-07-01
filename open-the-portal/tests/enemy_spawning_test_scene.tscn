@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://0kcahcmtty1d"]
+[gd_scene load_steps=10 format=3 uid="uid://0kcahcmtty1d"]
 
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_2ovxn"]
 [ext_resource type="Script" uid="uid://cpov6ncv3rsih" path="res://tests/enemy_spawning_test_scene.gd" id="1_xgegh"]
@@ -7,9 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="4_5q6ds"]
 [ext_resource type="Script" uid="uid://c400bl3lhnu1d" path="res://game/levels/spawn_point.gd" id="5_7c3ev"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="6_pesrr"]
+[ext_resource type="Script" uid="uid://cvnt5o7di2amo" path="res://game/scripts/enemy_spawn.gd" id="8_srdks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rcbl"]
-size = Vector2(704, 128)
+size = Vector2(103, 128)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_xgegh")
@@ -41,7 +42,7 @@ floor_number = 5
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D5"]
-position = Vector2(8, -8)
+position = Vector2(-66.5, -8)
 shape = SubResource("RectangleShape2D_3rcbl")
 debug_color = Color(0.86, 0.35833335, 0, 0.11764706)
 
@@ -107,5 +108,13 @@ floor_number = 5
 
 [node name="Player" parent="." instance=ExtResource("6_pesrr")]
 position = Vector2(544, 344)
+
+[node name="Enemy_Spawner" type="Node" parent="."]
+script = ExtResource("8_srdks")
+enemy_types = Array[String](["res://characters/Gunslinger/gunner.tscn", "res://characters/SAEMI/saemi.tscn", "", "", "", "", ""])
+wave_enemy_type = Array[int]([0, 1])
+wave_enemy_count = Array[int]([3, 2])
+door_spawn = Array[NodePath]([NodePath("../SpawnPoint6"), NodePath("../SpawnPoint11")])
+enemy_spawn_trigger = NodePath("../Area2D5")
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
