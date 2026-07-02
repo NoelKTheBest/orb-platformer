@@ -29,6 +29,7 @@ BasicEntity="*res://characters/basic_entity.gd"
 AdvancedEntity="*res://characters/advanced_entity.gd"
 SceneVariables="*res://game/scripts/autoload/scene_variables.gd"
 GameState="*res://game_state.tscn"
+EnemyPlacement="*res://enemy_placement.gd"
 
 [display]
 

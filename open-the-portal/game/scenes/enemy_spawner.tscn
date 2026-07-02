@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhhbsvyp54xqs"]
+
+[ext_resource type="Script" uid="uid://p7om82l7oj63" path="res://game/scripts/enemy_spawner.gd" id="1_uo536"]
+[ext_resource type="PackedScene" uid="uid://bbmnw5jkbrxhq" path="res://game/scenes/gunner_label.tscn" id="2_0f2au"]
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_uo536")
+
+[node name="Label" parent="." instance=ExtResource("2_0f2au")]
