@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci7lb803lagw"]
+
+[ext_resource type="PackedScene" uid="uid://jmr4t62aanbp" path="res://game/scenes/enemy_placement_label.tscn" id="1_q2qdw"]
+[ext_resource type="Texture2D" uid="uid://bdwsk4f51fjqv" path="res://characters/assassin/run without VFX.png" id="2_g4ebv"]
+
+[node name="Label" instance=ExtResource("1_q2qdw")]
+text = "Assassin"
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(64, 40)
+texture = ExtResource("2_g4ebv")
+vframes = 8
+frame = 2

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbmnw5jkbrxhq"]
+
+[ext_resource type="PackedScene" uid="uid://jmr4t62aanbp" path="res://game/scenes/enemy_placement_label.tscn" id="1_wphii"]
+[ext_resource type="Texture2D" uid="uid://s7fqk0iepawt" path="res://characters/Gunslinger/Gunslinger Run-Sheet.png" id="2_uc6vp"]
+
+[node name="Label" instance=ExtResource("1_wphii")]
+text = "Gunner"
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(24, 32)
+texture = ExtResource("2_uc6vp")
+hframes = 8
