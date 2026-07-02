@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://jmr4t62aanbp"]
+[gd_scene load_steps=0 format=3 uid="uid://jmr4t62aanbp"]
 
 [node name="Label" type="Label"]
 offset_right = 40.0
