@@ -25,11 +25,17 @@ var survivor_position := GridCoordinate.new()
 var boss_position := GridCoordinate.new()
 var enemy_position := GridCoordinate.new()
 var grid = [
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
-	[0, 0, 0, 0],
+	[1, 0, 0, 0],
+	[0, 0, 1, 0],
+	[0, 1, 0, 1],
 ]
 var astargrid = AStarGrid2D.new()
+
+
+func _ready():
+	setup_grid()
+	print(astargrid.get_point_data_in_region(Rect2i(0, 0, 4, 3)))
+	print(show_path(1, 0, 0, 2))
 
 
 func initialize_dictionary():
@@ -68,14 +74,15 @@ func setup_grid():
 	var i = 0
 	var j = 0
 	for row in grid:
-		for column in row:
-			astargrid.set_point_solid(Vector2i(i, j), is_cell_survivor_occupied(Vector2i(i, j)))
-			i += 1
-		j += 1
+		for e in row:
+			astargrid.set_point_solid(Vector2i(j, i), is_cell_survivor_occupied(Vector2i(i, j)))
+			j += 1
+		j = 0
+		i += 1
 
 
 func show_path(start_x: int, start_y: int, end_x: int, end_y: int):
-	var _path_taken = astargrid.get_id_path(Vector2(start_x, start_y), Vector2(end_x, end_y))
+	return astargrid.get_id_path(Vector2(start_x, start_y), Vector2(end_x, end_y))
 
 
 func is_cell_survivor_occupied(cell: Vector2i) -> bool:
