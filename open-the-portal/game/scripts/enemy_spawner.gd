@@ -1,6 +1,15 @@
 @tool
 extends Node2D
 
+@export var reset_position: Vector2
+## This list of IDs is used to spawn in new enemies, the list will be cycled through
+## and the first enemies in the list will spawn at the first spawn points
+@export var on_death_spawns = []
+# ID List
+# 0 - Mercenary
+# 1 - Assassin
+# 2 - Gunner
+
 var mercenary_scene = preload("res://game/scenes/basic_enemy.tscn")
 var assassin_scene = preload("res://game/scenes/assassin.tscn")
 var gunner_scene = preload("res://characters/Gunslinger/gunner.tscn")
@@ -9,11 +18,7 @@ var enemy_placements = []
 var num_placements: int
 var enable_spawn_interval: bool
 var spawn_points = []
-var on_death_spawns = []
-# ID List
-# 0 - Mercenary
-# 1 - Assassin
-# 2 - Gunner
+
 
 
 #@export var on_death_enemy_placements = [["Mercenary"],[Vector2(0, 0)]]
@@ -37,7 +42,7 @@ func _process(delta: float) -> void:
 			GameState.player_flicked_switch = false
 		
 		var current_floor = GameState.player_current_room.x
-		get_spawn_points_in_floor(current_floor)
+		#get_spawn_points_in_floor(current_floor)
 	else:
 		print(delta)
 		
@@ -55,6 +60,8 @@ func get_spawn_points_in_floor(curr_floor: int):
 	for sp in spawn_points:
 		if sp.floor_number == curr_floor:
 			curr_floor_spawns.append(sp)
+	
+	return curr_floor_spawns
 
 
 func start_spawn_interval():
@@ -67,4 +74,23 @@ func _on_enemy_spawn_interval_timeout() -> void:
 
 func _on_player_died() -> void:
 	# Reset player position to middle of screen
-	print()
+	$"../Player".position = reset_position
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		enemy.queue_free()
+	
+	var floor_spawn_positions = get_spawn_points_in_floor(GameState.player_current_room.x)
+	
+	var i = 0
+	for id in on_death_spawns:
+		var new_enemy
+		match id:
+			0:
+				new_enemy = mercenary_scene.instantiate()
+			1:
+				new_enemy = assassin_scene.instantiate()
+			2:
+				new_enemy = gunner_scene.instantiate()
+		
+		new_enemy.position = floor_spawn_positions[i].position
+		add_child(new_enemy)
+		i += 1
