@@ -31,6 +31,14 @@ var grid = [
 ]
 var astargrid = AStarGrid2D.new()
 
+## Determines if the player flicked a switch
+var player_flicked_switch: bool = false
+## Determines if the player turned a level
+var player_turned_lever: bool = false
+## The current room (X) of the player within an area (y)
+var player_current_room: Vector2i = Vector2i.ZERO
+var boss_battle_active: bool
+
 
 func _ready():
 	setup_grid()
@@ -87,6 +95,26 @@ func show_path(start_x: int, start_y: int, end_x: int, end_y: int):
 
 func is_cell_survivor_occupied(cell: Vector2i) -> bool:
 	return true if grid[cell.x][cell.y] > 0 else false
+
+
+func flick_switch_1():
+	# Check state and return true or false
+	return true
+
+
+func flick_switch_2():
+	# Check state and return true or false
+	pass
+
+
+func flick_switch_3():
+	# Check state and return true or false
+	pass
+
+
+func flick_lever_1():
+	# Check state and change grid solid points
+	pass
 
 
 class GridCoordinate:

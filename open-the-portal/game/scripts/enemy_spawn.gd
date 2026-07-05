@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 
 @export var enemy_types: Array[String] = ["","","","","","",""]

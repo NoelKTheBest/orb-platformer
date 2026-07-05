@@ -59,6 +59,7 @@ folder_colors={
 "res://game/scenes/loading_screen/": "gray",
 "res://rss/": "purple",
 "res://rss/audio/": "blue",
+"res://rss/shaders/": "orange",
 "res://rss/sprites/": "teal",
 "res://tests/": "teal",
 "res://tilesets/": "red",
@@ -76,6 +77,7 @@ Door=""
 Collectable=""
 "Physical Attacks"="Group for physical attacks"
 "Enemy Orbs"="Group for enemy orbs and projectiles"
+"Spawn Point"=""
 
 [input]
 
