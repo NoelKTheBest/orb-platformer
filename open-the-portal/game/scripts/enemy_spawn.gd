@@ -63,8 +63,8 @@ func spawn_timer_timeout():
 	var spawn_pos = get_node(door_spawn[spawn_point])
 	var spawn = spawn_pos.global_position
 	spawn_point = spawn_point + 1
-	add_child(enemy_instance)
 	enemy_instance.global_position = spawn
+	add_child(enemy_instance)
 	spawn_timer.start(spawn_interval)
 	
 

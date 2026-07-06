@@ -11,4 +11,4 @@ func _on_player_player_died() -> void:
 	pass # Replace with function body.
 
 func _process(delta: float) -> void:
-	print($Enemy_Spawner.spawned)
+	pass
