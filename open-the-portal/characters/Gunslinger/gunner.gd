@@ -91,7 +91,7 @@ func area_entered_hurtbox(area: Area2D):
 			kicked_by_player = true
 			#print("KICKED HARD", name)
 		#elif area.name == "Kickbox" and !kicked_by_player:
-			#dominoed = true
+			#dominoed = trued
 			#print("DOMINOED HARD", name)
 
 
