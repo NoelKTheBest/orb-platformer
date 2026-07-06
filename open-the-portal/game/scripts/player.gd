@@ -72,6 +72,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	SceneVariables.player_position = global_position
 	if !cutscene_active:
 		if Input.is_action_just_pressed("kill_player"):
 			die()
