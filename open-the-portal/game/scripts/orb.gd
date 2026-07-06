@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @export var launch_vector: Vector2
-@onready var linear_v
+var linear_v
 
 var has_bullet_hit_anything : bool = false
 
