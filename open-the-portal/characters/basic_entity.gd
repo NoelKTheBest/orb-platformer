@@ -1,6 +1,7 @@
 @abstract extends NavigatableEntity
 ## Base abstract class for tying physics and state together for all combat entities
 
+##
 const KICK_AREA_NAME = "Kickbox"
 const BDA_NAME = "BulletDetectionArea"
 const GA_NAME = "GuardArea"
@@ -65,6 +66,9 @@ func _ready() -> void:
 	Performance.add_custom_monitor("State/Player Within Vicinity", fetch_player_within_vicinity_status)
 	
 	initial_state_color = $Sprite2D.self_modulate
+	
+	$Hurtbox.area_entered.connect(area_entered_hurtbox)
+	$Hurtbox.body_entered.connect(body_entered_hurtbox)
 
 
 ## Sets [b]is_sprite_flipped[/b] and [b]flip_scale[/b] based on current x velocity[br][br]
@@ -148,12 +152,13 @@ func update_state():
 			bullet_nearby = true if $BulletDetectionArea.has_overlapping_bodies() else false
 		if has_child(GA_NAME):
 			player_within_vicinity = true if $GuardArea.has_overlapping_bodies() else false
+		
 		if has_child(VA_NAME):
 			player_within_vicinity = true if $VisibilityArea.has_overlapping_bodies() else false
 	
 		# If the entity is kicked, essentially they are mostly helpless and cannot do anything else
 		if initially_guarding:
-			if player_nearby or bullet_nearby:
+			if player_nearby or bullet_nearby or player_within_vicinity:
 				on_guard = false
 				call_for_reinforcements.emit() # Called whenever guard state changes. parent can ignore if needed
 			if !player_nearby and !bullet_nearby: on_guard = true
@@ -219,6 +224,12 @@ func update_node_scale():
 
 
 @abstract func body_entered_hurtbox(body: Node2D)
+
+
+func check_for_kickbox(area: Area2D):
+	if area.is_in_group("Physical Attacks"):
+		if area.name == "KickHitbox":
+			kicked_by_player = true
 
 
 func fetch_velocity():

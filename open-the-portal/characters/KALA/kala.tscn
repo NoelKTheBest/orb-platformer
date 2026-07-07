@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://d1x2wb7hdgv5x"]
+[gd_scene load_steps=45 format=4 uid="uid://d1x2wb7hdgv5x"]
 
 [ext_resource type="Script" uid="uid://bp7f77m1dsndi" path="res://characters/KALA/kala.gd" id="1_hd2te"]
 [ext_resource type="Texture2D" uid="uid://ch2boh0lbnay4" path="res://characters/KALA/kick-spritesheet-Sheet.png" id="3_jhjt6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="5_vh5wt"]
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://game/prototype_2/user_interface.tscn" id="7_1ougi"]
 [ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://game/scenes/conveyor_belt.tscn" id="8_jjso4"]
+[ext_resource type="Texture2D" uid="uid://bclg6x34c84kt" path="res://rss/sprites/railgun_beam.png" id="9_jjso4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_imwqx"]
 radius = 6.25
@@ -768,6 +769,17 @@ offset_top = -1075.2941
 offset_right = 1296.4707
 offset_bottom = -1075.2941
 scale = Vector2(1.79, 1.79)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
+target_position = Vector2(205, 0)
+collision_mask = 1073741830
+collide_with_areas = true
+
+[node name="RailgunBeam" type="Sprite2D" parent="."]
+scale = Vector2(12.855, 1)
+texture = ExtResource("9_jjso4")
+offset = Vector2(8, 0)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]

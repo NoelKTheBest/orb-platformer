@@ -241,14 +241,16 @@ advance_mode = 2
 advance_expression = "kicked_by_player"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jgwp0"]
+states/End/position = Vector2(890, 182)
+states/Start/position = Vector2(246, 69)
 states/idle/node = SubResource("AnimationNodeAnimation_rjjsp")
 states/idle/position = Vector2(442, 69)
 states/kicked/node = SubResource("AnimationNodeAnimation_s2ceh")
-states/kicked/position = Vector2(527, 182)
+states/kicked/position = Vector2(666, 182)
 states/run/node = SubResource("AnimationNodeAnimation_xt6ul")
-states/run/position = Vector2(707, 100)
+states/run/position = Vector2(442, 182)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_uefk6"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_oo7p7"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_xt6ul"), "kicked", "run", SubResource("AnimationNodeStateMachineTransition_daoqd"), "run", "kicked", SubResource("AnimationNodeStateMachineTransition_p5ph3")]
-graph_offset = Vector2(25, 34)
+graph_offset = Vector2(-20, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjjsp"]
 size = Vector2(20, 24)
