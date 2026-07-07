@@ -328,7 +328,7 @@ func find_closest_enemy():
 		if abs(e.position.x - position.x) < min_d:
 			min_d = abs(e.position.x - position.x)
 			closest_enemy_position = e.position
-			print(e.position.x, "; ", e.name, "; ", position.x)
+			#print(e.position.x, "; ", e.name, "; ", position.x)
 	pass
 
 

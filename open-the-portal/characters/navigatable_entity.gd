@@ -8,6 +8,7 @@
 ## Determines if entity should stay in position as part of a squadron. Overrides [b]on_patrol[/b]
 @export var on_guard := true
 @export_group("Patrol")
+## Amount of time to wait at end of the patrol area before changing direction (Not implemented yet)
 @export var patrol_wait := 1.0
 @export_subgroup("Patrol Bounds")
 ## Start position for patrol area
@@ -45,11 +46,19 @@ var squad_position
 var initially_guarding := false
 ## Determines whether the entity was initially patrolling at the start of the scene
 var initially_patrolling := false
-## Not in use
+## The target position of the entity on patrol
 var patrol_target_position: Vector2
+## Determines whether the entity is waiting to turn around
+var waiting_to_turn_around := false
 
-
+## Not in use
 var player_out_of_range: bool = true
+
+#region CopiedVars
+var bodies = []
+@export var vision_scale: float = 1.5
+#endregion
+
 
 ## Sets [b]squad_position[/b] to current position if [b]on_guard[/b] is set to true
 func _ready() -> void:
@@ -93,7 +102,7 @@ func _physics_process(delta: float) -> void:
 		
 		velocity.x = (patrol_target_position - position).normalized().x * (speed / 4.0)
 		if abs(patrol_target_position.x - position.x) < 1: velocity.x = 0.0
-		check_for_end_of_area()
+		if !waiting_to_turn_around: check_for_end_of_area()
 	
 	if initially_guarding:
 		# if we are on guard, we should stay that way for the entire frame so everything that needs to happen bc of it is predictable
@@ -150,8 +159,14 @@ func check_for_end_of_area():
 	# If position surpasses the bounds of the area, 
 	# 	set target position to opposite side of area
 	if position.x > patrol_end.x - 1:
+		waiting_to_turn_around = true
+		await get_tree().create_timer(patrol_wait).timeout
+		waiting_to_turn_around = false
 		patrol_target_position.x = patrol_start.x
 	elif position.x < patrol_start.x + 1:
+		waiting_to_turn_around = true
+		await get_tree().create_timer(patrol_wait).timeout
+		waiting_to_turn_around = false
 		patrol_target_position.x = patrol_end.x
 
 
@@ -159,3 +174,32 @@ func check_for_end_of_area():
 func return_to_squad_position() -> Vector2:
 	if player_out_of_range: return squad_position
 	else: return Vector2.ZERO # Will be used to check if the entity should continue pursuing the player
+
+
+func set_monitor_player_status():
+	#print(monitor_player_position, " s:smps")
+	# Check if area 2d representing vision space has
+	#	overlapping bodies (player) of check if 
+	#	player's position is within a specific x and y 
+	#	range
+	
+	# If a body overlaps, get ref to body
+	if $VisibilityArea.has_overlapping_bodies():
+		bodies = $VisibilityArea.get_overlapping_bodies()
+	# If we still have a ref to body and no current body, go to last known pos
+	elif !$VisibilityArea.has_overlapping_bodies():
+		bodies = []
+		if abs(position.x - player_position.x) < 5:
+			monitor_player_position = false
+		# If player was seen but managed to hide again,
+		#	wait 3-4 seconds and then continue with patrol cycle
+		#		(Animation Tree self updates)
+	
+	# If we have a player body, run to them
+	if bodies.size() > 0:
+		monitor_player_position = true
+		# We might be better off setting this with SceneVariables class
+		player_position = bodies[0].position
+		$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
+	else:
+		$VisibilityArea.scale.y = 1

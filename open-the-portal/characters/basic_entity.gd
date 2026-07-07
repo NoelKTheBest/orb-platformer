@@ -15,7 +15,6 @@ signal call_for_reinforcements
 ## Determines whether the entity should dodge and oncoming attack
 @export var dodging: bool
 @export var kick_state_color: Color
-@export var domino_state_color: Color
 var initial_state_color: Color
 
 ## Determines whether or not the sprite has been flipped due to negative velocity
@@ -30,8 +29,6 @@ var bullet_nearby := false
 var kicked_by_player := false
 ## Determines whether the entity was footstooled by the player
 var footstooled := false
-## Determines whether the entity is affected by another body that was kicked by the player
-var dominoed := false
 ## Determines whether the entity should dodge and oncoming attack
 var dodge_orb := false
 ## Determines if the player's kick hitbox is detected
@@ -44,8 +41,6 @@ var facing_player : bool
 var player_within_vicinity
 ## Reference to a scene tree timer for when an entity is kicked
 var kick_timer
-## Reference to a scene tree timer for when an entity is dominoed
-var domino_timer
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -61,7 +56,6 @@ func _ready() -> void:
 	Performance.add_custom_monitor("Movement/Direction", fetch_direction)
 	Performance.add_custom_monitor("Movement/Kick Force", fetch_kick_force)
 	Performance.add_custom_monitor("State/Kick", fetch_kick_status)
-	Performance.add_custom_monitor("State/Domino", fetch_domino_status)
 	Performance.add_custom_monitor("State/Player Nearby", fetch_player_nearby_status)
 	Performance.add_custom_monitor("State/Player Within Vicinity", fetch_player_within_vicinity_status)
 	
@@ -74,24 +68,20 @@ func _ready() -> void:
 ## Sets [b]is_sprite_flipped[/b] and [b]flip_scale[/b] based on current x velocity[br][br]
 ## Do [b]not[/b] override this function unless a very specific implementation is needed
 func _process(_delta: float) -> void:
-	if !kicked_by_player and !dominoed:
+	if !kicked_by_player:
 		if velocity.x < 0: 
 			is_sprite_flipped = true
 			flip_scale = -1
 			#$Hitbox.position = Vector2(-18, 3)
-			#if $VisibilityArea: $VisibilityArea.scale.x = -1
 		elif velocity.x > 0: 
 			is_sprite_flipped = false
 			flip_scale = 1
 			#$Hitbox.position = Vector2(18, 3)
-			#if $VisibilityArea: $VisibilityArea.scale.x = 1
 	
 	update_node_scale()
 	
 	if kicked_by_player:
 		$Sprite2D.self_modulate = kick_state_color
-	elif dominoed:
-		$Sprite2D.self_modulate = domino_state_color
 	else:
 		$Sprite2D.self_modulate = initial_state_color
 
@@ -145,7 +135,7 @@ func update_state():
 	# the enemy that was also kicked behind doesn't seem to move as well 
 	# Remove the domino effect
 	
-	if !kicked_by_player and !dominoed:
+	if !kicked_by_player:
 		# This is used to transition to attack state if player is close enough
 		player_nearby = true if player_attack_area.has_overlapping_bodies() else false
 		if has_child(BDA_NAME):
@@ -155,15 +145,15 @@ func update_state():
 		
 		if has_child(VA_NAME):
 			player_within_vicinity = true if $VisibilityArea.has_overlapping_bodies() else false
-	
+		
 		# If the entity is kicked, essentially they are mostly helpless and cannot do anything else
 		if initially_guarding:
-			if player_nearby or bullet_nearby or player_within_vicinity:
+			# GuardArea surrounds the entity and the player needs to get past it in order to be close enough to be attacked
+			if player_within_vicinity:
 				on_guard = false
 				call_for_reinforcements.emit() # Called whenever guard state changes. parent can ignore if needed
-			if !player_nearby and !bullet_nearby: on_guard = true
-		
-		if initially_patrolling:
+			elif !player_nearby and !bullet_nearby: on_guard = true
+		elif initially_patrolling:
 			if player_nearby or player_within_vicinity:
 				on_patrol = false
 				call_for_reinforcements.emit() # Called whenever patrol state changes. parent can ignore if needed
@@ -188,36 +178,17 @@ func update_velocity():
 		position = position.snapped(Vector2(5, 0))
 		velocity.x = kick_force * 1 if player_position.x < position.x else kick_force * -1
 		#velocity.x = remaining_kick_force * 1 if player_position.x < position.x else remaining_kick_force * -1
-	elif dominoed:
-		#var tween = get_tree().create_tween()
-		#tween.tween_property(self, "domino_force", 0, 1.0)
-		## First frame of domino effect
-		if domino_timer == null:
-			domino_timer = get_tree().create_timer(0.5)
-			#remaining_domino_effect_force = domino_force - domino_force_resistance
-		#
-		#if domino_timer.time_left > 0:
-			#remaining_domino_effect_force -= domino_deceleration
-		#else: 
-			#domino_timer = null
-			#dominoed = false
-		if domino_timer.time_left == 0:
-			domino_timer = null
-			dominoed = false
-		#
-		velocity.x = domino_force * 1 if player_position.x < position.x else domino_force * -1
-	
 	
 	#if kicked_by_player and $Kickbox: 
 		#position = position.snapped(Vector2(5, 1))
 		#velocity.x = $Kickbox.knockback.x * 1 if player_position.x < position.x else $Kickbox.knockback.x * -1
 		#print(velocity.x)
-	
 
 
 ## Use to update scale and/or position for optional custom nodes such as VisibilityArea
 func update_node_scale():
 	collision_shape_2d.position.x = collider_init_pos.x * -1 if is_sprite_flipped else collider_init_pos.x * 1
+	if has_child(VA_NAME): $VisibilityArea.scale.x = -1 if is_sprite_flipped else 1
 
 
 @abstract func area_entered_hurtbox(area: Area2D)
@@ -246,10 +217,6 @@ func fetch_kick_force():
 
 func fetch_kick_status():
 	return 1 if kicked_by_player else 0
-
-
-func fetch_domino_status():
-	return 1 if dominoed else 0
 
 
 func fetch_player_nearby_status():
