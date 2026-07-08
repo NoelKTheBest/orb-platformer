@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://beh6myo6hh71l"]
+[gd_scene load_steps=27 format=3 uid="uid://beh6myo6hh71l"]
 
 [ext_resource type="Script" uid="uid://ulwm4fi5msee" path="res://characters/Gunslinger/gunner.gd" id="1_mtho0"]
 [ext_resource type="Texture2D" uid="uid://s7fqk0iepawt" path="res://characters/Gunslinger/Gunslinger Run-Sheet.png" id="2_dbfto"]
@@ -37,26 +37,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/path = NodePath("Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_dbfto")]
+"values": [2]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:vframes")
+tracks/3/path = NodePath("Sprite2D:texture")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [ExtResource("2_dbfto")]
 }
 
 [sub_resource type="Animation" id="Animation_oo7p7"]
@@ -129,22 +129,34 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:vframes")
+tracks/1/path = NodePath("Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [8]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/path = NodePath("Sprite2D:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -204,12 +216,79 @@ tracks/3/keys = {
 "values": [ExtResource("2_dbfto")]
 }
 
+[sub_resource type="Animation" id="Animation_s2ceh"]
+resource_name = "shoot"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12, 13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_rjjsp")]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot_orb"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oo7p7"]
 _data = {
 &"RESET": SubResource("Animation_uefk6"),
 &"idle": SubResource("Animation_oo7p7"),
 &"kicked": SubResource("Animation_xt6ul"),
-&"run": SubResource("Animation_rjjsp")
+&"run": SubResource("Animation_rjjsp"),
+&"shoot": SubResource("Animation_s2ceh")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rjjsp"]
@@ -220,6 +299,9 @@ animation = &"kicked"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xt6ul"]
 animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uefk6"]
+animation = &"shoot"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uefk6"]
 advance_mode = 2
@@ -240,6 +322,22 @@ advance_mode = 2
 advance_mode = 2
 advance_expression = "kicked_by_player"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s2ceh"]
+advance_mode = 2
+advance_expression = "can_shoot_orb"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cipxw"]
+advance_mode = 2
+advance_expression = "can_shoot_orb"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ylcx5"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rjjsp"]
+advance_mode = 2
+advance_expression = "kicked_by_player"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jgwp0"]
 states/End/position = Vector2(890, 182)
 states/Start/position = Vector2(246, 69)
@@ -249,8 +347,13 @@ states/kicked/node = SubResource("AnimationNodeAnimation_s2ceh")
 states/kicked/position = Vector2(666, 182)
 states/run/node = SubResource("AnimationNodeAnimation_xt6ul")
 states/run/position = Vector2(442, 182)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_uefk6"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_oo7p7"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_xt6ul"), "kicked", "run", SubResource("AnimationNodeStateMachineTransition_daoqd"), "run", "kicked", SubResource("AnimationNodeStateMachineTransition_p5ph3")]
+states/shoot/node = SubResource("AnimationNodeAnimation_uefk6")
+states/shoot/position = Vector2(666, 69)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_uefk6"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_oo7p7"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_xt6ul"), "kicked", "run", SubResource("AnimationNodeStateMachineTransition_daoqd"), "run", "kicked", SubResource("AnimationNodeStateMachineTransition_p5ph3"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_s2ceh"), "run", "shoot", SubResource("AnimationNodeStateMachineTransition_cipxw"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_ylcx5"), "shoot", "kicked", SubResource("AnimationNodeStateMachineTransition_rjjsp")]
 graph_offset = Vector2(-20, 27)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rjjsp"]
+radius = 64.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjjsp"]
 size = Vector2(20, 24)
@@ -292,6 +395,8 @@ anim_player = NodePath("../AnimationPlayer")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
+shape = SubResource("CircleShape2D_rjjsp")
+debug_color = Color(1, 0.00999999, 0.00999999, 0.16078432)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -301,3 +406,11 @@ collision_mask = 24880
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_rjjsp")
 debug_color = Color(0.79809237, 0.41083765, 0.27730364, 0.41960785)
+
+[node name="OrbSpawnPosition" type="Node2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -576,7 +576,6 @@ scale = Vector2(1, 1.1)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
-visible = false
 shape = SubResource("RectangleShape2D_ica8k")
 debug_color = Color(1, 0.00999999, 0.00999999, 0.14117648)
 

@@ -10,8 +10,9 @@ const VA_NAME = "VisibilityArea"
 ## Signal sent when the entity wishes to call for backup
 signal call_for_reinforcements
 
+#why is this an export variable
 ## Determines if the entity is currently attacking
-@export var attacking: bool
+var attacking: bool
 ## Determines whether the entity should dodge and oncoming attack
 @export var dodging: bool
 @export var kick_state_color: Color
