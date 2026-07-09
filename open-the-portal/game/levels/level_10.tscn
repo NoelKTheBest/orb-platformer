@@ -19,6 +19,7 @@ size = Vector2(20, 32)
 script = ExtResource("1_4ry5c")
 
 [node name="BG" type="Polygon2D" parent="."]
+z_index = -4
 position = Vector2(-48.000004, 39.999996)
 scale = Vector2(1.566537, 2.8336828)
 color = Color(0.1512, 0.1533467, 0.28, 1)
@@ -108,13 +109,15 @@ offset_right = 31.0
 offset_bottom = 7.0
 
 [node name="Kala" parent="." instance=ExtResource("8_4t8w5")]
-position = Vector2(992, 624)
+position = Vector2(632, 624)
 
 [node name="Polygon2D9" parent="." instance=ExtResource("1_uhbgd")]
 position = Vector2(800, 512)
 scale = Vector2(7.529846, 0.52109987)
 
 [node name="Gunner" parent="." instance=ExtResource("8_1rw26")]
+process_mode = 4
+visible = false
 position = Vector2(720, 624)
 platform_floor_layers = 68
 kick_state_color = Color(0.89162844, 0.27196687, 0.5222416, 1)
@@ -124,8 +127,6 @@ speed = 100
 metadata/_edit_group_ = true
 
 [node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
-process_mode = 4
-visible = false
 position = Vector2(696, 632)
 kick_state_color = Color(0.8901961, 0.27058825, 0.52156866, 1)
 on_patrol = false

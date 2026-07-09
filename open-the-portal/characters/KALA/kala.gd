@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 		#print(collided_enemies)
 	
 	kick_enemy = true if kick_hitbox.has_overlapping_bodies() and velocity.y > 0 else false
-	if $KickFallTimer.is_stopped() and kick_enemy: 
+	if $KickFallTimer.is_stopped() and kick_enemy:
 		$KickFallTimer.start(kick_fall_timer_time)
 	
 	find_closest_enemy()
@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 	$RailgunBeam.visible = false
 	
 	temp_delta = delta
-	if enemy_pos: 
+	if enemy_pos:
 		move_camera_d(delta)
 	
 	#if DEBUG:
@@ -208,9 +208,6 @@ func _physics_process(delta: float) -> void:
 			jump_buffer_timer.stop()
 		#endregion
 		
-		#if is_on_floor() and velocity.y > 0:
-			#print("landed")
-		
 		set_collision_mask_value(2, true)
 		lateral_footstool_queued = false
 		current_animation = ""
@@ -223,17 +220,33 @@ func _physics_process(delta: float) -> void:
 	
 	if direction:
 		var slow_scale = x_slow_amount if $KickFallTimer.time_left > 0 else 1.0
+		# l_footstool_direction only has direction is direction is not 0.0
+		# the player won't go anywhere if they don't input a direction to go in
 		if current_animation == "l_footstool" and l_footstool_direction == null:
 			l_footstool_direction = direction
 			velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
+		# on the frame after l_footstool_direction is set to direction, it is possible
+		# to change the direction again
 		else:
 			l_footstool_direction = null
 			velocity.x = move_toward(velocity.x, direction * MAX_SPEED * (1.0/(slow_scale)), accel)
 	else:
+		if current_animation == "l_footstool" and l_footstool_direction == null:
+			# the assignment of l_footstool_direction depends on the value of
+			# sprite_2d.flip_h from the previous frame since the value is not changed
+			# before l_footstool_direction is assigned
+			l_footstool_direction = -1 if sprite_2d.flip_h else 1 # value should be reset
+			velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
 		velocity.x = move_toward(velocity.x, 0, accel)
 	
+	# Use this line to debug l_footstool_direction
+	print("lfd: ", l_footstool_direction, "; dir: ", direction, "; flip: ", sprite_2d.flip_h)
+	
+	# Use this line to debug current_animation
+	#print(current_animation)
+	
 	if $KickFallTimer.time_left == 0:
-		if direction < 0: sprite_2d.flip_h = true 
+		if direction < 0: sprite_2d.flip_h = true
 		elif direction > 0: sprite_2d.flip_h = false
 		sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
 	#endregion
@@ -242,9 +255,12 @@ func _physics_process(delta: float) -> void:
 	
 	if velocity.y == 0 and prev_y_velocity > 0:
 		SfxSpawner.set_player(position, 4)
+		l_footstool_direction = null # This value is so far only set when direction is changed or when landing
+		print("landed")
+		
 	
 	$Polygon2D.visible = true if lateral_footstool_queued else false
-	prev_y_velocity = velocity.y 
+	prev_y_velocity = velocity.y
 
 
 func move_camera():
