@@ -116,8 +116,6 @@ position = Vector2(800, 512)
 scale = Vector2(7.529846, 0.52109987)
 
 [node name="Gunner" parent="." instance=ExtResource("8_1rw26")]
-process_mode = 4
-visible = false
 position = Vector2(720, 624)
 platform_floor_layers = 68
 kick_state_color = Color(0.89162844, 0.27196687, 0.5222416, 1)

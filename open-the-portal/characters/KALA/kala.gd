@@ -24,6 +24,7 @@ var orb = preload("res://game/scenes/orb.tscn")
 @export var accel : int
 @export var sprite_init_point: Vector2
 @export var kick_fall_timer_time: float = 0.4
+@export var knockback: Vector2
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -40,12 +41,13 @@ var l_footstool_direction
 var closest_enemy_position := Vector2.ZERO
 var temp_delta = 0
 var enemy_pos : Vector2
+var health = 5
+var was_hit = false
 
 #region AnimTreeVars
 var kick_enemy: bool = false
 var current_animation := ""
 #endregion
-
 
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -55,6 +57,7 @@ var current_animation := ""
 @onready var orb_spawn_position: Node2D = $OrbSpawnPosition
 @onready var conveyor_belt: Control = $UserInterface/ConveyorBelt
 @onready var camera_follow: Node2D = $CameraFollow
+@onready var health_bar: Control = $CanvasLayer/HealthBar
 
 
 func _ready() -> void:
@@ -348,6 +351,10 @@ func find_closest_enemy():
 	pass
 
 
+func die():
+	player_died.emit()
+
+
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	print("finishing anim: ", anim_name)
 	if anim_name == "Kala_anims/kick":
@@ -366,3 +373,17 @@ func _on_animation_tree_animation_started(anim_name: StringName) -> void:
 		current_animation = "l_footstool"
 	else:
 		current_animation = ""
+
+
+func _on_hurtbox_player_was_hit(collision_vector: Variant) -> void:
+	$CameraFollow/Camera2D.apply_shake()
+	set_collision_mask_value(2, false)
+	was_hit = true
+	$AnimationPlayer.play("hit")
+	velocity.x = collision_vector.normalized().x * knockback.x
+	velocity.y = -knockback.y
+	health -= 1
+	health_bar.update_health(health)
+	if health == 0:
+		health_bar.update_health(health)
+		die()

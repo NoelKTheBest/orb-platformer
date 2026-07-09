@@ -6,6 +6,7 @@ const KICK_AREA_NAME = "Kickbox"
 const BDA_NAME = "BulletDetectionArea"
 const GA_NAME = "GuardArea"
 const VA_NAME = "VisibilityArea"
+const HB_NAME = "Hitbox"
 
 ## Signal sent when the entity wishes to call for backup
 signal call_for_reinforcements
@@ -190,6 +191,7 @@ func update_velocity():
 func update_node_scale():
 	collision_shape_2d.position.x = collider_init_pos.x * -1 if is_sprite_flipped else collider_init_pos.x * 1
 	if has_child(VA_NAME): $VisibilityArea.scale.x = -1 if is_sprite_flipped else 1
+	if has_child(HB_NAME): $Hitbox.position.x = $Hitbox.position.x * -1 if is_sprite_flipped else $Hitbox.position.x * 1
 
 
 @abstract func area_entered_hurtbox(area: Area2D)
