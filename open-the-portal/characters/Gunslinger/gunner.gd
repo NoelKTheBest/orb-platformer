@@ -41,7 +41,7 @@ func area_entered_hurtbox(area: Area2D):
 
 @warning_ignore("unused_parameter")
 func body_entered_hurtbox(body: Node2D):
-	pass
+	print(body)
 
 
 func animation_finished(anim_name: StringName):

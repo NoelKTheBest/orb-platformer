@@ -243,7 +243,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, accel)
 	
 	# Use this line to debug l_footstool_direction
-	print("lfd: ", l_footstool_direction, "; dir: ", direction, "; flip: ", sprite_2d.flip_h)
+	#print("lfd: ", l_footstool_direction, "; dir: ", direction, "; flip: ", sprite_2d.flip_h)
 	
 	# Use this line to debug current_animation
 	#print(current_animation)
@@ -259,7 +259,7 @@ func _physics_process(delta: float) -> void:
 	if velocity.y == 0 and prev_y_velocity > 0:
 		SfxSpawner.set_player(position, 4)
 		l_footstool_direction = null # This value is so far only set when direction is changed or when landing
-		print("landed")
+		#print("landed")
 		
 	
 	$Polygon2D.visible = true if lateral_footstool_queued else false
@@ -379,7 +379,7 @@ func _on_hurtbox_player_was_hit(collision_vector: Variant) -> void:
 	$CameraFollow/Camera2D.apply_shake()
 	set_collision_mask_value(2, false)
 	was_hit = true
-	$AnimationPlayer.play("hit")
+	#$AnimationPlayer.play("hit")
 	velocity.x = collision_vector.normalized().x * knockback.x
 	velocity.y = -knockback.y
 	health -= 1

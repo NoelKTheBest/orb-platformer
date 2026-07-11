@@ -17,6 +17,8 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	var areas = get_overlapping_areas()
+	#print(areas)
+	#print(get_overlapping_bodies())
 	if has_overlapping_areas(): 
 		collision_point = areas[0].position
 	
