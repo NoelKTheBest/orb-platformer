@@ -18,11 +18,15 @@ func area_entered_hurtbox(area: Area2D):
 	#print(area.name) # Kickbox is not visible when first being detected by the entity's hurtbox
 	check_for_kickbox(area)
 	
+	if area.name == "RaycastArea":
+		area.queue_free()
+		die()
 
 
 @warning_ignore("unused_parameter")
 func body_entered_hurtbox(body: Node2D):
-	print(body)
+	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything:
+		dodge_orb = true
 
 
 func animation_finished(anim_name: StringName):

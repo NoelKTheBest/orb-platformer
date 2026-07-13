@@ -115,6 +115,8 @@ func _physics_process(delta: float) -> void:
 			if abs(squad_position.x - position.x) < 1: velocity.x = 0.0
 		else:
 			monitor_player_position = true # pursue player if they get too close
+			# We need to check to make sure that entities that are on gaurd will 
+			# return to their gaurd position if the player moves out of their guard range
 	
 	if !on_guard and !on_patrol:
 		player_position = SceneVariables.player_position

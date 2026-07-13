@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://d1x2wb7hdgv5x"]
+[gd_scene load_steps=61 format=4 uid="uid://d1x2wb7hdgv5x"]
 
 [ext_resource type="Script" uid="uid://bp7f77m1dsndi" path="res://characters/KALA/kala.gd" id="1_hd2te"]
 [ext_resource type="Texture2D" uid="uid://cpllppu7ks4jx" path="res://characters/KALA/Player Animations-Sheet.png" id="2_jjso4"]
@@ -622,11 +622,11 @@ _data = {
 &"run": SubResource("Animation_jjso4")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xm2tr"]
-animation = &"Kala_anims/landing"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhjt6"]
 animation = &"Kala_anims/fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xm2tr"]
+animation = &"Kala_anims/hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vh5wt"]
 animation = &"Kala_anims/idle"
@@ -636,6 +636,34 @@ animation = &"Kala_anims/jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1ougi"]
 animation = &"Kala_anims/kick"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3iq7k"]
+animation = &"Kala_anims/landing"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0wnnm"]
+animation = &"Kala_anims/landing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hsgcs"]
+advance_mode = 2
+advance_expression = "velocity.x != 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h3cec"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_elrw4"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uyukw"]
+advance_mode = 2
+advance_expression = "velocity.x != 0"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w385v"]
+states/Kala_anims_landing/node = SubResource("AnimationNodeAnimation_0wnnm")
+states/Kala_anims_landing/position = Vector2(546, 22)
+"states/Kala_anims_landing 2/node" = SubResource("AnimationNodeAnimation_3iq7k")
+"states/Kala_anims_landing 2/position" = Vector2(546, 203)
+transitions = ["Start", "Kala_anims_landing", SubResource("AnimationNodeStateMachineTransition_hsgcs"), "Kala_anims_landing", "End", SubResource("AnimationNodeStateMachineTransition_h3cec"), "Start", "Kala_anims_landing 2", SubResource("AnimationNodeStateMachineTransition_elrw4"), "Kala_anims_landing 2", "End", SubResource("AnimationNodeStateMachineTransition_uyukw")]
+graph_offset = Vector2(17, -59)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ade3c"]
 animation = &"Kala_anims/lateral_footstool"
@@ -648,7 +676,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xm2tr"]
 advance_mode = 2
-advance_expression = "velocity.x != 0 or velocity.y < 0"
+advance_expression = "velocity.x != 0 or velocity.y < 0 or was_hit"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3iq7k"]
 advance_mode = 2
@@ -682,32 +710,46 @@ advance_expression = "lateral_footstool_queued && footstool_area.has_overlapping
 advance_mode = 2
 advance_expression = "is_on_floor()"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hsgcs"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_st56w"]
+advance_mode = 2
+advance_expression = "was_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ek5c2"]
+advance_mode = 2
+advance_expression = "was_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l2ocj"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mv4dk"]
 advance_mode = 2
 advance_expression = "velocity.y == 0 && prev_y_velocity > 0"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h3cec"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x5p2n"]
 advance_mode = 2
-advance_expression = "velocity.x != 0"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hsgcs"]
 states/End/position = Vector2(974, 101)
-states/Kala_anims_landing/node = SubResource("AnimationNodeAnimation_xm2tr")
-states/Kala_anims_landing/position = Vector2(376, -209.12794)
+states/Start/position = Vector2(108, 101)
 states/fall/node = SubResource("AnimationNodeAnimation_jhjt6")
-states/fall/position = Vector2(575, -123)
+states/fall/position = Vector2(575, -215.12794)
+states/hit/node = SubResource("AnimationNodeAnimation_xm2tr")
+states/hit/position = Vector2(974, -14)
 states/idle/node = SubResource("AnimationNodeAnimation_vh5wt")
-states/idle/position = Vector2(322, 101)
+states/idle/position = Vector2(322, 180)
 states/jump/node = SubResource("AnimationNodeAnimation_al2mk")
 states/jump/position = Vector2(424, -14)
 states/kick/node = SubResource("AnimationNodeAnimation_1ougi")
 states/kick/position = Vector2(735, -14)
+states/landing_states/node = SubResource("AnimationNodeStateMachine_w385v")
+states/landing_states/position = Vector2(322, -215.12794)
 states/lateral_footstool/node = SubResource("AnimationNodeAnimation_ade3c")
-states/lateral_footstool/position = Vector2(222, -56)
+states/lateral_footstool/position = Vector2(116, -14)
 states/run/node = SubResource("AnimationNodeAnimation_jjso4")
-states/run/position = Vector2(575, 101)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ade3c"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_xm2tr"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3iq7k"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_0wnnm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o5knt"), "fall", "kick", SubResource("AnimationNodeStateMachineTransition_j26mg"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_08d8f"), "kick", "run", SubResource("AnimationNodeStateMachineTransition_f5s41"), "fall", "lateral_footstool", SubResource("AnimationNodeStateMachineTransition_vh5wt"), "lateral_footstool", "idle", SubResource("AnimationNodeStateMachineTransition_al2mk"), "fall", "Kala_anims_landing", SubResource("AnimationNodeStateMachineTransition_hsgcs"), "Kala_anims_landing", "idle", SubResource("AnimationNodeStateMachineTransition_h3cec")]
-graph_offset = Vector2(-194, -264.12793)
+states/run/position = Vector2(575, 180)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ade3c"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_xm2tr"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3iq7k"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_0wnnm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o5knt"), "fall", "kick", SubResource("AnimationNodeStateMachineTransition_j26mg"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_08d8f"), "kick", "run", SubResource("AnimationNodeStateMachineTransition_f5s41"), "fall", "lateral_footstool", SubResource("AnimationNodeStateMachineTransition_vh5wt"), "lateral_footstool", "idle", SubResource("AnimationNodeStateMachineTransition_al2mk"), "run", "hit", SubResource("AnimationNodeStateMachineTransition_st56w"), "fall", "hit", SubResource("AnimationNodeStateMachineTransition_ek5c2"), "hit", "run", SubResource("AnimationNodeStateMachineTransition_l2ocj"), "fall", "landing_states", SubResource("AnimationNodeStateMachineTransition_mv4dk"), "landing_states", "idle", SubResource("AnimationNodeStateMachineTransition_x5p2n")]
+graph_offset = Vector2(15, -174.12793)
 
 [sub_resource type="Animation" id="Animation_rrmcd"]
 length = 0.001
@@ -779,6 +821,7 @@ kick_fall_factor_inc = 100.0
 x_slow_amount = 30.0
 accel = 25
 sprite_init_point = Vector2(11, 0)
+knockback = Vector2(50, 15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_imwqx")

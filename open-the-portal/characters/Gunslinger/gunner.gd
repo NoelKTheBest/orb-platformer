@@ -41,13 +41,14 @@ func area_entered_hurtbox(area: Area2D):
 
 @warning_ignore("unused_parameter")
 func body_entered_hurtbox(body: Node2D):
-	print(body)
+	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything:
+		pass
 
 
 func animation_finished(anim_name: StringName):
 	if anim_name == KICK_ANIMATION_NAME:
 		kicked_by_player = false
-		kick_force = 600
+		kick_force = 600 
 
 
 func _on_shoot_timer_timeout() -> void:

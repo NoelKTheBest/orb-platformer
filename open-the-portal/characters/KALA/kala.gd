@@ -363,6 +363,8 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 		current_animation = ""
 	elif anim_name == "Kala_anims/lateral_footstool":
 		current_animation = ""
+	elif anim_name == "Kala_anims/hit":
+		was_hit = false
 
 
 func _on_animation_tree_animation_started(anim_name: StringName) -> void:
@@ -379,7 +381,6 @@ func _on_hurtbox_player_was_hit(collision_vector: Variant) -> void:
 	$CameraFollow/Camera2D.apply_shake()
 	set_collision_mask_value(2, false)
 	was_hit = true
-	#$AnimationPlayer.play("hit")
 	velocity.x = collision_vector.normalized().x * knockback.x
 	velocity.y = -knockback.y
 	health -= 1

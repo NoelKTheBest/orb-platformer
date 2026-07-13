@@ -200,6 +200,12 @@ func update_node_scale():
 @abstract func body_entered_hurtbox(body: Node2D)
 
 
+func die():
+	SfxSpawner.set_player(position, 1)
+	VfxSpawner.set_player(position)
+	queue_free()
+
+
 func check_for_kickbox(area: Area2D):
 	if area.is_in_group("Physical Attacks"):
 		if area.name == "KickHitbox":
