@@ -101,39 +101,32 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("instant_fire") and $RayCast2D.is_colliding() and $UserInterface/Node.use_energy(8) != -1:
 		$RailgunBeam.visible = true
-		var new_ray_area = Area2D.new()
-		var new_ray_collider = CollisionShape2D.new()
-		new_ray_collider.shape = CircleShape2D.new()
-		new_ray_collider.shape.radius = 2.5
-		new_ray_area.add_child(new_ray_collider)
-		new_ray_area.set_collision_layer_value(1, false)
-		new_ray_area.set_collision_layer_value(5, true)
-		new_ray_area.set_collision_mask_value(1, false)
-		new_ray_area.set_collision_mask_value(2, true)
-		new_ray_area.position = to_local($RayCast2D.get_collision_point())
-		new_ray_area.name = "RaycastArea"
-		add_child(new_ray_area)
-		var mother = get_parent()
-		new_ray_area.reparent(mother)
+		add_raycast_area($RayCast2D, "RaycastArea")
 		$AudioStreamPlayer2D.stream = gun_blast_2
 		$AudioStreamPlayer2D.play()
 	
 	if Input.is_action_just_pressed("fire"):
-		# Consume returns -1 if there isn't enough energy.
-		if $UserInterface/Node.use_energy(0) != -1:
-			var new_orb = orb.instantiate()
-			
-			# Set properties before node is ready to have access to them
-			orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
-			new_orb.position = orb_spawn_position.position
-			var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
-			new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
-			add_child(new_orb)
-			orb_was_fired.emit()
-			var mother = get_parent()
-			new_orb.reparent(mother)
-			$AudioStreamPlayer2D.stream = gun_blast_1
-			$AudioStreamPlayer2D.play()
+		if is_on_floor():
+			# Consume returns -1 if there isn't enough energy.
+			if $UserInterface/Node.use_energy(0) != -1:
+				var new_orb = orb.instantiate()
+				
+				# Set properties before node is ready to have access to them
+				orb_spawn_position.position.x = -22 if sprite_2d.flip_h else 22
+				new_orb.position = orb_spawn_position.position
+				var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
+				new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
+				add_child(new_orb)
+				orb_was_fired.emit()
+				var mother = get_parent()
+				new_orb.reparent(mother)
+				$AudioStreamPlayer2D.stream = gun_blast_1
+				$AudioStreamPlayer2D.play()
+		else:
+			if $ClosestEnemyRaycast.is_colliding():
+				add_raycast_area($ClosestEnemyRaycast, "CE_RaycastArea")
+				$AudioStreamPlayer2D.stream = gun_blast_1
+				$AudioStreamPlayer2D.play()
 		
 	#if Input.is_action_just_pressed("power_fire") and !power_cooldown and !no_energy:
 		## Consume returns -1 if there isn't enough energy.
@@ -282,31 +275,6 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 
-func move_camera():
-	$CameraFollow/Camera2D.limit_top = position.y - 200
-	#if enemy_pos and enemy_pos != position:
-		##t += delta * 0.4
-		#var _line_to_enemy : Vector2 = enemy_pos - position
-		#var m = (enemy_pos.y - position.y)/(enemy_pos.x - position.x)
-		#var x_mid = (enemy_pos.x - position.x)/2
-		#var y = x_mid * m
-		#camera_follow.position = Vector2(x_mid, y)
-		##print(position.distance_squared_to(enemy_pos))
-		##if position.distance_squared_to(enemy_pos) < close_zoom_range:
-			##if !is_zoomed_close: $CameraFollow/AnimationPlayer.play("close_zoom")
-			##is_zoomed_close = true
-		##else:
-			##if is_zoomed_close: $CameraFollow/AnimationPlayer.play("normal_zoom")
-			##is_zoomed_close = false
-		#
-		## if there is only one enemy in the scene
-		##	focus on enemy if they are close enough
-		#if position.distance_squared_to(enemy_pos) > player_camera_focus_range:
-			#camera_follow.position = Vector2.ZERO
-	#else:
-		#camera_follow.position = Vector2.ZERO
-
-
 func move_camera_d(_delta : float):
 	if enemy_pos and enemy_pos != position:
 		#t += delta * 0.4
@@ -364,6 +332,23 @@ func find_closest_enemy():
 			if abs(e.position.x - position.x) < min_d:
 				min_d = abs(e.position.x - position.x)
 				closest_enemy_position = e.position
+
+
+func add_raycast_area(raycast: RayCast2D, area_name: String):
+	var new_ray_area = Area2D.new()
+	var new_ray_collider = CollisionShape2D.new()
+	new_ray_collider.shape = CircleShape2D.new()
+	new_ray_collider.shape.radius = 2.5
+	new_ray_area.add_child(new_ray_collider)
+	new_ray_area.set_collision_layer_value(1, false)
+	new_ray_area.set_collision_mask_value(1, false)
+	new_ray_area.set_collision_layer_value(5, true)
+	new_ray_area.set_collision_mask_value(2, true)
+	new_ray_area.position = to_local(raycast.get_collision_point())
+	new_ray_area.name = area_name
+	add_child(new_ray_area)
+	var mother = get_parent()
+	new_ray_area.reparent(mother)
 
 
 func flip_sprite(mode: int, assignment_1: bool, assignment_2: bool, direction = 0.0):
