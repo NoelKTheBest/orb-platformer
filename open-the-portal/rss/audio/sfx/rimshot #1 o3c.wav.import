@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dechb00n8ky5q"
-path="res://.godot/imported/rimshot #1 o3c.wav-c0a3a530696a1568715ec8b7a3e6f9a6.sample"
+path="res://.godot/imported/rimshot #1 o3c.wav-62ffc23236a2e7d05936228dd2975010.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/rimshot #1 o3c.wav"
-dest_files=["res://.godot/imported/rimshot #1 o3c.wav-c0a3a530696a1568715ec8b7a3e6f9a6.sample"]
+source_file="res://rss/audio/sfx/rimshot #1 o3c.wav"
+dest_files=["res://.godot/imported/rimshot #1 o3c.wav-62ffc23236a2e7d05936228dd2975010.sample"]
 
 [params]
 

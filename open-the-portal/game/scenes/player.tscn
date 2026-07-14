@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c5tyh3mannb30" path="res://game/scenes/code_bytes_ui.tscn" id="10_d1crr"]
 [ext_resource type="Script" uid="uid://bkjevvemv2ekk" path="res://game/scripts/player_hurtbox.gd" id="11_06pfm"]
 [ext_resource type="PackedScene" uid="uid://ijcapcio55q" path="res://game/prototype_2/healthbars.tscn" id="12_f2egm"]
-[ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://rss/audio/Gun blast 4.wav" id="14_ppdnp"]
+[ext_resource type="AudioStream" uid="uid://c4bvacg5dv3xg" path="res://rss/audio/sfx/Gun blast 4.wav" id="14_ppdnp"]
 [ext_resource type="Texture2D" uid="uid://bclg6x34c84kt" path="res://rss/sprites/railgun_beam.png" id="16_dpk1l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2dcj"]

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b58fsqgqa7ca6"
-path="res://.godot/imported/blarg1.wav-4350f39406c77eead4ce68d7d896b6f1.sample"
+uid="uid://dft4vtqt0dx8d"
+path="res://.godot/imported/zang1.wav-fcb8c9230fefe444663856fb0e9889f5.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/blarg1.wav"
-dest_files=["res://.godot/imported/blarg1.wav-4350f39406c77eead4ce68d7d896b6f1.sample"]
+source_file="res://rss/audio/sfx/zang1.wav"
+dest_files=["res://.godot/imported/zang1.wav-fcb8c9230fefe444663856fb0e9889f5.sample"]
 
 [params]
 

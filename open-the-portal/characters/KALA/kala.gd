@@ -9,8 +9,8 @@ signal player_died
 #region Preloads
 var kickbox_scene = preload("res://game/scenes/kickbox.tscn")
 var aerial_normal_bullet_scene = preload("res://game/scenes/aerial_normal_bullet.tscn")
-var gun_blast_1 = preload("res://rss/audio/Gun blast 1.wav")
-var gun_blast_2 = preload("res://rss/audio/Gun blast 4.wav")
+var gun_blast_1 = preload("res://rss/audio/sfx/Gun blast 1.wav")
+var gun_blast_2 = preload("res://rss/audio/sfx/Gun blast 4.wav")
 var orb = preload("res://game/scenes/orb.tscn")
 #endregion
 

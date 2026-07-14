@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://754wemjub3nk"
-path="res://.godot/imported/lowbuzz.wav-67459c740959532fe8d0c181a5d15612.sample"
+uid="uid://c84wa75xyhkkk"
+path="res://.godot/imported/ting1.wav-79ac83c8e8568f37904561e9c3104e56.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/lowbuzz.wav"
-dest_files=["res://.godot/imported/lowbuzz.wav-67459c740959532fe8d0c181a5d15612.sample"]
+source_file="res://rss/audio/sfx/ting1.wav"
+dest_files=["res://.godot/imported/ting1.wav-79ac83c8e8568f37904561e9c3104e56.sample"]
 
 [params]
 

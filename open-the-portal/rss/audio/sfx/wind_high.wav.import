@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://ysw8desm75or"
-path="res://.godot/imported/ting2.wav-df3725635c6ebab9fff013efd2dfdeaf.sample"
+uid="uid://cntlw3rpcfj23"
+path="res://.godot/imported/wind_high.wav-c9d5885c962ecf5f29d1c3a31e93ab85.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/ting2.wav"
-dest_files=["res://.godot/imported/ting2.wav-df3725635c6ebab9fff013efd2dfdeaf.sample"]
+source_file="res://rss/audio/sfx/wind_high.wav"
+dest_files=["res://.godot/imported/wind_high.wav-c9d5885c962ecf5f29d1c3a31e93ab85.sample"]
 
 [params]
 

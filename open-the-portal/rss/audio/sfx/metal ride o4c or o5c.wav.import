@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c0oyn0vayi5pj"
-path="res://.godot/imported/metal ride o4c or o5c.wav-da1e0c522c39b900f42ec90fb7f8e380.sample"
+path="res://.godot/imported/metal ride o4c or o5c.wav-a578c0344564982161ffd8fc6c6dab1b.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/metal ride o4c or o5c.wav"
-dest_files=["res://.godot/imported/metal ride o4c or o5c.wav-da1e0c522c39b900f42ec90fb7f8e380.sample"]
+source_file="res://rss/audio/sfx/metal ride o4c or o5c.wav"
+dest_files=["res://.godot/imported/metal ride o4c or o5c.wav-a578c0344564982161ffd8fc6c6dab1b.sample"]
 
 [params]
 

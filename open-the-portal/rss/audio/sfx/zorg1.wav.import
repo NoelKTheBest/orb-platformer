@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cm3k3g6oytaao"
-path="res://.godot/imported/zing1.wav-29a7cb996b2b146f4622b544146ecb9e.sample"
+uid="uid://bxpopucrlmpvx"
+path="res://.godot/imported/zorg1.wav-02e37ef6835548f2725076841dabe793.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/zing1.wav"
-dest_files=["res://.godot/imported/zing1.wav-29a7cb996b2b146f4622b544146ecb9e.sample"]
+source_file="res://rss/audio/sfx/zorg1.wav"
+dest_files=["res://.godot/imported/zorg1.wav-02e37ef6835548f2725076841dabe793.sample"]
 
 [params]
 

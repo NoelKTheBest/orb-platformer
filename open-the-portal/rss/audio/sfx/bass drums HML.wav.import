@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://iq2dcybemnoa"
-path="res://.godot/imported/bass drums HML.wav-77add749ad10bd7682b35e652386fbf6.sample"
+path="res://.godot/imported/bass drums HML.wav-4388af5dd1abee1da1026e3270a0495f.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/bass drums HML.wav"
-dest_files=["res://.godot/imported/bass drums HML.wav-77add749ad10bd7682b35e652386fbf6.sample"]
+source_file="res://rss/audio/sfx/bass drums HML.wav"
+dest_files=["res://.godot/imported/bass drums HML.wav-4388af5dd1abee1da1026e3270a0495f.sample"]
 
 [params]
 

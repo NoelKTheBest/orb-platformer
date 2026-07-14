@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://di05y78nm7lb3"
-path="res://.godot/imported/deep bass drum 3.wav-068c575706ab425f2a9385ee5a0bd16d.sample"
+path="res://.godot/imported/deep bass drum 3.wav-adc8e749f72adf40ef902befe6a0e49d.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/deep bass drum 3.wav"
-dest_files=["res://.godot/imported/deep bass drum 3.wav-068c575706ab425f2a9385ee5a0bd16d.sample"]
+source_file="res://rss/audio/sfx/deep bass drum 3.wav"
+dest_files=["res://.godot/imported/deep bass drum 3.wav-adc8e749f72adf40ef902befe6a0e49d.sample"]
 
 [params]
 

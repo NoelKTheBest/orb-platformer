@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dwdnv346l38ox"
-path="res://.godot/imported/heavy bd.wav-0856f3c0e97fd7d2ff950ee1f08c8e75.sample"
+path="res://.godot/imported/heavy bd.wav-7ab33dbacfd32d562d973f30f0db39e0.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/heavy bd.wav"
-dest_files=["res://.godot/imported/heavy bd.wav-0856f3c0e97fd7d2ff950ee1f08c8e75.sample"]
+source_file="res://rss/audio/sfx/heavy bd.wav"
+dest_files=["res://.godot/imported/heavy bd.wav-7ab33dbacfd32d562d973f30f0db39e0.sample"]
 
 [params]
 

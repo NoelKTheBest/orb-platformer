@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://d28dkfwoe4fiu"
-path="res://.godot/imported/Gun blast 1.wav-bfa163f678b412d2015cc0eba8b07d7c.sample"
+path="res://.godot/imported/Gun blast 1.wav-649248a2b4ac6301802933ea65559537.sample"
 
 [deps]
 
-source_file="res://rss/audio/Gun blast 1.wav"
-dest_files=["res://.godot/imported/Gun blast 1.wav-bfa163f678b412d2015cc0eba8b07d7c.sample"]
+source_file="res://rss/audio/sfx/Gun blast 1.wav"
+dest_files=["res://.godot/imported/Gun blast 1.wav-649248a2b4ac6301802933ea65559537.sample"]
 
 [params]
 

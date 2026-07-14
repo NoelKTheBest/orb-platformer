@@ -1,5 +1,6 @@
 extends Node
 
+var audio_files
 
 const audio_stream_names = {
 	1: "soft impact",
@@ -29,6 +30,12 @@ const audio_stream_lib_names = {
 	19: "zorg1",
 	20: "hard impact"
 }
+
+
+func _ready() -> void:
+	audio_files = ResourceLoader.list_directory("res://rss/audio/sfx/")
+	print(audio_files)
+
 
 func set_player(position: Vector2, audioStreamID: int):
 	var new_stream = AudioStreamPlayer2D.new()

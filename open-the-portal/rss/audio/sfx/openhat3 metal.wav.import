@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b22qq0et3ie5o"
-path="res://.godot/imported/openhat3 metal.wav-c5cacd884efd3eca28d2cb6e82e91248.sample"
+path="res://.godot/imported/openhat3 metal.wav-257219350693089091d4309396ee5f6c.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/openhat3 metal.wav"
-dest_files=["res://.godot/imported/openhat3 metal.wav-c5cacd884efd3eca28d2cb6e82e91248.sample"]
+source_file="res://rss/audio/sfx/openhat3 metal.wav"
+dest_files=["res://.godot/imported/openhat3 metal.wav-257219350693089091d4309396ee5f6c.sample"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b0ds1k4ktp1cb"
-path="res://.godot/imported/wind_low.wav-cf9a5cb7019b68e70086975011c13e5e.sample"
+path="res://.godot/imported/wind_low.wav-10afe3f13502474cead8b83cadc484fb.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/wind_low.wav"
-dest_files=["res://.godot/imported/wind_low.wav-cf9a5cb7019b68e70086975011c13e5e.sample"]
+source_file="res://rss/audio/sfx/wind_low.wav"
+dest_files=["res://.godot/imported/wind_low.wav-10afe3f13502474cead8b83cadc484fb.sample"]
 
 [params]
 

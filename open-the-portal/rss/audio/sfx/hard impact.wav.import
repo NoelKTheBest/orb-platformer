@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bt1lww47l2x11"
-path="res://.godot/imported/hard impact.wav-a65b9cfd2a759c1ca926ffc6bb95ec29.sample"
+path="res://.godot/imported/hard impact.wav-26e1b9a2f0e21c6e7bbc94ea66ce5e55.sample"
 
 [deps]
 
-source_file="res://rss/audio/bc wav files/hard impact.wav"
-dest_files=["res://.godot/imported/hard impact.wav-a65b9cfd2a759c1ca926ffc6bb95ec29.sample"]
+source_file="res://rss/audio/sfx/hard impact.wav"
+dest_files=["res://.godot/imported/hard impact.wav-26e1b9a2f0e21c6e7bbc94ea66ce5e55.sample"]
 
 [params]
 
