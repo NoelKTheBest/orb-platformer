@@ -724,7 +724,7 @@ advance_expression = "velocity.y == 0"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f5s41"]
 advance_mode = 2
-advance_expression = "is_on_floor()"
+advance_expression = "is_on_floor() or was_hit"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vh5wt"]
 advance_mode = 2
@@ -773,7 +773,7 @@ states/lateral_footstool/position = Vector2(116, -14)
 states/run/node = SubResource("AnimationNodeAnimation_jjso4")
 states/run/position = Vector2(575, 180)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ade3c"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_xm2tr"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3iq7k"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_0wnnm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o5knt"), "fall", "kick", SubResource("AnimationNodeStateMachineTransition_j26mg"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_08d8f"), "kick", "run", SubResource("AnimationNodeStateMachineTransition_f5s41"), "fall", "lateral_footstool", SubResource("AnimationNodeStateMachineTransition_vh5wt"), "lateral_footstool", "idle", SubResource("AnimationNodeStateMachineTransition_al2mk"), "run", "hit", SubResource("AnimationNodeStateMachineTransition_st56w"), "fall", "hit", SubResource("AnimationNodeStateMachineTransition_ek5c2"), "hit", "run", SubResource("AnimationNodeStateMachineTransition_l2ocj"), "fall", "landing_states", SubResource("AnimationNodeStateMachineTransition_mv4dk"), "landing_states", "idle", SubResource("AnimationNodeStateMachineTransition_x5p2n")]
-graph_offset = Vector2(15, -174.12793)
+graph_offset = Vector2(-28, -257.12793)
 
 [sub_resource type="Animation" id="Animation_rrmcd"]
 length = 0.001

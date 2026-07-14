@@ -113,6 +113,8 @@ func _process(delta: float) -> void:
 		new_ray_area.position = to_local($RayCast2D.get_collision_point())
 		new_ray_area.name = "RaycastArea"
 		add_child(new_ray_area)
+		var mother = get_parent()
+		new_ray_area.reparent(mother)
 		$AudioStreamPlayer2D.stream = gun_blast_2
 		$AudioStreamPlayer2D.play()
 	
@@ -128,6 +130,8 @@ func _process(delta: float) -> void:
 			new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
 			add_child(new_orb)
 			orb_was_fired.emit()
+			var mother = get_parent()
+			new_orb.reparent(mother)
 			$AudioStreamPlayer2D.stream = gun_blast_1
 			$AudioStreamPlayer2D.play()
 		
@@ -146,6 +150,8 @@ func _process(delta: float) -> void:
 			#$PowerSpawnTimer.start()
 			#power_cooldown = true
 			#orb_was_fired.emit()
+			#var mother = get_parent()
+			#new_orb.reparent(mother)
 			#$AudioStreamPlayer2D.stream = gun_blast_2
 			#$AudioStreamPlayer2D.play()
 			#
@@ -354,11 +360,10 @@ func add_kickbox():
 func find_closest_enemy():
 	var min_d = 100000000
 	for e in get_tree().get_nodes_in_group("Enemy"):
-		if abs(e.position.x - position.x) < min_d:
-			min_d = abs(e.position.x - position.x)
-			closest_enemy_position = e.position
-			#print(e.position.x, "; ", e.name, "; ", position.x)
-	pass
+		if e.process_mode != ProcessMode.PROCESS_MODE_DISABLED:
+			if abs(e.position.x - position.x) < min_d:
+				min_d = abs(e.position.x - position.x)
+				closest_enemy_position = e.position
 
 
 func flip_sprite(mode: int, assignment_1: bool, assignment_2: bool, direction = 0.0):

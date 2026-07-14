@@ -64,6 +64,8 @@ func shoot_orb():
 	var aim_dir = Vector2(1, 0) if sprite_2d.flip_h == false else Vector2(-1, 0)
 	new_orb.linear_v = aim_dir.normalized() * ORB_VELOCITY
 	add_child(new_orb)
+	var mother = get_parent()
+	new_orb.reparent(mother)
 	SfxSpawner.set_player(orb_spawn_position.position, 17)
 	$ShootTimer.start()
 	cooldown_active = true

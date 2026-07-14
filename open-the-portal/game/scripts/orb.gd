@@ -8,6 +8,8 @@ var has_bullet_hit_anything : bool = false
 
 func _process(_delta: float) -> void:
 	if has_bullet_hit_anything: linear_velocity = Vector2(0,0)
+	if get_colliding_bodies().size() > 0: 
+		queue_free()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
