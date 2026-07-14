@@ -66,7 +66,7 @@ func shoot_orb():
 	add_child(new_orb)
 	var mother = get_parent()
 	new_orb.reparent(mother)
-	SfxSpawner.set_player(orb_spawn_position.position, 17)
+	SfxSpawner.set_player(orb_spawn_position.position, 16)
 	$ShootTimer.start()
 	cooldown_active = true
 

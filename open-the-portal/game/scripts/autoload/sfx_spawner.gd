@@ -34,10 +34,12 @@ const audio_stream_lib_names = {
 
 func _ready() -> void:
 	audio_files = ResourceLoader.list_directory("res://rss/audio/sfx/")
+	print(audio_files)
 
 
 func set_player(position: Vector2, audioStreamID: int):
 	var new_stream = AudioStreamPlayer2D.new()
+	print("res://rss/audio/sfx/", audio_files[audioStreamID])
 	var stream = load("res://rss/audio/sfx/" + audio_files[audioStreamID])
 	new_stream.stream = stream
 	new_stream.position = position

@@ -42,8 +42,8 @@ var boss_battle_active: bool
 
 func _ready():
 	setup_grid()
-	print(astargrid.get_point_data_in_region(Rect2i(0, 0, 4, 3)))
-	print(show_path(1, 0, 0, 2))
+	#print(astargrid.get_point_data_in_region(Rect2i(0, 0, 4, 3)))
+	#print(show_path(1, 0, 0, 2))
 
 
 func initialize_dictionary():

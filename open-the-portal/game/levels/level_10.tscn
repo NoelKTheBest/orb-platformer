@@ -128,11 +128,10 @@ position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_gqlur")
 debug_color = Color(0, 0.7, 0.011666656, 0.12156863)
 
-[node name="Door11" parent="Room3" node_paths=PackedStringArray("door") instance=ExtResource("4_k8uq0")]
+[node name="Door11" parent="Room3" instance=ExtResource("4_k8uq0")]
 position = Vector2(-208, 48)
 color = Color(0.0637661, 0.22085026, 0.58549786, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
-door = NodePath("")
 floor_number = 4
 
 [node name="Door12" parent="Room3" instance=ExtResource("4_k8uq0")]

@@ -47,6 +47,7 @@ var was_hit = false
 var was_hit_and_still_midair = false
 ## I will use this variable to figure out whether or not the player was hit in midair to make different things happen
 var was_hit_midair
+var current_floor
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -264,7 +265,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		
 		if velocity.y == 0 and prev_y_velocity > 0:
-			SfxSpawner.set_player(position, 4)
+			SfxSpawner.set_player(position, 6)
 			l_footstool_direction = null # This value is so far only set when direction is changed or when landing
 			#print("landed")
 			
