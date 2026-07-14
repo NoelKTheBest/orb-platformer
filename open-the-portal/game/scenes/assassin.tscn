@@ -474,7 +474,7 @@ advance_expression = "velocity.x != 0"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_68j7n"]
 advance_mode = 2
-advance_expression = "velocity.x == 0"
+advance_expression = "velocity.x == 0 or dodge_orb"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f5qpw"]
 advance_mode = 2
@@ -522,7 +522,7 @@ states/kicked/position = Vector2(644, -45)
 states/run/node = SubResource("AnimationNodeAnimation_iin3u")
 states/run/position = Vector2(366, 184)
 transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_828hi"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_68j7n"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_f5qpw"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_1wmcp"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_2xl14"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_xjxeo"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_quord"), "idle", "kicked", SubResource("AnimationNodeStateMachineTransition_w7xhs"), "kicked", "idle", SubResource("AnimationNodeStateMachineTransition_lcvkp"), "attack", "kicked", SubResource("AnimationNodeStateMachineTransition_iin3u")]
-graph_offset = Vector2(-236.42851, -55)
+graph_offset = Vector2(-210.42851, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ica8k"]
 size = Vector2(64, 32)
@@ -591,7 +591,7 @@ debug_color = Color(1.6123802e-06, 0.6502424, 0.12087213, 0.41960785)
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
-position = Vector2(-11, 0)
+position = Vector2(11, 0)
 collision_layer = 128
 collision_mask = 0
 metadata/_edit_group_ = true

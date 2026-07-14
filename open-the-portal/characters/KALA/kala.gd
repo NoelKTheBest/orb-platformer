@@ -43,6 +43,10 @@ var temp_delta = 0
 var enemy_pos : Vector2
 var health = 5
 var was_hit = false
+## This is used to determine whether the player has been hit and if they are still airborne and helps me to prevent the kick from activating
+var was_hit_and_still_midair = false
+## I will use this variable to figure out whether or not the player was hit in midair to make different things happen
+var was_hit_midair
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -156,114 +160,120 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	#region Y Velocity Handling
-	# When the player is in the air
-	if not is_on_floor():
-		# When the player is falling
-		if velocity.y > 0:
-			if $KickFallTimer.time_left > 0:
-				#print(velocity.y)
-				velocity.y = kick_fall_factor * kick_fall_factor_inc * delta
-				#breakpoint
-				kick_fall_factor_inc -= kick_fall_inc_step_val
+	# for now close this func with [if !was_hit] later we can change how this works 
+	# so the hit animation feels different in different cases. For example, when
+	# airborne, we don't want the play to simply be paralized and unable to control 
+	# player for a certain amount of time. We still want to allow the player to 
+	# register their mistake without turning a mistake into a severe disadvantage 
+	
+	if !was_hit:
+		#region Y Velocity Handling
+		# When the player is in the air
+		if not is_on_floor():
+			# When the player is falling
+			if velocity.y > 0:
+				if $KickFallTimer.time_left > 0:
+					#print(velocity.y)
+					velocity.y = kick_fall_factor * kick_fall_factor_inc * delta
+					#breakpoint
+					kick_fall_factor_inc -= kick_fall_inc_step_val
+				else:
+					velocity += get_gravity() * fall_velocity_factor * delta
+				
+				if Input.is_action_just_pressed("jump"):
+					if !footstool_area.has_overlapping_bodies():
+						# This will put the player in a slightly different fall animation
+						# that will automatically connect to the footstool animation state
+						# when the player gets close enough to the enemies
+						lateral_footstool_queued = true
+					elif footstool_area.has_overlapping_bodies() and !lateral_footstool_queued:
+						velocity.y = JUMP_VELOCITY
+						print(footstool_area.get_overlapping_bodies()[0])
+				
+				if current_animation == "l_footstool":
+					velocity.y = L_FOOTSTOOL_VELOCITY_Y
+			# When the player is rising
 			else:
-				velocity += get_gravity() * fall_velocity_factor * delta
+				velocity += get_gravity() * delta
 			
+			# Do this regardless of whether the player is rising or falling
+			#region Todo regardless
+			if !was_hit_and_still_midair: $KickHitbox.monitorable = true
+			if Input.is_action_just_pressed("jump") and !$FootstoolArea.has_overlapping_bodies():
+				lateral_footstool_queued = true
+			
+			set_collision_mask_value(2, false)
+			#endregion
+		# When the player is grounded
+		else:
+			was_hit_and_still_midair = false
+			kick_fall_factor_inc = kick_fall_factor_init_val
+			$KickHitbox.monitorable = false
+			#print_rich("[color=limegreen]--------------------------------------------------------")
+			
+			#region Jump Handling
+			# Handle jump.
 			if Input.is_action_just_pressed("jump"):
-				if !footstool_area.has_overlapping_bodies():
-					# This will put the player in a slightly different fall animation
-					# that will automatically connect to the footstool animation state
-					# when the player gets close enough to the enemies
-					lateral_footstool_queued = true
-				elif footstool_area.has_overlapping_bodies() and !lateral_footstool_queued:
-					velocity.y = JUMP_VELOCITY
-					print(footstool_area.get_overlapping_bodies()[0])
-			
-			if current_animation == "l_footstool":
-				velocity.y = L_FOOTSTOOL_VELOCITY_Y
-			
-		# When the player is rising
-		else:
-			velocity += get_gravity() * delta
-		
-		# Do this regardless of whether the player is rising or falling
-		#region Todo regardless
-		$KickHitbox.monitorable = true
-		if Input.is_action_just_pressed("jump") and !$FootstoolArea.has_overlapping_bodies():
-			lateral_footstool_queued = true
-		
-		set_collision_mask_value(2, false)
-		#endregion
-	# When the player is grounded
-	else:
-		kick_fall_factor_inc = kick_fall_factor_init_val
-		$KickHitbox.monitorable = false
-		#print_rich("[color=limegreen]--------------------------------------------------------")
-		
-		#region Jump Handling
-		# Handle jump.
-		if Input.is_action_just_pressed("jump"):
-			velocity.y = JUMP_VELOCITY
-			#SfxSpawner.set_player(position, 4)
+				velocity.y = JUMP_VELOCITY
+				#SfxSpawner.set_player(position, 4)
 
-		if jump_buffer_timer.time_left > 0:
-			velocity.y = JUMP_VELOCITY
-			jump_buffer_timer.stop()
+			if jump_buffer_timer.time_left > 0:
+				velocity.y = JUMP_VELOCITY
+				jump_buffer_timer.stop()
+			#endregion
+			
+			set_collision_mask_value(2, true)
+			lateral_footstool_queued = false
+			current_animation = ""
 		#endregion
 		
-		set_collision_mask_value(2, true)
-		lateral_footstool_queued = false
-		current_animation = ""
-	#endregion
-	
-	#region X Velocity Handling
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("move_left", "move_right")
-	
-	if direction:
-		var slow_scale = x_slow_amount if $KickFallTimer.time_left > 0 else 1.0
-		# l_footstool_direction only has direction is direction is not 0.0
-		# the player won't go anywhere if they don't input a direction to go in
-		if current_animation == "l_footstool" and l_footstool_direction == null:
-			l_footstool_direction = direction
-			velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
-		# on the frame after l_footstool_direction is set to direction, it is possible
-		# to change the direction again
-		else:
-			l_footstool_direction = null
-			velocity.x = move_toward(velocity.x, direction * MAX_SPEED * (1.0/(slow_scale)), accel)
-	else:
-		if current_animation == "l_footstool" and l_footstool_direction == null:
-			# the assignment of l_footstool_direction depends on the value of
-			# sprite_2d.flip_h from the previous frame since the value is not changed
-			# before l_footstool_direction is assigned
-			l_footstool_direction = -1 if sprite_2d.flip_h else 1 # value should be reset
-			velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
-		velocity.x = move_toward(velocity.x, 0, accel)
-	
-	# Use this line to debug l_footstool_direction
-	#print("lfd: ", l_footstool_direction, "; dir: ", direction, "; flip: ", sprite_2d.flip_h)
-	
-	# Use this line to debug current_animation
-	#print(current_animation)
-	
-	if $KickFallTimer.time_left == 0:
-		if direction < 0: sprite_2d.flip_h = true
-		elif direction > 0: sprite_2d.flip_h = false
-		sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
-	#endregion
-	
-	move_and_slide()
-	
-	if velocity.y == 0 and prev_y_velocity > 0:
-		SfxSpawner.set_player(position, 4)
-		l_footstool_direction = null # This value is so far only set when direction is changed or when landing
-		#print("landed")
+		#region X Velocity Handling
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var direction := Input.get_axis("move_left", "move_right")
 		
-	
-	$Polygon2D.visible = true if lateral_footstool_queued else false
-	prev_y_velocity = velocity.y
+		if direction:
+			var slow_scale = x_slow_amount if $KickFallTimer.time_left > 0 else 1.0
+			# l_footstool_direction only has direction is direction is not 0.0
+			# the player won't go anywhere if they don't input a direction to go in
+			if current_animation == "l_footstool" and l_footstool_direction == null:
+				l_footstool_direction = direction
+				velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
+			# on the frame after l_footstool_direction is set to direction, it is possible
+			# to change the direction again
+			else:
+				l_footstool_direction = null
+				velocity.x = move_toward(velocity.x, direction * MAX_SPEED * (1.0/(slow_scale)), accel)
+		else:
+			if current_animation == "l_footstool" and l_footstool_direction == null:
+				# the assignment of l_footstool_direction depends on the value of
+				# sprite_2d.flip_h from the previous frame since the value is not changed
+				# before l_footstool_direction is assigned
+				l_footstool_direction = -1 if sprite_2d.flip_h else 1 # value should be reset
+				velocity.x = l_footstool_direction * L_FOOTSTOOL_VELOCITY_X
+			velocity.x = move_toward(velocity.x, 0, accel)
+		
+		# Use this line to debug l_footstool_direction
+		#print("lfd: ", l_footstool_direction, "; dir: ", direction, "; flip: ", sprite_2d.flip_h)
+		
+		# Use this line to debug current_animation
+		#print(current_animation)
+		
+		if $KickFallTimer.time_left == 0: flip_sprite(1, true, false, direction if direction else -1.0 if sprite_2d.flip_h else 1.0)
+		#endregion
+		
+		move_and_slide()
+		
+		if velocity.y == 0 and prev_y_velocity > 0:
+			SfxSpawner.set_player(position, 4)
+			l_footstool_direction = null # This value is so far only set when direction is changed or when landing
+			#print("landed")
+			
+		
+		$Polygon2D.visible = true if lateral_footstool_queued else false
+		prev_y_velocity = velocity.y
+	else:
+		move_and_slide()
 
 
 func move_camera():
@@ -351,12 +361,22 @@ func find_closest_enemy():
 	pass
 
 
+func flip_sprite(mode: int, assignment_1: bool, assignment_2: bool, direction = 0.0):
+	match mode:
+		0:
+			sprite_2d.flip_h = assignment_1 if velocity.x < 0 else assignment_2
+			sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
+		1:
+			sprite_2d.flip_h = assignment_1 if direction < 0 else assignment_2
+			sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
+
+
 func die():
 	player_died.emit()
 
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
-	print("finishing anim: ", anim_name)
+	#print("finishing anim: ", anim_name)
 	if anim_name == "Kala_anims/kick":
 		kick_enemy = false
 	elif anim_name == "Kala_anims/fall":
@@ -381,8 +401,11 @@ func _on_hurtbox_player_was_hit(collision_vector: Variant) -> void:
 	$CameraFollow/Camera2D.apply_shake()
 	set_collision_mask_value(2, false)
 	was_hit = true
+	was_hit_and_still_midair = true
 	velocity.x = collision_vector.normalized().x * knockback.x
 	velocity.y = -knockback.y
+	# Reverse set flip_h so the enemy moves back while still facing the same way
+	flip_sprite(0, false, true)
 	health -= 1
 	health_bar.update_health(health)
 	if health == 0:

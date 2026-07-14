@@ -1,0 +1,6 @@
+los que sobrevivieron. son los personajes con los que el jugador puede tener 
+conversaciones. antes solo era importante que los npcs te dicen algo sobre la
+historia o de su historia personal. no creo que es necesario crear un sistema de
+dialogo complicado. solo necesito que los npcs te hablan y que tu puedes preguntar
+sobre ellos como personas en las misiones. van a ser muchas lineas, pero está bien.
+puedo sentarme a escribir y escribir y escribir.

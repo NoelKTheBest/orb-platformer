@@ -55,7 +55,10 @@ var waiting_to_turn_around := false
 var player_out_of_range: bool = true
 
 #region CopiedVars
+## Array used in determining whether to enter or exist the patrol state based on
+## if a character body has been detected
 var bodies = []
+## The scale at which to change visibility area based on how close the player gets to the entity
 @export var vision_scale: float = 1.5
 #endregion
 

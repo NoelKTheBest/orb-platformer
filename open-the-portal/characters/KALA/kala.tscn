@@ -99,6 +99,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [6.25]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_al2mk"]
 _data = {
@@ -219,6 +231,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [7]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(18.892, 18.892, 18.892, 1), Color(1, 1, 1, 1), Color(18.892, 18.892, 18.892, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_1ougi"]
@@ -820,7 +844,6 @@ kick_fall_factor = 1.915
 kick_fall_factor_inc = 100.0
 x_slow_amount = 30.0
 accel = 25
-sprite_init_point = Vector2(11, 0)
 knockback = Vector2(50, 15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

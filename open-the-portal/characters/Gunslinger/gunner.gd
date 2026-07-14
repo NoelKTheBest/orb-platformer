@@ -42,7 +42,7 @@ func area_entered_hurtbox(area: Area2D):
 @warning_ignore("unused_parameter")
 func body_entered_hurtbox(body: Node2D):
 	if body.is_in_group("Orbs") and !body.has_bullet_hit_anything:
-		pass
+		die()
 
 
 func animation_finished(anim_name: StringName):

@@ -1,11 +1,15 @@
 @abstract extends NavigatableEntity
 ## Base abstract class for tying physics and state together for all combat entities
 
-##
+## Name of the Kick Hitbox child object
 const KICK_AREA_NAME = "Kickbox"
+## Name of the Bullet Detection Area child object
 const BDA_NAME = "BulletDetectionArea"
+## Name of the Guard Area child object
 const GA_NAME = "GuardArea"
+## Name of the Visibility Area child object
 const VA_NAME = "VisibilityArea"
+## Name of the Hitbox child object
 const HB_NAME = "Hitbox"
 
 ## Signal sent when the entity wishes to call for backup
@@ -16,7 +20,9 @@ signal call_for_reinforcements
 var attacking: bool
 ## Determines whether the entity should dodge and oncoming attack
 @export var dodging: bool
+## For testing purposes, the color to use to show that the entity has been kicked
 @export var kick_state_color: Color
+## For testing purposes, the initial color of the sprite
 var initial_state_color: Color
 
 ## Determines whether or not the sprite has been flipped due to negative velocity
@@ -44,8 +50,11 @@ var player_within_vicinity
 ## Reference to a scene tree timer for when an entity is kicked
 var kick_timer
 
+## Reference to the CollisionShape2D node in the entity scene
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+## Reference to the Sprite2D node in the entity scene
 @onready var sprite_2d: Sprite2D = $Sprite2D
+## Reference to the PlayerAttackArea node in the entity scene
 @onready var player_attack_area: Area2D = $PlayerAttackArea
 
 
@@ -54,12 +63,15 @@ func _ready() -> void:
 	super()
 	
 	collider_init_pos = collision_shape_2d.position
+	if has_child(HB_NAME): hitbox_init_pos = $Hitbox.position
+	
 	Performance.add_custom_monitor("Movement/X Velocity", fetch_velocity)
 	Performance.add_custom_monitor("Movement/Direction", fetch_direction)
 	Performance.add_custom_monitor("Movement/Kick Force", fetch_kick_force)
 	Performance.add_custom_monitor("State/Kick", fetch_kick_status)
 	Performance.add_custom_monitor("State/Player Nearby", fetch_player_nearby_status)
 	Performance.add_custom_monitor("State/Player Within Vicinity", fetch_player_within_vicinity_status)
+	Performance.add_custom_monitor("State/Dodge", fetch_dodge_status)
 	
 	initial_state_color = $Sprite2D.self_modulate
 	
@@ -95,7 +107,7 @@ func _physics_process(delta: float) -> void:
 	# Find out if the entity is currently facing the player
 	is_facing_player()
 	#if kicked_by_player and has_child(KICK_AREA_NAME):
-		
+	
 	
 	# Call function to update player_nearby and other states
 	update_state()
@@ -191,46 +203,61 @@ func update_velocity():
 func update_node_scale():
 	collision_shape_2d.position.x = collider_init_pos.x * -1 if is_sprite_flipped else collider_init_pos.x * 1
 	if has_child(VA_NAME): $VisibilityArea.scale.x = -1 if is_sprite_flipped else 1
-	if has_child(HB_NAME): $Hitbox.position.x = $Hitbox.position.x * -1 if is_sprite_flipped else $Hitbox.position.x * 1
+	if has_child(HB_NAME): $Hitbox.position.x = hitbox_init_pos.x * -1 if is_sprite_flipped else hitbox_init_pos.x * 1
 
 
+## Function to override with a custom implementation for areas detected
 @abstract func area_entered_hurtbox(area: Area2D)
 
 
+## Function to override with a custom implementation for kinematic or rigidbodies detected
 @abstract func body_entered_hurtbox(body: Node2D)
 
 
+## Queues the entity to be freed from memory and plays vfx and sfx. Also sets is_dead for 
+## AnimationTree. Override this method and call super() if needed to make create a custom implementation
 func die():
 	SfxSpawner.set_player(position, 1)
 	VfxSpawner.set_player(position)
 	queue_free()
 
 
+## Performs a check for the kickbox when detecting areas
 func check_for_kickbox(area: Area2D):
 	if area.is_in_group("Physical Attacks"):
 		if area.name == "KickHitbox":
 			kicked_by_player = true
 
 
+## Fetches the x velocity value
 func fetch_velocity():
 	return abs(velocity.x)
 
 
+## Fetches the direction the entity is facing
 func fetch_direction():
 	return 1 if is_sprite_flipped else 0
 
 
+## Fetches the kick force applied to the entity
 func fetch_kick_force():
 	return abs(remaining_kick_force)
 
 
+## Fetches the kick status of the entity
 func fetch_kick_status():
 	return 1 if kicked_by_player else 0
 
 
+## Fetches the detected status of player bodies within the PlayerDetectionArea
 func fetch_player_nearby_status():
 	return 1 if player_nearby else 0
 
 
+## Fetches the detected status of player bodies within the GuardArea or VisibilityArea
 func fetch_player_within_vicinity_status():
 	return 1 if player_within_vicinity else 0
+
+
+func fetch_dodge_status():
+	return 1 if dodge_orb else 0
