@@ -52,6 +52,7 @@ folder_colors={
 "res://game/character_statemachine_scripts/Saemi/": "pink",
 "res://game/game_rss/": "orange",
 "res://game/levels/": "blue",
+"res://game/main_menu/": "teal",
 "res://game/prototype_1/": "gray",
 "res://game/prototype_1/scenes/": "yellow",
 "res://game/prototype_1/scripts/": "orange",

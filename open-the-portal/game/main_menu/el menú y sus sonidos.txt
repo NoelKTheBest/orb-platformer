@@ -1,0 +1,2 @@
+puedo guardar los archivos de sonidos en la misma carpeta que el código
+las escenas del menú principal y cargarlos usando preload()
