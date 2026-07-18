@@ -168,6 +168,11 @@ func update_state():
 				call_for_reinforcements.emit() # Called whenever guard state changes. parent can ignore if needed
 			elif !player_nearby and !bullet_nearby: on_guard = true
 		elif initially_patrolling:
+			if player_is_seen and !player_within_vicinity: 
+				#print("player")
+				patrolling_last_known_pos = SceneVariables.player_position
+			player_is_seen = true if player_within_vicinity else false
+			
 			if player_nearby or player_within_vicinity:
 				on_patrol = false
 				call_for_reinforcements.emit() # Called whenever patrol state changes. parent can ignore if needed

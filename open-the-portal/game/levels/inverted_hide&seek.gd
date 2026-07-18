@@ -6,7 +6,7 @@ var enemies
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$LevelCamera.make_current()
+	#$LevelCamera.make_current()
 	doors = get_tree().get_nodes_in_group("Door")
 	areas = get_tree().get_nodes_in_group("Floor Areas")
 	enemies = get_tree().get_nodes_in_group("Enemy")

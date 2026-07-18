@@ -21,11 +21,16 @@
 ## End position for guard bounds
 @export var guard_bound_end: float
 
-
 ## Internal variable for checking if the entity should pursue the player
 var monitor_player_position = false
 ## Internal variable for player's position
 var player_position = Vector2.ZERO
+## Determines whether the player is seen by a patrolling entity
+var player_is_seen: bool
+## Last known player position when patrolling
+var patrolling_last_known_pos: Vector2
+## Determines if player was just lost on this frame when patrolling
+var player_was_just_lost
 ## Not in use
 var camera_position := Vector2.ZERO
 ## Not in use
@@ -104,16 +109,18 @@ func _physics_process(delta: float) -> void:
 		monitor_player_position = false
 		
 		velocity.x = (patrol_target_position - position).normalized().x * (speed / 4.0)
-		print_rich("[color=lightblue]:(")
+		print("From patrol target pos")
+		#print_rich("[color=lightblue]:(")
 		if abs(patrol_target_position.x - position.x) < 1: velocity.x = 0.0
 		if !waiting_to_turn_around: check_for_end_of_area()
 	
-	if on_patrol and monitor_player_position:
-		print_rich("[color=orangered];D")
-		velocity.x = get_target_position().x * speed
+	#if on_patrol and monitor_player_position:
+		##print_rich("[color=orangered];D")
+		#velocity.x = get_target_position().x * speed
+		#print("From get target pos (A)")
 	
 	if initially_patrolling:
-		print_rich("[color=pink]:>")
+		#print_rich("[color=pink]:>")
 		set_monitor_player_status()
 	
 	if initially_guarding:
@@ -130,10 +137,14 @@ func _physics_process(delta: float) -> void:
 			# We need to check to make sure that entities that are on gaurd will 
 			# return to their gaurd position if the player moves out of their guard range
 	
+	if !monitor_player_position and !on_patrol and !on_guard and nearest_door_position == Vector2.ZERO:
+		breakpoint
+	
 	if !on_guard and !on_patrol:
-		print_rich("[color=blue];)")
+		#print_rich("[color=blue];)")
 		player_position = SceneVariables.player_position
 		velocity.x = get_target_position().x * speed
+		print("From get target pos (B)")
 	
 	# move to basic entity if we need to make sure basic entity doesn't override this code
 	# If entity is outside of guard bounds
@@ -141,6 +152,8 @@ func _physics_process(delta: float) -> void:
 		# and was initially guarding and not on_guard
 		if initially_guarding and !on_guard:
 			on_guard = true # Go back to guard position (squad_position)
+	
+	print(velocity.x)
 
 
 ## Function to implement to set the target position of the entity based on position relative to player
@@ -154,7 +167,8 @@ func get_target_position() -> Vector2:
 		else:
 			if using_door: using_door = false
 			target_position = (player_position - position).normalized()
-			print_rich("[color=green]:)") 
+			#print_rich("[color=green]:)")
+			print(target_position, "; ", player_position)
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, speed) # remove lines
 		# We should be setting target position to something that will force the enemy to stay in place and then not move
@@ -198,24 +212,18 @@ func set_monitor_player_status():
 	#	overlapping bodies (player) of check if 
 	#	player's position is within a specific x and y 
 	#	range
-	
-	# If a body overlaps, get ref to body
-	if $VisibilityArea.has_overlapping_bodies():
-		bodies = $VisibilityArea.get_overlapping_bodies()
-	# If we still have a ref to body and no current body, go to last known pos
-	elif !$VisibilityArea.has_overlapping_bodies():
-		bodies = []
-		if abs(position.x - player_position.x) < 5:
-			monitor_player_position = false
-		# If player was seen but managed to hide again,
-		#	wait 3-4 seconds and then continue with patrol cycle
-		#		(Animation Tree self updates)
-	
-	# If we have a player body, run to them
-	if bodies.size() > 0:
-		monitor_player_position = true
-		# We might be better off setting this with SceneVariables class
-		player_position = bodies[0].position
-		$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
-	else:
-		$VisibilityArea.scale.y = 1
+	if initially_patrolling:
+		if player_is_seen:
+			monitor_player_position = true
+			player_position = SceneVariables.player_position
+			$VisibilityArea.scale.y = 1/abs(position.x - player_position.x) * vision_scale
+		else:
+			player_position = patrolling_last_known_pos
+			
+			if abs(position.x - patrolling_last_known_pos.x) < 5:
+				on_patrol = true
+				monitor_player_position = false
+			
+			$VisibilityArea.scale.y = 1
+		
+		
