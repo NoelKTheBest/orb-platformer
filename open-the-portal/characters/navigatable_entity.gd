@@ -104,8 +104,17 @@ func _physics_process(delta: float) -> void:
 		monitor_player_position = false
 		
 		velocity.x = (patrol_target_position - position).normalized().x * (speed / 4.0)
+		print_rich("[color=lightblue]:(")
 		if abs(patrol_target_position.x - position.x) < 1: velocity.x = 0.0
 		if !waiting_to_turn_around: check_for_end_of_area()
+	
+	if on_patrol and monitor_player_position:
+		print_rich("[color=orangered];D")
+		velocity.x = get_target_position().x * speed
+	
+	if initially_patrolling:
+		print_rich("[color=pink]:>")
+		set_monitor_player_status()
 	
 	if initially_guarding:
 		# if we are on guard, we should stay that way for the entire frame so everything that needs to happen bc of it is predictable
@@ -122,6 +131,7 @@ func _physics_process(delta: float) -> void:
 			# return to their gaurd position if the player moves out of their guard range
 	
 	if !on_guard and !on_patrol:
+		print_rich("[color=blue];)")
 		player_position = SceneVariables.player_position
 		velocity.x = get_target_position().x * speed
 	
@@ -144,6 +154,7 @@ func get_target_position() -> Vector2:
 		else:
 			if using_door: using_door = false
 			target_position = (player_position - position).normalized()
+			print_rich("[color=green]:)") 
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, speed) # remove lines
 		# We should be setting target position to something that will force the enemy to stay in place and then not move

@@ -391,6 +391,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="PlayerAttackArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea"]
@@ -410,6 +411,10 @@ debug_color = Color(0.79809237, 0.41083765, 0.27730364, 0.41960785)
 
 [node name="ShootTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
+self_modulate = Color(0.5930999, 0.06299999, 0.9, 1)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

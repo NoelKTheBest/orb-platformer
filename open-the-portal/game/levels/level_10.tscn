@@ -216,24 +216,20 @@ knockback = Vector2(70, 15)
 metadata/_edit_lock_ = true
 
 [node name="Gunner" parent="." instance=ExtResource("8_1rw26")]
+process_mode = 4
+visible = false
 position = Vector2(1332.0001, 464)
 platform_floor_layers = 68
 kick_state_color = Color(0.89162844, 0.27196687, 0.5222416, 1)
-on_patrol = false
 on_guard = false
 speed = 100
 metadata/_edit_group_ = true
 
 [node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
-process_mode = 4
-visible = false
-position = Vector2(776, 632)
+position = Vector2(1424, 464)
 kick_state_color = Color(0.8901961, 0.27058825, 0.52156866, 1)
-on_patrol = false
 on_guard = false
-
-[node name="Sprite2D" parent="Assassin" index="1"]
-flip_h = true
+metadata/_edit_group_ = true
 
 [node name="Enemy" parent="." instance=ExtResource("9_h6q6v")]
 process_mode = 4

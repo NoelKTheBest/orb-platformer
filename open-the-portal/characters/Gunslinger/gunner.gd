@@ -31,6 +31,8 @@ func _process(_delta: float) -> void:
 	else:
 		can_shoot_orb = false
 		attacking = false
+	
+	#$RayCast2D.position = to_local(SceneVariables.player_position)
 
 
 @warning_ignore("unused_parameter")
