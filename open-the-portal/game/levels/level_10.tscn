@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=18 format=3 uid="uid://d30v7m85ufs4d"]
 
 [ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://d1x2wb7hdgv5x" path="res://characters/KALA/kala.tscn" id="8_4t8w5"]
 [ext_resource type="PackedScene" uid="uid://dniwwpp3500ir" path="res://game/scenes/assassin.tscn" id="8_h6q6v"]
 [ext_resource type="PackedScene" uid="uid://d3idltdqn5o5k" path="res://game/scenes/basic_enemy.tscn" id="9_h6q6v"]
+[ext_resource type="PackedScene" uid="uid://cbqfic6hyxeva" path="res://game/scenes/switch/switch.tscn" id="11_k8uq0"]
+[ext_resource type="PackedScene" uid="uid://dhhbsvyp54xqs" path="res://game/scenes/enemy_spawner.tscn" id="12_gm4md"]
+[ext_resource type="PackedScene" uid="uid://cryedlestgd1x" path="res://game/scenes/spawn_point.tscn" id="13_3vs7j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gm4md"]
 size = Vector2(736, 136)
@@ -226,6 +229,8 @@ speed = 100
 metadata/_edit_group_ = true
 
 [node name="Assassin" parent="." instance=ExtResource("8_h6q6v")]
+process_mode = 4
+visible = false
 position = Vector2(1424, 464)
 kick_state_color = Color(0.8901961, 0.27058825, 0.52156866, 1)
 on_guard = false
@@ -239,6 +244,102 @@ position = Vector2(800, 624)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1356.0001, 448)
 zoom = Vector2(3.405, 3.405)
+
+[node name="Switch" parent="." instance=ExtResource("11_k8uq0")]
+position = Vector2(1384, 464)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("12_gm4md")]
+standby_spawn_point_position = Vector2(1425.115, 442.34)
+
+[node name="Standby" type="Node2D" parent="EnemySpawner"]
+visible = false
+
+[node name="SpawnPoint2" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(320, 728)
+
+[node name="SpawnPoint3" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(640.00006, 728)
+
+[node name="SpawnPoint4" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1464, 448)
+
+[node name="SpawnPoint5" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1352, 872)
+
+[node name="SpawnPoint6" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1688, 872)
+
+[node name="SpawnPoint7" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(2360, 592)
+
+[node name="OnDeath" type="Node2D" parent="EnemySpawner"]
+visible = false
+
+[node name="SpawnPoint" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(200, 728)
+
+[node name="SpawnPoint2" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(432, 728)
+
+[node name="SpawnPoint3" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(728, 728)
+
+[node name="SpawnPoint4" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1304, 448.00003)
+
+[node name="SpawnPoint5" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1528, 448)
+
+[node name="SpawnPoint6" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1160, 872)
+
+[node name="SpawnPoint7" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1392.0001, 872)
+
+[node name="SpawnPoint8" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1736, 872)
+
+[node name="SpawnPoint9" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(2072, 592)
+
+[node name="SpawnPoint10" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(2312, 592)
+
+[node name="OnSwitchFlick" type="Node2D" parent="EnemySpawner"]
+visible = false
+z_index = -1
+
+[node name="SpawnPoint" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(280.00006, 728)
+
+[node name="SpawnPoint2" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1592, 448)
+
+[node name="SpawnPoint3" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(1240, 872)
+
+[node name="SpawnPoint4" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
+visible = true
+position = Vector2(2480, 592)
 
 [connection signal="timeout" from="Saemi/ProtectTimer" to="Saemi" method="_on_protect_timer_timeout"]
 

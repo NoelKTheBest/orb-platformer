@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cryedlestgd1x"]
+
+[ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="1_1ah2i"]
+[ext_resource type="Script" uid="uid://c400bl3lhnu1d" path="res://game/levels/spawn_point.gd" id="2_eucfy"]
+
+[node name="SpawnPoint" type="Sprite2D" groups=["Spawn Point"]]
+visible = false
+modulate = Color(0, 0, 0, 0.8627451)
+scale = Vector2(0.24, -0.5000002)
+texture = ExtResource("1_1ah2i")
+script = ExtResource("2_eucfy")
+floor_number = 5

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbqfic6hyxeva"]
+
+[ext_resource type="Script" uid="uid://bjq27cfyh2jmc" path="res://game/scenes/switch/state_machine.gd" id="1_fvpme"]
+[ext_resource type="Texture2D" uid="uid://botfd4ywlg4s8" path="res://rss/sprites/Switch-Sheet.png" id="1_wj0rh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fvpme"]
+radius = 24.0
+
+[node name="Switch" type="Area2D" groups=["State Machine"]]
+collision_layer = 0
+script = ExtResource("1_fvpme")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fvpme")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wj0rh")
+hframes = 2
+
+[node name="Label" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -40.0
+offset_right = 10.0
+offset_bottom = -17.0
+text = "(E)"

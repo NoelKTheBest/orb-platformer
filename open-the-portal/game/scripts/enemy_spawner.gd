@@ -10,6 +10,12 @@ extends Node2D
 # 1 - Assassin
 # 2 - Gunner
 
+@export_tool_button("Add standby spawn point") var standby_spawn_point_button = add_standby_spawn_point
+@export var standby_spawn_point_position: Vector2
+@export_tool_button("Add on_state_change spawn point") var on_state_change_spawn_point_button = add_on_state_switch_spawn_point
+@export_tool_button("Add on_death spawn point") var on_death_spawn_point_button = add_on_death_spawn_point
+@export_tool_button("Hello") var hello_action = hello
+
 var mercenary_scene = preload("res://game/scenes/basic_enemy.tscn")
 var assassin_scene = preload("res://game/scenes/assassin.tscn")
 var gunner_scene = preload("res://characters/Gunslinger/gunner.tscn")
@@ -18,7 +24,7 @@ var enemy_placements = []
 var num_placements: int
 var enable_spawn_interval: bool
 var spawn_points = []
-
+var spawn_point_scene_path = "res://game/scenes/spawn_point.tscn"
 
 
 #@export var on_death_enemy_placements = [["Mercenary"],[Vector2(0, 0)]]
@@ -26,7 +32,11 @@ var spawn_points = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"../Player".player_died.connect(_on_player_died)
+	var state_machines = get_tree().get_nodes_in_group("State Machine")
+	for sm in state_machines:
+		sm.state_changed.connect(on_machine_state_changed)
+	
+	$"../Kala".player_died.connect(_on_player_died)
 	spawn_points = get_tree().get_nodes_in_group("Spawn Point")
 	#get_spawn_points_in_floor()
 	
@@ -44,7 +54,8 @@ func _process(delta: float) -> void:
 		var current_floor = GameState.player_current_room.x
 		#get_spawn_points_in_floor(current_floor)
 	else:
-		print(delta)
+		#print(delta)
+		pass
 		
 
 
@@ -68,6 +79,29 @@ func start_spawn_interval():
 	$EnemySpawnInterval.start()
 
 
+#region Tool Buttons
+func hello():
+	print("Hello world!")
+
+
+func add_standby_spawn_point():
+	print(standby_spawn_point_position)
+	var sps := load(spawn_point_scene_path)
+	var sp = sps.instantiate()
+	sp.position = standby_spawn_point_position
+	add_child(sp)
+
+
+func add_on_state_switch_spawn_point():
+	pass
+
+
+func add_on_death_spawn_point():
+	pass
+#endregion
+
+
+#region Signals
 func _on_enemy_spawn_interval_timeout() -> void:
 	pass # Replace with function body.
 
@@ -94,3 +128,9 @@ func _on_player_died() -> void:
 		new_enemy.position = floor_spawn_positions[i].position
 		add_child(new_enemy)
 		i += 1
+
+
+## This function is called when the player flicks a switch
+func on_machine_state_changed(state_machine_type) -> void:
+	print("love wins: ", state_machine_type)
+#endregion
