@@ -257,26 +257,32 @@ visible = false
 [node name="SpawnPoint2" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(320, 728)
+floor_number = 1
 
 [node name="SpawnPoint3" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(640.00006, 728)
+floor_number = 1
 
 [node name="SpawnPoint4" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1464, 448)
+floor_number = 2
 
 [node name="SpawnPoint5" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1352, 872)
+floor_number = 3
 
 [node name="SpawnPoint6" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1688, 872)
+floor_number = 3
 
 [node name="SpawnPoint7" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(2360, 592)
+floor_number = 4
 
 [node name="OnDeath" type="Node2D" parent="EnemySpawner"]
 visible = false
