@@ -623,10 +623,10 @@ knockback = Vector2(100, 15)
 wall_pos_inc = 75
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_g2dcj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
 texture = ExtResource("2_jfkb5")
 hframes = 2

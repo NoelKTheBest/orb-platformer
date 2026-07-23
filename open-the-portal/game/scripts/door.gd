@@ -14,7 +14,7 @@ var destination_floor: int
 @export var goes_down: bool = false
 @export var floor_number: int = 0
 @export var is_one_way: bool = false
-@export var player_node_name: String = "Player"
+@export var player_node_name: String = "Kala"
 
 @onready var label: Label = $Label
 
@@ -34,8 +34,8 @@ func _process(_delta: float) -> void:
 			if b.name == player_node_name:
 				if show_label:
 					label.visible = true
-					if door and Input.is_action_just_pressed("use_door"):
-						b.position = door.position
+				if door and Input.is_action_just_pressed("use_door"):
+					b.position = door.position
 			else:
 				label.visible = false
 			
@@ -43,14 +43,18 @@ func _process(_delta: float) -> void:
 				teleport_body(b)
 	elif bodies.size() == 0:
 		if label.visible: label.visible = false
+	
+	#print("Hello, my name is ", name)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	print(body, " entered")
 	if body.is_in_group("Enemy"):
 		teleport_body(body)
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
+	print(body, " exited")
 	if body.is_in_group("Enemy"):
 		if entrance_form == entrance_mode.TELEPORT:
 			entrance_form = entrance_mode.WALK

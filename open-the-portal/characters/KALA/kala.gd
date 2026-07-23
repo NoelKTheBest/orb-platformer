@@ -69,7 +69,7 @@ func _ready() -> void:
 	$AnimationTree.active = true
 	sprite_init_point = sprite_2d.position
 	kick_fall_factor_init_val = kick_fall_factor_inc
-	$CameraFollow/Camera2D.limit_top = position.y - 150
+	#$CameraFollow/Camera2D.limit_top = position.y - 150
 
 
 func _process(delta: float) -> void:
@@ -157,6 +157,11 @@ func _process(delta: float) -> void:
 	#if conveyor_belt.get_slot_content(0) != 0:
 		#current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
 		#check_for_use_item(current_item)
+	
+	SceneVariables.current_player_floor = current_floor
+	SceneVariables.player_position = position
+	SceneVariables.player_facing_left = sprite_2d.flip_h
+	#print("fn: ", SceneVariables.current_player_floor, "; pp: ", SceneVariables.player_position, "; fh: ", SceneVariables.player_facing_left)
 
 
 func _physics_process(delta: float) -> void:

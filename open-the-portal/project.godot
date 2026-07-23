@@ -247,6 +247,7 @@ interact={
 2d_physics/layer_15="Physical Attacks"
 2d_physics/layer_16="Struck Body"
 2d_physics/layer_17="Enemy Orbs"
+2d_physics/layer_18="Door"
 
 [rendering]
 

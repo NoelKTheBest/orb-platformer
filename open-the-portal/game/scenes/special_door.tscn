@@ -23,15 +23,16 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_xnux1")
 
-[node name="ExitLabel" type="Label" parent="."]
-offset_left = -9.999999
-offset_top = -30.624966
-offset_right = 97.0
-offset_bottom = 15.375034
+[node name="DoorName" type="Label" parent="."]
+offset_left = -14.999999
+offset_top = -29.74997
+offset_right = 92.0
+offset_bottom = 16.25003
 scale = Vector2(0.295, 0.295)
 theme_override_fonts/font = SubResource("SystemFont_2hid1")
 theme_override_font_sizes/font_size = 33
 text = "EXIT"
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

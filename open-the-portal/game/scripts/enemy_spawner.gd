@@ -25,13 +25,20 @@ var num_placements: int
 var enable_spawn_interval: bool
 var spawn_points = []
 var spawn_point_scene_path = "res://game/scenes/spawn_point.tscn"
-
+var standby_sp = []
+var on_death_sp = []
+var on_switch_flick_sp = []
+var leftover_index
 
 #@export var on_death_enemy_placements = [["Mercenary"],[Vector2(0, 0)]]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	standby_sp = $Standby.get_children()
+	on_death_sp = $OnDeath.get_children()
+	on_switch_flick_sp = $OnSwitchFlick.get_children()
+	
 	var state_machines = get_tree().get_nodes_in_group("State Machine")
 	for sm in state_machines:
 		sm.state_changed.connect(on_machine_state_changed)
@@ -72,6 +79,7 @@ func get_spawn_points_in_floor(curr_floor: int):
 		if sp.floor_number == curr_floor:
 			curr_floor_spawns.append(sp)
 	
+	# Will be used to check if a needed spawn point is in the current floor
 	return curr_floor_spawns
 
 
@@ -125,7 +133,9 @@ func _on_player_died() -> void:
 			2:
 				new_enemy = gunner_scene.instantiate()
 		
-		new_enemy.position = floor_spawn_positions[i].position
+		if on_death_sp.has(floor_spawn_positions[i]):
+			new_enemy.position = floor_spawn_positions[i].position
+		
 		add_child(new_enemy)
 		i += 1
 

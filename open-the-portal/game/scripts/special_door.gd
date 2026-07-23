@@ -1,13 +1,17 @@
+@tool
 extends Polygon2D
 
 signal end_game
 
-@export var player_node_name: String = "Player"
+@export var player_node_name: String = "Kala"
+@export var door_name: String
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var bodies = $Area2D.get_overlapping_bodies()
+	
+	$DoorName.text = door_name
 	
 	# This only runs if the door's area has detectable physics bodies
 	if bodies.size() > 0:

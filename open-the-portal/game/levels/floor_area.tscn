@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1io1r5qs1534"]
+
+[ext_resource type="Script" uid="uid://dnunrn8yamuap" path="res://game/levels/floor_area.gd" id="1_glebp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm4md"]
+size = Vector2(736, 136)
+
+[node name="Area2D1" type="Area2D" groups=["Floor Areas"]]
+collision_layer = 4096
+collision_mask = 3
+script = ExtResource("1_glebp")
+floor_number = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_gm4md")
+debug_color = Color(0, 0.5950001, 0.7, 0.24705882)

@@ -281,7 +281,7 @@ door = NodePath("../Door5")
 floor_number = 3
 
 [node name="Door5" parent="Doors" instance=ExtResource("5_3pljs")]
-position = Vector2(56, 928)
+position = Vector2(48, 928.00006)
 color = Color(0.27024272, 0.5263758, 0.25083145, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
 floor_number = 5
@@ -336,11 +336,11 @@ floor_number = 4
 [node name="SpecialDoor" parent="Doors" instance=ExtResource("8_154ea")]
 position = Vector2(1384, 480)
 
-[node name="Player" parent="." instance=ExtResource("7_154ea")]
+[node name="Kala" parent="." instance=ExtResource("7_154ea")]
 position = Vector2(312, 464)
 metadata/_edit_lock_ = true
 
-[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Player"]
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Kala"]
 stream = ExtResource("9_ym8yp")
 autoplay = true
 
@@ -349,108 +349,160 @@ position = Vector2(768, 480)
 zoom = Vector2(0.655, 0.655)
 
 [node name="Assassin" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(672, 264)
 defend_position = true
 
 [node name="Enemy" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(464, 264)
 defend_position = true
 
 [node name="Enemy2" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(408, 904)
 defend_position = true
 
 [node name="Enemy3" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1392, 144)
 defend_position = true
 
 [node name="Enemy7" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1016, 144)
 defend_position = true
 
 [node name="Enemy9" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1512, 712)
 defend_position = true
 
 [node name="Enemy10" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1080, 720)
 defend_position = true
 
 [node name="GuardArea" parent="Enemy10" instance=ExtResource("12_m7vxn")]
 
 [node name="Enemy11" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1216, 712)
 defend_position = true
 
 [node name="Enemy8" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1600, 144)
 defend_position = true
 
 [node name="Enemy4" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(960, 464)
 defend_position = true
 
 [node name="Enemy12" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1128, 464)
 defend_position = true
 
 [node name="Enemy13" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(1296, 464)
 defend_position = true
 
 [node name="Enemy5" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(744, 464)
 defend_position = true
 
 [node name="Enemy6" parent="." instance=ExtResource("9_hp13q")]
+process_mode = 4
+visible = false
 position = Vector2(504, 464)
 defend_position = true
 
 [node name="Assassin2" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(1488, 144)
 defend_position = true
 
 [node name="Assassin3" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(344, 912)
 defend_position = true
 
 [node name="Assassin4" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(504, 904)
 defend_position = true
 
 [node name="Assassin5" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(864, 720)
 defend_position = true
 
 [node name="Assassin6" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(1160, 464)
 defend_position = true
 
 [node name="Assassin7" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(640, 904)
 defend_position = true
 
 [node name="Assassin8" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(592, 256)
 defend_position = true
 
 [node name="Assassin9" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(752, 248)
 defend_position = true
 
 [node name="Assassin10" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(1328, 464)
 defend_position = true
 
 [node name="Assassin13" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(1272, 464)
 defend_position = true
 
 [node name="Assassin11" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(904, 464)
 defend_position = true
 
 [node name="Assassin12" parent="." instance=ExtResource("8_a2lcp")]
+process_mode = 4
+visible = false
 position = Vector2(688, 464)
 defend_position = true
 

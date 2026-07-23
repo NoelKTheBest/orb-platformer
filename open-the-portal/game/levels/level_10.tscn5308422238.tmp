@@ -1,11 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=18 format=3 uid="uid://d30v7m85ufs4d"]
 
 [ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
 [ext_resource type="Script" uid="uid://dnunrn8yamuap" path="res://game/levels/floor_area.gd" id="3_1rw26"]
-[ext_resource type="PackedScene" uid="uid://c1io1r5qs1534" path="res://game/levels/floor_area.tscn" id="3_li5p0"]
 [ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="4_k8uq0"]
-[ext_resource type="PackedScene" uid="uid://blmhdmsqnbexu" path="res://game/scenes/special_door.tscn" id="5_gqlur"]
 [ext_resource type="PackedScene" uid="uid://bbwoyml5j6n7c" path="res://game/prototype_2/enemy_health_bar.tscn" id="6_h6q6v"]
 [ext_resource type="PackedScene" uid="uid://ds2huogrjw6o5" path="res://characters/SAEMI/saemi.tscn" id="7_388e8"]
 [ext_resource type="PackedScene" uid="uid://beh6myo6hh71l" path="res://characters/Gunslinger/gunner.tscn" id="8_1rw26"]
@@ -15,7 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cbqfic6hyxeva" path="res://game/scenes/switch/switch.tscn" id="11_k8uq0"]
 [ext_resource type="PackedScene" uid="uid://dhhbsvyp54xqs" path="res://game/scenes/enemy_spawner.tscn" id="12_gm4md"]
 [ext_resource type="PackedScene" uid="uid://cryedlestgd1x" path="res://game/scenes/spawn_point.tscn" id="13_3vs7j"]
-[ext_resource type="PackedScene" uid="uid://bbsmlqrfnw25b" path="res://game/scenes/switch/lever.tscn" id="14_66udj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm4md"]
+size = Vector2(736, 136)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vs7j"]
 size = Vector2(432, 128)
@@ -57,17 +57,18 @@ scale = Vector2(76.8, 1.5999986)
 position = Vector2(0, -80)
 scale = Vector2(76.8, 1.5999987)
 
-[node name="Area2D1" parent="Room1" instance=ExtResource("3_li5p0")]
-
-[node name="Node" type="Node" parent="Room1"]
-
-[node name="Door" parent="Room1/Node" node_paths=PackedStringArray("door") instance=ExtResource("4_k8uq0")]
-position = Vector2(800, 744)
-door = NodePath("../../../Room2/Node/Door2")
+[node name="Area2D1" type="Area2D" parent="Room1"]
+script = ExtResource("3_1rw26")
+floor_number = 1
 metadata/_edit_group_ = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room1/Area2D1"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_gm4md")
+debug_color = Color(0, 0.5950001, 0.7, 0.24705882)
+
 [node name="Room2" type="Node2D" parent="."]
-position = Vector2(1425, 416)
+position = Vector2(1424, 416)
 metadata/_edit_group_ = true
 
 [node name="Polygon2D5" parent="Room2" instance=ExtResource("1_uhbgd")]
@@ -89,9 +90,7 @@ scale = Vector2(44.79999, 1.5999986)
 position = Vector2(224, -0.00015258789)
 scale = Vector2(1.5999887, 14.400001)
 
-[node name="Area2D2" type="Area2D" parent="Room2" groups=["Floor Areas"]]
-collision_layer = 4096
-collision_mask = 3
+[node name="Area2D2" type="Area2D" parent="Room2"]
 script = ExtResource("3_1rw26")
 floor_number = 2
 metadata/_edit_group_ = true
@@ -99,18 +98,6 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/Area2D2"]
 shape = SubResource("RectangleShape2D_3vs7j")
 debug_color = Color(0.1813333, 0.64, 0, 0.22745098)
-
-[node name="Node" type="Node" parent="Room2"]
-
-[node name="Door2" parent="Room2/Node" node_paths=PackedStringArray("door") instance=ExtResource("4_k8uq0")]
-position = Vector2(1288, 464)
-door = NodePath("../../../Room3/Node/Door12")
-goes_down = true
-floor_number = 2
-
-[node name="SpecialDoor" parent="Room2" instance=ExtResource("5_gqlur")]
-position = Vector2(159, 48)
-door_name = "B.U.T.T"
 
 [node name="Room3" type="Node2D" parent="."]
 position = Vector2(1448, 840)
@@ -144,20 +131,16 @@ position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_gqlur")
 debug_color = Color(0, 0.7, 0.011666656, 0.12156863)
 
-[node name="Node" type="Node" parent="Room3"]
-
-[node name="Door11" parent="Room3/Node" node_paths=PackedStringArray("door") instance=ExtResource("4_k8uq0")]
-position = Vector2(1240, 888)
+[node name="Door11" parent="Room3" instance=ExtResource("4_k8uq0")]
+position = Vector2(-208, 48)
 color = Color(0.0637661, 0.22085026, 0.58549786, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
-door = NodePath("../../../Room1/Node/Door")
 floor_number = 4
 
-[node name="Door12" parent="Room3/Node" node_paths=PackedStringArray("door") instance=ExtResource("4_k8uq0")]
-position = Vector2(1624, 887.99994)
+[node name="Door12" parent="Room3" instance=ExtResource("4_k8uq0")]
+position = Vector2(176, 47.99994)
 color = Color(0.30839306, 0.1662986, 0.49649686, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
-door = NodePath("../../../Room4/Node/Door5")
 floor_number = 4
 
 [node name="Room4" type="Node2D" parent="."]
@@ -196,19 +179,16 @@ position = Vector2(8, -8)
 shape = SubResource("RectangleShape2D_li5p0")
 debug_color = Color(0.86, 0.35833335, 0, 0.11764706)
 
-[node name="Node" type="Node" parent="Room4"]
-
-[node name="Door5" parent="Room4/Node" instance=ExtResource("4_k8uq0")]
-position = Vector2(1938.3069, 608.1179)
+[node name="Door5" parent="Room4" instance=ExtResource("4_k8uq0")]
+position = Vector2(-269.6931, 40.11795)
 color = Color(0.27024272, 0.5263758, 0.25083145, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
 floor_number = 5
 
-[node name="Door6" parent="Room4/Node" node_paths=PackedStringArray("door") instance=ExtResource("4_k8uq0")]
-position = Vector2(2482.307, 608.11804)
+[node name="Door6" parent="Room4" instance=ExtResource("4_k8uq0")]
+position = Vector2(274.3069, 40.11801)
 color = Color(0.5132389, 0.45073152, 0.29180142, 1)
 polygon = PackedVector2Array(-10.306917, 13.896787, -10.306917, -14.103213, 10.693083, -14.103213, 10.693054, 13.896759, 0.059782505, 13.896726)
-door = NodePath("../../../Room3/Node/Door11")
 floor_number = 5
 
 [node name="ReturnPosition" type="Node2D" parent="."]
@@ -234,7 +214,7 @@ offset_right = 31.0
 offset_bottom = 7.0
 
 [node name="Kala" parent="." instance=ExtResource("8_4t8w5")]
-position = Vector2(1144, 888)
+position = Vector2(1244.0001, 464)
 knockback = Vector2(70, 15)
 metadata/_edit_lock_ = true
 
@@ -265,25 +245,8 @@ position = Vector2(800, 624)
 position = Vector2(1356.0001, 448)
 zoom = Vector2(3.405, 3.405)
 
-[node name="Controls" type="Node" parent="."]
-
-[node name="Switch" parent="Controls" instance=ExtResource("11_k8uq0")]
+[node name="Switch" parent="." instance=ExtResource("11_k8uq0")]
 position = Vector2(1384, 464)
-
-[node name="Switch2" parent="Controls" instance=ExtResource("11_k8uq0")]
-position = Vector2(688, 744)
-
-[node name="Switch3" parent="Controls" instance=ExtResource("11_k8uq0")]
-position = Vector2(1512, 888)
-
-[node name="Switch4" parent="Controls" instance=ExtResource("11_k8uq0")]
-position = Vector2(2128, 608)
-
-[node name="Lever" parent="Controls" instance=ExtResource("14_66udj")]
-position = Vector2(376, 744)
-
-[node name="Lever2" parent="Controls" instance=ExtResource("14_66udj")]
-position = Vector2(1310.0554, 897.80835)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_gm4md")]
 standby_spawn_point_position = Vector2(1425.115, 442.34)
@@ -302,7 +265,7 @@ floor_number = 1
 
 [node name="SpawnPoint4" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
-position = Vector2(1464.0001, 448)
+position = Vector2(1464, 448)
 floor_number = 2
 
 [node name="SpawnPoint5" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
@@ -321,79 +284,67 @@ position = Vector2(2360, 592)
 floor_number = 4
 
 [node name="OnDeath" type="Node2D" parent="EnemySpawner"]
+visible = false
 
 [node name="SpawnPoint" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(200, 728)
-floor_number = 1
 
 [node name="SpawnPoint2" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(432, 728)
-floor_number = 1
 
 [node name="SpawnPoint3" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(728, 728)
-floor_number = 1
 
 [node name="SpawnPoint4" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1304, 448.00003)
-floor_number = 2
 
 [node name="SpawnPoint5" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1528, 448)
-floor_number = 2
 
 [node name="SpawnPoint6" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1160, 872)
-floor_number = 3
 
 [node name="SpawnPoint7" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1392.0001, 872)
-floor_number = 3
 
 [node name="SpawnPoint8" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1736, 872)
-floor_number = 3
 
 [node name="SpawnPoint9" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(2072, 592)
-floor_number = 4
 
 [node name="SpawnPoint10" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(2312, 592)
-floor_number = 4
 
 [node name="OnSwitchFlick" type="Node2D" parent="EnemySpawner"]
+visible = false
 z_index = -1
 
 [node name="SpawnPoint" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(280.00006, 728)
-floor_number = 1
 
 [node name="SpawnPoint2" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1592, 448)
-floor_number = 2
 
 [node name="SpawnPoint3" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(1240, 872)
-floor_number = 3
 
 [node name="SpawnPoint4" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
 visible = true
 position = Vector2(2480, 592)
-floor_number = 4
 
 [connection signal="timeout" from="Saemi/ProtectTimer" to="Saemi" method="_on_protect_timer_timeout"]
 

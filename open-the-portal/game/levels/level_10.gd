@@ -18,8 +18,9 @@ func _process(_delta: float) -> void:
 	#$Assassin.player_position = $Kala.position
 	#$Kala/CameraFollow/Camera2D.make_current()
 	
-	SceneVariables.player_position = $Kala.position
-	SceneVariables.player_facing_left = $Kala/Sprite2D.flip_h
+	#SceneVariables.player_position = $Kala.position
+	#SceneVariables.player_facing_left = $Kala/Sprite2D.flip_h
+	pass
 
 
 func get_player_facing_direction():

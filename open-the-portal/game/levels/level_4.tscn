@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://1npaobpruimi"]
+[gd_scene load_steps=7 format=4 uid="uid://1npaobpruimi"]
 
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_qpxtm"]
 [ext_resource type="TileSet" uid="uid://b615xvf4ciufm" path="res://game/game_rss/basic_ceiling_tileset.tres" id="2_p0pgv"]
 [ext_resource type="Texture2D" uid="uid://di7dy4fc2iiy7" path="res://game/game_rss/basic_ceiling_light.tres" id="3_12tya"]
 [ext_resource type="PackedScene" uid="uid://dkr4cdkqpcfm" path="res://game/scenes/player.tscn" id="4_r6jdw"]
+[ext_resource type="PackedScene" uid="uid://4hvqsn8t0w4r" path="res://game/scenes/door.tscn" id="5_p0pgv"]
 [ext_resource type="PackedScene" uid="uid://scdqlaj5o33f" path="res://game/prototype_2/breakable_forcefield.tscn" id="5_u7kdy"]
 
 [node name="Level4" type="Node2D"]
@@ -39,6 +40,14 @@ energy = 2.45
 shadow_enabled = true
 texture = ExtResource("3_12tya")
 offset = Vector2(0, 28.72)
+
+[node name="Door" parent="." node_paths=PackedStringArray("door") instance=ExtResource("5_p0pgv")]
+position = Vector2(704, 608)
+door = NodePath("../Door2")
+
+[node name="Door2" parent="." node_paths=PackedStringArray("door") instance=ExtResource("5_p0pgv")]
+position = Vector2(800, 608)
+door = NodePath("../Door")
 
 [node name="Player" parent="." instance=ExtResource("4_r6jdw")]
 position = Vector2(558, 600)
