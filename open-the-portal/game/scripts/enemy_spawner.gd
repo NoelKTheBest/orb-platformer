@@ -9,6 +9,7 @@ extends Node2D
 # 0 - Mercenary
 # 1 - Assassin
 # 2 - Gunner
+@export var on_ready_spawns = []
 
 @export_tool_button("Add standby spawn point") var standby_spawn_point_button = add_standby_spawn_point
 @export var standby_spawn_point_position: Vector2
@@ -49,21 +50,26 @@ func _ready() -> void:
 	
 	for i in num_placements:
 		enemy_placements.append(enemy_label_scene.instantiate())
+	
+	spawn_patrol_guards()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
 		if GameState.player_flicked_switch and GameState.flick_switch_1():
 			start_spawn_interval()
 			GameState.player_flicked_switch = false
 		
-		var current_floor = GameState.player_current_room.x
+		var _current_floor = GameState.player_current_room.x
 		#get_spawn_points_in_floor(current_floor)
+		
+		#for e in get_tree().get_nodes_in_group("Enemy"):
+			#print(e.velocity)
 	else:
 		#print(delta)
 		pass
-		
 
 
 func _draw() -> void:
@@ -71,6 +77,30 @@ func _draw() -> void:
 		var default_font = ThemeDB.fallback_font
 		var default_font_size = ThemeDB.fallback_font_size
 		draw_string(default_font, Vector2(6, 4), "Hello world", HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
+
+
+func spawn_patrol_guards():
+	var i = 0
+	for id in on_ready_spawns:
+		var new_enemy
+		match id:
+			0:
+				new_enemy = mercenary_scene.instantiate()
+			1:
+				new_enemy = assassin_scene.instantiate()
+			2:
+				new_enemy = gunner_scene.instantiate()
+		
+		print(new_enemy)
+		
+		## 
+		add_child(new_enemy)
+		print("spawner: ", to_global(standby_sp[i].position))
+		new_enemy.position = to_global(standby_sp[i].position)
+		print("hii: ", new_enemy.position)
+		#var mother = get_parent()
+		#new_enemy.reparent(mother)
+		i += 1
 
 
 func get_spawn_points_in_floor(curr_floor: int):
@@ -134,9 +164,10 @@ func _on_player_died() -> void:
 				new_enemy = gunner_scene.instantiate()
 		
 		if on_death_sp.has(floor_spawn_positions[i]):
-			new_enemy.position = floor_spawn_positions[i].position
+			new_enemy.position = to_global(floor_spawn_positions[i].position)
 		
-		add_child(new_enemy)
+		var mother = get_parent()
+		mother.add_child(new_enemy)
 		i += 1
 
 

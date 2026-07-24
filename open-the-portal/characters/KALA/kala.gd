@@ -158,6 +158,9 @@ func _process(delta: float) -> void:
 		#current_item = ItemNameDictionary.ITEM_NAMES.get(conveyor_belt.get_slot_content(0))
 		#check_for_use_item(current_item)
 	
+	if Input.is_action_just_pressed("kill_player"):
+		die()
+	
 	SceneVariables.current_player_floor = current_floor
 	SceneVariables.player_position = position
 	SceneVariables.player_facing_left = sprite_2d.flip_h

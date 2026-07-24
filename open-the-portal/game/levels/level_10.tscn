@@ -262,8 +262,8 @@ visible = false
 position = Vector2(800, 624)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1356.0001, 448)
-zoom = Vector2(3.405, 3.405)
+position = Vector2(1416, 640)
+zoom = Vector2(0.43, 1)
 
 [node name="Controls" type="Node" parent="."]
 
@@ -283,12 +283,14 @@ position = Vector2(2128, 608)
 position = Vector2(376, 744)
 
 [node name="Lever2" parent="Controls" instance=ExtResource("14_66udj")]
-position = Vector2(1310.0554, 897.80835)
+position = Vector2(1312, 888)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_gm4md")]
+on_ready_spawns = [1, 2, 1, 1, 2, 1]
 standby_spawn_point_position = Vector2(1425.115, 442.34)
 
 [node name="Standby" type="Node2D" parent="EnemySpawner"]
+visible = false
 
 [node name="SpawnPoint2" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true
@@ -321,6 +323,7 @@ position = Vector2(2360, 592)
 floor_number = 4
 
 [node name="OnDeath" type="Node2D" parent="EnemySpawner"]
+visible = false
 
 [node name="SpawnPoint" parent="EnemySpawner/OnDeath" instance=ExtResource("13_3vs7j")]
 visible = true
@@ -373,6 +376,7 @@ position = Vector2(2312, 592)
 floor_number = 4
 
 [node name="OnSwitchFlick" type="Node2D" parent="EnemySpawner"]
+visible = false
 z_index = -1
 
 [node name="SpawnPoint" parent="EnemySpawner/OnSwitchFlick" instance=ExtResource("13_3vs7j")]
