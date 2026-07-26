@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl5jdsxhsw1v6"]
+
+[ext_resource type="Script" uid="uid://b78i7rkdv5r21" path="res://game/prototype_3/grid.gd" id="1_xl77f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl77f"]
+size = Vector2(100, 100)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_xl77f")
+grid_rows = 4
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_xl77f")
