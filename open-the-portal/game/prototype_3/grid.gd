@@ -63,6 +63,8 @@ func draw_from_external():
 				draw_rect(Rect2(initial_position + Vector2(inc * j, inc * i), Vector2(50, 50)), Color.GOLD)
 			elif grid[i][j] == 2:
 				draw_rect(Rect2(initial_position + Vector2(inc * j, inc * i), Vector2(50, 50)), Color.RED)
+			elif grid[i][j] == 3:
+				draw_rect(Rect2(initial_position + Vector2(inc * j, inc * i), Vector2(50, 50)), Color.MEDIUM_SLATE_BLUE)
 			else: draw_rect(Rect2(initial_position + Vector2(inc * j, inc * i), Vector2(50, 50)), Color.NAVY_BLUE)
 			j += 1
 		j = 0

@@ -21,9 +21,10 @@ var room_clear_key = "rooms cleared"
 var player_death_key = "player deaths"
 var current_state = {}
 
-var survivor_position := GridCoordinate.new()
-var boss_position := GridCoordinate.new()
-var enemy_position := GridCoordinate.new()
+var player_grid_position := GridCoordinate.new()
+var survivor_grid_position := GridCoordinate.new()
+var boss_grid_position := GridCoordinate.new()
+var enemy_grid_position := GridCoordinate.new()
 var grid = [
 	[1, 0, 0, 0],
 	[0, 0, 1, 0],
@@ -41,7 +42,13 @@ var boss_battle_active: bool
 
 
 func _ready():
+	player_grid_position.column = 0
+	player_grid_position.row = randi_range(0, 2)
+	boss_grid_position.column = 3
+	boss_grid_position.row = randi_range(0, 2)
 	setup_grid()
+	grid[player_grid_position.row][player_grid_position.column] = 3
+	grid[boss_grid_position.row][boss_grid_position.column] = 2
 	#print(astargrid.get_point_data_in_region(Rect2i(0, 0, 4, 3)))
 	#print(show_path(1, 0, 0, 2))
 
