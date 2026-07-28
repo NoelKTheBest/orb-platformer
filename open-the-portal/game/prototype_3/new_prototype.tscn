@@ -15,5 +15,5 @@ grid_rows = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_xl77f")
 
-[node name="TempGameplay" type="Node" parent="."]
+[node name="TempGameplay" type="Node2D" parent="."]
 script = ExtResource("2_p4ps6")

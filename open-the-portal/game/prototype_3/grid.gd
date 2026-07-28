@@ -92,6 +92,10 @@ func draw_from_internal():
 		draw_rect(Rect2(v.x - ((cell_size.x * nsx) / 2), v.y - ((cell_size.y * nsy) / 2), cell_size.x * nsx, cell_size.y * nsy), Color.GOLD)
 
 
+func redraw():
+	queue_redraw()
+
+
 # --------------------------- Grid Creation --------------------------
 func create_grid():
 	for i in grid_rows:

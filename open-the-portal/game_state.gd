@@ -26,9 +26,9 @@ var survivor_grid_position := GridCoordinate.new()
 var boss_grid_position := GridCoordinate.new()
 var enemy_grid_position := GridCoordinate.new()
 var grid = [
-	[1, 0, 0, 0],
-	[0, 0, 1, 0],
-	[0, 1, 0, 1],
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
 ]
 var astargrid = AStarGrid2D.new()
 
@@ -90,7 +90,18 @@ func setup_grid():
 	var j = 0
 	for row in grid:
 		for e in row:
-			astargrid.set_point_solid(Vector2i(j, i), is_cell_survivor_occupied(Vector2i(i, j)))
+			astargrid.set_point_solid(Vector2i(j, i), is_cell_blocked(Vector2i(i, j)))
+			j += 1
+		j = 0
+		i += 1
+
+
+func remap_grid():
+	var i = 0
+	var j = 0
+	for row in grid:
+		for e in row:
+			astargrid.set_point_solid(Vector2i(j, i), is_cell_blocked(Vector2i(i, j)))
 			j += 1
 		j = 0
 		i += 1
@@ -100,8 +111,8 @@ func show_path(start_x: int, start_y: int, end_x: int, end_y: int):
 	return astargrid.get_id_path(Vector2(start_x, start_y), Vector2(end_x, end_y))
 
 
-func is_cell_survivor_occupied(cell: Vector2i) -> bool:
-	return true if grid[cell.x][cell.y] > 0 else false
+func is_cell_blocked(cell: Vector2i) -> bool:
+	return true if grid[cell.x][cell.y] == 1 else false
 
 
 func flick_switch_1():
@@ -122,6 +133,17 @@ func flick_switch_3():
 func flick_lever_1():
 	# Check state and change grid solid points
 	pass
+
+
+func run_sim():
+	var bogri = boss_grid_position
+	grid[bogri.row][bogri.column] = 0
+	var next_positions = show_path(bogri.column, bogri.row,
+	 player_grid_position.column, player_grid_position.row)
+	
+	print(next_positions[1])
+	print(next_positions)
+	grid[next_positions[1].y][next_positions[1].x] = 2
 
 
 class GridCoordinate:
