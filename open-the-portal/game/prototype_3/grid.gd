@@ -143,7 +143,7 @@ func translate_from_game_state():
 		j = 0
 		i += 1
 	
-	print(grid, "GG")
+	#print(grid, "GG")
 # ---------------------------- Grid Query ---------------------------- 
 func print_grid():
 	print("------------New Grid------------")

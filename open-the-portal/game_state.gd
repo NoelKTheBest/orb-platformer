@@ -141,8 +141,11 @@ func run_sim():
 	var next_positions = show_path(bogri.column, bogri.row,
 	 player_grid_position.column, player_grid_position.row)
 	
-	print(next_positions[1])
-	print(next_positions)
+	boss_grid_position.row = next_positions[1].y
+	boss_grid_position.column = next_positions[1].x
+	print(boss_grid_position.row, boss_grid_position.column)
+	#print(next_positions[1])
+	#print(next_positions)
 	grid[next_positions[1].y][next_positions[1].x] = 2
 
 
