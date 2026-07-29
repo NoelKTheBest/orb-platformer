@@ -32,7 +32,7 @@ func body_entered_hurtbox(body: Node2D):
 
 
 func animation_finished(anim_name: StringName):
-	print(anim_name)
+	#print(anim_name)
 	if anim_name == KICK_ANIMATION_NAME:
 		kicked_by_player = false
 	elif anim_name == DODGE_ANIMATION_NAME:

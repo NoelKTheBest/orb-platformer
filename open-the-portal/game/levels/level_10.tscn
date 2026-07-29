@@ -290,7 +290,6 @@ on_ready_spawns = [1, 2, 1, 1, 2, 1]
 standby_spawn_point_position = Vector2(1425.115, 442.34)
 
 [node name="Standby" type="Node2D" parent="EnemySpawner"]
-visible = false
 
 [node name="SpawnPoint2" parent="EnemySpawner/Standby" instance=ExtResource("13_3vs7j")]
 visible = true

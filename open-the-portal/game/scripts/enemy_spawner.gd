@@ -96,10 +96,11 @@ func spawn_patrol_guards():
 		## 
 		add_child(new_enemy)
 		print("spawner: ", to_global(standby_sp[i].position))
-		new_enemy.position = to_global(standby_sp[i].position)
-		print("hii: ", new_enemy.position)
-		#var mother = get_parent()
-		#new_enemy.reparent(mother)
+		new_enemy.position = to_local(standby_sp[i].position)
+		new_enemy.squad_position = to_local(standby_sp[i].position)
+		print("hii: ", to_global(new_enemy.position), new_enemy.squad_position)
+		#var _mother = get_parent()
+		#new_enemy.reparent(_mother)
 		i += 1
 
 

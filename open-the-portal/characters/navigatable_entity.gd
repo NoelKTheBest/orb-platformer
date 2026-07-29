@@ -144,7 +144,7 @@ func _physics_process(delta: float) -> void:
 		#print_rich("[color=blue];)")
 		player_position = SceneVariables.player_position
 		velocity.x = get_target_position().x * speed
-		print("From get target pos (B)")
+		#print("From get target pos (B)")
 	
 	# move to basic entity if we need to make sure basic entity doesn't override this code
 	# If entity is outside of guard bounds
@@ -153,7 +153,7 @@ func _physics_process(delta: float) -> void:
 		if initially_guarding and !on_guard:
 			on_guard = true # Go back to guard position (squad_position)
 	
-	print(velocity.x)
+	#print(velocity.x)
 
 
 ## Function to implement to set the target position of the entity based on position relative to player
@@ -168,7 +168,7 @@ func get_target_position() -> Vector2:
 			if using_door: using_door = false
 			target_position = (player_position - position).normalized()
 			#print_rich("[color=green]:)")
-			print(target_position, "; ", player_position)
+			#print(target_position, "; ", player_position)
 	#else:
 		#velocity.x = move_toward(velocity.x, 0, speed) # remove lines
 		# We should be setting target position to something that will force the enemy to stay in place and then not move
