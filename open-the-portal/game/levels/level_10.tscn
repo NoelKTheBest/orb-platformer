@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d30v7m85ufs4d"]
+[gd_scene load_steps=21 format=3 uid="uid://d30v7m85ufs4d"]
 
 [ext_resource type="Script" uid="uid://dsk257y5e2ql7" path="res://game/levels/level_10.gd" id="1_4ry5c"]
 [ext_resource type="PackedScene" uid="uid://b6b44hr4b515m" path="res://game/scenes/polygon_2d.tscn" id="1_uhbgd"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dhhbsvyp54xqs" path="res://game/scenes/enemy_spawner.tscn" id="12_gm4md"]
 [ext_resource type="PackedScene" uid="uid://cryedlestgd1x" path="res://game/scenes/spawn_point.tscn" id="13_3vs7j"]
 [ext_resource type="PackedScene" uid="uid://bbsmlqrfnw25b" path="res://game/scenes/switch/lever.tscn" id="14_66udj"]
+[ext_resource type="PackedScene" uid="uid://cpcmv3fq3u6i2" path="res://game/scenes/pause_menu.tscn" id="17_gj1fw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vs7j"]
 size = Vector2(432, 128)
@@ -397,6 +398,8 @@ floor_number = 3
 visible = true
 position = Vector2(2480, 592)
 floor_number = 4
+
+[node name="PauseMenu" parent="." instance=ExtResource("17_gj1fw")]
 
 [connection signal="timeout" from="Saemi/ProtectTimer" to="Saemi" method="_on_protect_timer_timeout"]
 [connection signal="player_died" from="Kala" to="." method="_on_kala_player_died"]
