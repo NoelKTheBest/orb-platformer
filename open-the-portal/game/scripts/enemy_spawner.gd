@@ -44,7 +44,8 @@ func _ready() -> void:
 	for sm in state_machines:
 		sm.state_changed.connect(on_machine_state_changed)
 	
-	$"../Kala".player_died.connect(_on_player_died)
+	# Disable for now
+	#$"../Kala".player_died.connect(_on_player_died)
 	spawn_points = get_tree().get_nodes_in_group("Spawn Point")
 	#get_spawn_points_in_floor()
 	
@@ -147,7 +148,7 @@ func _on_enemy_spawn_interval_timeout() -> void:
 
 func _on_player_died() -> void:
 	# Reset player position to middle of screen
-	$"../Player".position = reset_position
+	$"../Kala".position = reset_position
 	for enemy in get_tree().get_nodes_in_group("Enemy"):
 		enemy.queue_free()
 	

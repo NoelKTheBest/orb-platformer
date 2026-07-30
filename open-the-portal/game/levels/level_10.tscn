@@ -399,5 +399,6 @@ position = Vector2(2480, 592)
 floor_number = 4
 
 [connection signal="timeout" from="Saemi/ProtectTimer" to="Saemi" method="_on_protect_timer_timeout"]
+[connection signal="player_died" from="Kala" to="." method="_on_kala_player_died"]
 
 [editable path="Assassin"]

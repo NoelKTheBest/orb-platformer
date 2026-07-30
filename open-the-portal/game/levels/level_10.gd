@@ -4,7 +4,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Saemi.return_position = $ReturnPosition.position
-	$Camera2D.make_current()
+	#$Camera2D.make_current()
 	#Engine.time_scale = 0.5
 
 
@@ -33,3 +33,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print(body)
+
+
+func _on_kala_player_died() -> void:
+	get_tree().reload_current_scene()
