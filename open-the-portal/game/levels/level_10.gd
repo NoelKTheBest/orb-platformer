@@ -4,6 +4,8 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Saemi.return_position = $ReturnPosition.position
+	for door in get_tree().get_nodes_in_group("Door"):
+		door.show_label = true
 	#$Camera2D.make_current()
 	#Engine.time_scale = 0.5
 
