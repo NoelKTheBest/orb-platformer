@@ -1,7 +1,8 @@
-[gd_scene load_steps=61 format=4 uid="uid://d1x2wb7hdgv5x"]
+[gd_scene load_steps=62 format=4 uid="uid://d1x2wb7hdgv5x"]
 
 [ext_resource type="Script" uid="uid://bp7f77m1dsndi" path="res://characters/KALA/kala.gd" id="1_hd2te"]
 [ext_resource type="Texture2D" uid="uid://cpllppu7ks4jx" path="res://characters/KALA/Player Animations-Sheet.png" id="2_jjso4"]
+[ext_resource type="Script" uid="uid://cb751w3tm6o76" path="res://characters/KALA/camera_follow.gd" id="3_ade3c"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://game/prototype_2/camera_2d.gd" id="4_jhjt6"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="5_vh5wt"]
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://game/prototype_2/user_interface.tscn" id="7_1ougi"]
@@ -835,7 +836,7 @@ stereo = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wnnm"]
 size = Vector2(9, 14)
 
-[node name="Kala" type="CharacterBody2D"]
+[node name="Kala" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 70
 platform_floor_layers = 68
 script = ExtResource("1_hd2te")
@@ -872,6 +873,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CameraFollow" type="Node2D" parent="."]
+script = ExtResource("3_ade3c")
 
 [node name="Camera2D" type="Camera2D" parent="CameraFollow"]
 zoom = Vector2(3.88, 3.88)

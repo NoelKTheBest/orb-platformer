@@ -48,6 +48,7 @@ var was_hit_and_still_midair = false
 ## I will use this variable to figure out whether or not the player was hit in midair to make different things happen
 var was_hit_midair
 var current_floor
+var set_current_bottom = false
 
 #region AnimTreeVars
 var kick_enemy: bool = false
@@ -69,7 +70,7 @@ func _ready() -> void:
 	$AnimationTree.active = true
 	sprite_init_point = sprite_2d.position
 	kick_fall_factor_init_val = kick_fall_factor_inc
-	#$CameraFollow/Camera2D.limit_top = position.y - 150
+	$CameraFollow.current_bottom = position.y
 
 
 func _process(delta: float) -> void:
@@ -92,8 +93,6 @@ func _process(delta: float) -> void:
 	$RailgunBeam.visible = false
 	
 	temp_delta = delta
-	if enemy_pos:
-		move_camera_d(delta)
 	
 	#if DEBUG:
 		#if Input.is_action_just_pressed("never_set_ready"):
@@ -282,6 +281,10 @@ func _physics_process(delta: float) -> void:
 		prev_y_velocity = velocity.y
 	else:
 		move_and_slide()
+
+
+func set_camera_bottom(door_position: float):
+	$CameraFollow.current_bottom = door_position
 
 
 func move_camera_d(_delta : float):

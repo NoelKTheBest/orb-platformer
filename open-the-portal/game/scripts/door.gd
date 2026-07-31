@@ -36,6 +36,7 @@ func _process(_delta: float) -> void:
 					label.visible = true
 				if door and Input.is_action_just_pressed("use_door"):
 					b.position = door.position
+					b.set_camera_bottom(door.position.y)
 			else:
 				label.visible = false
 			
