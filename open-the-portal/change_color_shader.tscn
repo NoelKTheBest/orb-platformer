@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0ny5x0lh6boi"]
 
-[ext_resource type="Texture2D" uid="uid://ho4wkow8ff2k" path="res://characters/KALA/Player Animations-Sheet2.png" id="1_7ilr3"]
-[ext_resource type="Shader" uid="uid://b4bo7ggcq6caf" path="res://change_color_shader.gdshader" id="1_r651w"]
-[ext_resource type="Texture2D" uid="uid://b1gqpmnteivyg" path="res://example_texture_2.png" id="2_nrcun"]
-[ext_resource type="Texture2D" uid="uid://dp2hsbixqlrqo" path="res://example_texture.png" id="3_05pb1"]
+[ext_resource type="Shader" uid="uid://bgte1dj82lgud" path="res://change_color_shader.gdshader" id="1_r651w"]
+[ext_resource type="Texture2D" uid="uid://bqavre83of3ao" path="res://characters/KALA/Player Animations-cut_mask.png" id="2_3iemo"]
+[ext_resource type="Texture2D" uid="uid://cmm8ugycv1c2v" path="res://characters/KALA/Player Animations-add_mask_f1.png" id="2_nrcun"]
+[ext_resource type="Texture2D" uid="uid://7ln4n64it3ia" path="res://characters/KALA/Player Animations-Sheet-export.png" id="3_nrcun"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r651w"]
 shader = ExtResource("1_r651w")
-shader_parameter/cut_mask = ExtResource("3_05pb1")
+shader_parameter/cut_mask = ExtResource("2_3iemo")
 shader_parameter/add_mask = ExtResource("2_nrcun")
 
 [sub_resource type="GDScript" id="GDScript_3iemo"]
@@ -25,5 +25,14 @@ func _ready() -> void:
 
 [node name="Sprite2D" type="Sprite2D"]
 material = SubResource("ShaderMaterial_r651w")
-texture = ExtResource("1_7ilr3")
+texture = ExtResource("3_nrcun")
 script = SubResource("GDScript_3iemo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+texture = ExtResource("2_3iemo")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_nrcun")

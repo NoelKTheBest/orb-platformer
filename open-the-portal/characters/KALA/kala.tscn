@@ -1,8 +1,10 @@
-[gd_scene load_steps=62 format=4 uid="uid://d1x2wb7hdgv5x"]
+[gd_scene load_steps=66 format=4 uid="uid://d1x2wb7hdgv5x"]
 
 [ext_resource type="Script" uid="uid://bp7f77m1dsndi" path="res://characters/KALA/kala.gd" id="1_hd2te"]
 [ext_resource type="Texture2D" uid="uid://cpllppu7ks4jx" path="res://characters/KALA/Player Animations-Sheet.png" id="2_jjso4"]
+[ext_resource type="Script" uid="uid://cqf613310cfdh" path="res://characters/KALA/set_overlay.gd" id="3_0wnnm"]
 [ext_resource type="Script" uid="uid://cb751w3tm6o76" path="res://characters/KALA/camera_follow.gd" id="3_ade3c"]
+[ext_resource type="Animation" uid="uid://becilqx12psdb" path="res://rss/shoot.res" id="4_3iq7k"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://game/prototype_2/camera_2d.gd" id="4_jhjt6"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="5_vh5wt"]
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://game/prototype_2/user_interface.tscn" id="7_1ougi"]
@@ -593,7 +595,7 @@ tracks/1/path = NodePath("Sprite2D:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.6229501),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_jjso4")]
@@ -645,6 +647,28 @@ _data = {
 &"landing": SubResource("Animation_0wnnm"),
 &"lateral_footstool": SubResource("Animation_jhjt6"),
 &"run": SubResource("Animation_jjso4")
+}
+
+[sub_resource type="Animation" id="Animation_o5knt"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:overlay_image")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0wnnm"]
+_data = {
+&"RESET": SubResource("Animation_o5knt"),
+&"shoot": ExtResource("4_3iq7k")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhjt6"]
@@ -774,7 +798,7 @@ states/lateral_footstool/position = Vector2(116, -14)
 states/run/node = SubResource("AnimationNodeAnimation_jjso4")
 states/run/position = Vector2(575, 180)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ade3c"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_xm2tr"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3iq7k"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_0wnnm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o5knt"), "fall", "kick", SubResource("AnimationNodeStateMachineTransition_j26mg"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_08d8f"), "kick", "run", SubResource("AnimationNodeStateMachineTransition_f5s41"), "fall", "lateral_footstool", SubResource("AnimationNodeStateMachineTransition_vh5wt"), "lateral_footstool", "idle", SubResource("AnimationNodeStateMachineTransition_al2mk"), "run", "hit", SubResource("AnimationNodeStateMachineTransition_st56w"), "fall", "hit", SubResource("AnimationNodeStateMachineTransition_ek5c2"), "hit", "run", SubResource("AnimationNodeStateMachineTransition_l2ocj"), "fall", "landing_states", SubResource("AnimationNodeStateMachineTransition_mv4dk"), "landing_states", "idle", SubResource("AnimationNodeStateMachineTransition_x5p2n")]
-graph_offset = Vector2(-28, -257.12793)
+graph_offset = Vector2(-45, -296.12793)
 
 [sub_resource type="Animation" id="Animation_rrmcd"]
 length = 0.001
@@ -855,6 +879,7 @@ position = Vector2(11, 0)
 texture = ExtResource("2_jjso4")
 hframes = 8
 vframes = 7
+script = ExtResource("3_0wnnm")
 
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
@@ -863,6 +888,12 @@ position = Vector2(22, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_al2mk"),
 &"Kala_anims": SubResource("AnimationLibrary_j26mg")
+}
+
+[node name="OverlayPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_0wnnm")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -939,6 +970,12 @@ polygon = PackedVector2Array(-14, -20, -14, -15, -9, -15, -9, -20)
 self_modulate = Color(17.00142, 12.69016, 0, 1)
 collision_mask = 2
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
+target_position = Vector2(205, 0)
+collision_mask = 1073741830
+collide_with_areas = true
+
 [node name="UserInterface" parent="." instance=ExtResource("7_1ougi")]
 offset = Vector2(5, 600)
 scale = Vector2(0.425, 0.425)
@@ -958,12 +995,6 @@ offset_top = -1075.2941
 offset_right = 1296.4707
 offset_bottom = -1075.2941
 scale = Vector2(1.79, 1.79)
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-visible = false
-target_position = Vector2(205, 0)
-collision_mask = 1073741830
-collide_with_areas = true
 
 [node name="RailgunBeam" type="Sprite2D" parent="."]
 scale = Vector2(12.855, 1)

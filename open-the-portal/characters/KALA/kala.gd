@@ -122,6 +122,8 @@ func _process(delta: float) -> void:
 				new_orb.reparent(mother)
 				$AudioStreamPlayer2D.stream = gun_blast_1
 				$AudioStreamPlayer2D.play()
+				
+				$OverlayPlayer.play("shoot")
 		else:
 			if $ClosestEnemyRaycast.is_colliding():
 				add_raycast_area($ClosestEnemyRaycast, "CE_RaycastArea")

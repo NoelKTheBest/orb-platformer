@@ -52,7 +52,7 @@ func _ready() -> void:
 	for i in num_placements:
 		enemy_placements.append(enemy_label_scene.instantiate())
 	
-	spawn_patrol_guards()
+	#spawn_patrol_guards()
 	
 
 
@@ -92,14 +92,14 @@ func spawn_patrol_guards():
 			2:
 				new_enemy = gunner_scene.instantiate()
 		
-		print(new_enemy)
+		#print(new_enemy)
 		
 		## 
 		add_child(new_enemy)
-		print("spawner: ", to_global(standby_sp[i].position))
+		#print("spawner: ", to_global(standby_sp[i].position))
 		new_enemy.position = to_local(standby_sp[i].position)
 		new_enemy.squad_position = to_local(standby_sp[i].position)
-		print("hii: ", to_global(new_enemy.position), new_enemy.squad_position)
+		#print("hii: ", to_global(new_enemy.position), new_enemy.squad_position)
 		#var _mother = get_parent()
 		#new_enemy.reparent(_mother)
 		i += 1
