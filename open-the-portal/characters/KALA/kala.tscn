@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://d1x2wb7hdgv5x"]
+[gd_scene load_steps=71 format=4 uid="uid://d1x2wb7hdgv5x"]
 
 [ext_resource type="Script" uid="uid://bp7f77m1dsndi" path="res://characters/KALA/kala.gd" id="1_hd2te"]
 [ext_resource type="Texture2D" uid="uid://cpllppu7ks4jx" path="res://characters/KALA/Player Animations-Sheet.png" id="2_jjso4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cb751w3tm6o76" path="res://characters/KALA/camera_follow.gd" id="3_ade3c"]
 [ext_resource type="Animation" uid="uid://becilqx12psdb" path="res://rss/shoot.res" id="4_3iq7k"]
 [ext_resource type="Script" uid="uid://c24gofcea2lbc" path="res://game/prototype_2/camera_2d.gd" id="4_jhjt6"]
+[ext_resource type="Texture2D" uid="uid://doi4rvrhv06h" path="res://characters/KALA/Player Animations-Sheet_no_arms.png" id="5_0wnnm"]
 [ext_resource type="Texture2D" uid="uid://dct2g56wac3j3" path="res://icon.svg" id="5_vh5wt"]
 [ext_resource type="PackedScene" uid="uid://c7goqka2atf1i" path="res://game/prototype_2/user_interface.tscn" id="7_1ougi"]
 [ext_resource type="PackedScene" uid="uid://ddaus2abhlfh1" path="res://game/scenes/conveyor_belt.tscn" id="8_jjso4"]
@@ -15,6 +16,64 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_imwqx"]
 radius = 6.25
+
+[sub_resource type="Animation" id="Animation_o5knt"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:overlay_active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Overlay:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Overlay:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Overlay:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0wnnm"]
+_data = {
+&"RESET": SubResource("Animation_o5knt"),
+&"shoot": ExtResource("4_3iq7k")
+}
 
 [sub_resource type="Animation" id="Animation_vh5wt"]
 length = 0.001
@@ -637,6 +696,58 @@ tracks/4/keys = {
 "values": [30.0]
 }
 
+[sub_resource type="Animation" id="Animation_j26mg"]
+resource_name = "run_and_hoot"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.39999998, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4), Vector2i(5, 4), Vector2i(6, 4), Vector2i(7, 4), Vector2i(0, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_0wnnm")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j26mg"]
 _data = {
 &"fall": SubResource("Animation_xm2tr"),
@@ -646,29 +757,8 @@ _data = {
 &"kick": SubResource("Animation_2cwgo"),
 &"landing": SubResource("Animation_0wnnm"),
 &"lateral_footstool": SubResource("Animation_jhjt6"),
-&"run": SubResource("Animation_jjso4")
-}
-
-[sub_resource type="Animation" id="Animation_o5knt"]
-resource_name = "RESET"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:overlay_image")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0wnnm"]
-_data = {
-&"RESET": SubResource("Animation_o5knt"),
-&"shoot": ExtResource("4_3iq7k")
+&"run": SubResource("Animation_jjso4"),
+&"run_and_shoot": SubResource("Animation_j26mg")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhjt6"]
@@ -719,6 +809,10 @@ animation = &"Kala_anims/lateral_footstool"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jjso4"]
 animation = &"Kala_anims/run"
+advance_on_start = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_08d8f"]
+animation = &"Kala_anims/run_and_shoot"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ade3c"]
 advance_mode = 2
@@ -778,6 +872,18 @@ advance_expression = "velocity.y == 0 && prev_y_velocity > 0"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x5p2n"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w385v"]
+reset = false
+switch_mode = 1
+advance_mode = 2
+advance_expression = "overlay_active"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0jgxg"]
+reset = false
+switch_mode = 1
+advance_mode = 2
+advance_expression = "!overlay_active or velocity.y < 0"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hsgcs"]
 states/End/position = Vector2(974, 101)
 states/Start/position = Vector2(108, 101)
@@ -797,8 +903,10 @@ states/lateral_footstool/node = SubResource("AnimationNodeAnimation_ade3c")
 states/lateral_footstool/position = Vector2(116, -14)
 states/run/node = SubResource("AnimationNodeAnimation_jjso4")
 states/run/position = Vector2(575, 180)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ade3c"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_xm2tr"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3iq7k"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_0wnnm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o5knt"), "fall", "kick", SubResource("AnimationNodeStateMachineTransition_j26mg"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_08d8f"), "kick", "run", SubResource("AnimationNodeStateMachineTransition_f5s41"), "fall", "lateral_footstool", SubResource("AnimationNodeStateMachineTransition_vh5wt"), "lateral_footstool", "idle", SubResource("AnimationNodeStateMachineTransition_al2mk"), "run", "hit", SubResource("AnimationNodeStateMachineTransition_st56w"), "fall", "hit", SubResource("AnimationNodeStateMachineTransition_ek5c2"), "hit", "run", SubResource("AnimationNodeStateMachineTransition_l2ocj"), "fall", "landing_states", SubResource("AnimationNodeStateMachineTransition_mv4dk"), "landing_states", "idle", SubResource("AnimationNodeStateMachineTransition_x5p2n")]
-graph_offset = Vector2(-45, -296.12793)
+states/run_and_shoot/node = SubResource("AnimationNodeAnimation_08d8f")
+states/run_and_shoot/position = Vector2(575, 308.87207)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ade3c"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_xm2tr"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3iq7k"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_0wnnm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o5knt"), "fall", "kick", SubResource("AnimationNodeStateMachineTransition_j26mg"), "fall", "run", SubResource("AnimationNodeStateMachineTransition_08d8f"), "kick", "run", SubResource("AnimationNodeStateMachineTransition_f5s41"), "fall", "lateral_footstool", SubResource("AnimationNodeStateMachineTransition_vh5wt"), "lateral_footstool", "idle", SubResource("AnimationNodeStateMachineTransition_al2mk"), "run", "hit", SubResource("AnimationNodeStateMachineTransition_st56w"), "fall", "hit", SubResource("AnimationNodeStateMachineTransition_ek5c2"), "hit", "run", SubResource("AnimationNodeStateMachineTransition_l2ocj"), "fall", "landing_states", SubResource("AnimationNodeStateMachineTransition_mv4dk"), "landing_states", "idle", SubResource("AnimationNodeStateMachineTransition_x5p2n"), "run", "run_and_shoot", SubResource("AnimationNodeStateMachineTransition_w385v"), "run_and_shoot", "run", SubResource("AnimationNodeStateMachineTransition_0jgxg")]
+graph_offset = Vector2(-11, 153.87207)
 
 [sub_resource type="Animation" id="Animation_rrmcd"]
 length = 0.001
@@ -870,6 +978,7 @@ kick_fall_factor_inc = 100.0
 x_slow_amount = 30.0
 accel = 25
 knockback = Vector2(50, 15)
+overlay_active = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_imwqx")
@@ -881,19 +990,25 @@ hframes = 8
 vframes = 7
 script = ExtResource("3_0wnnm")
 
+[node name="Overlay" type="Sprite2D" parent="."]
+position = Vector2(11, 0)
+hframes = 8
+vframes = 7
+frame = 33
+
 [node name="OrbSpawnPosition" type="Node2D" parent="."]
 position = Vector2(22, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_al2mk"),
-&"Kala_anims": SubResource("AnimationLibrary_j26mg")
-}
 
 [node name="OverlayPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite2D")
 libraries = {
 &"": SubResource("AnimationLibrary_0wnnm")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_al2mk"),
+&"Kala_anims": SubResource("AnimationLibrary_j26mg")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -961,6 +1076,7 @@ one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamWAV_jhjt6")
+volume_db = -80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0.74060166, 0, 0.5757751, 1)

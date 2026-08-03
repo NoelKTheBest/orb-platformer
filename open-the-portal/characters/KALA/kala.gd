@@ -25,6 +25,7 @@ var orb = preload("res://game/scenes/orb.tscn")
 @export var sprite_init_point: Vector2
 @export var kick_fall_timer_time: float = 0.4
 @export var knockback: Vector2
+@export var overlay_active: bool
 
 const MAX_SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -370,9 +371,11 @@ func flip_sprite(mode: int, assignment_1: bool, assignment_2: bool, direction = 
 		0:
 			sprite_2d.flip_h = assignment_1 if velocity.x < 0 else assignment_2
 			sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
+			$Overlay.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
 		1:
 			sprite_2d.flip_h = assignment_1 if direction < 0 else assignment_2
 			sprite_2d.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
+			$Overlay.position = Vector2(-sprite_init_point.x, 0) if sprite_2d.flip_h else Vector2(sprite_init_point.x, 0)
 
 
 func die():
