@@ -47,6 +47,7 @@ folder_colors={
 "res://characters/": "pink",
 "res://characters/KALA/": "purple",
 "res://characters/SAEMI/": "yellow",
+"res://characters/interpretors/": "teal",
 "res://game/": "green",
 "res://game/character_statemachine_scripts/": "red",
 "res://game/character_statemachine_scripts/Saemi/": "pink",
