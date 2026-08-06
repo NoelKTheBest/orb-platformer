@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://r335autggavd"]
+[gd_scene load_steps=11 format=3 uid="uid://r335autggavd"]
 
 [ext_resource type="Texture2D" uid="uid://dlmdulqdohgxh" path="res://characters/interpretors/Nera/idle/sprite sheets/idle.png" id="1_055uw"]
+[ext_resource type="Script" uid="uid://cbhjg0g0gfpp8" path="res://characters/interpretors/stage_directions.gd" id="2_h13ed"]
 
 [sub_resource type="Animation" id="Animation_h13ed"]
 length = 0.001
@@ -115,14 +116,34 @@ _data = {
 &"Idle": SubResource("Animation_kn5su")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f718g"]
+animation = &"Nera Anims/Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kn5su"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_khnh6"]
+advance_expression = "end_of_scene"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6l1ka"]
+"states/Nera Anims_Idle/node" = SubResource("AnimationNodeAnimation_f718g")
+"states/Nera Anims_Idle/position" = Vector2(474, 85)
+transitions = ["Start", "Nera Anims_Idle", SubResource("AnimationNodeStateMachineTransition_kn5su"), "Nera Anims_Idle", "End", SubResource("AnimationNodeStateMachineTransition_khnh6")]
+
 [node name="Sprite2D" type="Sprite2D"]
 texture = ExtResource("1_055uw")
 hframes = 10
+script = ExtResource("2_h13ed")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_f718g"),
 &"Nera Anims": SubResource("AnimationLibrary_khnh6")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_6l1ka")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
 
 [node name="Camera2D" type="Camera2D" parent="."]
